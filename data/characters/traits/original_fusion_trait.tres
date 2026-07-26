@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CharacterTraitData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/character_trait_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"fusion_instinct"
+display_name = "融合本能"
+description = "激活任意基因共鸣后，所有攻击伤害提高 25%。"
+fusion_damage_multiplier = 1.25

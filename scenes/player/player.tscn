@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3]
+[gd_scene load_steps=34 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/player_controller.gd" id="1_player_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
@@ -31,6 +31,7 @@
 [ext_resource type="Resource" path="res://data/evolutions/plague_hive.tres" id="29_plague_hive"]
 [ext_resource type="Script" path="res://scripts/run/run_progression.gd" id="30_progression"]
 [ext_resource type="Script" path="res://scripts/art/pixel_actor_presenter.gd" id="31_pixel_presenter"]
+[ext_resource type="Script" path="res://scripts/characters/character_trait_manager.gd" id="32_trait_manager"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 7.0
@@ -81,9 +82,13 @@ script = ExtResource("17_relic_manager")
 [node name="RunProgression" type="Node" parent="."]
 script = ExtResource("30_progression")
 
+[node name="CharacterTraitManager" type="Node" parent="."]
+script = ExtResource("32_trait_manager")
+fusion_manager_path = NodePath("../FusionManager")
+
 [node name="AttackModifierStack" type="Node" parent="."]
 script = ExtResource("9_modifier_stack")
-modifier_paths = Array[NodePath]([NodePath("../GeneManager"), NodePath("../FusionManager"), NodePath("../EvolutionSystem"), NodePath("../RelicManager"), NodePath("../RunProgression")])
+modifier_paths = Array[NodePath]([NodePath("../GeneManager"), NodePath("../FusionManager"), NodePath("../EvolutionSystem"), NodePath("../RelicManager"), NodePath("../RunProgression"), NodePath("../CharacterTraitManager")])
 
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("4_weapon_component")
@@ -99,6 +104,7 @@ weapon_component_path = NodePath("../WeaponComponent")
 script = ExtResource("20_character_manager")
 default_character = ExtResource("3_character_data")
 evolution_system_path = NodePath("../EvolutionSystem")
+trait_manager_path = NodePath("../CharacterTraitManager")
 
 [node name="CompanionManager" type="Node" parent="."]
 script = ExtResource("21_companion_manager")

@@ -93,7 +93,7 @@ func _run() -> void:
 		)
 		or not is_equal_approx(
 			dragon_projectile.projectile_data.damage,
-			18.0
+			22.5
 		)
 	):
 		push_error("Fire dragon attack upgrade was not applied.")

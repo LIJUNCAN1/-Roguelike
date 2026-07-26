@@ -111,6 +111,7 @@ status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/Wea
 [node name="CharacterStatusPresenter" type="Node" parent="."]
 script = ExtResource("16_character_status")
 character_manager_path = NodePath("../World/Player/CharacterManager")
+trait_manager_path = NodePath("../World/Player/CharacterTraitManager")
 status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/CharacterStatus")
 
 [node name="CompanionStatusPresenter" type="Node" parent="."]

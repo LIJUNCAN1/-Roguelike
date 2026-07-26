@@ -44,7 +44,7 @@ func _run() -> void:
 	for child in projectiles.get_children():
 		var projectile := child as Projectile
 		if (
-			not is_equal_approx(projectile.projectile_data.damage, 18.0)
+			not is_equal_approx(projectile.projectile_data.damage, 22.5)
 			or projectile.projectile_data.max_hits != 3
 			or projectile.impact_effects.size() != 2
 		):

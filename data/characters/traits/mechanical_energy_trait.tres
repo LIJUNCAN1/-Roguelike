@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CharacterTraitData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/character_trait_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"energy_module"
+display_name = "能源模块"
+description = "拥有 100 点能源；攻击消耗 20 点，使本次伤害提高 35%，能源自动恢复。"
+max_energy = 100.0
+energy_regeneration = 12.0
+powered_attack_cost = 20.0
+powered_attack_damage_multiplier = 1.35

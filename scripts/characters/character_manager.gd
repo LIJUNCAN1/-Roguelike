@@ -5,11 +5,15 @@ signal character_changed(character: CharacterData)
 
 @export var default_character: CharacterData
 @export_node_path("Node") var evolution_system_path: NodePath
+@export_node_path("Node") var trait_manager_path: NodePath
 
 @onready var player: CharacterBody2D = get_parent() as CharacterBody2D
 @onready var evolution_system: EvolutionSystem = get_node(
 	evolution_system_path
 ) as EvolutionSystem
+@onready var trait_manager: CharacterTraitManager = get_node(
+	trait_manager_path
+) as CharacterTraitManager
 
 var current_character: CharacterData
 
@@ -30,6 +34,7 @@ func select_character(character: CharacterData) -> bool:
 	):
 		return false
 	current_character = character
+	trait_manager.configure(character.trait_data)
 	character_changed.emit(character)
 	return true
 
