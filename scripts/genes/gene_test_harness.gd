@@ -6,14 +6,22 @@ extends Node
 @export var lifesteal_gene: GeneData
 @export var explosion_gene: GeneData
 @export_node_path("Node") var gene_manager_path: NodePath
+@export_node_path("Node") var fusion_manager_path: NodePath
 @export_node_path("Node") var player_health_path: NodePath
 @export_node_path("Label") var status_label_path: NodePath
+@export_node_path("Label") var fusion_status_label_path: NodePath
 @export_node_path("Label") var health_label_path: NodePath
 
 @onready var gene_manager: GeneManager = get_node(
 	gene_manager_path
 ) as GeneManager
 @onready var status_label: Label = get_node(status_label_path) as Label
+@onready var fusion_manager: FusionManager = get_node(
+	fusion_manager_path
+) as FusionManager
+@onready var fusion_status_label: Label = get_node(
+	fusion_status_label_path
+) as Label
 @onready var player_health: HealthComponent = get_node(
 	player_health_path
 ) as HealthComponent
@@ -24,8 +32,10 @@ extends Node
 
 func _ready() -> void:
 	gene_manager.genes_changed.connect(_update_status)
+	fusion_manager.fusions_changed.connect(_update_fusion_status)
 	player_health.health_changed.connect(_update_health_status)
 	_update_status()
+	_update_fusion_status()
 	_update_health_status(
 		player_health.current_health,
 		player_health.max_health
@@ -75,6 +85,23 @@ func _update_status() -> void:
 		" + ".join(gene_names)
 	]
 	status_label.modulate = Color(1.0, 0.68, 0.3, 1.0)
+
+
+func _update_fusion_status() -> void:
+	var active_fusions := fusion_manager.get_active_fusions()
+	if active_fusions.is_empty():
+		fusion_status_label.text = "融合：未激活"
+		fusion_status_label.modulate = Color(0.55, 0.6, 0.64, 1.0)
+		return
+
+	var fusion_names := PackedStringArray()
+	for fusion in active_fusions:
+		fusion_names.append(fusion.display_name)
+
+	fusion_status_label.text = "融合：%s" % [
+		" + ".join(fusion_names)
+	]
+	fusion_status_label.modulate = Color(1.0, 0.25, 0.08, 1.0)
 
 
 func _update_health_status(

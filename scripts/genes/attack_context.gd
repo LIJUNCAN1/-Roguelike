@@ -30,4 +30,7 @@ func has_tag(tag: StringName) -> bool:
 
 func add_impact_effect(effect: ProjectileImpactEffect) -> void:
 	if effect != null:
-		impact_effects.append(effect)
+		var runtime_effect := (
+			effect.duplicate(true) as ProjectileImpactEffect
+		)
+		impact_effects.append(runtime_effect)

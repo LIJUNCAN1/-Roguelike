@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="FusionData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/fusions/fusion_data.gd" id="1_fusion_data"]
+[ext_resource type="Script" path="res://scripts/genes/gene_effect.gd" id="2_gene_effect"]
+[ext_resource type="Resource" path="res://data/fusions/effects/fire_burst_explosion_upgrade.tres" id="3_fusion_effect"]
+
+[resource]
+script = ExtResource("1_fusion_data")
+id = &"fire_burst"
+display_name = "炎爆流"
+description = "火焰、分裂与爆炸产生共鸣：爆炸伤害翻倍，范围扩大 50%。"
+required_gene_ids = Array[StringName]([&"fire", &"split", &"explosion"])
+effects = Array[ExtResource("2_gene_effect")]([ExtResource("3_fusion_effect")])
