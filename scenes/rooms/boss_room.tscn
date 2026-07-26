@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://scenes/rooms/room_shell.tscn" id="1_shell"]
 [ext_resource type="Script" path="res://scripts/rooms/room_controller.gd" id="2_controller"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/test_chaser.tscn" id="3_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/bosses/gene_devourer.tscn" id="3_enemy"]
 
 [node name="BossRoom" type="Node2D"]
 script = ExtResource("2_controller")
@@ -11,6 +11,5 @@ completion_mode = 1
 [node name="RoomShell" parent="." instance=ExtResource("1_shell")]
 modulate = Color(1, 0.45, 0.38, 1)
 
-[node name="BossChaser" parent="." groups=["room_enemies"] instance=ExtResource("3_enemy")]
+[node name="GeneDevourer" parent="." groups=["room_enemies"] instance=ExtResource("3_enemy")]
 position = Vector2(500, 180)
-scale = Vector2(2, 2)

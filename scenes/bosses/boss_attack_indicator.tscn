@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/boss_attack_indicator.gd" id="1_script"]
+
+[node name="BossAttackIndicator" type="Node2D"]
+z_index = -1
+script = ExtResource("1_script")
+
+[node name="Fill" type="Polygon2D" parent="."]
+color = Color(1, 0.2, 0.15, 0.16)
+
+[node name="Ring" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(1, 0.2, 0.15, 0.95)
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2

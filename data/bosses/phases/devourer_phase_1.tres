@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BossPhaseData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/boss_phase_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/bosses/attacks/devourer_bite_phase_1.tres" id="2_attack"]
+
+[resource]
+script = ExtResource("1_data")
+display_name = "觅食形态"
+enter_health_ratio = 1.0
+move_speed = 52.0
+preferred_distance = 105.0
+attack = ExtResource("2_attack")
+body_color = Color(0.68, 0.14, 0.32, 1)
+core_color = Color(1, 0.42, 0.28, 1)

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BossAttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/boss_attack_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"gene_devour"
+display_name = "基因吞噬"
+cooldown = 2.2
+telegraph_duration = 0.9
+trigger_range = 260.0
+radius = 46.0
+damage = 16.0
+warning_color = Color(1, 0.28, 0.18, 1)

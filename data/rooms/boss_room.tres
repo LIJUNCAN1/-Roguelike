@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("1_room_data")
 id = &"boss"
-display_name = "Boss 房"
+display_name = "基因吞噬体巢穴"
 room_type = 4
 room_scene = ExtResource("2_room_scene")
