@@ -24,8 +24,8 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if not player.get_facing_direction().is_equal_approx(Vector2.RIGHT):
-		push_error("Player facing direction did not update.")
+	if not player.get_movement_direction().is_equal_approx(Vector2.RIGHT):
+		push_error("Player movement direction did not update.")
 		quit(1)
 		return
 

@@ -86,8 +86,11 @@ color = Color(0.13, 0.25, 0.24, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Walls/Right"]
 shape = SubResource("RectangleShape2D_vertical")
 
+[node name="Projectiles" type="Node2D" parent="World"]
+
 [node name="Player" parent="World" instance=ExtResource("1_player")]
 position = Vector2(320, 180)
+projectile_container_path = NodePath("../Projectiles")
 
 [node name="Interface" type="CanvasLayer" parent="."]
 
@@ -115,4 +118,4 @@ text = "战斗测试场"
 [node name="Status" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.58, 0.66, 0.69, 1)
 theme_override_font_sizes/font_size = 10
-text = "WASD 移动 · 速度 120"
+text = "WASD 移动 · 鼠标瞄准 · 左键射击"

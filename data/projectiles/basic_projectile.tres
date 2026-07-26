@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProjectileData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/projectile_data.gd" id="1_projectile_data"]
+
+[resource]
+script = ExtResource("1_projectile_data")
+speed = 360.0
+lifetime = 1.5
+radius = 3.0
+color = Color(0.85, 1, 0.45, 1)
