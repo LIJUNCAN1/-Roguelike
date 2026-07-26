@@ -73,6 +73,8 @@ func _run() -> void:
 	gene_manager.add_gene(
 		load("res://data/genes/split_gene.tres") as GeneData
 	)
+	var split_without_relic := _create_attack_context()
+	modifier_stack.modify_attack(split_without_relic)
 	relic_manager.add_relic(
 		load("res://data/relics/fission_gland.tres") as RelicData
 	)
@@ -83,7 +85,11 @@ func _run() -> void:
 		or split_context.directions.size() != 3
 		or not is_equal_approx(
 			split_context.projectile_data.damage,
-			11.5
+			split_without_relic.projectile_data.damage * 1.15
+		)
+		or not is_equal_approx(
+			split_context.projectile_data.speed,
+			split_without_relic.projectile_data.speed * 1.2
 		)
 	):
 		push_error("Fission Gland did not strengthen split attacks.")

@@ -107,6 +107,12 @@ func _run() -> void:
 		return
 
 	gene_manager.remove_gene(&"fire")
+	if not evolution_system.is_evolution(&"mitosis_life"):
+		push_error("Evolution did not fall back to split life.")
+		quit(1)
+		return
+
+	gene_manager.remove_gene(&"split")
 	if not evolution_system.is_evolution(&"base_life"):
 		push_error("Evolution did not return to base life.")
 		quit(1)
