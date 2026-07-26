@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EvolutionData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/evolutions/evolution_data.gd" id="1_data"]
+[ext_resource type="Script" path="res://scripts/genes/gene_effect.gd" id="2_effect"]
+[ext_resource type="PackedScene" path="res://scenes/player/forms/abyss_devourer_visual.tscn" id="3_visual"]
+[ext_resource type="Resource" path="res://data/evolutions/effects/abyss_devourer_projectile_effect.tres" id="4_projectile"]
+[ext_resource type="Resource" path="res://data/evolutions/effects/abyss_lifesteal_upgrade.tres" id="5_lifesteal"]
+[ext_resource type="Resource" path="res://data/evolutions/effects/abyss_explosion_upgrade.tres" id="6_explosion"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"abyss_devourer"
+display_name = "深渊吞噬者"
+description = "吸血与爆炸基因共鸣，吞噬范围扩大并强化续航。"
+priority = 20
+required_gene_ids = Array[StringName]([&"lifesteal", &"explosion"])
+visual_scene = ExtResource("3_visual")
+effects = Array[ExtResource("2_effect")]([ExtResource("4_projectile"), ExtResource("5_lifesteal"), ExtResource("6_explosion")])

@@ -44,8 +44,8 @@ func _run() -> void:
 
 	for _frame_index in 120:
 		await physics_frame
-		if is_equal_approx(player_health.current_health, 55.0):
-			if not health_status.text.contains("55"):
+		if is_equal_approx(player_health.current_health, 57.0):
+			if not health_status.text.contains("57"):
 				push_error("Player health UI did not show lifesteal.")
 				quit(1)
 				return
@@ -53,5 +53,5 @@ func _run() -> void:
 			quit()
 			return
 
-	push_error("Lifesteal did not restore 50% of dealt damage.")
+	push_error("Blood Sac form did not restore 70% of dealt damage.")
 	quit(1)
