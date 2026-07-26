@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EnemyAttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/enemy_attack_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+damage = 8.0
+attack_range = 22.0
+cooldown = 1.1

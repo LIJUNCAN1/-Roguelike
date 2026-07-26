@@ -1,6 +1,8 @@
 class_name EnemyController
 extends CharacterBody2D
 
+signal attack_performed(damage: float, target: Node2D)
+
 @export var enemy_data: EnemyData
 @export_node_path("Node2D") var target_path: NodePath
 @export_node_path("Node2D") var feedback_container_path: NodePath
@@ -14,6 +16,7 @@ extends CharacterBody2D
 
 var target: Node2D
 var facing_direction: Vector2 = Vector2.LEFT
+var contact_cooldown_remaining: float = 0.0
 
 
 func _ready() -> void:
@@ -31,18 +34,33 @@ func _ready() -> void:
 	_update_facing_visual()
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	contact_cooldown_remaining = maxf(
+		contact_cooldown_remaining - delta,
+		0.0
+	)
 	if target == null or not is_instance_valid(target):
 		movement_component.move(self, Vector2.ZERO)
 		return
 
 	var target_offset := target.global_position - global_position
-	if target_offset.length() <= enemy_data.stopping_distance:
+	var target_distance := target_offset.length()
+	if not target_offset.is_zero_approx():
+		facing_direction = target_offset.normalized()
+		_update_facing_visual()
+
+	if (
+		enemy_data.attack_data != null
+		and target_distance <= enemy_data.attack_data.attack_range
+	):
+		movement_component.move(self, Vector2.ZERO)
+		_try_contact_attack()
+		return
+
+	if target_distance <= enemy_data.stopping_distance:
 		movement_component.move(self, Vector2.ZERO)
 		return
 
-	facing_direction = target_offset.normalized()
-	_update_facing_visual()
 	movement_component.move(self, facing_direction)
 
 
@@ -60,6 +78,46 @@ func get_facing_direction() -> Vector2:
 
 func _update_facing_visual() -> void:
 	facing_marker.rotation = facing_direction.angle()
+
+
+func _try_contact_attack() -> void:
+	if (
+		contact_cooldown_remaining > 0.0
+		or enemy_data.attack_data == null
+	):
+		return
+	var target_health := target.get_node_or_null(
+		"HealthComponent"
+	) as HealthComponent
+	if target_health == null:
+		return
+	var damage_dealt := target_health.take_damage(
+		enemy_data.attack_data.damage,
+		self
+	)
+	if damage_dealt <= 0.0:
+		return
+
+	contact_cooldown_remaining = enemy_data.attack_data.cooldown
+	_play_attack_pulse()
+	attack_performed.emit(damage_dealt, target)
+
+
+func _play_attack_pulse() -> void:
+	facing_marker.scale = Vector2.ONE
+	var tween := create_tween()
+	tween.tween_property(
+		facing_marker,
+		"scale",
+		Vector2.ONE * 1.8,
+		0.06
+	)
+	tween.tween_property(
+		facing_marker,
+		"scale",
+		Vector2.ONE,
+		0.12
+	)
 
 
 func _on_died(_source: Node) -> void:

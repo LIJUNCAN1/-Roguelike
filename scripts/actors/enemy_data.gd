@@ -14,3 +14,6 @@ var max_health: float = 30.0
 var move_speed: float = 70.0
 @export_range(0.0, 200.0, 1.0, "or_greater")
 var stopping_distance: float = 18.0
+
+@export_group("Combat")
+@export var attack_data: EnemyAttackData

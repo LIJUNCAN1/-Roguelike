@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/enemy_data.gd" id="1_enemy_data"]
+[ext_resource type="Resource" path="res://data/enemies/attacks/chaser_melee.tres" id="2_attack"]
 
 [resource]
 script = ExtResource("1_enemy_data")
@@ -9,3 +10,4 @@ display_name = "追踪实验体"
 max_health = 30.0
 move_speed = 70.0
 stopping_distance = 18.0
+attack_data = ExtResource("2_attack")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3]
+[gd_scene load_steps=29 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/player_controller.gd" id="1_player_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
@@ -26,6 +26,7 @@
 [ext_resource type="Resource" path="res://data/evolutions/hive_mother.tres" id="24_hive"]
 [ext_resource type="Resource" path="res://data/evolutions/blood_sac_life.tres" id="25_blood_sac"]
 [ext_resource type="Resource" path="res://data/evolutions/abyss_devourer.tres" id="26_devourer"]
+[ext_resource type="Script" path="res://scripts/combat/damage_flash_component.gd" id="27_damage_flash"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 7.0
@@ -41,6 +42,11 @@ script = ExtResource("2_movement_component")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("7_health_component")
+
+[node name="DamageFlashComponent" type="Node" parent="."]
+script = ExtResource("27_damage_flash")
+health_component_path = NodePath("../HealthComponent")
+visual_root_path = NodePath("../Visuals")
 
 [node name="GeneManager" type="Node" parent="."]
 script = ExtResource("6_gene_manager")
