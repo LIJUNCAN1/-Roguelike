@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/explosion_effect.gd" id="1_explosion_effect"]
+
+[node name="ExplosionEffect" type="Node2D"]
+z_index = 18
+script = ExtResource("1_explosion_effect")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="OuterBurst" type="Polygon2D" parent="Visuals"]
+polygon = PackedVector2Array(16, 0, 10, 4, 11, 11, 4, 10, 0, 16, -4, 10, -11, 11, -10, 4, -16, 0, -10, -4, -11, -11, -4, -10, 0, -16, 4, -10, 11, -11, 10, -4)
+color = Color(1, 1, 1, 0.35)
+
+[node name="CoreBurst" type="Polygon2D" parent="Visuals"]
+polygon = PackedVector2Array(9, 0, 6, 6, 0, 9, -6, 6, -9, 0, -6, -6, 0, -9, 6, -6)
+color = Color(1, 1, 1, 0.85)

@@ -54,7 +54,9 @@ func try_fire(
 			"setup",
 			projectile_direction,
 			attack_context.projectile_data,
-			attack_context.tags
+			attack_context.tags,
+			attack_context.impact_effects,
+			get_parent()
 		)
 		projectile_parent.add_child(projectile)
 		projectile.global_position = spawn_position

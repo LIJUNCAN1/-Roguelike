@@ -8,9 +8,13 @@ extends Area2D
 ) as HealthComponent
 
 
-func receive_damage(amount: float, source: Node = null) -> bool:
+func receive_damage(amount: float, source: Node = null) -> float:
 	if health_component == null:
 		push_error("HurtboxComponent requires a HealthComponent.")
-		return false
+		return 0.0
 
-	return health_component.take_damage(amount, source) > 0.0
+	return health_component.take_damage(amount, source)
+
+
+func _ready() -> void:
+	add_to_group(&"damageable_hurtboxes")

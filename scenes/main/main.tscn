@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/test_chaser.tscn" id="2_enemy"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="3_gene_test"]
 [ext_resource type="Resource" path="res://data/genes/fire_gene.tres" id="4_fire_gene"]
 [ext_resource type="Resource" path="res://data/genes/split_gene.tres" id="5_split_gene"]
+[ext_resource type="Resource" path="res://data/genes/piercing_gene.tres" id="6_piercing_gene"]
+[ext_resource type="Resource" path="res://data/genes/lifesteal_gene.tres" id="7_lifesteal_gene"]
+[ext_resource type="Resource" path="res://data/genes/explosion_gene.tres" id="8_explosion_gene"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal"]
 size = Vector2(576, 16)
@@ -30,8 +33,13 @@ corner_radius_bottom_left = 3
 script = ExtResource("3_gene_test")
 fire_gene = ExtResource("4_fire_gene")
 split_gene = ExtResource("5_split_gene")
+piercing_gene = ExtResource("6_piercing_gene")
+lifesteal_gene = ExtResource("7_lifesteal_gene")
+explosion_gene = ExtResource("8_explosion_gene")
 gene_manager_path = NodePath("../World/Player/GeneManager")
+player_health_path = NodePath("../World/Player/HealthComponent")
 status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/GeneStatus")
+health_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/HealthStatus")
 
 [node name="World" type="Node2D" parent="."]
 
@@ -99,7 +107,7 @@ shape = SubResource("RectangleShape2D_vertical")
 
 [node name="Projectiles" type="Node2D" parent="World"]
 
-[node name="Effects" type="Node2D" parent="World"]
+[node name="Effects" type="Node2D" parent="World" groups=["combat_effects"]]
 
 [node name="Player" parent="World" instance=ExtResource("1_player")]
 position = Vector2(320, 180)
@@ -110,13 +118,23 @@ position = Vector2(500, 180)
 target_path = NodePath("../Player")
 feedback_container_path = NodePath("../Effects")
 
+[node name="TestChaserUpper" parent="World" instance=ExtResource("2_enemy")]
+position = Vector2(520, 112)
+target_path = NodePath("../Player")
+feedback_container_path = NodePath("../Effects")
+
+[node name="TestChaserLower" parent="World" instance=ExtResource("2_enemy")]
+position = Vector2(520, 248)
+target_path = NodePath("../Player")
+feedback_container_path = NodePath("../Effects")
+
 [node name="Interface" type="CanvasLayer" parent="."]
 
 [node name="StagePanel" type="PanelContainer" parent="Interface"]
 offset_left = 12.0
 offset_top = 12.0
-offset_right = 300.0
-offset_bottom = 76.0
+offset_right = 430.0
+offset_bottom = 94.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -136,8 +154,13 @@ text = "战斗测试场"
 [node name="Status" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.58, 0.66, 0.69, 1)
 theme_override_font_sizes/font_size = 10
-text = "命中反馈 · 伤害数字 · 死亡爆裂"
+text = "G火焰  H分裂  J穿透  K吸血  L爆炸"
+
+[node name="HealthStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.42, 0.95, 0.62, 1)
+theme_override_font_sizes/font_size = 10
+text = "生命：100 / 100（P 扣血测试）"
 
 [node name="GeneStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_font_sizes/font_size = 10
-text = "基因：无（G 火焰 / H 分裂）"
+text = "基因：无"

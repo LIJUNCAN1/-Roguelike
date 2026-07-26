@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ExplosionImpactEffect" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/explosion_impact_effect.gd" id="1_explosion"]
+[ext_resource type="PackedScene" path="res://scenes/combat/explosion_effect.tscn" id="2_effect_scene"]
+
+[resource]
+script = ExtResource("1_explosion")
+radius = 48.0
+damage = 8.0
+effect_scene = ExtResource("2_effect_scene")
+effect_color = Color(1, 0.48, 0.12, 1)
+effect_duration = 0.28

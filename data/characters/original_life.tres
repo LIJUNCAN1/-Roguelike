@@ -6,4 +6,5 @@
 script = ExtResource("1_character_data")
 id = &"original_life"
 display_name = "原始生命"
+max_health = 100.0
 move_speed = 120.0

@@ -59,6 +59,22 @@ toggle_split_gene={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"physical_keycode":72)]
 }
+toggle_piercing_gene={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"physical_keycode":74)]
+}
+toggle_lifesteal_gene={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"physical_keycode":75)]
+}
+toggle_explosion_gene={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"physical_keycode":76)]
+}
+damage_test_player={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"physical_keycode":80)]
+}
 
 [physics]
 

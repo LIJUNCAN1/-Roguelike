@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AddImpactEffectGeneEffect" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/genes/add_impact_effect_gene_effect.gd" id="1_gene_effect"]
+[ext_resource type="Resource" path="res://data/genes/impact_effects/lifesteal_effect.tres" id="2_impact_effect"]
+
+[resource]
+script = ExtResource("1_gene_effect")
+impact_effect = ExtResource("2_impact_effect")
+attack_tag = &"lifesteal"

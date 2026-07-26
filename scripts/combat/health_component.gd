@@ -38,3 +38,13 @@ func take_damage(amount: float, source: Node = null) -> float:
 		died.emit(source)
 
 	return applied_damage
+
+
+func heal(amount: float) -> float:
+	if is_dead or amount <= 0.0 or current_health >= max_health:
+		return 0.0
+
+	var applied_healing := minf(amount, max_health - current_health)
+	current_health += applied_healing
+	health_changed.emit(current_health, max_health)
+	return applied_healing

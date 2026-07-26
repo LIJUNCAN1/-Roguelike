@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export_node_path("Node2D") var projectile_container_path: NodePath
 
 @onready var movement_component: MovementComponent = $MovementComponent
+@onready var health_component: HealthComponent = $HealthComponent
 @onready var weapon_component: WeaponComponent = $WeaponComponent
 @onready var facing_marker: Polygon2D = $FacingMarker
 @onready var aim_origin: Marker2D = $AimOrigin
@@ -21,6 +22,7 @@ func _ready() -> void:
 		return
 
 	movement_component.configure(character_data.move_speed)
+	health_component.configure(character_data.max_health)
 	_update_facing_visual()
 
 

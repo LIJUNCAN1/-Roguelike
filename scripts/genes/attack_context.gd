@@ -5,6 +5,7 @@ var projectile_scene: PackedScene
 var projectile_data: ProjectileData
 var directions: Array[Vector2] = []
 var tags: Array[StringName] = []
+var impact_effects: Array[ProjectileImpactEffect] = []
 
 
 func _init(
@@ -25,3 +26,8 @@ func add_tag(tag: StringName) -> void:
 
 func has_tag(tag: StringName) -> bool:
 	return tags.has(tag)
+
+
+func add_impact_effect(effect: ProjectileImpactEffect) -> void:
+	if effect != null:
+		impact_effects.append(effect)

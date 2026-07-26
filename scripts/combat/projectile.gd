@@ -9,6 +9,8 @@ extends Area2D
 
 var travel_direction: Vector2 = Vector2.RIGHT
 var attack_tags: Array[StringName] = []
+var impact_effects: Array[ProjectileImpactEffect] = []
+var source_actor: Node
 var alive_time: float = 0.0
 var hit_count: int = 0
 
@@ -16,13 +18,17 @@ var hit_count: int = 0
 func setup(
 	direction: Vector2,
 	data_override: ProjectileData = null,
-	tags: Array[StringName] = []
+	tags: Array[StringName] = [],
+	effects: Array[ProjectileImpactEffect] = [],
+	attack_source: Node = null
 ) -> void:
 	if not direction.is_zero_approx():
 		travel_direction = direction.normalized()
 	if data_override != null:
 		projectile_data = data_override
 	attack_tags.assign(tags)
+	impact_effects.assign(effects)
+	source_actor = attack_source
 	rotation = travel_direction.angle()
 
 
@@ -69,11 +75,23 @@ func _on_area_entered(area: Area2D) -> void:
 	if not area.has_method("receive_damage"):
 		return
 
-	var was_damaged := bool(
+	var damage_dealt := float(
 		area.call("receive_damage", projectile_data.damage, self)
 	)
-	if not was_damaged:
+	if damage_dealt <= 0.0:
 		return
+
+	var hurtbox := area as HurtboxComponent
+	var impact_context := ImpactContext.new(
+		self,
+		source_actor,
+		hurtbox,
+		global_position,
+		damage_dealt
+	)
+	for effect in impact_effects:
+		if effect != null:
+			effect.apply(impact_context)
 
 	hit_count += 1
 	if hit_count >= projectile_data.max_hits:
