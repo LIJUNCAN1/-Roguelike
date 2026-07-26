@@ -86,6 +86,13 @@ func enter_room(room_index: int) -> bool:
 
 	current_room = room_data.room_scene.instantiate() as RoomController
 	room_container.add_child(current_room)
+	if (
+		current_room is GeneRewardRoom
+		and room_data.gene_reward_pool != null
+	):
+		(current_room as GeneRewardRoom).reward_pool = (
+			room_data.gene_reward_pool
+		)
 	current_room.room_completed.connect(_on_current_room_completed)
 	current_room_index = room_index
 	chosen_route_layers[room_index] = true
@@ -162,6 +169,20 @@ func get_current_room_data() -> RoomData:
 	return route_data.rooms[current_room_index]
 
 
+func get_current_chapter() -> ChapterData:
+	var chapter_route := random_route_data as ChapterRouteData
+	if chapter_route == null:
+		return null
+	return chapter_route.get_chapter_for_room(current_room_index)
+
+
+func get_current_chapter_index() -> int:
+	var chapter_route := random_route_data as ChapterRouteData
+	if chapter_route == null:
+		return -1
+	return chapter_route.get_chapter_index_for_room(current_room_index)
+
+
 func get_route_room_ids() -> Array[StringName]:
 	var room_ids: Array[StringName] = []
 	if route_data == null:
@@ -195,6 +216,16 @@ func _update_room_status() -> void:
 		route_data.rooms.size(),
 		room_data.display_name,
 	]
+	var chapter := get_current_chapter()
+	var chapter_index := get_current_chapter_index()
+	if chapter != null and chapter_index >= 0:
+		room_status_label.text = "章节 %d/%d · 房间 %d/%d：%s" % [
+			chapter_index + 1,
+			(random_route_data as ChapterRouteData).chapters.size(),
+			current_room_index + 1,
+			route_data.rooms.size(),
+			room_data.display_name,
+		]
 	if region_status_label == null:
 		return
 	if room_data.region == null:

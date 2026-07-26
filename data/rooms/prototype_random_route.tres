@@ -1,56 +1,115 @@
-[gd_resource type="Resource" script_class="RandomRouteData" load_steps=24 format=3]
+[gd_resource type="Resource" script_class="ChapterRouteData" load_steps=48 format=3]
 
-[ext_resource type="Script" path="res://scripts/rooms/random_route_data.gd" id="1_random"]
+[ext_resource type="Script" path="res://scripts/rooms/chapter_route_data.gd" id="1_route"]
 [ext_resource type="Script" path="res://scripts/rooms/route_room_pool_data.gd" id="2_pool"]
-[ext_resource type="Resource" path="res://data/rooms/start_room.tres" id="3_start"]
-[ext_resource type="Resource" path="res://data/rooms/combat_room.tres" id="4_combat"]
-[ext_resource type="Resource" path="res://data/rooms/reward_room.tres" id="5_reward"]
-[ext_resource type="Resource" path="res://data/rooms/combat_swarm_room.tres" id="6_swarm"]
-[ext_resource type="Resource" path="res://data/rooms/elite_room.tres" id="7_elite"]
-[ext_resource type="Resource" path="res://data/rooms/boss_room.tres" id="8_boss"]
-[ext_resource type="Resource" path="res://data/rooms/event_room.tres" id="9_event"]
-[ext_resource type="Resource" path="res://data/rooms/symbiosis_event_room.tres" id="10_symbiosis"]
-[ext_resource type="Resource" path="res://data/rooms/relic_reward_room.tres" id="11_relic"]
-[ext_resource type="Resource" path="res://data/rooms/abyss_combat_room.tres" id="12_abyss_combat"]
-[ext_resource type="Resource" path="res://data/rooms/forge_core_boss_room.tres" id="13_forge_boss"]
-[ext_resource type="Resource" path="res://data/rooms/gene_shop_room.tres" id="14_shop"]
+[ext_resource type="Script" path="res://scripts/rooms/chapter_data.gd" id="3_chapter"]
+[ext_resource type="Resource" path="res://data/regions/primordial_culture.tres" id="4_primordial_region"]
+[ext_resource type="Resource" path="res://data/regions/abyss_lab.tres" id="5_abyss_region"]
+[ext_resource type="Resource" path="res://data/regions/mechanical_hive.tres" id="6_mechanical_region"]
+[ext_resource type="Resource" path="res://data/rewards/primordial_gene_pool.tres" id="7_primordial_pool"]
+[ext_resource type="Resource" path="res://data/rewards/abyss_gene_pool.tres" id="8_abyss_pool"]
+[ext_resource type="Resource" path="res://data/rewards/mechanical_gene_pool.tres" id="9_mechanical_pool"]
+[ext_resource type="Resource" path="res://data/rooms/start_room.tres" id="10_start"]
+[ext_resource type="Resource" path="res://data/rooms/combat_room.tres" id="11_primordial_combat"]
+[ext_resource type="Resource" path="res://data/rooms/primordial_elite_room.tres" id="12_primordial_elite"]
+[ext_resource type="Resource" path="res://data/rooms/primordial_reward_room.tres" id="13_primordial_reward"]
+[ext_resource type="Resource" path="res://data/rooms/primordial_event_room.tres" id="14_event"]
+[ext_resource type="Resource" path="res://data/rooms/primordial_boss_room.tres" id="15_primordial_boss"]
+[ext_resource type="Resource" path="res://data/rooms/abyss_combat_room.tres" id="16_abyss_combat"]
+[ext_resource type="Resource" path="res://data/rooms/combat_swarm_room.tres" id="17_swarm"]
+[ext_resource type="Resource" path="res://data/rooms/abyss_elite_room.tres" id="18_abyss_elite"]
+[ext_resource type="Resource" path="res://data/rooms/abyss_reward_room.tres" id="19_abyss_reward"]
+[ext_resource type="Resource" path="res://data/rooms/symbiosis_event_room.tres" id="20_symbiosis"]
+[ext_resource type="Resource" path="res://data/rooms/abyss_boss_room.tres" id="21_abyss_boss"]
+[ext_resource type="Resource" path="res://data/rooms/mechanical_combat_room.tres" id="22_mechanical_combat"]
+[ext_resource type="Resource" path="res://data/rooms/elite_room.tres" id="23_mechanical_elite"]
+[ext_resource type="Resource" path="res://data/rooms/mechanical_reward_room.tres" id="24_mechanical_reward"]
+[ext_resource type="Resource" path="res://data/rooms/gene_shop_room.tres" id="25_shop"]
+[ext_resource type="Resource" path="res://data/rooms/relic_reward_room.tres" id="26_relic"]
+[ext_resource type="Resource" path="res://data/rooms/boss_room.tres" id="27_boss"]
+[ext_resource type="Resource" path="res://data/rooms/forge_core_boss_room.tres" id="28_forge"]
 
-[sub_resource type="Resource" id="RoutePool_start"]
+[sub_resource type="Resource" id="Pool_00"]
 script = ExtResource("2_pool")
-rooms = Array[ExtResource("3_start")]([ExtResource("3_start")])
+rooms = Array[ExtResource("10_start")]([ExtResource("10_start")])
+[sub_resource type="Resource" id="Pool_01"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("11_primordial_combat")]([ExtResource("11_primordial_combat")])
+[sub_resource type="Resource" id="Pool_02"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("12_primordial_elite")]([ExtResource("12_primordial_elite")])
+[sub_resource type="Resource" id="Pool_03"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("13_primordial_reward")]([ExtResource("13_primordial_reward")])
+[sub_resource type="Resource" id="Pool_04"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("14_event")]([ExtResource("14_event")])
+[sub_resource type="Resource" id="Pool_05"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("15_primordial_boss")]([ExtResource("15_primordial_boss")])
+[sub_resource type="Resource" id="Pool_06"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("16_abyss_combat")]([ExtResource("16_abyss_combat"), ExtResource("17_swarm")])
+[sub_resource type="Resource" id="Pool_07"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("18_abyss_elite")]([ExtResource("18_abyss_elite")])
+[sub_resource type="Resource" id="Pool_08"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("19_abyss_reward")]([ExtResource("19_abyss_reward")])
+[sub_resource type="Resource" id="Pool_09"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("20_symbiosis")]([ExtResource("20_symbiosis")])
+[sub_resource type="Resource" id="Pool_10"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("21_abyss_boss")]([ExtResource("21_abyss_boss")])
+[sub_resource type="Resource" id="Pool_11"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("22_mechanical_combat")]([ExtResource("22_mechanical_combat")])
+[sub_resource type="Resource" id="Pool_12"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("23_mechanical_elite")]([ExtResource("23_mechanical_elite")])
+[sub_resource type="Resource" id="Pool_13"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("24_mechanical_reward")]([ExtResource("24_mechanical_reward")])
+[sub_resource type="Resource" id="Pool_14"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("25_shop")]([ExtResource("25_shop"), ExtResource("26_relic")])
+[sub_resource type="Resource" id="Pool_15"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("27_boss")]([ExtResource("27_boss"), ExtResource("28_forge")])
 
-[sub_resource type="Resource" id="RoutePool_tutorial_combat"]
-script = ExtResource("2_pool")
-rooms = Array[ExtResource("4_combat")]([ExtResource("4_combat")])
-
-[sub_resource type="Resource" id="RoutePool_reward"]
-script = ExtResource("2_pool")
-rooms = Array[ExtResource("5_reward")]([ExtResource("5_reward")])
-
-[sub_resource type="Resource" id="RoutePool_random_combat"]
-script = ExtResource("2_pool")
-rooms = Array[ExtResource("12_abyss_combat")]([ExtResource("12_abyss_combat"), ExtResource("6_swarm")])
-
-[sub_resource type="Resource" id="RoutePool_elite"]
-script = ExtResource("2_pool")
-rooms = Array[ExtResource("7_elite")]([ExtResource("7_elite")])
-
-[sub_resource type="Resource" id="RoutePool_event"]
-script = ExtResource("2_pool")
-rooms = Array[ExtResource("9_event")]([ExtResource("9_event"), ExtResource("10_symbiosis")])
-
-[sub_resource type="Resource" id="RoutePool_boss"]
-script = ExtResource("2_pool")
-rooms = Array[ExtResource("8_boss")]([ExtResource("8_boss"), ExtResource("13_forge_boss")])
-
-[sub_resource type="Resource" id="RoutePool_relic"]
-script = ExtResource("2_pool")
-rooms = Array[ExtResource("11_relic")]([ExtResource("11_relic")])
-
-[sub_resource type="Resource" id="RoutePool_shop"]
-script = ExtResource("2_pool")
-rooms = Array[ExtResource("14_shop")]([ExtResource("14_shop")])
+[sub_resource type="Resource" id="Chapter_primordial"]
+script = ExtResource("3_chapter")
+id = &"primordial"
+display_name = "第一章：原生培养地"
+region = ExtResource("4_primordial_region")
+start_room_index = 1
+end_room_index = 5
+enemy_ids = Array[StringName]([&"test_chaser"])
+reward_pool = ExtResource("7_primordial_pool")
+boss_room_ids = Array[StringName]([&"primordial_boss"])
+[sub_resource type="Resource" id="Chapter_abyss"]
+script = ExtResource("3_chapter")
+id = &"abyss"
+display_name = "第二章：深渊实验室"
+region = ExtResource("5_abyss_region")
+start_room_index = 6
+end_room_index = 10
+enemy_ids = Array[StringName]([&"spore_shooter", &"test_chaser"])
+reward_pool = ExtResource("8_abyss_pool")
+boss_room_ids = Array[StringName]([&"abyss_boss"])
+[sub_resource type="Resource" id="Chapter_mechanical"]
+script = ExtResource("3_chapter")
+id = &"mechanical"
+display_name = "第三章：机械蜂巢"
+region = ExtResource("6_mechanical_region")
+start_room_index = 11
+end_room_index = 15
+enemy_ids = Array[StringName]([&"test_chaser"])
+reward_pool = ExtResource("9_mechanical_pool")
+boss_room_ids = Array[StringName]([&"boss", &"forge_core_boss"])
 
 [resource]
-script = ExtResource("1_random")
-room_pools = Array[ExtResource("2_pool")]([SubResource("RoutePool_start"), SubResource("RoutePool_tutorial_combat"), SubResource("RoutePool_reward"), SubResource("RoutePool_random_combat"), SubResource("RoutePool_event"), SubResource("RoutePool_elite"), SubResource("RoutePool_shop"), SubResource("RoutePool_relic"), SubResource("RoutePool_boss")])
+script = ExtResource("1_route")
+room_pools = Array[ExtResource("2_pool")]([SubResource("Pool_00"), SubResource("Pool_01"), SubResource("Pool_02"), SubResource("Pool_03"), SubResource("Pool_04"), SubResource("Pool_05"), SubResource("Pool_06"), SubResource("Pool_07"), SubResource("Pool_08"), SubResource("Pool_09"), SubResource("Pool_10"), SubResource("Pool_11"), SubResource("Pool_12"), SubResource("Pool_13"), SubResource("Pool_14"), SubResource("Pool_15")])
+chapters = Array[ExtResource("3_chapter")]([SubResource("Chapter_primordial"), SubResource("Chapter_abyss"), SubResource("Chapter_mechanical")])

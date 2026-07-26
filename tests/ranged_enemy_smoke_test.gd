@@ -17,10 +17,10 @@ func _run() -> void:
 	var player_health := player.get_node(
 		"HealthComponent"
 	) as HealthComponent
-	room_manager.route_data.rooms[3] = load(
+	room_manager.route_data.rooms[6] = load(
 		"res://data/rooms/abyss_combat_room.tres"
 	) as RoomData
-	if not room_manager.enter_room(3):
+	if not room_manager.enter_room(6):
 		push_error("Could not enter the ranged enemy room.")
 		quit(1)
 		return

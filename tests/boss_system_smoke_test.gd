@@ -80,7 +80,10 @@ func _run() -> void:
 		quit(1)
 		return
 
-	boss.health_component.take_damage(230.0, player)
+	boss.health_component.take_damage(
+		boss.health_component.max_health * 0.6,
+		player
+	)
 	if (
 		boss.current_phase_index != 1
 		or boss.current_phase == null

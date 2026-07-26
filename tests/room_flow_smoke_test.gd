@@ -13,6 +13,13 @@ func _run() -> void:
 	await process_frame
 
 	var room_manager := main.get_node("RoomManager") as RoomManager
+	room_manager.random_route_data = load(
+		"res://data/rooms/prototype_legacy_route.tres"
+	) as RandomRouteData
+	if not room_manager.restart_run(20260726):
+		push_error("Could not load the isolated legacy flow fixture.")
+		quit(1)
+		return
 	var player := main.get_node("World/Player") as CharacterBody2D
 	var player_health := player.get_node(
 		"HealthComponent"

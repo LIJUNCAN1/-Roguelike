@@ -34,8 +34,8 @@ func _init() -> void:
 		quit(1)
 		return
 
-	var branch_choices := generator.get_room_choices(3, 20260726)
-	var repeated_choices := generator.get_room_choices(3, 20260726)
+	var branch_choices := generator.get_room_choices(6, 20260726)
+	var repeated_choices := generator.get_room_choices(6, 20260726)
 	if (
 		branch_choices.size() != 2
 		or _get_choice_ids(branch_choices) != _get_choice_ids(repeated_choices)
@@ -45,14 +45,12 @@ func _init() -> void:
 		quit(1)
 		return
 
-	var event_choices := generator.get_room_choices(4, 20260726)
+	var utility_choices := generator.get_room_choices(14, 20260726)
 	if (
-		event_choices.size() != 2
-		or event_choices[0].room_type != RoomData.RoomType.EVENT
-		or event_choices[1].room_type != RoomData.RoomType.EVENT
-		or event_choices[0].id == event_choices[1].id
+		utility_choices.size() != 2
+		or utility_choices[0].id == utility_choices[1].id
 	):
-		push_error("Event layer did not provide two distinct branches.")
+		push_error("Utility layer did not provide two distinct branches.")
 		quit(1)
 		return
 
@@ -75,19 +73,26 @@ func _get_choice_ids(choices: Array[RoomData]) -> Array[StringName]:
 
 
 func _has_valid_progression(route: RunRouteData) -> bool:
-	if route == null or route.rooms.size() != 9:
+	if route == null or route.rooms.size() != 16:
 		push_error("Generated route has an invalid room count.")
 		return false
 
 	var expected_types: Array[int] = [
 		RoomData.RoomType.START,
 		RoomData.RoomType.COMBAT,
-		RoomData.RoomType.REWARD,
-		RoomData.RoomType.COMBAT,
-		RoomData.RoomType.EVENT,
 		RoomData.RoomType.ELITE,
-		RoomData.RoomType.SHOP,
-		RoomData.RoomType.RELIC,
+		RoomData.RoomType.REWARD,
+		RoomData.RoomType.EVENT,
+		RoomData.RoomType.BOSS,
+		RoomData.RoomType.COMBAT,
+		RoomData.RoomType.ELITE,
+		RoomData.RoomType.REWARD,
+		RoomData.RoomType.EVENT,
+		RoomData.RoomType.BOSS,
+		RoomData.RoomType.COMBAT,
+		RoomData.RoomType.ELITE,
+		RoomData.RoomType.REWARD,
+		route.rooms[14].room_type,
 		RoomData.RoomType.BOSS,
 	]
 	for index in expected_types.size():

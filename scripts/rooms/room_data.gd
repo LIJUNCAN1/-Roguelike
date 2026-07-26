@@ -17,3 +17,4 @@ enum RoomType {
 @export var room_type: RoomType = RoomType.COMBAT
 @export var room_scene: PackedScene
 @export var region: RegionData
+@export var gene_reward_pool: GeneRewardPoolData

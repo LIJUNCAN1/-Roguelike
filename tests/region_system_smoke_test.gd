@@ -20,8 +20,16 @@ func _run() -> void:
 		&"primordial_culture",
 		&"primordial_culture",
 		&"primordial_culture",
+		&"primordial_culture",
+		&"primordial_culture",
+		&"primordial_culture",
 		&"abyss_lab",
 		&"abyss_lab",
+		&"abyss_lab",
+		&"abyss_lab",
+		&"abyss_lab",
+		&"mechanical_hive",
+		&"mechanical_hive",
 		&"mechanical_hive",
 		&"mechanical_hive",
 		&"mechanical_hive",
@@ -45,7 +53,7 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if not room_manager.enter_room(3):
+	if not room_manager.enter_room(6):
 		push_error("Could not enter the abyss region.")
 		quit(1)
 		return
@@ -59,7 +67,7 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if not room_manager.enter_room(5):
+	if not room_manager.enter_room(11):
 		push_error("Could not enter the mechanical region.")
 		quit(1)
 		return

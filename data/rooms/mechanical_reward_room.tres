@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="RoomData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/room_data.gd" id="1_data"]
+[ext_resource type="PackedScene" path="res://scenes/rooms/reward_room.tscn" id="2_scene"]
+[ext_resource type="Resource" path="res://data/regions/mechanical_hive.tres" id="3_region"]
+[ext_resource type="Resource" path="res://data/rewards/mechanical_gene_pool.tres" id="4_pool"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"mechanical_reward"
+display_name = "机械基因奖励房"
+room_type = 2
+room_scene = ExtResource("2_scene")
+region = ExtResource("3_region")
+gene_reward_pool = ExtResource("4_pool")

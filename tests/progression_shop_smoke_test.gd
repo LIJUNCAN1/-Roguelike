@@ -57,7 +57,10 @@ func _run() -> void:
 		return
 
 	var room_manager := main.get_node("RoomManager") as RoomManager
-	if not room_manager.enter_room(6):
+	room_manager.route_data.rooms[14] = load(
+		"res://data/rooms/gene_shop_room.tres"
+	) as RoomData
+	if not room_manager.enter_room(14):
 		push_error("Could not enter the physical gene shop.")
 		quit(1)
 		return

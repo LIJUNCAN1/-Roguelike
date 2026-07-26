@@ -20,7 +20,7 @@ func _run() -> void:
 	) as GeneData
 	gene_manager.add_gene(fire_gene)
 
-	if not room_manager.enter_room(2):
+	if not room_manager.enter_room(3):
 		push_error("Could not enter reward room.")
 		quit(1)
 		return
@@ -63,23 +63,12 @@ func _run() -> void:
 		return
 
 	await process_frame
-	if room_manager.pending_room_choices.size() != 2:
-		push_error("Completed reward did not offer route branches.")
+	if not room_manager.advance_room():
+		push_error("Could not leave reward room.")
 		quit(1)
 		return
-
-	var route_exits := room_manager.current_route_exit_selector
-	if route_exits == null:
-		push_error("Completed reward did not create physical exits.")
-		quit(1)
-		return
-	player.global_position = route_exits.get_exit_global_position(0)
-	await physics_frame
-	await physics_frame
-	await physics_frame
-	await process_frame
-	if room_manager.current_room_index != 3:
-		push_error("Could not leave reward room through a physical exit.")
+	if room_manager.current_room_index != 4:
+		push_error("Reward room advanced to the wrong chapter node.")
 		quit(1)
 		return
 
