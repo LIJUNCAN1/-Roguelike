@@ -38,6 +38,12 @@ func has_gene(gene_id: StringName) -> bool:
 	return false
 
 
+func get_active_genes() -> Array[GeneData]:
+	var genes_copy: Array[GeneData] = []
+	genes_copy.assign(active_genes)
+	return genes_copy
+
+
 func modify_attack(attack_context: AttackContext) -> void:
 	for gene in active_genes:
 		for effect in gene.effects:

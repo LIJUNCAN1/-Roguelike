@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SplitProjectileGeneEffect" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/genes/split_projectile_gene_effect.gd" id="1_effect"]
+
+[resource]
+script = ExtResource("1_effect")
+projectile_count = 3
+spread_degrees = 14.0
+attack_tag = &"split"
