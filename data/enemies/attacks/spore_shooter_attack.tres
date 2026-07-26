@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyProjectileAttackData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/enemy_projectile_attack_data.gd" id="1_data"]
+[ext_resource type="PackedScene" path="res://scenes/combat/hostile_spore_projectile.tscn" id="2_scene"]
+[ext_resource type="Resource" path="res://data/projectiles/hostile_spore_projectile.tres" id="3_projectile"]
+
+[resource]
+script = ExtResource("1_data")
+projectile_scene = ExtResource("2_scene")
+projectile_data = ExtResource("3_projectile")
+muzzle_distance = 14.0
+cooldown = 1.35
+initial_delay = 0.45
+attack_range = 280.0
+preferred_distance = 170.0
+retreat_distance = 105.0

@@ -182,6 +182,7 @@ func _configure_room_enemies() -> void:
 			continue
 		enemy.set_target(player)
 		enemy.set_feedback_container(effects_container)
+		enemy.set_projectile_container(projectile_container)
 
 
 func _update_room_status() -> void:

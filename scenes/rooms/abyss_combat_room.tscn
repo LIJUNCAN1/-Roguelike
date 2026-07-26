@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/rooms/room_shell.tscn" id="1_shell"]
+[ext_resource type="Script" path="res://scripts/rooms/room_controller.gd" id="2_controller"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/test_chaser.tscn" id="3_chaser"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/spore_shooter.tscn" id="4_shooter"]
+
+[node name="AbyssCombatRoom" type="Node2D"]
+script = ExtResource("2_controller")
+completion_mode = 1
+
+[node name="RoomShell" parent="." instance=ExtResource("1_shell")]
+
+[node name="AbyssChaserUpper" parent="." groups=["room_enemies"] instance=ExtResource("3_chaser")]
+position = Vector2(500, 112)
+
+[node name="AbyssChaserLower" parent="." groups=["room_enemies"] instance=ExtResource("3_chaser")]
+position = Vector2(500, 248)
+
+[node name="SporeShooter" parent="." groups=["room_enemies"] instance=ExtResource("4_shooter")]
+position = Vector2(520, 180)

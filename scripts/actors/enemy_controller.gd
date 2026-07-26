@@ -15,6 +15,7 @@ signal attack_performed(damage: float, target: Node2D)
 @onready var facing_marker: Polygon2D = $Visuals/FacingMarker
 
 var target: Node2D
+var projectile_container: Node2D
 var facing_direction: Vector2 = Vector2.LEFT
 var contact_cooldown_remaining: float = 0.0
 
@@ -70,6 +71,10 @@ func set_target(new_target: Node2D) -> void:
 
 func set_feedback_container(container: Node2D) -> void:
 	hit_feedback_component.configure_container(container)
+
+
+func set_projectile_container(container: Node2D) -> void:
+	projectile_container = container
 
 
 func get_facing_direction() -> Vector2:
