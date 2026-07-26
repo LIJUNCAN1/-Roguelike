@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" path="res://scenes/rooms/route_exit_selector.tscn" id="10_route_exit"]
 [ext_resource type="PackedScene" path="res://scenes/ui/run_result_panel.tscn" id="11_result_panel"]
 [ext_resource type="Script" path="res://scripts/run/run_flow_controller.gd" id="12_run_flow"]
+[ext_resource type="Script" path="res://scripts/relics/relic_test_harness.gd" id="13_relic_test"]
+[ext_resource type="Resource" path="res://data/relics/dragon_heart.tres" id="14_dragon_heart"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -43,6 +45,12 @@ fusion_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Lab
 evolution_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/EvolutionStatus")
 health_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/HealthStatus")
 
+[node name="RelicTestHarness" type="Node" parent="."]
+script = ExtResource("13_relic_test")
+dragon_heart = ExtResource("14_dragon_heart")
+relic_manager_path = NodePath("../World/Player/RelicManager")
+status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RelicStatus")
+
 [node name="World" type="Node2D" parent="."]
 
 [node name="RoomContainer" type="Node2D" parent="World"]
@@ -61,7 +69,7 @@ projectile_container_path = NodePath("../Projectiles")
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 430.0
-offset_bottom = 188.0
+offset_bottom = 204.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -117,6 +125,11 @@ text = "融合：未激活"
 theme_override_colors/font_color = Color(0.45, 0.9, 0.68, 1)
 theme_override_font_sizes/font_size = 10
 text = "形态：原始生命"
+
+[node name="RelicStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.58, 0.64, 0.66, 1)
+theme_override_font_sizes/font_size = 10
+text = "秘宝：无"
 
 [node name="RoomManager" type="Node" parent="."]
 script = ExtResource("8_room_manager")

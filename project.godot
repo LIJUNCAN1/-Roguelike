@@ -95,6 +95,10 @@ restart_run={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"physical_keycode":82)]
 }
+toggle_dragon_heart={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"physical_keycode":66)]
+}
 
 [physics]
 

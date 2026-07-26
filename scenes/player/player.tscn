@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/player_controller.gd" id="1_player_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" path="res://data/evolutions/base_life.tres" id="14_base_life"]
 [ext_resource type="Resource" path="res://data/evolutions/fire_life.tres" id="15_fire_life"]
 [ext_resource type="Resource" path="res://data/evolutions/fire_dragon.tres" id="16_fire_dragon"]
+[ext_resource type="Script" path="res://scripts/relics/relic_manager.gd" id="17_relic_manager"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 7.0
@@ -48,9 +49,12 @@ visual_anchor_path = NodePath("../Visuals/FormAnchor")
 base_evolution = ExtResource("14_base_life")
 evolutions = Array[ExtResource("13_evolution_data")]([ExtResource("15_fire_life"), ExtResource("16_fire_dragon")])
 
+[node name="RelicManager" type="Node" parent="."]
+script = ExtResource("17_relic_manager")
+
 [node name="AttackModifierStack" type="Node" parent="."]
 script = ExtResource("9_modifier_stack")
-modifier_paths = Array[NodePath]([NodePath("../GeneManager"), NodePath("../FusionManager"), NodePath("../EvolutionSystem")])
+modifier_paths = Array[NodePath]([NodePath("../GeneManager"), NodePath("../FusionManager"), NodePath("../EvolutionSystem"), NodePath("../RelicManager")])
 
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("4_weapon_component")
