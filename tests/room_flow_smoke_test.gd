@@ -91,17 +91,33 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if not room_manager.advance_room():
-		push_error("Could not advance to the random combat room.")
+	await process_frame
+	if room_manager.pending_room_choices.size() != 2:
+		push_error("Reward room did not open two route branches.")
+		quit(1)
+		return
+	if not main.get_node("RouteChoicePanel").visible:
+		push_error("Route choice panel was not shown.")
+		quit(1)
+		return
+	if room_manager.advance_room():
+		push_error("Room advanced without choosing a route branch.")
+		quit(1)
+		return
+
+	var chosen_branch := room_manager.pending_room_choices[1]
+	if not room_manager.choose_room_branch(1):
+		push_error("Could not choose the random combat branch.")
 		quit(1)
 		return
 
 	var random_combat_data := room_manager.get_current_room_data()
 	if (
 		random_combat_data == null
+		or random_combat_data.id != chosen_branch.id
 		or random_combat_data.room_type != RoomData.RoomType.COMBAT
 	):
-		push_error("Generated route did not contain its second combat.")
+		push_error("Selected branch was not entered.")
 		quit(1)
 		return
 	_defeat_current_room_enemies(room_manager.current_room)

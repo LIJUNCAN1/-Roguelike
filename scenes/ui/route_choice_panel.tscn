@@ -1,0 +1,99 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/route_choice_panel.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.025, 0.04, 0.06, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.34, 0.68, 0.92, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_choice"]
+bg_color = Color(0.07, 0.115, 0.16, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.56, 0.75, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="RouteChoicePanel" type="CanvasLayer"]
+layer = 8
+script = ExtResource("1_script")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.005, 0.012, 0.02, 0.76)
+
+[node name="Panel" type="PanelContainer" parent="Dimmer"]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 78.0
+offset_right = 535.0
+offset_bottom = 282.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Margin" type="MarginContainer" parent="Dimmer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 14
+
+[node name="Content" type="VBoxContainer" parent="Dimmer/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Dimmer/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.82, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "选择进化路线"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Dimmer/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.66, 0.74, 0.8, 1)
+theme_override_font_sizes/font_size = 10
+text = "按 1 / 2，或点击一个房间"
+horizontal_alignment = 1
+
+[node name="Choices" type="HBoxContainer" parent="Dimmer/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Choice1" type="Button" parent="Dimmer/Panel/Margin/Content/Choices"]
+custom_minimum_size = Vector2(190, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.82, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_choice")
+theme_override_styles/hover = SubResource("StyleBoxFlat_panel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_panel")
+text = "1"
+
+[node name="Choice2" type="Button" parent="Dimmer/Panel/Margin/Content/Choices"]
+custom_minimum_size = Vector2(190, 104)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.82, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_choice")
+theme_override_styles/hover = SubResource("StyleBoxFlat_panel")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_panel")
+text = "2"

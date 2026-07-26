@@ -14,6 +14,7 @@ signal run_completed
 @export_node_path("Label") var room_status_label_path: NodePath
 @export_node_path("Label") var room_hint_label_path: NodePath
 @export_node_path("Label") var route_preview_label_path: NodePath
+@export_node_path("CanvasLayer") var route_choice_panel_path: NodePath
 
 @onready var room_container: Node2D = get_node(
 	room_container_path
@@ -34,11 +35,17 @@ signal run_completed
 @onready var route_preview_label: Label = get_node_or_null(
 	route_preview_label_path
 ) as Label
+@onready var route_choice_panel: RouteChoicePanel = get_node_or_null(
+	route_choice_panel_path
+) as RouteChoicePanel
 
 var current_room_index: int = -1
 var current_room: RoomController
 var is_run_complete: bool = false
 var current_route_seed: int = 0
+var pending_room_choices: Array[RoomData] = []
+var pending_room_index: int = -1
+var chosen_route_layers: Dictionary = {}
 
 
 func _ready() -> void:
@@ -46,6 +53,8 @@ func _ready() -> void:
 	if route_data == null or route_data.rooms.is_empty():
 		push_error("RoomManager requires a non-empty RunRouteData.")
 		return
+	if route_choice_panel != null:
+		route_choice_panel.room_chosen.connect(choose_room_branch)
 	_update_route_preview()
 	enter_room(0)
 
@@ -74,14 +83,16 @@ func enter_room(room_index: int) -> bool:
 
 	current_room = room_data.room_scene.instantiate() as RoomController
 	room_container.add_child(current_room)
-	current_room.room_completed.connect(_update_room_hint)
+	current_room.room_completed.connect(_on_current_room_completed)
 	current_room_index = room_index
+	chosen_route_layers[room_index] = true
 	is_run_complete = false
 	player.global_position = Vector2(320, 180)
 	current_room.configure_player(player)
 	_configure_room_enemies()
 	_update_room_status()
 	_update_room_hint()
+	_update_route_preview()
 	room_changed.emit(room_data, current_room_index)
 	return true
 
@@ -100,7 +111,28 @@ func advance_room() -> bool:
 		run_completed.emit()
 		return false
 
+	if _prepare_next_room_choices():
+		return false
 	return enter_room(next_index)
+
+
+func choose_room_branch(choice_index: int) -> bool:
+	if (
+		pending_room_index < 0
+		or choice_index < 0
+		or choice_index >= pending_room_choices.size()
+	):
+		return false
+
+	var selected_room := pending_room_choices[choice_index]
+	route_data.rooms[pending_room_index] = selected_room
+	var selected_index := pending_room_index
+	pending_room_choices.clear()
+	pending_room_index = -1
+	if route_choice_panel != null:
+		route_choice_panel.hide_choices()
+	_update_route_preview()
+	return enter_room(selected_index)
 
 
 func get_current_room_data() -> RoomData:
@@ -156,6 +188,7 @@ func _generate_route_if_configured() -> void:
 		seed_rng.randomize()
 		current_route_seed = seed_rng.randi()
 	route_data = random_route_data.generate_route(current_route_seed)
+	chosen_route_layers.clear()
 
 
 func _update_route_preview() -> void:
@@ -163,13 +196,61 @@ func _update_route_preview() -> void:
 		return
 
 	var room_names := PackedStringArray()
-	for room in route_data.rooms:
+	for index in route_data.rooms.size():
+		if (
+			random_route_data != null
+			and index < random_route_data.room_pools.size()
+			and not chosen_route_layers.has(index)
+		):
+			var candidates := random_route_data.room_pools[
+				index
+			].get_valid_rooms()
+			if candidates.size() > 1:
+				var candidate_names := PackedStringArray()
+				for candidate in candidates:
+					candidate_names.append(candidate.display_name)
+				room_names.append("[%s]" % " / ".join(candidate_names))
+				continue
+
+		var room := route_data.rooms[index]
 		if room != null:
 			room_names.append(room.display_name)
 	route_preview_label.text = "路线：%s  ·  种子 %d" % [
 		" → ".join(room_names),
 		current_route_seed,
 	]
+
+
+func _on_current_room_completed() -> void:
+	_update_room_hint()
+	call_deferred("_prepare_next_room_choices")
+
+
+func _prepare_next_room_choices() -> bool:
+	if not pending_room_choices.is_empty():
+		room_hint_label.text = "选择下一间房（按 1 / 2）"
+		room_hint_label.modulate = Color(0.4, 0.75, 1.0, 1.0)
+		return true
+	if random_route_data == null:
+		return false
+
+	var next_index := current_room_index + 1
+	if next_index < 0 or next_index >= route_data.rooms.size():
+		return false
+	var choices := random_route_data.get_room_choices(
+		next_index,
+		current_route_seed
+	)
+	if choices.size() <= 1:
+		return false
+
+	pending_room_choices.assign(choices)
+	pending_room_index = next_index
+	if route_choice_panel != null:
+		route_choice_panel.show_choices(pending_room_choices)
+	room_hint_label.text = "选择下一间房（按 1 / 2）"
+	room_hint_label.modulate = Color(0.4, 0.75, 1.0, 1.0)
+	return true
 
 
 func _update_room_hint() -> void:

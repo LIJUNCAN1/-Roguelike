@@ -62,8 +62,14 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if not room_manager.advance_room():
-		push_error("Could not leave completed reward room.")
+	await process_frame
+	if room_manager.pending_room_choices.size() != 2:
+		push_error("Completed reward did not offer route branches.")
+		quit(1)
+		return
+
+	if not room_manager.choose_room_branch(0):
+		push_error("Could not leave reward room through a branch.")
 		quit(1)
 		return
 

@@ -34,6 +34,17 @@ func _init() -> void:
 		quit(1)
 		return
 
+	var branch_choices := generator.get_room_choices(3, 20260726)
+	var repeated_choices := generator.get_room_choices(3, 20260726)
+	if (
+		branch_choices.size() != 2
+		or _get_choice_ids(branch_choices) != _get_choice_ids(repeated_choices)
+		or branch_choices[0].id == branch_choices[1].id
+	):
+		push_error("Seeded room branch choices are invalid.")
+		quit(1)
+		return
+
 	print("Random route smoke test passed.")
 	quit()
 
@@ -41,6 +52,13 @@ func _init() -> void:
 func _get_ids(route: RunRouteData) -> Array[StringName]:
 	var ids: Array[StringName] = []
 	for room in route.rooms:
+		ids.append(room.id)
+	return ids
+
+
+func _get_choice_ids(choices: Array[RoomData]) -> Array[StringName]:
+	var ids: Array[StringName] = []
+	for room in choices:
 		ids.append(room.id)
 	return ids
 
