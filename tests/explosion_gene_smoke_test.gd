@@ -40,6 +40,7 @@ func _run() -> void:
 
 	player.aim_at(primary.global_position)
 	var projectile := player.fire() as Projectile
+	var initial_health := primary.health_component.max_health
 	if (
 		projectile == null
 		or not projectile.attack_tags.has(&"explosion")
@@ -54,9 +55,9 @@ func _run() -> void:
 		var nearby_health := _get_health(nearby)
 		var distant_health := _get_health(distant)
 		if (
-			is_equal_approx(primary_health, 12.0)
-			and is_equal_approx(nearby_health, 22.0)
-			and is_equal_approx(distant_health, 30.0)
+			is_equal_approx(primary_health, initial_health - 18.0)
+			and is_equal_approx(nearby_health, initial_health - 8.0)
+			and is_equal_approx(distant_health, initial_health)
 		):
 			if not effects.has_node("ExplosionEffect"):
 				push_error("Explosion visual effect was not created.")

@@ -87,3 +87,7 @@ func _find_nearest_enemy() -> Node2D:
 		nearest = enemy
 		nearest_distance_squared = distance_squared
 	return nearest
+
+
+func get_reward_owner() -> Node:
+	return player

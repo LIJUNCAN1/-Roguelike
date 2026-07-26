@@ -9,4 +9,6 @@ script = ExtResource("1_gene_data")
 id = &"lifesteal"
 display_name = "吸血基因"
 description = "攻击命中后回复实际伤害 50% 的生命。"
+series_id = &"survival"
+series_name = "生存系列"
 effects = Array[ExtResource("2_gene_effect")]([ExtResource("3_lifesteal_effect")])

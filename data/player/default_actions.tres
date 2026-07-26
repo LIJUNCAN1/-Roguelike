@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerActionData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/player_action_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+dash_speed = 420.0
+dash_duration = 0.16
+dash_cooldown = 0.75
+dash_invulnerability = 0.24

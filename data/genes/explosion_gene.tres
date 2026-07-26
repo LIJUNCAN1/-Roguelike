@@ -9,4 +9,6 @@ script = ExtResource("1_gene_data")
 id = &"explosion"
 display_name = "爆炸基因"
 description = "命中时对 48 像素范围内的敌人造成 8 点伤害。"
+series_id = &"combustion"
+series_name = "燃烧系列"
 effects = Array[ExtResource("2_gene_effect")]([ExtResource("3_explosion_effect")])

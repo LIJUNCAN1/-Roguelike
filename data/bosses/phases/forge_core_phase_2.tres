@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BossPhaseData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/boss_phase_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/bosses/attacks/forge_core_blast_phase_2.tres" id="2_attack"]
+
+[resource]
+script = ExtResource("1_data")
+display_name = "过载模式"
+enter_health_ratio = 0.48
+move_speed = 72.0
+preferred_distance = 115.0
+attack = ExtResource("2_attack")
+body_color = Color(0.55, 0.18, 0.12, 1)
+core_color = Color(1, 0.92, 0.26, 1)

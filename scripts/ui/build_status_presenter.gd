@@ -9,6 +9,7 @@ extends Node
 @export_node_path("Label") var fusion_label_path: NodePath
 @export_node_path("Label") var evolution_label_path: NodePath
 @export_node_path("Label") var health_label_path: NodePath
+@export_node_path("ProgressBar") var health_bar_path: NodePath
 
 @onready var gene_manager: GeneManager = get_node(
 	gene_manager_path
@@ -32,6 +33,9 @@ extends Node
 @onready var health_label: Label = get_node(
 	health_label_path
 ) as Label
+@onready var health_bar: ProgressBar = get_node_or_null(
+	health_bar_path
+) as ProgressBar
 
 
 func _ready() -> void:
@@ -102,3 +106,6 @@ func _update_health(
 		roundi(current_health),
 		roundi(max_health),
 	]
+	if health_bar != null:
+		health_bar.max_value = max_health
+		health_bar.value = current_health

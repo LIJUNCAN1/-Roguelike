@@ -40,7 +40,7 @@ func _run() -> void:
 		quit(1)
 		return
 
-	health.take_damage(20.0, source)
+	health.take_damage(health.current_health, source)
 	if not effects.has_node("DeathEffect"):
 		push_error("Death feedback was not created.")
 		quit(1)

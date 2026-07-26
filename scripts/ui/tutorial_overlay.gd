@@ -17,6 +17,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		or event.is_action_pressed("move_left")
 		or event.is_action_pressed("move_right")
 		or event.is_action_pressed("attack")
+		or event.is_action_pressed("dash")
 		or event.is_action_pressed("ui_accept")
 	):
 		dismiss()

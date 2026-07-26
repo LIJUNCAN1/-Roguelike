@@ -43,10 +43,17 @@ func _run() -> void:
 		return
 
 	enemy.global_position = player.global_position + Vector2(20.0, 0.0)
+	var runtime_damage := (
+		enemy.enemy_data.attack_data.damage
+		* enemy.difficulty_multiplier
+	)
 	await physics_frame
 	await physics_frame
 	if (
-		not is_equal_approx(player_health.current_health, 92.0)
+		not is_equal_approx(
+			player_health.current_health,
+			100.0 - runtime_damage
+		)
 		or enemy.contact_cooldown_remaining <= 0.0
 		or player_visuals.modulate.is_equal_approx(Color.WHITE)
 	):
@@ -56,14 +63,20 @@ func _run() -> void:
 
 	for _frame in 30:
 		await physics_frame
-	if not is_equal_approx(player_health.current_health, 92.0):
+	if not is_equal_approx(
+		player_health.current_health,
+		100.0 - runtime_damage
+	):
 		push_error("Enemy ignored its attack cooldown.")
 		quit(1)
 		return
 
 	for _frame in 45:
 		await physics_frame
-	if not is_equal_approx(player_health.current_health, 84.0):
+	if not is_equal_approx(
+		player_health.current_health,
+		100.0 - runtime_damage * 2.0
+	):
 		push_error("Enemy did not attack again after its cooldown.")
 		quit(1)
 		return

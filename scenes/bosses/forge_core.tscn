@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/boss_controller.gd" id="1_controller"]
+[ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement"]
+[ext_resource type="Resource" path="res://data/bosses/forge_core.tres" id="3_data"]
+[ext_resource type="Script" path="res://scripts/combat/health_component.gd" id="4_health"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox_component.gd" id="5_hurtbox"]
+[ext_resource type="Script" path="res://scripts/combat/hit_feedback_component.gd" id="6_feedback"]
+[ext_resource type="Resource" path="res://data/feedback/test_chaser_feedback.tres" id="7_feedback_data"]
+[ext_resource type="PackedScene" path="res://scenes/bosses/boss_attack_indicator.tscn" id="8_indicator"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_boss"]
+radius = 19.0
+
+[node name="ForgeCore" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_controller")
+enemy_data = ExtResource("3_data")
+attack_indicator_scene = ExtResource("8_indicator")
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("2_movement")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_health")
+
+[node name="HitFeedbackComponent" type="Node" parent="."]
+script = ExtResource("6_feedback")
+feedback_data = ExtResource("7_feedback_data")
+health_component_path = NodePath("../HealthComponent")
+visual_root_path = NodePath("../Visuals")
+flash_target_paths = Array[NodePath]([NodePath("../Visuals/Body"), NodePath("../Visuals/Core")])
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_hurtbox")
+health_component_path = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_boss")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Shadow" type="Polygon2D" parent="Visuals"]
+position = Vector2(0, 15)
+polygon = PackedVector2Array(-21, 0, -14, -6, 14, -6, 21, 0, 14, 6, -14, 6)
+color = Color(0.015, 0.02, 0.03, 0.62)
+
+[node name="Body" type="Polygon2D" parent="Visuals"]
+polygon = PackedVector2Array(-20, -10, -9, -20, 10, -20, 21, -9, 21, 10, 9, 21, -10, 21, -21, 9)
+color = Color(0.35, 0.38, 0.46, 1)
+
+[node name="Core" type="Polygon2D" parent="Visuals"]
+polygon = PackedVector2Array(-9, -6, 0, -13, 10, -6, 13, 4, 5, 13, -6, 11, -13, 2)
+color = Color(1, 0.58, 0.12, 1)
+
+[node name="Maw" type="Polygon2D" parent="Visuals"]
+polygon = PackedVector2Array(-6, -2, 0, -7, 7, -2, 6, 6, -5, 7)
+color = Color(0.12, 0.08, 0.04, 1)
+
+[node name="FacingMarker" type="Polygon2D" parent="Visuals"]
+polygon = PackedVector2Array(12, -4, 25, 0, 12, 4)
+color = Color(1, 0.85, 0.32, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_boss")
+
+[node name="PhaseLabel" type="Label" parent="."]
+offset_left = -70.0
+offset_top = -50.0
+offset_right = 70.0
+offset_bottom = -32.0
+theme_override_colors/font_color = Color(1, 0.75, 0.32, 1)
+theme_override_font_sizes/font_size = 10
+text = "熔铸模式"
+horizontal_alignment = 1
+
+[node name="BossHealthBar" type="ProgressBar" parent="."]
+offset_left = -48.0
+offset_top = -30.0
+offset_right = 48.0
+offset_bottom = -24.0
+mouse_filter = 2
+show_percentage = false

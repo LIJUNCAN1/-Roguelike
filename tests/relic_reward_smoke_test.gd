@@ -15,7 +15,7 @@ func _run() -> void:
 	var room_manager := main.get_node("RoomManager") as RoomManager
 	var player := main.get_node("World/Player") as Node2D
 	var relic_manager := player.get_node("RelicManager") as RelicManager
-	if not room_manager.enter_room(6):
+	if not room_manager.enter_room(7):
 		push_error("Could not enter relic reward room.")
 		quit(1)
 		return

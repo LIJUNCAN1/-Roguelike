@@ -9,5 +9,13 @@ func configure(speed: float) -> void:
 
 
 func move(body: CharacterBody2D, direction: Vector2) -> void:
-	body.velocity = direction.limit_length(1.0) * move_speed
+	move_at_speed(body, direction, move_speed)
+
+
+func move_at_speed(
+	body: CharacterBody2D,
+	direction: Vector2,
+	speed: float
+) -> void:
+	body.velocity = direction.limit_length(1.0) * maxf(speed, 0.0)
 	body.move_and_slide()

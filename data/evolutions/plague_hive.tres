@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EvolutionData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/evolutions/evolution_data.gd" id="1_data"]
+[ext_resource type="Script" path="res://scripts/genes/gene_effect.gd" id="2_effect"]
+[ext_resource type="PackedScene" path="res://scenes/player/forms/plague_hive_visual.tscn" id="3_visual"]
+[ext_resource type="Resource" path="res://data/evolutions/effects/plague_hive_projectile_effect.tres" id="4_stats"]
+[ext_resource type="Resource" path="res://data/evolutions/effects/plague_hive_venom_upgrade.tres" id="5_venom"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"plague_hive"
+display_name = "瘟疫母巢"
+description = "分裂与剧毒基因共鸣，孵化高浓度毒孢子弹幕。"
+priority = 20
+required_gene_ids = Array[StringName]([&"split", &"venom"])
+visual_scene = ExtResource("3_visual")
+effects = Array[ExtResource("2_effect")]([ExtResource("4_stats"), ExtResource("5_venom")])

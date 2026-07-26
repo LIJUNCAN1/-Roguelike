@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RandomRouteData" load_steps=21 format=3]
+[gd_resource type="Resource" script_class="RandomRouteData" load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/random_route_data.gd" id="1_random"]
 [ext_resource type="Script" path="res://scripts/rooms/route_room_pool_data.gd" id="2_pool"]
@@ -12,6 +12,8 @@
 [ext_resource type="Resource" path="res://data/rooms/symbiosis_event_room.tres" id="10_symbiosis"]
 [ext_resource type="Resource" path="res://data/rooms/relic_reward_room.tres" id="11_relic"]
 [ext_resource type="Resource" path="res://data/rooms/abyss_combat_room.tres" id="12_abyss_combat"]
+[ext_resource type="Resource" path="res://data/rooms/forge_core_boss_room.tres" id="13_forge_boss"]
+[ext_resource type="Resource" path="res://data/rooms/gene_shop_room.tres" id="14_shop"]
 
 [sub_resource type="Resource" id="RoutePool_start"]
 script = ExtResource("2_pool")
@@ -39,12 +41,16 @@ rooms = Array[ExtResource("9_event")]([ExtResource("9_event"), ExtResource("10_s
 
 [sub_resource type="Resource" id="RoutePool_boss"]
 script = ExtResource("2_pool")
-rooms = Array[ExtResource("8_boss")]([ExtResource("8_boss")])
+rooms = Array[ExtResource("8_boss")]([ExtResource("8_boss"), ExtResource("13_forge_boss")])
 
 [sub_resource type="Resource" id="RoutePool_relic"]
 script = ExtResource("2_pool")
 rooms = Array[ExtResource("11_relic")]([ExtResource("11_relic")])
 
+[sub_resource type="Resource" id="RoutePool_shop"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("14_shop")]([ExtResource("14_shop")])
+
 [resource]
 script = ExtResource("1_random")
-room_pools = Array[ExtResource("2_pool")]([SubResource("RoutePool_start"), SubResource("RoutePool_tutorial_combat"), SubResource("RoutePool_reward"), SubResource("RoutePool_random_combat"), SubResource("RoutePool_event"), SubResource("RoutePool_elite"), SubResource("RoutePool_relic"), SubResource("RoutePool_boss")])
+room_pools = Array[ExtResource("2_pool")]([SubResource("RoutePool_start"), SubResource("RoutePool_tutorial_combat"), SubResource("RoutePool_reward"), SubResource("RoutePool_random_combat"), SubResource("RoutePool_event"), SubResource("RoutePool_elite"), SubResource("RoutePool_shop"), SubResource("RoutePool_relic"), SubResource("RoutePool_boss")])

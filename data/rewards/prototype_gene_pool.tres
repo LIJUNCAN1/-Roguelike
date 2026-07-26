@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GeneRewardPoolData" load_steps=7 format=3]
+[gd_resource type="Resource" script_class="GeneRewardPoolData" load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/rewards/gene_reward_pool_data.gd" id="1_pool"]
 [ext_resource type="Resource" path="res://data/genes/fire_gene.tres" id="2_fire"]
@@ -6,8 +6,13 @@
 [ext_resource type="Resource" path="res://data/genes/piercing_gene.tres" id="4_piercing"]
 [ext_resource type="Resource" path="res://data/genes/lifesteal_gene.tres" id="5_lifesteal"]
 [ext_resource type="Resource" path="res://data/genes/explosion_gene.tres" id="6_explosion"]
+[ext_resource type="Resource" path="res://data/genes/accelerator_gene.tres" id="7_accelerator"]
+[ext_resource type="Resource" path="res://data/genes/titan_gene.tres" id="8_titan"]
+[ext_resource type="Resource" path="res://data/genes/twin_gene.tres" id="9_twin"]
+[ext_resource type="Resource" path="res://data/genes/venom_gene.tres" id="10_venom"]
+[ext_resource type="Resource" path="res://data/genes/frost_gene.tres" id="11_frost"]
 
 [resource]
 script = ExtResource("1_pool")
 choice_count = 3
-genes = Array[ExtResource("2_fire")]([ExtResource("2_fire"), ExtResource("3_split"), ExtResource("4_piercing"), ExtResource("5_lifesteal"), ExtResource("6_explosion")])
+genes = Array[ExtResource("2_fire")]([ExtResource("2_fire"), ExtResource("3_split"), ExtResource("4_piercing"), ExtResource("5_lifesteal"), ExtResource("6_explosion"), ExtResource("7_accelerator"), ExtResource("8_titan"), ExtResource("9_twin"), ExtResource("10_venom"), ExtResource("11_frost")])

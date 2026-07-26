@@ -183,6 +183,7 @@ func _configure_room_enemies() -> void:
 		enemy.set_target(player)
 		enemy.set_feedback_container(effects_container)
 		enemy.set_projectile_container(projectile_container)
+		enemy.apply_difficulty(1.0 + float(current_room_index) * 0.08)
 
 
 func _update_room_status() -> void:

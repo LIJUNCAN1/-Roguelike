@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BossAttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/boss_attack_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"core_blast"
+display_name = "熔核标记"
+cooldown = 1.85
+telegraph_duration = 1.05
+trigger_range = 330.0
+radius = 35.0
+damage = 14.0
+warning_color = Color(1, 0.62, 0.12, 1)

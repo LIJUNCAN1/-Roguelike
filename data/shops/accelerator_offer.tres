@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ShopOfferData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/shops/shop_offer_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/genes/accelerator_gene.tres" id="2_gene"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"accelerator_offer"
+gene = ExtResource("2_gene")
+essence_cost = 10

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3]
+[gd_scene load_steps=30 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -21,6 +21,13 @@
 [ext_resource type="Script" path="res://scripts/ui/build_status_presenter.gd" id="19_build_status"]
 [ext_resource type="Script" path="res://scripts/ui/relic_status_presenter.gd" id="20_relic_status"]
 [ext_resource type="PackedScene" path="res://scenes/ui/tutorial_overlay.tscn" id="21_tutorial"]
+[ext_resource type="Script" path="res://scripts/ui/screen_shake_component.gd" id="22_screen_shake"]
+[ext_resource type="Script" path="res://scripts/ui/progression_status_presenter.gd" id="23_progression_status"]
+[ext_resource type="Script" path="res://scripts/ui/build_notification_presenter.gd" id="24_build_notification"]
+[ext_resource type="Script" path="res://scripts/ui/boss_status_presenter.gd" id="25_boss_status"]
+[ext_resource type="Script" path="res://scripts/codex/gene_codex_manager.gd" id="26_codex_manager"]
+[ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="27_gene_pool"]
+[ext_resource type="PackedScene" path="res://scenes/ui/gene_codex_panel.tscn" id="28_codex_panel"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -35,6 +42,12 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [node name="Main" type="Node2D"]
+
+[node name="GeneCodexManager" type="Node" parent="."]
+script = ExtResource("26_codex_manager")
+gene_pool = ExtResource("27_gene_pool")
+gene_manager_path = NodePath("../World/Player/GeneManager")
+room_manager_path = NodePath("../RoomManager")
 
 [node name="GeneTestHarness" type="Node" parent="."]
 script = ExtResource("2_gene_test")
@@ -61,6 +74,27 @@ gene_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/GeneS
 fusion_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/FusionStatus")
 evolution_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/EvolutionStatus")
 health_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/HealthStatus")
+health_bar_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/HealthBar")
+
+[node name="ProgressionStatusPresenter" type="Node" parent="."]
+script = ExtResource("23_progression_status")
+progression_path = NodePath("../World/Player/RunProgression")
+experience_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/ExperienceStatus")
+essence_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/EssenceStatus")
+
+[node name="BuildNotificationPresenter" type="Node" parent="."]
+script = ExtResource("24_build_notification")
+fusion_manager_path = NodePath("../World/Player/FusionManager")
+evolution_system_path = NodePath("../World/Player/EvolutionSystem")
+gene_manager_path = NodePath("../World/Player/GeneManager")
+notification_label_path = NodePath("../Interface/BuildNotification")
+
+[node name="BossStatusPresenter" type="Node" parent="."]
+script = ExtResource("25_boss_status")
+room_manager_path = NodePath("../RoomManager")
+boss_panel_path = NodePath("../Interface/BossPanel")
+boss_name_label_path = NodePath("../Interface/BossPanel/Content/BossName")
+boss_health_bar_path = NodePath("../Interface/BossPanel/Content/BossHealthBar")
 
 [node name="RelicStatusPresenter" type="Node" parent="."]
 script = ExtResource("20_relic_status")
@@ -82,7 +116,15 @@ script = ExtResource("17_companion_status")
 companion_manager_path = NodePath("../World/Player/CompanionManager")
 status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/CompanionStatus")
 
+[node name="ScreenShakeComponent" type="Node" parent="."]
+script = ExtResource("22_screen_shake")
+player_health_path = NodePath("../World/Player/HealthComponent")
+camera_path = NodePath("../World/Camera2D")
+
 [node name="World" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="World"]
+position = Vector2(320, 180)
 
 [node name="RoomContainer" type="Node2D" parent="World"]
 
@@ -100,7 +142,7 @@ projectile_container_path = NodePath("../Projectiles")
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 370.0
-offset_bottom = 246.0
+offset_bottom = 276.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -149,6 +191,23 @@ theme_override_colors/font_color = Color(0.42, 0.95, 0.62, 1)
 theme_override_font_sizes/font_size = 10
 text = "生命：100 / 100"
 
+[node name="HealthBar" type="ProgressBar" parent="Interface/StagePanel/MarginContainer/Labels"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+mouse_filter = 2
+value = 100.0
+show_percentage = false
+
+[node name="ExperienceStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.52, 0.78, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "成长 Lv.1：0 / 20"
+
+[node name="EssenceStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.75, 0.55, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "基因精华：0"
+
 [node name="GeneStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_font_sizes/font_size = 10
 text = "基因：无"
@@ -183,6 +242,50 @@ theme_override_colors/font_color = Color(0.48, 0.88, 0.68, 1)
 theme_override_font_sizes/font_size = 10
 text = "伙伴：独行进化"
 
+[node name="CodexHint" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.45, 0.68, 0.62, 1)
+theme_override_font_sizes/font_size = 9
+text = "C：打开基因图鉴"
+
+[node name="BossPanel" type="PanelContainer" parent="Interface"]
+visible = false
+offset_left = 390.0
+offset_top = 12.0
+offset_right = 628.0
+offset_bottom = 62.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Content" type="VBoxContainer" parent="Interface/BossPanel"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="BossName" type="Label" parent="Interface/BossPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.3, 1)
+theme_override_font_sizes/font_size = 12
+text = "首领"
+horizontal_alignment = 1
+
+[node name="BossHealthBar" type="ProgressBar" parent="Interface/BossPanel/Content"]
+custom_minimum_size = Vector2(220, 12)
+layout_mode = 2
+mouse_filter = 2
+value = 100.0
+show_percentage = false
+
+[node name="BuildNotification" type="Label" parent="Interface"]
+visible = false
+offset_left = 170.0
+offset_top = 278.0
+offset_right = 470.0
+offset_bottom = 330.0
+theme_override_colors/font_color = Color(0.48, 1, 0.7, 1)
+theme_override_font_sizes/font_size = 16
+text = "BUILD 共鸣"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
 [node name="RoomManager" type="Node" parent="."]
 script = ExtResource("8_room_manager")
 random_route_data = ExtResource("9_route")
@@ -208,3 +311,5 @@ result_panel_path = NodePath("../RunResultPanel")
 [node name="PauseMenu" parent="." instance=ExtResource("18_pause_menu")]
 
 [node name="TutorialOverlay" parent="." instance=ExtResource("21_tutorial")]
+
+[node name="GeneCodexPanel" parent="." instance=ExtResource("28_codex_panel")]

@@ -18,6 +18,9 @@ func _run() -> void:
 		"HealthComponent"
 	) as HealthComponent
 	var boss_index := room_manager.route_data.rooms.size() - 1
+	room_manager.route_data.rooms[boss_index] = load(
+		"res://data/rooms/boss_room.tres"
+	) as RoomData
 	if not room_manager.enter_room(boss_index):
 		push_error("Could not enter the boss room.")
 		quit(1)
@@ -34,7 +37,7 @@ func _run() -> void:
 		or boss.boss_data.phases.size() != 2
 		or not is_equal_approx(
 			boss.health_component.max_health,
-			240.0
+			240.0 * (1.0 + float(boss_index) * 0.08)
 		)
 	):
 		push_error("Gene Devourer boss data was not configured.")
@@ -77,7 +80,7 @@ func _run() -> void:
 		quit(1)
 		return
 
-	boss.health_component.take_damage(130.0, player)
+	boss.health_component.take_damage(230.0, player)
 	if (
 		boss.current_phase_index != 1
 		or boss.current_phase == null

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ProjectileStatGeneEffect" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="1_effect"]
+
+[resource]
+script = ExtResource("1_effect")
+attack_tag = &"plague_hive_form"
+damage_multiplier = 0.82
+speed_multiplier = 1.12
+radius_multiplier = 0.85
+override_color = true
+projectile_color = Color(0.52, 0.95, 0.18, 1)

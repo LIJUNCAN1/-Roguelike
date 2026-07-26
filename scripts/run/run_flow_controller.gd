@@ -30,6 +30,9 @@ signal run_restarted
 @onready var companion_manager: CompanionManager = player.get_node(
 	"CompanionManager"
 ) as CompanionManager
+@onready var run_progression: RunProgression = player.get_node(
+	"RunProgression"
+) as RunProgression
 @onready var result_panel: RunResultPanel = get_node(
 	result_panel_path
 ) as RunResultPanel
@@ -60,6 +63,7 @@ func restart_run(seed_value: int = 0) -> bool:
 	weapon_manager.reset_to_default()
 	character_manager.reset_to_default()
 	companion_manager.reset_to_default()
+	run_progression.reset()
 	player.set_physics_process(true)
 	player.visible = true
 

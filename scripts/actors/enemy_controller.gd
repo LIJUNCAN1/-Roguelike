@@ -18,6 +18,7 @@ var target: Node2D
 var projectile_container: Node2D
 var facing_direction: Vector2 = Vector2.LEFT
 var contact_cooldown_remaining: float = 0.0
+var difficulty_multiplier: float = 1.0
 
 
 func _ready() -> void:
@@ -81,6 +82,20 @@ func get_facing_direction() -> Vector2:
 	return facing_direction
 
 
+func apply_difficulty(multiplier: float) -> void:
+	difficulty_multiplier = maxf(multiplier, 1.0)
+	health_component.configure(
+		enemy_data.max_health * difficulty_multiplier
+	)
+	movement_component.configure(
+		enemy_data.move_speed * lerpf(
+			1.0,
+			difficulty_multiplier,
+			0.25
+		)
+	)
+
+
 func _update_facing_visual() -> void:
 	facing_marker.rotation = facing_direction.angle()
 
@@ -97,12 +112,19 @@ func _try_contact_attack() -> void:
 	if target_health == null:
 		return
 	var damage_dealt := target_health.take_damage(
-		enemy_data.attack_data.damage,
+		enemy_data.attack_data.damage * difficulty_multiplier,
 		self
 	)
 	if damage_dealt <= 0.0:
 		return
 
+	if target.has_method("apply_knockback"):
+		target.call(
+			"apply_knockback",
+			(target.global_position - global_position).normalized(),
+			enemy_data.attack_data.knockback_force,
+			enemy_data.attack_data.knockback_duration
+		)
 	contact_cooldown_remaining = enemy_data.attack_data.cooldown
 	_play_attack_pulse()
 	attack_performed.emit(damage_dealt, target)
@@ -125,5 +147,28 @@ func _play_attack_pulse() -> void:
 	)
 
 
-func _on_died(_source: Node) -> void:
+func _on_died(source: Node) -> void:
+	var reward_owner := _resolve_reward_owner(source)
+	if reward_owner != null:
+		var progression := reward_owner.get_node_or_null(
+			"RunProgression"
+		) as RunProgression
+		if progression != null:
+			progression.add_experience(enemy_data.experience_reward)
+			progression.add_essence(enemy_data.essence_reward)
 	queue_free()
+
+
+func _resolve_reward_owner(source: Node) -> Node:
+	if source == null:
+		return null
+	var owner := source
+	if source is Projectile:
+		var source_actor: Node = (source as Projectile).source_actor
+		if source_actor != null:
+			owner = source_actor
+	if owner.has_method("get_reward_owner"):
+		var resolved: Node = owner.call("get_reward_owner") as Node
+		if resolved != null:
+			owner = resolved
+	return owner

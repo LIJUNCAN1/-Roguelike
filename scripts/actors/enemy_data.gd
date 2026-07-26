@@ -9,6 +9,12 @@ extends Resource
 @export_range(1.0, 1000000.0, 1.0, "or_greater")
 var max_health: float = 30.0
 
+@export_group("Rewards")
+@export_range(0, 10000, 1, "or_greater")
+var experience_reward: int = 8
+@export_range(0, 10000, 1, "or_greater")
+var essence_reward: int = 3
+
 @export_group("Movement")
 @export_range(0.0, 1000.0, 1.0, "or_greater")
 var move_speed: float = 70.0

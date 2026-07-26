@@ -250,6 +250,25 @@ func _run() -> void:
 	await process_frame
 
 	if not room_manager.advance_room():
+		push_error("Could not advance to gene shop.")
+		quit(1)
+		return
+
+	if not _current_room_is(room_manager, &"gene_shop"):
+		quit(1)
+		return
+	var shop_room := room_manager.current_room as GeneShopRoom
+	player.global_position = shop_room.leave_area.global_position
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+	if not shop_room.is_completed:
+		push_error("Physical shop exit did not complete the room.")
+		quit(1)
+		return
+
+	if not room_manager.advance_room():
 		push_error("Could not advance to relic reward room.")
 		quit(1)
 		return
@@ -278,11 +297,28 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if not room_manager.advance_room():
-		push_error("Could not advance from relic room to boss.")
+	if room_manager.advance_room():
+		push_error("Boss branch advanced without an entrance choice.")
 		quit(1)
 		return
 
+	if room_manager.pending_room_choices.size() != 2:
+		push_error("Boss layer did not open two physical entrances.")
+		quit(1)
+		return
+	var boss_route_exits := room_manager.current_route_exit_selector
+	var boss_choice := 0
+	for index in room_manager.pending_room_choices.size():
+		if room_manager.pending_room_choices[index].id == &"boss":
+			boss_choice = index
+			break
+	player.global_position = boss_route_exits.get_exit_global_position(
+		boss_choice
+	)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
 	if not _current_room_is(room_manager, &"boss"):
 		quit(1)
 		return

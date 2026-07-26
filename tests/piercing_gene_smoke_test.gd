@@ -54,7 +54,10 @@ func _run() -> void:
 
 	for _frame_index in 120:
 		await physics_frame
-		if _all_enemies_at_health(enemies, 20.0):
+		if _all_enemies_at_health(
+			enemies,
+			enemies[0].health_component.max_health - 10.0
+		):
 			print("Piercing gene smoke test passed.")
 			quit()
 			return
