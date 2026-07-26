@@ -28,7 +28,7 @@ corner_radius_bottom_left = 2
 script = ExtResource("1_script")
 
 [node name="ChoiceA" type="Area2D" parent="."]
-position = Vector2(145, 265)
+position = Vector2(145, 235)
 collision_layer = 0
 collision_mask = 1
 
@@ -65,7 +65,7 @@ autowrap_mode = 2
 shape = SubResource("RectangleShape2D_station")
 
 [node name="ChoiceB" type="Area2D" parent="."]
-position = Vector2(320, 265)
+position = Vector2(320, 235)
 collision_layer = 0
 collision_mask = 1
 
@@ -102,7 +102,7 @@ autowrap_mode = 2
 shape = SubResource("RectangleShape2D_station")
 
 [node name="ChoiceC" type="Area2D" parent="."]
-position = Vector2(495, 265)
+position = Vector2(495, 235)
 collision_layer = 0
 collision_mask = 1
 

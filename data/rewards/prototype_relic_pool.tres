@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RelicRewardPoolData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/relics/relic_reward_pool_data.gd" id="1_pool"]
+[ext_resource type="Resource" path="res://data/relics/dragon_heart.tres" id="2_dragon"]
+[ext_resource type="Resource" path="res://data/relics/fission_gland.tres" id="3_fission"]
+
+[resource]
+script = ExtResource("1_pool")
+choice_count = 2
+relics = Array[ExtResource("2_dragon")]([ExtResource("2_dragon"), ExtResource("3_fission")])

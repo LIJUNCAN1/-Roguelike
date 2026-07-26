@@ -8,6 +8,7 @@ enum RoomType {
 	ELITE,
 	BOSS,
 	EVENT,
+	RELIC,
 }
 
 @export var id: StringName

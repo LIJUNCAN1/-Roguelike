@@ -18,6 +18,7 @@ func _run() -> void:
 		"HealthComponent"
 	) as HealthComponent
 	var gene_manager := player.get_node("GeneManager") as GeneManager
+	var relic_manager := player.get_node("RelicManager") as RelicManager
 	var evolution_system := player.get_node(
 		"EvolutionSystem"
 	) as EvolutionSystem
@@ -196,7 +197,36 @@ func _run() -> void:
 	await process_frame
 
 	if not room_manager.advance_room():
-		push_error("Could not advance to boss room.")
+		push_error("Could not advance to relic reward room.")
+		quit(1)
+		return
+
+	if not _current_room_is(room_manager, &"relic_reward"):
+		quit(1)
+		return
+	var relic_room := room_manager.current_room as RelicRewardRoom
+	if relic_room.offered_relics.size() != 2:
+		push_error("Relic room did not offer two relics.")
+		quit(1)
+		return
+	player.global_position = (
+		relic_room.choice_selector.get_choice_global_position(0)
+	)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+	if (
+		not relic_room.is_completed
+		or relic_room.selected_relic == null
+		or relic_manager.get_active_relics().size() != 1
+	):
+		push_error("Physical relic altar did not grant its relic.")
+		quit(1)
+		return
+
+	if not room_manager.advance_room():
+		push_error("Could not advance from relic room to boss.")
 		quit(1)
 		return
 

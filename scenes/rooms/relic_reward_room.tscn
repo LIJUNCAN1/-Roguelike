@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/rooms/room_shell.tscn" id="1_shell"]
+[ext_resource type="Script" path="res://scripts/relics/relic_reward_room.gd" id="2_room"]
+[ext_resource type="PackedScene" path="res://scenes/relics/relic_choice_selector.tscn" id="3_selector"]
+[ext_resource type="Resource" path="res://data/rewards/prototype_relic_pool.tres" id="4_pool"]
+
+[node name="RelicRewardRoom" type="Node2D"]
+script = ExtResource("2_room")
+completion_mode = 2
+reward_pool = ExtResource("4_pool")
+
+[node name="RoomShell" parent="." instance=ExtResource("1_shell")]
+modulate = Color(1, 0.72, 0.36, 1)
+
+[node name="Title" type="Label" parent="."]
+offset_left = 190.0
+offset_top = 55.0
+offset_right = 450.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(1, 0.72, 0.28, 1)
+theme_override_font_sizes/font_size = 18
+text = "远古秘宝祭坛"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 190.0
+offset_top = 86.0
+offset_right = 450.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(0.76, 0.72, 0.62, 1)
+theme_override_font_sizes/font_size = 10
+text = "走向一个祭坛，只能带走一件秘宝"
+horizontal_alignment = 1
+
+[node name="Result" type="Label" parent="."]
+offset_left = 190.0
+offset_top = 150.0
+offset_right = 450.0
+offset_bottom = 174.0
+theme_override_colors/font_color = Color(1, 0.86, 0.42, 1)
+theme_override_font_sizes/font_size = 12
+text = "已获得秘宝"
+horizontal_alignment = 1
+
+[node name="RelicChoiceSelector" parent="." instance=ExtResource("3_selector")]

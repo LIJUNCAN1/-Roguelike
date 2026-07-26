@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="RelicData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/relics/relic_data.gd" id="1_relic"]
+[ext_resource type="Script" path="res://scripts/relics/relic_effect.gd" id="2_effect"]
+[ext_resource type="Script" path="res://scripts/relics/tagged_projectile_stat_relic_effect.gd" id="3_split"]
+
+[sub_resource type="Resource" id="SplitRelicEffect"]
+script = ExtResource("3_split")
+required_tag = &"split"
+damage_multiplier = 1.15
+radius_multiplier = 0.9
+speed_multiplier = 1.2
+
+[resource]
+script = ExtResource("1_relic")
+id = &"fission_gland"
+display_name = "裂变腺体"
+description = "分裂攻击伤害提高 15%、弹速提高 20%，弹体缩小 10%。"
+effects = Array[ExtResource("2_effect")]([SubResource("SplitRelicEffect")])

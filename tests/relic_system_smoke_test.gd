@@ -69,6 +69,27 @@ func _run() -> void:
 		quit(1)
 		return
 
+	gene_manager.clear_genes()
+	gene_manager.add_gene(
+		load("res://data/genes/split_gene.tres") as GeneData
+	)
+	relic_manager.add_relic(
+		load("res://data/relics/fission_gland.tres") as RelicData
+	)
+	var split_context := _create_attack_context()
+	modifier_stack.modify_attack(split_context)
+	if (
+		not split_context.has_tag(&"split")
+		or split_context.directions.size() != 3
+		or not is_equal_approx(
+			split_context.projectile_data.damage,
+			11.5
+		)
+	):
+		push_error("Fission Gland did not strengthen split attacks.")
+		quit(1)
+		return
+
 	print("Relic system smoke test passed.")
 	quit()
 
