@@ -43,7 +43,7 @@ func _run() -> void:
 	await process_frame
 
 	if (
-		not start_room.is_completed
+		start_room.is_completed
 		or not weapon_manager.is_organ(&"heavy_spore_organ")
 		or not is_equal_approx(
 			weapon_component.weapon_data.projectile_data.damage,
@@ -56,6 +56,19 @@ func _run() -> void:
 		or not status_label.text.contains("重孢炮")
 	):
 		push_error("Heavy spore organ was not equipped from the chamber.")
+		quit(1)
+		return
+
+	player.global_position = (
+		start_room.companion_selector.get_choice_global_position(1)
+	)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+	if not start_room.is_completed:
+		push_error("Start room did not complete after companion choice.")
 		quit(1)
 		return
 

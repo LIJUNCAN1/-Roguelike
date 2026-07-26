@@ -56,11 +56,27 @@ func _run() -> void:
 	await physics_frame
 	await process_frame
 	if (
-		not weapon_room.is_completed
+		weapon_room.is_completed
 		or weapon_room.selected_organ == null
 		or weapon_room.selected_organ.id != &"needle_organ"
 	):
 		push_error("Physical weapon chamber did not select an organ.")
+		quit(1)
+		return
+	player.global_position = (
+		weapon_room.companion_selector.get_choice_global_position(0)
+	)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+	if (
+		not weapon_room.is_completed
+		or weapon_room.selected_companion == null
+		or weapon_room.selected_companion.id != &"spore_companion"
+	):
+		push_error("Physical companion chamber did not select a partner.")
 		quit(1)
 		return
 

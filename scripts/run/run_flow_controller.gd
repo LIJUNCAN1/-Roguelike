@@ -27,6 +27,9 @@ signal run_restarted
 @onready var character_manager: CharacterManager = player.get_node(
 	"CharacterManager"
 ) as CharacterManager
+@onready var companion_manager: CompanionManager = player.get_node(
+	"CompanionManager"
+) as CompanionManager
 @onready var result_panel: RunResultPanel = get_node(
 	result_panel_path
 ) as RunResultPanel
@@ -56,6 +59,7 @@ func restart_run(seed_value: int = 0) -> bool:
 	relic_manager.clear_relics()
 	weapon_manager.reset_to_default()
 	character_manager.reset_to_default()
+	companion_manager.reset_to_default()
 	player.set_physics_process(true)
 	player.visible = true
 

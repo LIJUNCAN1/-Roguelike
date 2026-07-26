@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene load_steps=24 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/player_controller.gd" id="1_player_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
@@ -20,6 +20,8 @@
 [ext_resource type="Script" path="res://scripts/weapons/weapon_organ_manager.gd" id="18_weapon_manager"]
 [ext_resource type="Resource" path="res://data/weapons/organs/needle_organ.tres" id="19_default_organ"]
 [ext_resource type="Script" path="res://scripts/characters/character_manager.gd" id="20_character_manager"]
+[ext_resource type="Script" path="res://scripts/companions/companion_manager.gd" id="21_companion_manager"]
+[ext_resource type="Resource" path="res://data/companions/solo_evolution.tres" id="22_solo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 7.0
@@ -73,6 +75,10 @@ weapon_component_path = NodePath("../WeaponComponent")
 script = ExtResource("20_character_manager")
 default_character = ExtResource("3_character_data")
 evolution_system_path = NodePath("../EvolutionSystem")
+
+[node name="CompanionManager" type="Node" parent="."]
+script = ExtResource("21_companion_manager")
+default_companion = ExtResource("22_solo")
 
 [node name="Visuals" type="Node2D" parent="."]
 

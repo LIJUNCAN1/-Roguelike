@@ -68,8 +68,21 @@ func _run() -> void:
 	await physics_frame
 	await physics_frame
 	await process_frame
+	if start_room.is_completed:
+		push_error("Start room completed before selecting a companion.")
+		quit(1)
+		return
+
+	player.global_position = (
+		start_room.companion_selector.get_choice_global_position(1)
+	)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
 	if not start_room.is_completed:
-		push_error("Start preparation did not complete after two choices.")
+		push_error("Start preparation did not complete after three choices.")
 		quit(1)
 		return
 

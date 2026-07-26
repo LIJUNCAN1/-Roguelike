@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CompanionData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/companions/companion_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"solo_evolution"
+display_name = "独行进化"
+description = "不携带伙伴，保留纯单体操控体验"

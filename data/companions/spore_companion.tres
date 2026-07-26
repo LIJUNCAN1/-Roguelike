@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CompanionData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/companions/companion_data.gd" id="1_data"]
+[ext_resource type="PackedScene" path="res://scenes/companions/spore_companion.tscn" id="2_scene"]
+[ext_resource type="Resource" path="res://data/weapons/spore_companion_weapon.tres" id="3_weapon"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"spore_companion"
+display_name = "孢子侍从"
+description = "跟随并自动攻击；持有分裂基因时伤害提升"
+companion_scene = ExtResource("2_scene")
+follow_offset = Vector2(-28, 20)
+move_speed = 190.0
+weapon_data = ExtResource("3_weapon")
+target_range = 250.0
+linked_gene_id = &"split"
+linked_gene_damage_multiplier = 1.75

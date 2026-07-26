@@ -29,6 +29,9 @@ func _run() -> void:
 	var character_manager := player.get_node(
 		"CharacterManager"
 	) as CharacterManager
+	var companion_manager := player.get_node(
+		"CompanionManager"
+	) as CompanionManager
 
 	gene_manager.add_gene(
 		load("res://data/genes/fire_gene.tres") as GeneData
@@ -43,6 +46,11 @@ func _run() -> void:
 	)
 	character_manager.select_character(
 		load("res://data/characters/abyss_life.tres") as CharacterData
+	)
+	companion_manager.select_companion(
+		load(
+			"res://data/companions/spore_companion.tres"
+		) as CompanionData
 	)
 	health.take_damage(health.current_health)
 	if (
@@ -73,6 +81,8 @@ func _run() -> void:
 		or not relic_manager.get_active_relics().is_empty()
 		or not weapon_manager.is_organ(&"needle_organ")
 		or not character_manager.is_character(&"original_life")
+		or not companion_manager.is_companion(&"solo_evolution")
+		or companion_manager.active_companion != null
 		or not is_equal_approx(health.max_health, 100.0)
 		or room_manager.current_room_index != 0
 		or room_manager.current_route_seed != 123456
