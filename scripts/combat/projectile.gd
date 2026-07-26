@@ -9,6 +9,7 @@ extends Area2D
 
 var travel_direction: Vector2 = Vector2.RIGHT
 var alive_time: float = 0.0
+var hit_count: int = 0
 
 
 func setup(direction: Vector2) -> void:
@@ -38,6 +39,7 @@ func _ready() -> void:
 	var runtime_shape := collision_shape.shape.duplicate() as CircleShape2D
 	runtime_shape.radius = projectile_data.radius
 	collision_shape.shape = runtime_shape
+	area_entered.connect(_on_area_entered)
 
 
 func _physics_process(delta: float) -> void:
@@ -48,4 +50,19 @@ func _physics_process(delta: float) -> void:
 	alive_time += delta
 
 	if alive_time >= projectile_data.lifetime:
+		queue_free()
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if not area.has_method("receive_damage"):
+		return
+
+	var was_damaged := bool(
+		area.call("receive_damage", projectile_data.damage, self)
+	)
+	if not was_damaged:
+		return
+
+	hit_count += 1
+	if hit_count >= projectile_data.max_hits:
 		queue_free()

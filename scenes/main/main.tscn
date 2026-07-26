@@ -123,4 +123,4 @@ text = "战斗测试场"
 [node name="Status" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.58, 0.66, 0.69, 1)
 theme_override_font_sizes/font_size = 10
-text = "WASD 移动 · 左键射击 · 躲避实验体"
+text = "实验体生命 30 · 子弹伤害 10"

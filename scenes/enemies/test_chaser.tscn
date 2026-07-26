@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/enemy_controller.gd" id="1_enemy_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
 [ext_resource type="Resource" path="res://data/enemies/test_chaser.tres" id="3_enemy_data"]
+[ext_resource type="Script" path="res://scripts/combat/health_component.gd" id="4_health_component"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox_component.gd" id="5_hurtbox_component"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_enemy"]
 radius = 9.0
@@ -15,6 +17,19 @@ enemy_data = ExtResource("3_enemy_data")
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("2_movement_component")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_health_component")
+
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_hurtbox_component")
+health_component_path = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("CircleShape2D_enemy")
 
 [node name="Shadow" type="Polygon2D" parent="."]
 position = Vector2(0, 8)

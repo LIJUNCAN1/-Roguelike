@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export_node_path("Node2D") var target_path: NodePath
 
 @onready var movement_component: MovementComponent = $MovementComponent
+@onready var health_component: HealthComponent = $HealthComponent
 @onready var facing_marker: Polygon2D = $FacingMarker
 
 var target: Node2D
@@ -17,6 +18,8 @@ func _ready() -> void:
 		return
 
 	movement_component.configure(enemy_data.move_speed)
+	health_component.configure(enemy_data.max_health)
+	health_component.died.connect(_on_died)
 	target = get_node_or_null(target_path) as Node2D
 	_update_facing_visual()
 
@@ -46,3 +49,7 @@ func get_facing_direction() -> Vector2:
 
 func _update_facing_visual() -> void:
 	facing_marker.rotation = facing_direction.angle()
+
+
+func _on_died(_source: Node) -> void:
+	queue_free()
