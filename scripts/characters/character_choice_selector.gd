@@ -5,14 +5,17 @@ signal character_entered(choice_index: int)
 
 @onready var chambers: Array[Area2D] = [
 	$LeftChamber,
+	$CenterChamber,
 	$RightChamber,
 ]
 @onready var name_labels: Array[Label] = [
 	$LeftChamber/Name,
+	$CenterChamber/Name,
 	$RightChamber/Name,
 ]
 @onready var description_labels: Array[Label] = [
 	$LeftChamber/Description,
+	$CenterChamber/Description,
 	$RightChamber/Description,
 ]
 

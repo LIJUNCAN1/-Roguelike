@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/character_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/evolutions/mechanical_base_life.tres" id="2_evolution"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"mechanical_life"
+display_name = "机械生命"
+description = "高机动生命体：速度更快，但最大生命较低。"
+base_evolution = ExtResource("2_evolution")
+max_health = 85.0
+move_speed = 135.0

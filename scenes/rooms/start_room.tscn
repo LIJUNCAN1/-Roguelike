@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/rooms/room_shell.tscn" id="1_shell"]
 [ext_resource type="Script" path="res://scripts/weapons/weapon_selection_room.gd" id="2_room"]
@@ -8,12 +8,13 @@
 [ext_resource type="PackedScene" path="res://scenes/characters/character_choice_selector.tscn" id="6_character_selector"]
 [ext_resource type="Resource" path="res://data/characters/original_life.tres" id="7_original"]
 [ext_resource type="Resource" path="res://data/characters/abyss_life.tres" id="8_abyss"]
+[ext_resource type="Resource" path="res://data/characters/mechanical_life.tres" id="9_mechanical"]
 
 [node name="StartRoom" type="Node2D"]
 script = ExtResource("2_room")
 completion_mode = 2
 weapon_choices = Array[ExtResource("4_needle")]([ExtResource("4_needle"), ExtResource("5_spore")])
-character_choices = Array[ExtResource("7_original")]([ExtResource("7_original"), ExtResource("8_abyss")])
+character_choices = Array[ExtResource("7_original")]([ExtResource("7_original"), ExtResource("8_abyss"), ExtResource("9_mechanical")])
 
 [node name="RoomShell" parent="." instance=ExtResource("1_shell")]
 modulate = Color(0.62, 1, 0.86, 1)

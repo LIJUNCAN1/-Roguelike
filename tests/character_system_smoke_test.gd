@@ -55,6 +55,10 @@ func _run() -> void:
 		push_error("Start room completed before selecting a weapon.")
 		quit(1)
 		return
+	if start_room.character_choices.size() != 3:
+		push_error("Start room did not expose three character choices.")
+		quit(1)
+		return
 
 	player.global_position = (
 		start_room.choice_selector.get_choice_global_position(0)
@@ -66,6 +70,25 @@ func _run() -> void:
 	await process_frame
 	if not start_room.is_completed:
 		push_error("Start preparation did not complete after two choices.")
+		quit(1)
+		return
+
+	if not character_manager.select_character(
+		load(
+			"res://data/characters/mechanical_life.tres"
+		) as CharacterData
+	):
+		push_error("Mechanical character could not be selected.")
+		quit(1)
+		return
+	if (
+		not character_manager.is_character(&"mechanical_life")
+		or not is_equal_approx(health.max_health, 85.0)
+		or not is_equal_approx(movement.move_speed, 135.0)
+		or not evolution.is_evolution(&"mechanical_base_life")
+		or not status.text.contains("机械生命")
+	):
+		push_error("Mechanical character data was not fully applied.")
 		quit(1)
 		return
 
