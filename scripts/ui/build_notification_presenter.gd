@@ -108,9 +108,10 @@ func _show_gene_notification(gene: GeneData) -> void:
 		else "当前暂无同系列基因"
 	)
 	show_notification(
-		"获得：%s · %s\n%s" % [
+		"获得：%s · %s · %s\n%s" % [
 			gene.display_name,
-			gene.series_name,
+			gene.get_rarity_name(),
+			gene.get_category_name(),
 			related_text,
 		],
 		Color(1, 0.88, 0.42, 1)

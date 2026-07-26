@@ -53,6 +53,9 @@ func _run() -> void:
 		not panel.is_open()
 		or not paused
 		or not panel.entries.text.contains(fire.description)
+		or not panel.entries.text.contains(fire.get_rarity_name())
+		or not panel.entries.text.contains(fire.get_category_name())
+		or not panel.entries.text.contains("#fire")
 	):
 		push_error("Gene codex did not show unlocked descriptions.")
 		quit(1)

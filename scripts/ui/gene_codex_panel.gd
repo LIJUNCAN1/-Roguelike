@@ -62,9 +62,11 @@ func _refresh() -> void:
 	var all_genes := codex_manager.get_all_genes()
 	all_genes.sort_custom(
 		func(a: GeneData, b: GeneData) -> bool:
-			if a.series_name == b.series_name:
-				return a.display_name < b.display_name
-			return a.series_name < b.series_name
+			if a.category != b.category:
+				return a.category < b.category
+			if a.rarity != b.rarity:
+				return a.rarity > b.rarity
+			return a.display_name < b.display_name
 	)
 	count_label.text = "已见 %d / %d · 获得 %d" % [
 		codex_manager.get_seen_count(),
@@ -72,23 +74,31 @@ func _refresh() -> void:
 		gene_manager.get_active_genes().size(),
 	]
 	var text := ""
-	var current_series: StringName
+	var current_category := -1
 	for gene in all_genes:
 		if gene == null:
 			continue
-		if gene.series_id != current_series:
-			current_series = gene.series_id
+		if gene.category != current_category:
+			current_category = gene.category
 			text += "\n[color=#78e8ae][font_size=15]%s[/font_size][/color]\n" % (
-				gene.series_name if not gene.series_name.is_empty()
-				else "未分类系列"
+				gene.get_category_name()
 			)
 		var owned := gene_manager.has_gene(gene.id)
 		if codex_manager.is_gene_seen(gene.id):
-			text += "[color=%s]◆ %s%s[/color]\n  %s\n" % [
-				"#fff08a" if owned else "#d8e8e4",
+			var evolution_text := (
+				"\n  进化关联：%s" % gene.get_evolution_links_text()
+				if not gene.evolution_links.is_empty()
+				else ""
+			)
+			text += "[color=%s]◆ %s%s[/color]\n  [%s · %s] %s\n  %s%s\n" % [
+				"#fff08a" if owned else gene.get_rarity_color_hex(),
 				gene.display_name,
 				"  [已获得]" if owned else "",
+				gene.get_rarity_name(),
+				gene.series_name,
+				gene.get_tags_text(),
 				gene.description,
+				evolution_text,
 			]
 		else:
 			text += "[color=#61706f]◇ 未记录基因\n  首次见到后解锁描述[/color]\n"

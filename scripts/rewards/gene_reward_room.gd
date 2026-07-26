@@ -108,9 +108,11 @@ func _offer_rewards() -> void:
 		var gene := offered_genes[index]
 		button.visible = true
 		button.disabled = false
-		button.text = "%d\n%s\n\n%s" % [
+		button.text = "%d\n%s\n[%s · %s]\n%s" % [
 			index + 1,
 			gene.display_name,
+			gene.get_rarity_name(),
+			gene.get_category_name(),
 			gene.description,
 		]
 
