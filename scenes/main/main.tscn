@@ -1,19 +1,14 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/test_chaser.tscn" id="2_enemy"]
-[ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="3_gene_test"]
-[ext_resource type="Resource" path="res://data/genes/fire_gene.tres" id="4_fire_gene"]
-[ext_resource type="Resource" path="res://data/genes/split_gene.tres" id="5_split_gene"]
-[ext_resource type="Resource" path="res://data/genes/piercing_gene.tres" id="6_piercing_gene"]
-[ext_resource type="Resource" path="res://data/genes/lifesteal_gene.tres" id="7_lifesteal_gene"]
-[ext_resource type="Resource" path="res://data/genes/explosion_gene.tres" id="8_explosion_gene"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal"]
-size = Vector2(576, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vertical"]
-size = Vector2(16, 312)
+[ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
+[ext_resource type="Resource" path="res://data/genes/fire_gene.tres" id="3_fire_gene"]
+[ext_resource type="Resource" path="res://data/genes/split_gene.tres" id="4_split_gene"]
+[ext_resource type="Resource" path="res://data/genes/piercing_gene.tres" id="5_piercing_gene"]
+[ext_resource type="Resource" path="res://data/genes/lifesteal_gene.tres" id="6_lifesteal_gene"]
+[ext_resource type="Resource" path="res://data/genes/explosion_gene.tres" id="7_explosion_gene"]
+[ext_resource type="Script" path="res://scripts/rooms/room_manager.gd" id="8_room_manager"]
+[ext_resource type="Resource" path="res://data/rooms/prototype_route.tres" id="9_route"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -30,12 +25,12 @@ corner_radius_bottom_left = 3
 [node name="Main" type="Node2D"]
 
 [node name="GeneTestHarness" type="Node" parent="."]
-script = ExtResource("3_gene_test")
-fire_gene = ExtResource("4_fire_gene")
-split_gene = ExtResource("5_split_gene")
-piercing_gene = ExtResource("6_piercing_gene")
-lifesteal_gene = ExtResource("7_lifesteal_gene")
-explosion_gene = ExtResource("8_explosion_gene")
+script = ExtResource("2_gene_test")
+fire_gene = ExtResource("3_fire_gene")
+split_gene = ExtResource("4_split_gene")
+piercing_gene = ExtResource("5_piercing_gene")
+lifesteal_gene = ExtResource("6_lifesteal_gene")
+explosion_gene = ExtResource("7_explosion_gene")
 gene_manager_path = NodePath("../World/Player/GeneManager")
 fusion_manager_path = NodePath("../World/Player/FusionManager")
 evolution_system_path = NodePath("../World/Player/EvolutionSystem")
@@ -47,67 +42,7 @@ health_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/Hea
 
 [node name="World" type="Node2D" parent="."]
 
-[node name="Void" type="Polygon2D" parent="World"]
-polygon = PackedVector2Array(0, 0, 640, 0, 640, 360, 0, 360)
-color = Color(0.018, 0.025, 0.037, 1)
-
-[node name="ArenaFloor" type="Polygon2D" parent="World"]
-polygon = PackedVector2Array(32, 32, 608, 32, 608, 328, 32, 328)
-color = Color(0.06, 0.09, 0.105, 1)
-
-[node name="FloorPatchA" type="Polygon2D" parent="World"]
-polygon = PackedVector2Array(72, 70, 150, 70, 150, 112, 72, 112)
-color = Color(0.07, 0.115, 0.12, 1)
-
-[node name="FloorPatchB" type="Polygon2D" parent="World"]
-polygon = PackedVector2Array(465, 240, 560, 240, 560, 290, 465, 290)
-color = Color(0.07, 0.115, 0.12, 1)
-
-[node name="FloorPatchC" type="Polygon2D" parent="World"]
-polygon = PackedVector2Array(245, 78, 390, 78, 390, 94, 245, 94)
-color = Color(0.052, 0.078, 0.095, 1)
-
-[node name="Walls" type="Node2D" parent="World"]
-
-[node name="Top" type="StaticBody2D" parent="World/Walls"]
-position = Vector2(320, 24)
-
-[node name="Visual" type="Polygon2D" parent="World/Walls/Top"]
-polygon = PackedVector2Array(-296, -8, 296, -8, 296, 8, -296, 8)
-color = Color(0.13, 0.25, 0.24, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Walls/Top"]
-shape = SubResource("RectangleShape2D_horizontal")
-
-[node name="Bottom" type="StaticBody2D" parent="World/Walls"]
-position = Vector2(320, 336)
-
-[node name="Visual" type="Polygon2D" parent="World/Walls/Bottom"]
-polygon = PackedVector2Array(-296, -8, 296, -8, 296, 8, -296, 8)
-color = Color(0.13, 0.25, 0.24, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Walls/Bottom"]
-shape = SubResource("RectangleShape2D_horizontal")
-
-[node name="Left" type="StaticBody2D" parent="World/Walls"]
-position = Vector2(24, 180)
-
-[node name="Visual" type="Polygon2D" parent="World/Walls/Left"]
-polygon = PackedVector2Array(-8, -164, 8, -164, 8, 164, -8, 164)
-color = Color(0.13, 0.25, 0.24, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Walls/Left"]
-shape = SubResource("RectangleShape2D_vertical")
-
-[node name="Right" type="StaticBody2D" parent="World/Walls"]
-position = Vector2(616, 180)
-
-[node name="Visual" type="Polygon2D" parent="World/Walls/Right"]
-polygon = PackedVector2Array(-8, -164, 8, -164, 8, 164, -8, 164)
-color = Color(0.13, 0.25, 0.24, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Walls/Right"]
-shape = SubResource("RectangleShape2D_vertical")
+[node name="RoomContainer" type="Node2D" parent="World"]
 
 [node name="Projectiles" type="Node2D" parent="World"]
 
@@ -117,28 +52,13 @@ shape = SubResource("RectangleShape2D_vertical")
 position = Vector2(320, 180)
 projectile_container_path = NodePath("../Projectiles")
 
-[node name="TestChaser" parent="World" instance=ExtResource("2_enemy")]
-position = Vector2(500, 180)
-target_path = NodePath("../Player")
-feedback_container_path = NodePath("../Effects")
-
-[node name="TestChaserUpper" parent="World" instance=ExtResource("2_enemy")]
-position = Vector2(520, 112)
-target_path = NodePath("../Player")
-feedback_container_path = NodePath("../Effects")
-
-[node name="TestChaserLower" parent="World" instance=ExtResource("2_enemy")]
-position = Vector2(520, 248)
-target_path = NodePath("../Player")
-feedback_container_path = NodePath("../Effects")
-
 [node name="Interface" type="CanvasLayer" parent="."]
 
 [node name="StagePanel" type="PanelContainer" parent="Interface"]
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 430.0
-offset_bottom = 130.0
+offset_bottom = 166.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -153,7 +73,17 @@ theme_override_constants/separation = 1
 [node name="Title" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.5, 0.95, 0.76, 1)
 theme_override_font_sizes/font_size = 13
-text = "战斗测试场"
+text = "生物进化冒险原型"
+
+[node name="RoomStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.65, 0.82, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "房间 1/5：开始房"
+
+[node name="RoomHint" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.45, 1, 0.68, 1)
+theme_override_font_sizes/font_size = 10
+text = "房间完成 · 按 N 前进"
 
 [node name="Status" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.58, 0.66, 0.69, 1)
@@ -178,3 +108,13 @@ text = "融合：未激活"
 theme_override_colors/font_color = Color(0.45, 0.9, 0.68, 1)
 theme_override_font_sizes/font_size = 10
 text = "形态：原始生命"
+
+[node name="RoomManager" type="Node" parent="."]
+script = ExtResource("8_room_manager")
+route_data = ExtResource("9_route")
+room_container_path = NodePath("../World/RoomContainer")
+player_path = NodePath("../World/Player")
+projectile_container_path = NodePath("../World/Projectiles")
+effects_container_path = NodePath("../World/Effects")
+room_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoomStatus")
+room_hint_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoomHint")

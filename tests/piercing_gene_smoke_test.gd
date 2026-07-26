@@ -14,12 +14,13 @@ func _run() -> void:
 	root.add_child(main)
 	await physics_frame
 
+	var combat_room := TestRoomHelpers.enter_combat_room(main)
 	var player := main.get_node("World/Player") as CharacterBody2D
 	var gene_manager := player.get_node("GeneManager") as GeneManager
 	var enemies: Array[EnemyController] = [
-		main.get_node("World/TestChaser") as EnemyController,
-		main.get_node("World/TestChaserUpper") as EnemyController,
-		main.get_node("World/TestChaserLower") as EnemyController,
+		combat_room.get_node("TestChaser") as EnemyController,
+		combat_room.get_node("TestChaserUpper") as EnemyController,
+		combat_room.get_node("TestChaserLower") as EnemyController,
 	]
 	var enemy_positions := [
 		Vector2(390, 180),

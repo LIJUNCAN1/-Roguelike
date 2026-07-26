@@ -14,16 +14,15 @@ func _run() -> void:
 	root.add_child(main)
 	await physics_frame
 
+	var combat_room := TestRoomHelpers.enter_combat_room(main)
 	var player := main.get_node("World/Player") as CharacterBody2D
 	var gene_manager := player.get_node("GeneManager") as GeneManager
-	var primary := main.get_node(
-		"World/TestChaser"
+	var primary := combat_room.get_node("TestChaser") as EnemyController
+	var nearby := combat_room.get_node(
+		"TestChaserUpper"
 	) as EnemyController
-	var nearby := main.get_node(
-		"World/TestChaserUpper"
-	) as EnemyController
-	var distant := main.get_node(
-		"World/TestChaserLower"
+	var distant := combat_room.get_node(
+		"TestChaserLower"
 	) as EnemyController
 	var effects := main.get_node("World/Effects") as Node2D
 

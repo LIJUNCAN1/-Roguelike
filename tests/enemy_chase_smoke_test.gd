@@ -11,8 +11,9 @@ func _run() -> void:
 	root.add_child(main)
 	await physics_frame
 
+	var combat_room := TestRoomHelpers.enter_combat_room(main)
 	var player := main.get_node("World/Player") as CharacterBody2D
-	var enemy := main.get_node("World/TestChaser") as CharacterBody2D
+	var enemy := combat_room.get_node("TestChaser") as CharacterBody2D
 	var start_distance := enemy.global_position.distance_to(
 		player.global_position
 	)

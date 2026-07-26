@@ -50,6 +50,10 @@ func set_target(new_target: Node2D) -> void:
 	target = new_target
 
 
+func set_feedback_container(container: Node2D) -> void:
+	hit_feedback_component.configure_container(container)
+
+
 func get_facing_direction() -> Vector2:
 	return facing_direction
 

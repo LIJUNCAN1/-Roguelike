@@ -75,6 +75,10 @@ damage_test_player={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"physical_keycode":80)]
 }
+next_room={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"physical_keycode":78)]
+}
 
 [physics]
 

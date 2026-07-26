@@ -14,7 +14,8 @@ func _run() -> void:
 	root.add_child(main)
 	await physics_frame
 
-	var enemy := main.get_node("World/TestChaser") as CharacterBody2D
+	var combat_room := TestRoomHelpers.enter_combat_room(main)
+	var enemy := combat_room.get_node("TestChaser") as CharacterBody2D
 	var health := enemy.get_node("HealthComponent") as HealthComponent
 	var effects := main.get_node("World/Effects") as Node2D
 	var visuals := enemy.get_node("Visuals") as Node2D

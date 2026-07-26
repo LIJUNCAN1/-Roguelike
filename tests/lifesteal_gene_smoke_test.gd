@@ -14,14 +14,13 @@ func _run() -> void:
 	root.add_child(main)
 	await physics_frame
 
+	var combat_room := TestRoomHelpers.enter_combat_room(main)
 	var player := main.get_node("World/Player") as CharacterBody2D
 	var player_health := player.get_node(
 		"HealthComponent"
 	) as HealthComponent
 	var gene_manager := player.get_node("GeneManager") as GeneManager
-	var enemy := main.get_node(
-		"World/TestChaser"
-	) as EnemyController
+	var enemy := combat_room.get_node("TestChaser") as EnemyController
 	var health_status := main.get_node(
 		"Interface/StagePanel/MarginContainer/Labels/HealthStatus"
 	) as Label

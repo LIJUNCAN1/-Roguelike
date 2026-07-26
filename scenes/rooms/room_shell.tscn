@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal"]
+size = Vector2(576, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vertical"]
+size = Vector2(16, 312)
+
+[node name="RoomShell" type="Node2D"]
+
+[node name="Void" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 640, 0, 640, 360, 0, 360)
+color = Color(0.018, 0.025, 0.037, 1)
+
+[node name="ArenaFloor" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(32, 32, 608, 32, 608, 328, 32, 328)
+color = Color(0.06, 0.09, 0.105, 1)
+
+[node name="FloorPatchA" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(72, 70, 150, 70, 150, 112, 72, 112)
+color = Color(0.07, 0.115, 0.12, 1)
+
+[node name="FloorPatchB" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(465, 240, 560, 240, 560, 290, 465, 290)
+color = Color(0.07, 0.115, 0.12, 1)
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Top" type="StaticBody2D" parent="Walls"]
+position = Vector2(320, 24)
+
+[node name="Visual" type="Polygon2D" parent="Walls/Top"]
+polygon = PackedVector2Array(-296, -8, 296, -8, 296, 8, -296, 8)
+color = Color(0.13, 0.25, 0.24, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top"]
+shape = SubResource("RectangleShape2D_horizontal")
+
+[node name="Bottom" type="StaticBody2D" parent="Walls"]
+position = Vector2(320, 336)
+
+[node name="Visual" type="Polygon2D" parent="Walls/Bottom"]
+polygon = PackedVector2Array(-296, -8, 296, -8, 296, 8, -296, 8)
+color = Color(0.13, 0.25, 0.24, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom"]
+shape = SubResource("RectangleShape2D_horizontal")
+
+[node name="Left" type="StaticBody2D" parent="Walls"]
+position = Vector2(24, 180)
+
+[node name="Visual" type="Polygon2D" parent="Walls/Left"]
+polygon = PackedVector2Array(-8, -164, 8, -164, 8, 164, -8, 164)
+color = Color(0.13, 0.25, 0.24, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left"]
+shape = SubResource("RectangleShape2D_vertical")
+
+[node name="Right" type="StaticBody2D" parent="Walls"]
+position = Vector2(616, 180)
+
+[node name="Visual" type="Polygon2D" parent="Walls/Right"]
+polygon = PackedVector2Array(-8, -164, 8, -164, 8, 164, -8, 164)
+color = Color(0.13, 0.25, 0.24, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right"]
+shape = SubResource("RectangleShape2D_vertical")

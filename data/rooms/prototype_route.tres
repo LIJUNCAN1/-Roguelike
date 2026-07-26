@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RunRouteData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/run_route_data.gd" id="1_route_data"]
+[ext_resource type="Script" path="res://scripts/rooms/room_data.gd" id="2_room_data"]
+[ext_resource type="Resource" path="res://data/rooms/start_room.tres" id="3_start"]
+[ext_resource type="Resource" path="res://data/rooms/combat_room.tres" id="4_combat"]
+[ext_resource type="Resource" path="res://data/rooms/reward_room.tres" id="5_reward"]
+[ext_resource type="Resource" path="res://data/rooms/elite_room.tres" id="6_elite"]
+[ext_resource type="Resource" path="res://data/rooms/boss_room.tres" id="7_boss"]
+
+[resource]
+script = ExtResource("1_route_data")
+rooms = Array[ExtResource("2_room_data")]([ExtResource("3_start"), ExtResource("4_combat"), ExtResource("5_reward"), ExtResource("6_elite"), ExtResource("7_boss")])
