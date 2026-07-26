@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/character_data.gd" id="1_data"]
+[ext_resource type="Resource" path="res://data/evolutions/abyss_base_life.tres" id="2_evolution"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"abyss_life"
+display_name = "深渊生命"
+description = "耐久型生命体：生命更高，但移动速度较慢。"
+base_evolution = ExtResource("2_evolution")
+max_health = 125.0
+move_speed = 105.0

@@ -27,6 +27,15 @@ func _ready() -> void:
 	_update_facing_visual()
 
 
+func apply_character_data(new_character_data: CharacterData) -> bool:
+	if new_character_data == null:
+		return false
+	character_data = new_character_data
+	movement_component.configure(character_data.move_speed)
+	health_component.configure(character_data.max_health)
+	return true
+
+
 func _physics_process(_delta: float) -> void:
 	var input_direction := Input.get_vector(
 		"move_left",

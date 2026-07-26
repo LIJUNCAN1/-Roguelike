@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/character_data.gd" id="1_character_data"]
+[ext_resource type="Resource" path="res://data/evolutions/base_life.tres" id="2_evolution"]
 
 [resource]
 script = ExtResource("1_character_data")
 id = &"original_life"
 display_name = "原始生命"
+description = "均衡的生命体，拥有标准生命与移动速度。"
+base_evolution = ExtResource("2_evolution")
 max_health = 100.0
 move_speed = 120.0

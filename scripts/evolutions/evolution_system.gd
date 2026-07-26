@@ -42,6 +42,15 @@ func is_evolution(evolution_id: StringName) -> bool:
 	)
 
 
+func set_base_evolution(evolution: EvolutionData) -> bool:
+	if evolution == null:
+		return false
+	base_evolution = evolution
+	if is_node_ready():
+		_evaluate_evolution()
+	return true
+
+
 func modify_attack(attack_context: AttackContext) -> void:
 	if current_evolution == null:
 		return

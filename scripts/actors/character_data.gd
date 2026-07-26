@@ -4,6 +4,8 @@ extends Resource
 @export_group("Identity")
 @export var id: StringName
 @export var display_name: String
+@export_multiline var description: String
+@export var base_evolution: EvolutionData
 
 @export_group("Survival")
 @export_range(1.0, 1000000.0, 1.0, "or_greater")

@@ -26,6 +26,14 @@ func _run() -> void:
 	var start_room := room_manager.current_room as WeaponSelectionRoom
 
 	player.global_position = (
+		start_room.character_selector.get_choice_global_position(0)
+	)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+	player.global_position = (
 		start_room.choice_selector.get_choice_global_position(1)
 	)
 	await physics_frame

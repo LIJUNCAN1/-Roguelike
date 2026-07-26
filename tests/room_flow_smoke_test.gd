@@ -33,6 +33,21 @@ func _run() -> void:
 		quit(1)
 		return
 	player.global_position = (
+		weapon_room.character_selector.get_choice_global_position(0)
+	)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+	if (
+		weapon_room.selected_character == null
+		or weapon_room.selected_character.id != &"original_life"
+	):
+		push_error("Physical character chamber did not select a role.")
+		quit(1)
+		return
+	player.global_position = (
 		weapon_room.choice_selector.get_choice_global_position(0)
 	)
 	await physics_frame
