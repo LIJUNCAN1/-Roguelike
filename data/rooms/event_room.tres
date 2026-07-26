@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/room_data.gd" id="1_room_data"]
+[ext_resource type="PackedScene" path="res://scenes/rooms/event_room.tscn" id="2_room_scene"]
+
+[resource]
+script = ExtResource("1_room_data")
+id = &"abandoned_lab"
+display_name = "事件房：废弃实验室"
+room_type = 5
+room_scene = ExtResource("2_room_scene")

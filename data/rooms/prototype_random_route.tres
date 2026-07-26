@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RandomRouteData" load_steps=15 format=3]
+[gd_resource type="Resource" script_class="RandomRouteData" load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/random_route_data.gd" id="1_random"]
 [ext_resource type="Script" path="res://scripts/rooms/route_room_pool_data.gd" id="2_pool"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" path="res://data/rooms/combat_swarm_room.tres" id="6_swarm"]
 [ext_resource type="Resource" path="res://data/rooms/elite_room.tres" id="7_elite"]
 [ext_resource type="Resource" path="res://data/rooms/boss_room.tres" id="8_boss"]
+[ext_resource type="Resource" path="res://data/rooms/event_room.tres" id="9_event"]
 
 [sub_resource type="Resource" id="RoutePool_start"]
 script = ExtResource("2_pool")
@@ -29,10 +30,14 @@ rooms = Array[ExtResource("4_combat")]([ExtResource("4_combat"), ExtResource("6_
 script = ExtResource("2_pool")
 rooms = Array[ExtResource("7_elite")]([ExtResource("7_elite")])
 
+[sub_resource type="Resource" id="RoutePool_event"]
+script = ExtResource("2_pool")
+rooms = Array[ExtResource("9_event")]([ExtResource("9_event")])
+
 [sub_resource type="Resource" id="RoutePool_boss"]
 script = ExtResource("2_pool")
 rooms = Array[ExtResource("8_boss")]([ExtResource("8_boss")])
 
 [resource]
 script = ExtResource("1_random")
-room_pools = Array[ExtResource("2_pool")]([SubResource("RoutePool_start"), SubResource("RoutePool_tutorial_combat"), SubResource("RoutePool_reward"), SubResource("RoutePool_random_combat"), SubResource("RoutePool_elite"), SubResource("RoutePool_boss")])
+room_pools = Array[ExtResource("2_pool")]([SubResource("RoutePool_start"), SubResource("RoutePool_tutorial_combat"), SubResource("RoutePool_reward"), SubResource("RoutePool_random_combat"), SubResource("RoutePool_event"), SubResource("RoutePool_elite"), SubResource("RoutePool_boss")])

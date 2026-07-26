@@ -64,7 +64,7 @@ func _get_choice_ids(choices: Array[RoomData]) -> Array[StringName]:
 
 
 func _has_valid_progression(route: RunRouteData) -> bool:
-	if route == null or route.rooms.size() != 6:
+	if route == null or route.rooms.size() != 7:
 		push_error("Generated route has an invalid room count.")
 		return false
 
@@ -73,6 +73,7 @@ func _has_valid_progression(route: RunRouteData) -> bool:
 		RoomData.RoomType.COMBAT,
 		RoomData.RoomType.REWARD,
 		RoomData.RoomType.COMBAT,
+		RoomData.RoomType.EVENT,
 		RoomData.RoomType.ELITE,
 		RoomData.RoomType.BOSS,
 	]

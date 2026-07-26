@@ -87,7 +87,7 @@ func enter_room(room_index: int) -> bool:
 	chosen_route_layers[room_index] = true
 	is_run_complete = false
 	player.global_position = Vector2(320, 180)
-	current_room.configure_player(player)
+	current_room.configure_run(player, current_route_seed)
 	_configure_room_enemies()
 	_update_room_status()
 	_update_room_hint()

@@ -39,6 +39,10 @@ func configure_player(_player: Node2D) -> void:
 	pass
 
 
+func configure_run(player: Node2D, _run_seed: int) -> void:
+	configure_player(player)
+
+
 func get_incomplete_hint() -> String:
 	return "击败房间内全部敌人"
 

@@ -130,7 +130,36 @@ func _run() -> void:
 	await process_frame
 
 	if not room_manager.advance_room():
-		push_error("Could not advance to elite room.")
+		push_error("Could not advance to event room.")
+		quit(1)
+		return
+
+	if not _current_room_is(room_manager, &"abandoned_lab"):
+		quit(1)
+		return
+	var event_room := room_manager.current_room as EventRoom
+	player.global_position = (
+		event_room.choice_selector.get_choice_global_position(0)
+	)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+	if (
+		not event_room.is_completed
+		or event_room.selected_choice == null
+		or event_room.selected_choice.id != &"regeneration_tank"
+		or not is_equal_approx(
+			player_health.current_health,
+			player_health.max_health
+		)
+	):
+		push_error("Laboratory healing choice was not resolved.")
+		quit(1)
+		return
+
+	if not room_manager.advance_room():
+		push_error("Could not advance from event to elite room.")
 		quit(1)
 		return
 
@@ -153,7 +182,7 @@ func _run() -> void:
 
 	room_manager.advance_room()
 	if not room_manager.is_run_complete:
-		push_error("Fixed route did not report completion.")
+		push_error("Random route did not report completion.")
 		quit(1)
 		return
 
@@ -167,7 +196,7 @@ func _current_room_is(
 ) -> bool:
 	var room_data := room_manager.get_current_room_data()
 	if room_data == null or room_data.id != expected_id:
-		push_error("Unexpected room in fixed route.")
+		push_error("Unexpected room in random route.")
 		return false
 	return true
 

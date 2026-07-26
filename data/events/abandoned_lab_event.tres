@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="EventData" load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://scripts/events/event_data.gd" id="1_event"]
+[ext_resource type="Script" path="res://scripts/events/event_choice_data.gd" id="2_choice"]
+[ext_resource type="Script" path="res://scripts/events/event_effect.gd" id="3_effect"]
+[ext_resource type="Script" path="res://scripts/events/health_event_effect.gd" id="4_health"]
+[ext_resource type="Script" path="res://scripts/events/grant_random_gene_event_effect.gd" id="5_gene"]
+[ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="6_pool"]
+
+[sub_resource type="Resource" id="HealthEffect_heal"]
+script = ExtResource("4_health")
+amount = 40.0
+
+[sub_resource type="Resource" id="GeneEffect_safe"]
+script = ExtResource("5_gene")
+gene_pool = ExtResource("6_pool")
+amount = 1
+
+[sub_resource type="Resource" id="HealthEffect_risk"]
+script = ExtResource("4_health")
+amount = -25.0
+
+[sub_resource type="Resource" id="GeneEffect_risk"]
+script = ExtResource("5_gene")
+gene_pool = ExtResource("6_pool")
+amount = 2
+
+[sub_resource type="Resource" id="Choice_heal"]
+script = ExtResource("2_choice")
+id = &"regeneration_tank"
+display_name = "再生培养液"
+description = "恢复 40 点生命"
+effects = Array[ExtResource("3_effect")]([SubResource("HealthEffect_heal")])
+
+[sub_resource type="Resource" id="Choice_gene"]
+script = ExtResource("2_choice")
+id = &"stable_injection"
+display_name = "稳定基因注入"
+description = "获得 1 个随机基因"
+effects = Array[ExtResource("3_effect")]([SubResource("GeneEffect_safe")])
+
+[sub_resource type="Resource" id="Choice_risk"]
+script = ExtResource("2_choice")
+id = &"dangerous_mutation"
+display_name = "高危突变"
+description = "失去 25 生命，获得 2 个随机基因"
+effects = Array[ExtResource("3_effect")]([SubResource("HealthEffect_risk"), SubResource("GeneEffect_risk")])
+
+[resource]
+script = ExtResource("1_event")
+id = &"abandoned_lab"
+display_name = "废弃基因实验室"
+description = "三座培养舱仍在运转。它们的记录早已损坏，只剩下模糊的风险标记。"
+choices = Array[ExtResource("2_choice")]([SubResource("Choice_heal"), SubResource("Choice_gene"), SubResource("Choice_risk")])
