@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/tutorial_overlay.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.02, 0.055, 0.06, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.76, 0.6, 0.9)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="TutorialOverlay" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Panel" type="PanelContainer" parent="."]
+offset_left = 155.0
+offset_top = 284.0
+offset_right = 485.0
+offset_bottom = 348.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Content" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 1, 0.72, 1)
+theme_override_font_sizes/font_size = 11
+text = "培养舱操作"
+horizontal_alignment = 1
+
+[node name="Controls" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.82, 0.78, 1)
+theme_override_font_sizes/font_size = 9
+text = "WASD 移动 · 走进实体舱完成选择 · 鼠标左键攻击"
+horizontal_alignment = 1
+
+[node name="Dismiss" type="Label" parent="Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.6, 0.58, 1)
+theme_override_font_sizes/font_size = 8
+text = "开始移动后自动收起"
+horizontal_alignment = 1

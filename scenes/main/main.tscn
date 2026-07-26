@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=23 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -18,6 +18,9 @@
 [ext_resource type="Script" path="res://scripts/characters/character_status_presenter.gd" id="16_character_status"]
 [ext_resource type="Script" path="res://scripts/companions/companion_status_presenter.gd" id="17_companion_status"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="18_pause_menu"]
+[ext_resource type="Script" path="res://scripts/ui/build_status_presenter.gd" id="19_build_status"]
+[ext_resource type="Script" path="res://scripts/ui/relic_status_presenter.gd" id="20_relic_status"]
+[ext_resource type="PackedScene" path="res://scenes/ui/tutorial_overlay.tscn" id="21_tutorial"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -41,17 +44,26 @@ piercing_gene = ExtResource("5_piercing_gene")
 lifesteal_gene = ExtResource("6_lifesteal_gene")
 explosion_gene = ExtResource("7_explosion_gene")
 gene_manager_path = NodePath("../World/Player/GeneManager")
-fusion_manager_path = NodePath("../World/Player/FusionManager")
-evolution_system_path = NodePath("../World/Player/EvolutionSystem")
 player_health_path = NodePath("../World/Player/HealthComponent")
-status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/GeneStatus")
-fusion_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/FusionStatus")
-evolution_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/EvolutionStatus")
-health_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/HealthStatus")
 
 [node name="RelicTestHarness" type="Node" parent="."]
 script = ExtResource("13_relic_test")
 dragon_heart = ExtResource("14_dragon_heart")
+relic_manager_path = NodePath("../World/Player/RelicManager")
+
+[node name="BuildStatusPresenter" type="Node" parent="."]
+script = ExtResource("19_build_status")
+gene_manager_path = NodePath("../World/Player/GeneManager")
+fusion_manager_path = NodePath("../World/Player/FusionManager")
+evolution_system_path = NodePath("../World/Player/EvolutionSystem")
+player_health_path = NodePath("../World/Player/HealthComponent")
+gene_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/GeneStatus")
+fusion_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/FusionStatus")
+evolution_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/EvolutionStatus")
+health_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/HealthStatus")
+
+[node name="RelicStatusPresenter" type="Node" parent="."]
+script = ExtResource("20_relic_status")
 relic_manager_path = NodePath("../World/Player/RelicManager")
 status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RelicStatus")
 
@@ -87,8 +99,8 @@ projectile_container_path = NodePath("../Projectiles")
 [node name="StagePanel" type="PanelContainer" parent="Interface"]
 offset_left = 12.0
 offset_top = 12.0
-offset_right = 430.0
-offset_bottom = 264.0
+offset_right = 370.0
+offset_bottom = 246.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -103,7 +115,7 @@ theme_override_constants/separation = 1
 [node name="Title" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.5, 0.95, 0.76, 1)
 theme_override_font_sizes/font_size = 13
-text = "生物进化冒险原型"
+text = "进化状态"
 
 [node name="RoomStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.65, 0.82, 1, 1)
@@ -127,6 +139,7 @@ text = "路线生成中……"
 autowrap_mode = 2
 
 [node name="Status" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+visible = false
 theme_override_colors/font_color = Color(0.58, 0.66, 0.69, 1)
 theme_override_font_sizes/font_size = 10
 text = "G火焰  H分裂  J穿透  K吸血  L爆炸"
@@ -134,7 +147,7 @@ text = "G火焰  H分裂  J穿透  K吸血  L爆炸"
 [node name="HealthStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.42, 0.95, 0.62, 1)
 theme_override_font_sizes/font_size = 10
-text = "生命：100 / 100（P 扣血测试）"
+text = "生命：100 / 100"
 
 [node name="GeneStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_font_sizes/font_size = 10
@@ -193,3 +206,5 @@ player_path = NodePath("../World/Player")
 result_panel_path = NodePath("../RunResultPanel")
 
 [node name="PauseMenu" parent="." instance=ExtResource("18_pause_menu")]
+
+[node name="TutorialOverlay" parent="." instance=ExtResource("21_tutorial")]
