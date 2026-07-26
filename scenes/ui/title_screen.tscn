@@ -1,0 +1,113 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/title_screen.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu"]
+bg_color = Color(0.025, 0.055, 0.065, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.78, 0.6, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.08, 0.2, 0.18, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.9, 0.65, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Background" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 640, 0, 640, 360, 0, 360)
+color = Color(0.008, 0.022, 0.026, 1)
+
+[node name="CulturePool" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, 250, 80, 220, 155, 240, 245, 205, 330, 240, 430, 215, 530, 245, 640, 220, 640, 360, 0, 360)
+color = Color(0.025, 0.13, 0.1, 1)
+
+[node name="CellLeft" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(60, 90, 78, 63, 112, 58, 137, 82, 135, 116, 110, 139, 76, 132, 53, 113)
+color = Color(0.12, 0.48, 0.34, 0.44)
+
+[node name="CellLeftCore" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(83, 91, 97, 75, 116, 87, 113, 108, 93, 114, 78, 103)
+color = Color(0.52, 1, 0.62, 0.42)
+
+[node name="CellRight" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(500, 65, 525, 48, 558, 56, 577, 83, 568, 115, 541, 130, 510, 117, 493, 94)
+color = Color(0.22, 0.18, 0.58, 0.42)
+
+[node name="CellRightCore" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(520, 84, 540, 68, 559, 82, 556, 104, 535, 112, 516, 100)
+color = Color(0.66, 0.42, 1, 0.42)
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="GameTitle" type="Label" parent="Interface"]
+offset_left = 100.0
+offset_top = 34.0
+offset_right = 540.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0.5, 1, 0.72, 1)
+theme_override_font_sizes/font_size = 28
+text = "生物进化 ROGUELIKE"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Interface"]
+offset_left = 120.0
+offset_top = 76.0
+offset_right = 520.0
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(0.46, 0.7, 0.66, 1)
+theme_override_font_sizes/font_size = 11
+text = "吞噬基因 · 构筑生命 · 完成进化"
+horizontal_alignment = 1
+
+[node name="Menu" type="PanelContainer" parent="Interface"]
+offset_left = 210.0
+offset_top = 128.0
+offset_right = 430.0
+offset_bottom = 300.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
+
+[node name="Content" type="VBoxContainer" parent="Interface/Menu"]
+layout_mode = 2
+theme_override_constants/separation = 13
+alignment = 1
+
+[node name="StartButton" type="Button" parent="Interface/Menu/Content"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button")
+text = "开始进化"
+
+[node name="QuitButton" type="Button" parent="Interface/Menu/Content"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button")
+text = "离开培养舱"
+
+[node name="Controls" type="Label" parent="Interface/Menu/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.62, 0.62, 1)
+theme_override_font_sizes/font_size = 9
+text = "WASD 移动 · 鼠标攻击 · ESC 暂停"
+horizontal_alignment = 1

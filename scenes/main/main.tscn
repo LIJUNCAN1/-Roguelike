@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=20 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://scripts/weapons/weapon_status_presenter.gd" id="15_weapon_status"]
 [ext_resource type="Script" path="res://scripts/characters/character_status_presenter.gd" id="16_character_status"]
 [ext_resource type="Script" path="res://scripts/companions/companion_status_presenter.gd" id="17_companion_status"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="18_pause_menu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -190,3 +191,5 @@ script = ExtResource("12_run_flow")
 room_manager_path = NodePath("../RoomManager")
 player_path = NodePath("../World/Player")
 result_panel_path = NodePath("../RunResultPanel")
+
+[node name="PauseMenu" parent="." instance=ExtResource("18_pause_menu")]
