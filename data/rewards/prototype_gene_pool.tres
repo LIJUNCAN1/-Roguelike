@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="GeneRewardPoolData" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/rewards/gene_reward_pool_data.gd" id="1_pool"]
+[ext_resource type="Resource" path="res://data/genes/fire_gene.tres" id="2_fire"]
+[ext_resource type="Resource" path="res://data/genes/split_gene.tres" id="3_split"]
+[ext_resource type="Resource" path="res://data/genes/piercing_gene.tres" id="4_piercing"]
+[ext_resource type="Resource" path="res://data/genes/lifesteal_gene.tres" id="5_lifesteal"]
+[ext_resource type="Resource" path="res://data/genes/explosion_gene.tres" id="6_explosion"]
+
+[resource]
+script = ExtResource("1_pool")
+choice_count = 3
+genes = Array[ExtResource("2_fire")]([ExtResource("2_fire"), ExtResource("3_split"), ExtResource("4_piercing"), ExtResource("5_lifesteal"), ExtResource("6_explosion")])

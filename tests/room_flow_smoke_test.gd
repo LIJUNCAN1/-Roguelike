@@ -66,6 +66,22 @@ func _run() -> void:
 		quit(1)
 		return
 
+	var reward_room := room_manager.current_room as GeneRewardRoom
+	if reward_room == null or reward_room.is_completed:
+		push_error("Reward room completed before a gene was selected.")
+		quit(1)
+		return
+
+	if room_manager.advance_room():
+		push_error("Reward room advanced before a gene was selected.")
+		quit(1)
+		return
+
+	if not reward_room.choose_gene(0):
+		push_error("Could not select a gene reward.")
+		quit(1)
+		return
+
 	if (
 		not gene_manager.has_gene(&"fire")
 		or not evolution_system.is_evolution(&"fire_life")

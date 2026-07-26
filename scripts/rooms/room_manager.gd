@@ -69,6 +69,7 @@ func enter_room(room_index: int) -> bool:
 	current_room_index = room_index
 	is_run_complete = false
 	player.global_position = Vector2(320, 180)
+	current_room.configure_player(player)
 	_configure_room_enemies()
 	_update_room_status()
 	_update_room_hint()
@@ -134,7 +135,7 @@ func _update_room_hint() -> void:
 		room_hint_label.text = "房间完成 · 按 N 前进"
 		room_hint_label.modulate = Color(0.45, 1.0, 0.68, 1.0)
 	else:
-		room_hint_label.text = "击败房间内全部敌人"
+		room_hint_label.text = current_room.get_incomplete_hint()
 		room_hint_label.modulate = Color(1.0, 0.72, 0.25, 1.0)
 
 

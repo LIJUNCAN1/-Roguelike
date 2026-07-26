@@ -6,6 +6,7 @@ signal room_completed
 enum CompletionMode {
 	IMMEDIATE,
 	DEFEAT_ENEMIES,
+	EXTERNAL,
 }
 
 @export var completion_mode: CompletionMode = CompletionMode.IMMEDIATE
@@ -32,6 +33,14 @@ func _mark_completed() -> void:
 		return
 	is_completed = true
 	room_completed.emit()
+
+
+func configure_player(_player: Node2D) -> void:
+	pass
+
+
+func get_incomplete_hint() -> String:
+	return "击败房间内全部敌人"
 
 
 func _get_alive_enemy_count() -> int:
