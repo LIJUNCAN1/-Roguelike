@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="FusionData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/fusions/fusion_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="2"]
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+attack_tag = &"overclock_arsenal_build"
+damage_multiplier = 1.35
+speed_multiplier = 1.6
+additional_hits = 1
+[resource]
+script = ExtResource("1")
+id = &"overclock_arsenal"
+display_name = "超频武库"
+description = "双联模块进入超频状态，速度与穿透提升。"
+required_gene_ids = Array[StringName]([&"overclock", &"accelerator", &"twin"])
+presentation_priority = 26
+form_style = 4
+form_color = Color(0.15, 0.9, 1, 1)
+form_scale = 1.15
+effects = Array[GeneEffect]([SubResource("Effect")])

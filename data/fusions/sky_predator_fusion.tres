@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="FusionData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/fusions/fusion_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="2"]
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+attack_tag = &"sky_predator_build"
+damage_multiplier = 1.3
+speed_multiplier = 1.45
+critical_chance_addition = 0.15
+[resource]
+script = ExtResource("1")
+id = &"sky_predator"
+display_name = "天空猎食者"
+description = "高速追踪攻击获得额外暴击。"
+required_gene_ids = Array[StringName]([&"wings", &"tracking", &"critical"])
+presentation_priority = 25
+form_style = 2
+form_color = Color(0.82, 0.95, 1, 1)
+form_scale = 1.35
+effects = Array[GeneEffect]([SubResource("Effect")])

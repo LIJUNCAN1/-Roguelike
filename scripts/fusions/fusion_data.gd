@@ -1,6 +1,14 @@
 class_name FusionData
 extends Resource
 
+enum FormStyle {
+	AURA,
+	HORNS,
+	WINGS,
+	TENTACLES,
+	ARMOR,
+}
+
 @export_group("Identity")
 @export var id: StringName
 @export var display_name: String
@@ -8,6 +16,13 @@ extends Resource
 
 @export_group("Requirements")
 @export var required_gene_ids: Array[StringName] = []
+
+@export_group("Form")
+@export var presentation_priority: int = 0
+@export var form_style: FormStyle = FormStyle.AURA
+@export var form_color: Color = Color(1.0, 0.45, 0.12, 1.0)
+@export_range(0.5, 3.0, 0.05, "or_greater")
+var form_scale: float = 1.0
 
 @export_group("Effects")
 @export var effects: Array[GeneEffect] = []

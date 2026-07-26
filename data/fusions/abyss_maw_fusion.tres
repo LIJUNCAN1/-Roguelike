@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FusionData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/fusions/fusion_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="2"]
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+attack_tag = &"abyss_maw_build"
+damage_multiplier = 1.5
+radius_multiplier = 1.4
+[resource]
+script = ExtResource("1")
+id = &"abyss_maw"
+display_name = "深渊巨口"
+description = "触手吞噬攻击扩大并强化伤害。"
+required_gene_ids = Array[StringName]([&"devour", &"tentacle", &"lifesteal"])
+presentation_priority = 28
+form_style = 3
+form_color = Color(0.65, 0.12, 0.85, 1)
+form_scale = 1.4
+effects = Array[GeneEffect]([SubResource("Effect")])

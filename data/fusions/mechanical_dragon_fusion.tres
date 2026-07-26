@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FusionData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/fusions/fusion_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="2"]
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+attack_tag = &"mechanical_dragon_build"
+damage_multiplier = 1.45
+speed_multiplier = 1.35
+radius_multiplier = 1.2
+override_color = true
+projectile_color = Color(0.1, 0.8, 1, 1)
+[resource]
+script = ExtResource("1")
+id = &"mechanical_dragon"
+display_name = "机械翼龙"
+description = "火焰核心驱动超频翼膜与机械攻击。"
+required_gene_ids = Array[StringName]([&"overclock", &"fire", &"wings"])
+presentation_priority = 30
+form_style = 2
+form_color = Color(0.1, 0.8, 1, 1)
+form_scale = 1.5
+effects = Array[GeneEffect]([SubResource("Effect")])

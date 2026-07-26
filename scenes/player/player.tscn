@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3]
+[gd_scene load_steps=56 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/player_controller.gd" id="1_player_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
@@ -7,7 +7,7 @@
 [ext_resource type="Resource" path="res://data/weapons/basic_weapon.tres" id="5_weapon_data"]
 [ext_resource type="Script" path="res://scripts/genes/gene_manager.gd" id="6_gene_manager"]
 [ext_resource type="Script" path="res://scripts/combat/health_component.gd" id="7_health_component"]
-[ext_resource type="Script" path="res://scripts/fusions/fusion_manager.gd" id="8_fusion_manager"]
+[ext_resource type="Script" path="res://scripts/fusions/gene_fusion_manager.gd" id="8_fusion_manager"]
 [ext_resource type="Script" path="res://scripts/combat/attack_modifier_stack.gd" id="9_modifier_stack"]
 [ext_resource type="Script" path="res://scripts/fusions/fusion_data.gd" id="10_fusion_data"]
 [ext_resource type="Resource" path="res://data/fusions/fire_burst_fusion.tres" id="11_fire_burst_fusion"]
@@ -34,6 +34,26 @@
 [ext_resource type="Script" path="res://scripts/characters/character_trait_manager.gd" id="32_trait_manager"]
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_aura_presenter.gd" id="33_aura"]
 [ext_resource type="Script" path="res://scripts/genes/gene_passive_manager.gd" id="34_passive_manager"]
+[ext_resource type="Script" path="res://scripts/fusions/fusion_morph_presenter.gd" id="35_morph"]
+[ext_resource type="Resource" path="res://data/fusions/thunder_swarm_fusion.tres" id="36_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/glacier_core_fusion.tres" id="37_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/executioner_fusion.tres" id="38_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/void_singularity_fusion.tres" id="39_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/immortal_carapace_fusion.tres" id="40_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/sky_predator_fusion.tres" id="41_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/abyss_maw_fusion.tres" id="42_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/soul_reaper_fusion.tres" id="43_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/replication_hive_fusion.tres" id="44_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/acid_storm_fusion.tres" id="45_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/overclock_arsenal_fusion.tres" id="46_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/titan_fortress_fusion.tres" id="47_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/ricochet_matrix_fusion.tres" id="48_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/volatile_inferno_fusion.tres" id="49_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/frost_lightning_fusion.tres" id="50_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/temporal_barrage_fusion.tres" id="51_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/mechanical_dragon_fusion.tres" id="52_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/plague_devourer_fusion.tres" id="53_fusion"]
+[ext_resource type="Resource" path="res://data/fusions/adaptive_lancer_fusion.tres" id="54_fusion"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 7.0
@@ -66,13 +86,18 @@ z_index = -1
 script = ExtResource("33_aura")
 evolution_system_path = NodePath("../EvolutionSystem")
 
+[node name="FusionMorphPresenter" type="Node2D" parent="."]
+z_index = 2
+script = ExtResource("35_morph")
+fusion_manager_path = NodePath("../FusionManager")
+
 [node name="GeneManager" type="Node" parent="."]
 script = ExtResource("6_gene_manager")
 
 [node name="FusionManager" type="Node" parent="."]
 script = ExtResource("8_fusion_manager")
 gene_manager_path = NodePath("../GeneManager")
-fusion_recipes = Array[ExtResource("10_fusion_data")]([ExtResource("11_fire_burst_fusion")])
+fusion_recipes = Array[ExtResource("10_fusion_data")]([ExtResource("11_fire_burst_fusion"), ExtResource("36_fusion"), ExtResource("37_fusion"), ExtResource("38_fusion"), ExtResource("39_fusion"), ExtResource("40_fusion"), ExtResource("41_fusion"), ExtResource("42_fusion"), ExtResource("43_fusion"), ExtResource("44_fusion"), ExtResource("45_fusion"), ExtResource("46_fusion"), ExtResource("47_fusion"), ExtResource("48_fusion"), ExtResource("49_fusion"), ExtResource("50_fusion"), ExtResource("51_fusion"), ExtResource("52_fusion"), ExtResource("53_fusion"), ExtResource("54_fusion")])
 
 [node name="EvolutionSystem" type="Node" parent="."]
 script = ExtResource("12_evolution_system")

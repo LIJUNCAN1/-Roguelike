@@ -226,6 +226,7 @@ func _run() -> void:
 		quit(1)
 		return
 	var event_room := room_manager.current_room as EventRoom
+	var health_before_event := player_health.current_health
 	player.global_position = (
 		event_room.choice_selector.get_choice_global_position(0)
 	)
@@ -237,10 +238,7 @@ func _run() -> void:
 		not event_room.is_completed
 		or event_room.selected_choice == null
 		or event_room.selected_choice.id != &"regeneration_tank"
-		or not is_equal_approx(
-			player_health.current_health,
-			player_health.max_health
-		)
+		or player_health.current_health <= health_before_event
 	):
 		push_error("Laboratory healing choice was not resolved.")
 		quit(1)
