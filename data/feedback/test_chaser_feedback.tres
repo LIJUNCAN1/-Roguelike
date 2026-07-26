@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CombatFeedbackData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/combat_feedback_data.gd" id="1_feedback_data"]
+[ext_resource type="PackedScene" path="res://scenes/combat/damage_number.tscn" id="2_damage_number"]
+[ext_resource type="PackedScene" path="res://scenes/combat/death_effect.tscn" id="3_death_effect"]
+
+[resource]
+script = ExtResource("1_feedback_data")
+damage_number_scene = ExtResource("2_damage_number")
+death_effect_scene = ExtResource("3_death_effect")
+damage_number_color = Color(1, 0.9, 0.4, 1)
+hit_flash_color = Color(1, 1, 1, 1)
+hit_flash_duration = 0.09
+visual_knockback_distance = 3.0
+damage_number_rise = 22.0
+damage_number_duration = 0.55
+death_effect_color = Color(1, 0.3, 0.4, 1)
+death_effect_duration = 0.3

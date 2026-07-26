@@ -18,6 +18,10 @@ func setup(direction: Vector2) -> void:
 	rotation = travel_direction.angle()
 
 
+func get_impact_direction() -> Vector2:
+	return travel_direction
+
+
 func _ready() -> void:
 	if projectile_data == null:
 		push_error("Projectile requires a ProjectileData resource.")

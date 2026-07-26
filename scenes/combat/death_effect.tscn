@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/death_effect.gd" id="1_death_effect"]
+
+[node name="DeathEffect" type="Node2D"]
+z_index = 20
+script = ExtResource("1_death_effect")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Core" type="Polygon2D" parent="Visuals"]
+polygon = PackedVector2Array(-5, -5, 5, -5, 7, 0, 5, 5, -5, 5, -7, 0)
+
+[node name="ShardTop" type="Polygon2D" parent="Visuals"]
+position = Vector2(0, -10)
+polygon = PackedVector2Array(-2, 2, 0, -7, 3, 2)
+
+[node name="ShardRight" type="Polygon2D" parent="Visuals"]
+position = Vector2(10, 0)
+rotation = 1.5708
+polygon = PackedVector2Array(-2, 2, 0, -7, 3, 2)
+
+[node name="ShardBottom" type="Polygon2D" parent="Visuals"]
+position = Vector2(0, 10)
+rotation = 3.14159
+polygon = PackedVector2Array(-2, 2, 0, -7, 3, 2)
+
+[node name="ShardLeft" type="Polygon2D" parent="Visuals"]
+position = Vector2(-10, 0)
+rotation = -1.5708
+polygon = PackedVector2Array(-2, 2, 0, -7, 3, 2)

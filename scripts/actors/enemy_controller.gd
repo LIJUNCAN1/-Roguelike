@@ -3,10 +3,14 @@ extends CharacterBody2D
 
 @export var enemy_data: EnemyData
 @export_node_path("Node2D") var target_path: NodePath
+@export_node_path("Node2D") var feedback_container_path: NodePath
 
 @onready var movement_component: MovementComponent = $MovementComponent
 @onready var health_component: HealthComponent = $HealthComponent
-@onready var facing_marker: Polygon2D = $FacingMarker
+@onready var hit_feedback_component: HitFeedbackComponent = (
+	$HitFeedbackComponent
+)
+@onready var facing_marker: Polygon2D = $Visuals/FacingMarker
 
 var target: Node2D
 var facing_direction: Vector2 = Vector2.LEFT
@@ -20,6 +24,9 @@ func _ready() -> void:
 	movement_component.configure(enemy_data.move_speed)
 	health_component.configure(enemy_data.max_health)
 	health_component.died.connect(_on_died)
+	hit_feedback_component.configure_container(
+		get_node_or_null(feedback_container_path) as Node2D
+	)
 	target = get_node_or_null(target_path) as Node2D
 	_update_facing_visual()
 

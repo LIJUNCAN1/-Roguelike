@@ -89,6 +89,8 @@ shape = SubResource("RectangleShape2D_vertical")
 
 [node name="Projectiles" type="Node2D" parent="World"]
 
+[node name="Effects" type="Node2D" parent="World"]
+
 [node name="Player" parent="World" instance=ExtResource("1_player")]
 position = Vector2(320, 180)
 projectile_container_path = NodePath("../Projectiles")
@@ -96,6 +98,7 @@ projectile_container_path = NodePath("../Projectiles")
 [node name="TestChaser" parent="World" instance=ExtResource("2_enemy")]
 position = Vector2(500, 180)
 target_path = NodePath("../Player")
+feedback_container_path = NodePath("../Effects")
 
 [node name="Interface" type="CanvasLayer" parent="."]
 
@@ -123,4 +126,4 @@ text = "战斗测试场"
 [node name="Status" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.58, 0.66, 0.69, 1)
 theme_override_font_sizes/font_size = 10
-text = "实验体生命 30 · 子弹伤害 10"
+text = "命中反馈 · 伤害数字 · 死亡爆裂"
