@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/add_impact_effect_gene_effect.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/combat/explosion_impact_effect.gd" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/combat/explosion_effect.tscn" id="4"]
+[sub_resource type="Resource" id="Impact"]
+script = ExtResource("3")
+radius = 68.0
+damage = 12.0
+effect_scene = ExtResource("4")
+effect_color = Color(0.25, 1, 0.45, 1)
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+impact_effect = SubResource("Impact")
+attack_tag = &"volatile_cell"
+[resource]
+script = ExtResource("1")
+id = &"volatile_cell"
+display_name = "不稳定细胞"
+description = "命中引爆不稳定细胞，造成大范围额外伤害。"
+rarity = 2
+category = 0
+tags = Array[StringName]([&"combustion", &"explosion", &"cell"])
+series_id = &"combustion"
+series_name = "燃烧系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

@@ -35,6 +35,7 @@ enum Category {
 
 @export_group("Effects")
 @export var effects: Array[GeneEffect] = []
+@export var passive_effects: Array[GenePassiveEffect] = []
 
 
 func get_rarity_name() -> String:

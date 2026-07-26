@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/add_impact_effect_gene_effect.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/combat/damage_over_time_impact_effect.gd" id="3"]
+[sub_resource type="Resource" id="Impact"]
+script = ExtResource("3")
+tick_damage = 3.0
+tick_interval = 0.35
+tick_count = 4
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+impact_effect = SubResource("Impact")
+attack_tag = &"acid"
+[resource]
+script = ExtResource("1")
+id = &"acid"
+display_name = "腐蚀酸液"
+description = "命中注入酸液，快速造成四次持续伤害。"
+rarity = 1
+category = 4
+tags = Array[StringName]([&"acid", &"damage_over_time", &"abyss"])
+series_id = &"toxin"
+series_name = "毒素系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

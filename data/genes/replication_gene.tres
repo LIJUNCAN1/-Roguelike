@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/split_projectile_gene_effect.gd" id="2"]
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+projectile_count = 2
+spread_degrees = 0.0
+attack_tag = &"replication"
+[resource]
+script = ExtResource("1")
+id = &"replication"
+display_name = "复制"
+description = "复制一次当前攻击，两枚弹体沿同一路径发射。"
+rarity = 3
+category = 1
+tags = Array[StringName]([&"special", &"copy", &"proliferation"])
+series_id = &"proliferation"
+series_name = "增殖系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

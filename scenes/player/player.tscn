@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3]
+[gd_scene load_steps=36 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/player_controller.gd" id="1_player_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" path="res://scripts/art/pixel_actor_presenter.gd" id="31_pixel_presenter"]
 [ext_resource type="Script" path="res://scripts/characters/character_trait_manager.gd" id="32_trait_manager"]
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_aura_presenter.gd" id="33_aura"]
+[ext_resource type="Script" path="res://scripts/genes/gene_passive_manager.gd" id="34_passive_manager"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 7.0
@@ -111,6 +112,13 @@ script = ExtResource("20_character_manager")
 default_character = ExtResource("3_character_data")
 evolution_system_path = NodePath("../EvolutionSystem")
 trait_manager_path = NodePath("../CharacterTraitManager")
+
+[node name="GenePassiveManager" type="Node" parent="."]
+script = ExtResource("34_passive_manager")
+gene_manager_path = NodePath("../GeneManager")
+character_manager_path = NodePath("../CharacterManager")
+health_component_path = NodePath("../HealthComponent")
+movement_component_path = NodePath("../MovementComponent")
 
 [node name="CompanionManager" type="Node" parent="."]
 script = ExtResource("21_companion_manager")

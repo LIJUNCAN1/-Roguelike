@@ -12,6 +12,14 @@ var lifetime: float = 1.5
 var damage: float = 10.0
 @export_range(1, 100, 1, "or_greater")
 var max_hits: int = 1
+@export_range(0.0, 1.0, 0.01)
+var critical_chance: float = 0.0
+@export_range(1.0, 10.0, 0.05, "or_greater")
+var critical_damage_multiplier: float = 2.0
+@export_range(0.0, 20.0, 0.1, "or_greater")
+var homing_strength: float = 0.0
+@export_range(0.0, 2000.0, 1.0, "or_greater")
+var homing_range: float = 240.0
 
 @export_group("Appearance")
 @export_range(1.0, 32.0, 0.5, "or_greater")

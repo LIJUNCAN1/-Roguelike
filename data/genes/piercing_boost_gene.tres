@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="2"]
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+attack_tag = &"piercing_boost"
+damage_multiplier = 1.15
+additional_hits = 3
+[resource]
+script = ExtResource("1")
+id = &"piercing_boost"
+display_name = "穿透强化"
+description = "弹体伤害提高，并额外穿透三个目标。"
+rarity = 2
+category = 3
+tags = Array[StringName]([&"projectile", &"piercing", &"adaptation"])
+series_id = &"projectile"
+series_name = "弹体系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

@@ -9,7 +9,7 @@ func _run() -> void:
 	var pool := load(
 		"res://data/rewards/prototype_gene_pool.tres"
 	) as GeneRewardPoolData
-	if pool == null or pool.genes.size() != 10:
+	if pool == null or pool.genes.size() != 30:
 		push_error("Gene pool could not be loaded for schema migration.")
 		quit(1)
 		return
@@ -23,7 +23,10 @@ func _run() -> void:
 			or gene.display_name.is_empty()
 			or gene.description.is_empty()
 			or gene.tags.is_empty()
-			or gene.effects.is_empty()
+			or (
+				gene.effects.is_empty()
+				and gene.passive_effects.is_empty()
+			)
 			or ids.has(gene.id)
 			or gene.get_rarity_name().is_empty()
 			or gene.get_category_name().is_empty()

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/gene_passive_effect.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="3"]
+[sub_resource type="Resource" id="Passive"]
+script = ExtResource("2")
+movement_speed_multiplier = 1.2
+[sub_resource type="Resource" id="Attack"]
+script = ExtResource("3")
+attack_tag = &"wings"
+speed_multiplier = 1.15
+[resource]
+script = ExtResource("1")
+id = &"wings"
+display_name = "翅膀"
+description = "生长翼膜，提高自身移动速度和弹体速度。"
+rarity = 1
+category = 3
+tags = Array[StringName]([&"body", &"mobility", &"air"])
+series_id = &"body"
+series_name = "躯体系列"
+effects = Array[GeneEffect]([SubResource("Attack")])
+passive_effects = Array[GenePassiveEffect]([SubResource("Passive")])

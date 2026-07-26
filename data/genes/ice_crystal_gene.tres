@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/add_impact_effect_gene_effect.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/combat/slow_impact_effect.gd" id="3"]
+[sub_resource type="Resource" id="Impact"]
+script = ExtResource("3")
+speed_multiplier = 0.35
+duration = 2.4
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+impact_effect = SubResource("Impact")
+attack_tag = &"ice_crystal"
+[resource]
+script = ExtResource("1")
+id = &"ice_crystal"
+display_name = "冰晶基因"
+description = "攻击附着冰晶，使敌人大幅减速。"
+rarity = 2
+category = 6
+tags = Array[StringName]([&"elemental", &"ice", &"control"])
+series_id = &"frost"
+series_name = "寒霜系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

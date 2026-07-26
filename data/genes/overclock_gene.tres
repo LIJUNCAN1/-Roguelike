@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="2"]
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+attack_tag = &"overclock"
+damage_multiplier = 1.2
+speed_multiplier = 1.4
+radius_multiplier = 0.8
+[resource]
+script = ExtResource("1")
+id = &"overclock"
+display_name = "超频模块"
+description = "压缩弹体并提高伤害与飞行速度。"
+rarity = 2
+category = 5
+tags = Array[StringName]([&"mechanical", &"speed", &"module"])
+series_id = &"module"
+series_name = "模块系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

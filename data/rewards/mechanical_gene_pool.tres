@@ -1,10 +1,16 @@
-[gd_resource type="Resource" script_class="GeneRewardPoolData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="GeneRewardPoolData" load_steps=12 format=3]
 [ext_resource type="Script" path="res://scripts/rewards/gene_reward_pool_data.gd" id="1"]
 [ext_resource type="Resource" path="res://data/genes/accelerator_gene.tres" id="2"]
 [ext_resource type="Resource" path="res://data/genes/titan_gene.tres" id="3"]
-[ext_resource type="Resource" path="res://data/genes/piercing_gene.tres" id="4"]
-[ext_resource type="Resource" path="res://data/genes/twin_gene.tres" id="5"]
+[ext_resource type="Resource" path="res://data/genes/piercing_boost_gene.tres" id="4"]
+[ext_resource type="Resource" path="res://data/genes/tracking_gene.tres" id="5"]
+[ext_resource type="Resource" path="res://data/genes/gigantism_gene.tres" id="6"]
+[ext_resource type="Resource" path="res://data/genes/carapace_gene.tres" id="7"]
+[ext_resource type="Resource" path="res://data/genes/wings_gene.tres" id="8"]
+[ext_resource type="Resource" path="res://data/genes/regeneration_gene.tres" id="9"]
+[ext_resource type="Resource" path="res://data/genes/ricochet_gene.tres" id="10"]
+[ext_resource type="Resource" path="res://data/genes/overclock_gene.tres" id="11"]
 [resource]
 script = ExtResource("1")
 choice_count = 3
-genes = Array[ExtResource("2")]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")])
+genes = Array[GeneData]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("7"), ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11")])

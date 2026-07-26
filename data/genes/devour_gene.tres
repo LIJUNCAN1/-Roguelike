@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/genes/add_impact_effect_gene_effect.gd" id="3"]
+[ext_resource type="Resource" path="res://data/genes/impact_effects/lifesteal_effect.tres" id="4"]
+[sub_resource type="Resource" id="Stats"]
+script = ExtResource("2")
+attack_tag = &"devour"
+damage_multiplier = 1.25
+radius_multiplier = 1.2
+[sub_resource type="Resource" id="Drain"]
+script = ExtResource("3")
+impact_effect = ExtResource("4")
+attack_tag = &"devour"
+[resource]
+script = ExtResource("1")
+id = &"devour"
+display_name = "吞噬"
+description = "扩大攻击并提高伤害，命中时吸收目标生命。"
+rarity = 3
+category = 4
+tags = Array[StringName]([&"special", &"devour", &"abyss"])
+series_id = &"abyss"
+series_name = "深渊系列"
+effects = Array[GeneEffect]([SubResource("Stats"), SubResource("Drain")])

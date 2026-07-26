@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/split_projectile_gene_effect.gd" id="2"]
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+projectile_count = 5
+spread_degrees = 11.0
+attack_tag = &"swarm_core"
+[resource]
+script = ExtResource("1")
+id = &"swarm_core"
+display_name = "群落核心"
+description = "攻击形成五枚协同孢子弹体。"
+rarity = 3
+category = 7
+tags = Array[StringName]([&"summoning", &"swarm", &"multishot"])
+series_id = &"swarm"
+series_name = "召唤系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

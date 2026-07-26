@@ -17,6 +17,7 @@ var max_health: float = 1.0
 var current_health: float = 1.0
 var is_dead: bool = false
 var invulnerability_remaining: float = 0.0
+var damage_taken_multiplier: float = 1.0
 
 
 func _process(delta: float) -> void:
@@ -44,7 +45,10 @@ func take_damage(amount: float, source: Node = null) -> float:
 		damage_blocked.emit(amount, source)
 		return 0.0
 
-	var applied_damage := minf(amount, current_health)
+	var applied_damage := minf(
+		amount * damage_taken_multiplier,
+		current_health
+	)
 	current_health -= applied_damage
 	if hit_invulnerability_duration > 0.0:
 		grant_invulnerability(hit_invulnerability_duration)

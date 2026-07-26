@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/add_impact_effect_gene_effect.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/combat/slow_impact_effect.gd" id="3"]
+[sub_resource type="Resource" id="Impact"]
+script = ExtResource("3")
+speed_multiplier = 0.45
+duration = 3.2
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+impact_effect = SubResource("Impact")
+attack_tag = &"time_dilation"
+[resource]
+script = ExtResource("1")
+id = &"time_dilation"
+display_name = "时间减速"
+description = "攻击扭曲目标时间，使其长时间减速。"
+rarity = 3
+category = 4
+tags = Array[StringName]([&"special", &"time", &"control"])
+series_id = &"void"
+series_name = "虚空系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="2"]
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+attack_tag = &"tracking"
+damage_multiplier = 0.9
+homing_strength_addition = 4.5
+homing_range = 280.0
+[resource]
+script = ExtResource("1")
+id = &"tracking"
+display_name = "追踪基因"
+description = "弹体会主动转向附近敌人，但基础伤害略微降低。"
+rarity = 1
+category = 3
+tags = Array[StringName]([&"projectile", &"homing", &"adaptation"])
+series_id = &"projectile"
+series_name = "弹体系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

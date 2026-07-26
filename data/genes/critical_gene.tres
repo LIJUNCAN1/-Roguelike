@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="2"]
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+attack_tag = &"critical"
+critical_chance_addition = 0.3
+critical_damage_multiplier = 2.0
+[resource]
+script = ExtResource("1")
+id = &"critical"
+display_name = "暴击基因"
+description = "攻击获得 30% 暴击率，暴击造成双倍伤害。"
+rarity = 2
+category = 3
+tags = Array[StringName]([&"damage", &"critical", &"adaptation"])
+series_id = &"predator"
+series_name = "猎食系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

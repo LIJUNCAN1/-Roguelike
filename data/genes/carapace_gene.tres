@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/gene_passive_effect.gd" id="2"]
+[sub_resource type="Resource" id="Passive"]
+script = ExtResource("2")
+max_health_multiplier = 1.2
+movement_speed_multiplier = 0.92
+damage_taken_multiplier = 0.82
+[resource]
+script = ExtResource("1")
+id = &"carapace"
+display_name = "甲壳"
+description = "形成保护甲壳，生命提高并减少 18% 所受伤害。"
+rarity = 2
+category = 2
+tags = Array[StringName]([&"body", &"armor", &"survival"])
+series_id = &"body"
+series_name = "躯体系列"
+passive_effects = Array[GenePassiveEffect]([SubResource("Passive")])

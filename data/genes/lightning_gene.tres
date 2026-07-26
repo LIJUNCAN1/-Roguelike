@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/add_impact_effect_gene_effect.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/combat/chain_lightning_impact_effect.gd" id="3"]
+[sub_resource type="Resource" id="Impact"]
+script = ExtResource("3")
+chain_radius = 100.0
+chain_damage = 7.0
+max_targets = 2
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+impact_effect = SubResource("Impact")
+attack_tag = &"lightning"
+[resource]
+script = ExtResource("1")
+id = &"lightning"
+display_name = "雷电基因"
+description = "命中后向附近两个敌人释放连锁闪电。"
+rarity = 2
+category = 6
+tags = Array[StringName]([&"elemental", &"lightning", &"chain"])
+series_id = &"storm"
+series_name = "风暴系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

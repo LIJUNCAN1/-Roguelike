@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/projectile_stat_gene_effect.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/genes/gene_passive_effect.gd" id="3"]
+[sub_resource type="Resource" id="Attack"]
+script = ExtResource("2")
+attack_tag = &"gigantism"
+damage_multiplier = 1.35
+speed_multiplier = 0.85
+radius_multiplier = 1.6
+[sub_resource type="Resource" id="Passive"]
+script = ExtResource("3")
+max_health_multiplier = 1.25
+movement_speed_multiplier = 0.9
+[resource]
+script = ExtResource("1")
+id = &"gigantism"
+display_name = "巨型化"
+description = "生命与弹体体积增大，伤害提高但移动略慢。"
+rarity = 2
+category = 2
+tags = Array[StringName]([&"body", &"size", &"survival"])
+series_id = &"body"
+series_name = "躯体系列"
+effects = Array[GeneEffect]([SubResource("Attack")])
+passive_effects = Array[GenePassiveEffect]([SubResource("Passive")])

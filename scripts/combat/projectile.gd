@@ -13,6 +13,7 @@ var impact_effects: Array[ProjectileImpactEffect] = []
 var source_actor: Node
 var alive_time: float = 0.0
 var hit_count: int = 0
+var is_critical: bool = false
 
 
 func setup(
@@ -43,6 +44,16 @@ func _ready() -> void:
 		return
 
 	body_visual.color = projectile_data.color
+	if (
+		projectile_data.critical_chance > 0.0
+		and randf() <= projectile_data.critical_chance
+	):
+		projectile_data.damage *= (
+			projectile_data.critical_damage_multiplier
+		)
+		is_critical = true
+		if not attack_tags.has(&"critical_strike"):
+			attack_tags.append(&"critical_strike")
 	tail_visual.color = Color(
 		projectile_data.color.r,
 		projectile_data.color.g,
@@ -64,11 +75,42 @@ func _physics_process(delta: float) -> void:
 	if projectile_data == null:
 		return
 
+	_apply_homing(delta)
 	global_position += travel_direction * projectile_data.speed * delta
 	alive_time += delta
 
 	if alive_time >= projectile_data.lifetime:
 		queue_free()
+
+
+func _apply_homing(delta: float) -> void:
+	if projectile_data.homing_strength <= 0.0:
+		return
+	var nearest: Node2D
+	var nearest_distance := projectile_data.homing_range
+	for node in get_tree().get_nodes_in_group(&"room_enemies"):
+		var candidate := node as Node2D
+		if candidate == null:
+			continue
+		var distance := global_position.distance_to(
+			candidate.global_position
+		)
+		if distance < nearest_distance:
+			nearest = candidate
+			nearest_distance = distance
+	if nearest == null:
+		return
+	var target_direction := global_position.direction_to(
+		nearest.global_position
+	)
+	travel_direction = travel_direction.rotated(
+		clampf(
+			travel_direction.angle_to(target_direction),
+			-projectile_data.homing_strength * delta,
+			projectile_data.homing_strength * delta
+		)
+	).normalized()
+	rotation = travel_direction.angle()
 
 
 func _on_area_entered(area: Area2D) -> void:

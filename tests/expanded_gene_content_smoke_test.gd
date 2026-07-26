@@ -9,8 +9,8 @@ func _run() -> void:
 	var pool := load(
 		"res://data/rewards/prototype_gene_pool.tres"
 	) as GeneRewardPoolData
-	if pool == null or pool.genes.size() != 10:
-		push_error("Prototype gene pool does not contain 10 genes.")
+	if pool == null or pool.genes.size() != 30:
+		push_error("Prototype gene pool does not contain 30 genes.")
 		quit(1)
 		return
 

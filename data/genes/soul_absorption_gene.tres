@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/add_impact_effect_gene_effect.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/combat/lifesteal_impact_effect.gd" id="3"]
+[sub_resource type="Resource" id="Impact"]
+script = ExtResource("3")
+heal_ratio = 0.2
+flat_healing = 3.0
+[sub_resource type="Resource" id="Effect"]
+script = ExtResource("2")
+impact_effect = SubResource("Impact")
+attack_tag = &"soul_absorption"
+[resource]
+script = ExtResource("1")
+id = &"soul_absorption"
+display_name = "灵魂吸收"
+description = "命中固定恢复 3 点生命，并吸收少量实际伤害。"
+rarity = 3
+category = 4
+tags = Array[StringName]([&"special", &"soul", &"healing"])
+series_id = &"abyss"
+series_name = "深渊系列"
+effects = Array[GeneEffect]([SubResource("Effect")])

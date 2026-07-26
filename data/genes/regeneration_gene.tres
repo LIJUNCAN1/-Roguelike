@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GeneData" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/genes/gene_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/genes/gene_passive_effect.gd" id="2"]
+[sub_resource type="Resource" id="Passive"]
+script = ExtResource("2")
+health_regeneration_per_second = 2.0
+[resource]
+script = ExtResource("1")
+id = &"regeneration"
+display_name = "再生"
+description = "持续修复身体，每秒恢复 2 点生命。"
+rarity = 2
+category = 2
+tags = Array[StringName]([&"body", &"healing", &"regeneration"])
+series_id = &"survival"
+series_name = "生存系列"
+passive_effects = Array[GenePassiveEffect]([SubResource("Passive")])
