@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[node name="BaseLifeVisual" type="Node2D"]
+
+[node name="Body" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-7, -3, -4, -7, 3, -8, 7, -4, 8, 2, 4, 7, -3, 8, -8, 3)
+color = Color(0.28, 0.9, 0.62, 1)
+
+[node name="Core" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-3, -2, 0, -5, 4, -2, 3, 3, 0, 5, -4, 2)
+color = Color(0.72, 1, 0.86, 1)

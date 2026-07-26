@@ -6,7 +6,8 @@ extends CharacterBody2D
 @onready var movement_component: MovementComponent = $MovementComponent
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var weapon_component: WeaponComponent = $WeaponComponent
-@onready var facing_marker: Polygon2D = $FacingMarker
+@onready var facing_marker: Polygon2D = $Visuals/FacingMarker
+@onready var form_anchor: Node2D = $Visuals/FormAnchor
 @onready var aim_origin: Marker2D = $AimOrigin
 @onready var projectile_container: Node2D = get_node_or_null(
 	projectile_container_path
@@ -73,6 +74,7 @@ func get_movement_direction() -> Vector2:
 func _update_facing_visual() -> void:
 	var facing_angle := facing_direction.angle()
 	facing_marker.rotation = facing_angle
+	form_anchor.rotation = facing_angle
 	aim_origin.position = (
 		facing_direction * weapon_component.weapon_data.muzzle_distance
 	)

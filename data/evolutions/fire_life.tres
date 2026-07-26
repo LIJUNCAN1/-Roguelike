@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EvolutionData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/evolutions/evolution_data.gd" id="1_evolution_data"]
+[ext_resource type="Script" path="res://scripts/genes/gene_effect.gd" id="2_gene_effect"]
+[ext_resource type="PackedScene" path="res://scenes/player/forms/fire_life_visual.tscn" id="3_visual"]
+[ext_resource type="Resource" path="res://data/evolutions/effects/fire_life_attack_effect.tres" id="4_effect"]
+
+[resource]
+script = ExtResource("1_evolution_data")
+id = &"fire_life"
+display_name = "火焰生命"
+description = "火焰基因改变了身体结构。"
+priority = 10
+required_gene_ids = Array[StringName]([&"fire"])
+visual_scene = ExtResource("3_visual")
+effects = Array[ExtResource("2_gene_effect")]([ExtResource("4_effect")])

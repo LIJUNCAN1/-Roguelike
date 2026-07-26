@@ -38,9 +38,11 @@ lifesteal_gene = ExtResource("7_lifesteal_gene")
 explosion_gene = ExtResource("8_explosion_gene")
 gene_manager_path = NodePath("../World/Player/GeneManager")
 fusion_manager_path = NodePath("../World/Player/FusionManager")
+evolution_system_path = NodePath("../World/Player/EvolutionSystem")
 player_health_path = NodePath("../World/Player/HealthComponent")
 status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/GeneStatus")
 fusion_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/FusionStatus")
+evolution_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/EvolutionStatus")
 health_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/HealthStatus")
 
 [node name="World" type="Node2D" parent="."]
@@ -136,7 +138,7 @@ feedback_container_path = NodePath("../Effects")
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 430.0
-offset_bottom = 112.0
+offset_bottom = 130.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -171,3 +173,8 @@ text = "基因：无"
 theme_override_colors/font_color = Color(0.55, 0.6, 0.64, 1)
 theme_override_font_sizes/font_size = 10
 text = "融合：未激活"
+
+[node name="EvolutionStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.45, 0.9, 0.68, 1)
+theme_override_font_sizes/font_size = 10
+text = "形态：原始生命"
