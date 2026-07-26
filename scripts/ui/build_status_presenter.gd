@@ -8,8 +8,6 @@ extends Node
 @export_node_path("Label") var gene_label_path: NodePath
 @export_node_path("Label") var fusion_label_path: NodePath
 @export_node_path("Label") var evolution_label_path: NodePath
-@export_node_path("Label") var health_label_path: NodePath
-@export_node_path("ProgressBar") var health_bar_path: NodePath
 
 @onready var gene_manager: GeneManager = get_node(
 	gene_manager_path
@@ -30,12 +28,6 @@ extends Node
 @onready var evolution_label: Label = get_node(
 	evolution_label_path
 ) as Label
-@onready var health_label: Label = get_node(
-	health_label_path
-) as Label
-@onready var health_bar: ProgressBar = get_node_or_null(
-	health_bar_path
-) as ProgressBar
 
 
 func _ready() -> void:
@@ -44,14 +36,9 @@ func _ready() -> void:
 	evolution_system.evolution_changed.connect(
 		_on_evolution_changed
 	)
-	player_health.health_changed.connect(_update_health)
 	_update_genes()
 	_update_fusions()
 	_update_evolution()
-	_update_health(
-		player_health.current_health,
-		player_health.max_health
-	)
 
 
 func _update_genes() -> void:
@@ -96,16 +83,3 @@ func _update_evolution() -> void:
 		return
 	evolution_label.text = "形态：%s" % evolution.display_name
 	evolution_label.modulate = Color(0.45, 0.9, 0.68, 1.0)
-
-
-func _update_health(
-	current_health: float,
-	max_health: float
-) -> void:
-	health_label.text = "生命：%d / %d" % [
-		roundi(current_health),
-		roundi(max_health),
-	]
-	if health_bar != null:
-		health_bar.max_value = max_health
-		health_bar.value = current_health

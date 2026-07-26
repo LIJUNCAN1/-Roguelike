@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3]
+[gd_scene load_steps=38 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" path="res://scripts/audio/game_audio_director.gd" id="29_audio_director"]
 [ext_resource type="Resource" path="res://data/audio/prototype_audio_library.tres" id="30_audio_library"]
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_presentation_controller.gd" id="31_evolution_presentation"]
+[ext_resource type="Script" path="res://scripts/ui/pixel_vitals_presenter.gd" id="32_pixel_vitals"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -43,6 +44,18 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vital_empty"]
+bg_color = Color(0.055, 0.045, 0.055, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health_fill"]
+bg_color = Color(0.84, 0.2, 0.23, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_experience_fill"]
+bg_color = Color(0.6, 0.83, 0.95, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vital_frame"]
+bg_color = Color(0.025, 0.025, 0.035, 1)
 
 [node name="Main" type="Node2D"]
 
@@ -76,13 +89,10 @@ player_health_path = NodePath("../World/Player/HealthComponent")
 gene_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/GeneStatus")
 fusion_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/FusionStatus")
 evolution_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/EvolutionStatus")
-health_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/HealthStatus")
-health_bar_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/HealthBar")
 
 [node name="ProgressionStatusPresenter" type="Node" parent="."]
 script = ExtResource("23_progression_status")
 progression_path = NodePath("../World/Player/RunProgression")
-experience_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/ExperienceStatus")
 essence_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/EssenceStatus")
 
 [node name="BuildNotificationPresenter" type="Node" parent="."]
@@ -168,11 +178,87 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.45, 1, 0.7, 0)
 
+[node name="PlayerVitals" type="Control" parent="Interface"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 12.0
+offset_right = 350.0
+offset_bottom = 78.0
+mouse_filter = 2
+script = ExtResource("32_pixel_vitals")
+health_component_path = NodePath("../../World/Player/HealthComponent")
+progression_path = NodePath("../../World/Player/RunProgression")
+health_bar_path = NodePath("Frame/HealthBar")
+experience_bar_path = NodePath("Frame/ExperienceBar")
+health_text_path = NodePath("Frame/HealthText")
+experience_text_path = NodePath("Frame/ExperienceText")
+
+[node name="Frame" type="Panel" parent="Interface/PlayerVitals"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vital_frame")
+
+[node name="HealthBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 320.0
+offset_bottom = 35.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_vital_empty")
+theme_override_styles/fill = SubResource("StyleBoxFlat_health_fill")
+value = 100.0
+show_percentage = false
+
+[node name="ExperienceBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 39.0
+offset_right = 320.0
+offset_bottom = 60.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_vital_empty")
+theme_override_styles/fill = SubResource("StyleBoxFlat_experience_fill")
+show_percentage = false
+
+[node name="HealthText" type="Label" parent="Interface/PlayerVitals/Frame"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 320.0
+offset_bottom = 36.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.02, 0.03, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 16
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExperienceText" type="Label" parent="Interface/PlayerVitals/Frame"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 37.0
+offset_right = 320.0
+offset_bottom = 62.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.02, 0.03, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 14
+text = "0/20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="StagePanel" type="PanelContainer" parent="Interface"]
 offset_left = 12.0
-offset_top = 12.0
+offset_top = 86.0
 offset_right = 370.0
-offset_bottom = 276.0
+offset_bottom = 326.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -215,23 +301,6 @@ visible = false
 theme_override_colors/font_color = Color(0.58, 0.66, 0.69, 1)
 theme_override_font_sizes/font_size = 10
 text = "G火焰  H分裂  J穿透  K吸血  L爆炸"
-
-[node name="HealthStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
-theme_override_colors/font_color = Color(0.42, 0.95, 0.62, 1)
-theme_override_font_sizes/font_size = 10
-text = "生命：100 / 100"
-
-[node name="HealthBar" type="ProgressBar" parent="Interface/StagePanel/MarginContainer/Labels"]
-custom_minimum_size = Vector2(0, 7)
-layout_mode = 2
-mouse_filter = 2
-value = 100.0
-show_percentage = false
-
-[node name="ExperienceStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
-theme_override_colors/font_color = Color(0.52, 0.78, 1, 1)
-theme_override_font_sizes/font_size = 10
-text = "成长 Lv.1：0 / 20"
 
 [node name="EssenceStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.75, 0.55, 1, 1)

@@ -22,7 +22,7 @@ func _run() -> void:
 	var gene_manager := player.get_node("GeneManager") as GeneManager
 	var enemy := combat_room.get_node("TestChaser") as EnemyController
 	var health_status := main.get_node(
-		"Interface/StagePanel/MarginContainer/Labels/HealthStatus"
+		"Interface/PlayerVitals/Frame/HealthText"
 	) as Label
 	enemy.set_target(null)
 	player_health.take_damage(50.0)

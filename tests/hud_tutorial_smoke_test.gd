@@ -17,14 +17,17 @@ func _run() -> void:
 	var debug_status := main.get_node(
 		"Interface/StagePanel/MarginContainer/Labels/Status"
 	) as Label
-	var health_status := main.get_node(
-		"Interface/StagePanel/MarginContainer/Labels/HealthStatus"
-	) as Label
 	var health_bar := main.get_node(
-		"Interface/StagePanel/MarginContainer/Labels/HealthBar"
+		"Interface/PlayerVitals/Frame/HealthBar"
 	) as ProgressBar
-	var experience_status := main.get_node(
-		"Interface/StagePanel/MarginContainer/Labels/ExperienceStatus"
+	var experience_bar := main.get_node(
+		"Interface/PlayerVitals/Frame/ExperienceBar"
+	) as ProgressBar
+	var health_text := main.get_node(
+		"Interface/PlayerVitals/Frame/HealthText"
+	) as Label
+	var experience_text := main.get_node(
+		"Interface/PlayerVitals/Frame/ExperienceText"
 	) as Label
 	var tutorial := main.get_node(
 		"TutorialOverlay"
@@ -34,9 +37,10 @@ func _run() -> void:
 		bool(gene_harness.get("debug_hotkeys_enabled"))
 		or bool(relic_harness.get("debug_hotkeys_enabled"))
 		or debug_status.visible
-		or health_status.text.contains("测试")
 		or not is_equal_approx(health_bar.value, 100.0)
-		or not experience_status.text.contains("Lv.1")
+		or not is_equal_approx(experience_bar.value, 0.0)
+		or health_text.text != "100/100"
+		or experience_text.text != "0/20"
 	):
 		push_error("Release HUD still exposed developer controls.")
 		quit(1)
