@@ -8,7 +8,7 @@
 [ext_resource type="Resource" path="res://data/genes/lifesteal_gene.tres" id="6_lifesteal_gene"]
 [ext_resource type="Resource" path="res://data/genes/explosion_gene.tres" id="7_explosion_gene"]
 [ext_resource type="Script" path="res://scripts/rooms/room_manager.gd" id="8_room_manager"]
-[ext_resource type="Resource" path="res://data/rooms/prototype_route.tres" id="9_route"]
+[ext_resource type="Resource" path="res://data/rooms/prototype_random_route.tres" id="9_route"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -58,7 +58,7 @@ projectile_container_path = NodePath("../Projectiles")
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 430.0
-offset_bottom = 166.0
+offset_bottom = 188.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -84,6 +84,12 @@ text = "房间 1/5：开始房"
 theme_override_colors/font_color = Color(0.45, 1, 0.68, 1)
 theme_override_font_sizes/font_size = 10
 text = "房间完成 · 按 N 前进"
+
+[node name="RoutePreview" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.48, 0.66, 0.68, 1)
+theme_override_font_sizes/font_size = 9
+text = "路线生成中……"
+autowrap_mode = 2
 
 [node name="Status" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.58, 0.66, 0.69, 1)
@@ -111,10 +117,11 @@ text = "形态：原始生命"
 
 [node name="RoomManager" type="Node" parent="."]
 script = ExtResource("8_room_manager")
-route_data = ExtResource("9_route")
+random_route_data = ExtResource("9_route")
 room_container_path = NodePath("../World/RoomContainer")
 player_path = NodePath("../World/Player")
 projectile_container_path = NodePath("../World/Projectiles")
 effects_container_path = NodePath("../World/Effects")
 room_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoomStatus")
 room_hint_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoomHint")
+route_preview_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoutePreview")

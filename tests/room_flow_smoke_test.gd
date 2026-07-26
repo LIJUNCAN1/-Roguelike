@@ -92,6 +92,22 @@ func _run() -> void:
 		return
 
 	if not room_manager.advance_room():
+		push_error("Could not advance to the random combat room.")
+		quit(1)
+		return
+
+	var random_combat_data := room_manager.get_current_room_data()
+	if (
+		random_combat_data == null
+		or random_combat_data.room_type != RoomData.RoomType.COMBAT
+	):
+		push_error("Generated route did not contain its second combat.")
+		quit(1)
+		return
+	_defeat_current_room_enemies(room_manager.current_room)
+	await process_frame
+
+	if not room_manager.advance_room():
 		push_error("Could not advance to elite room.")
 		quit(1)
 		return

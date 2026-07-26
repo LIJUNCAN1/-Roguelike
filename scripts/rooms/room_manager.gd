@@ -5,12 +5,15 @@ signal room_changed(room_data: RoomData, room_index: int)
 signal run_completed
 
 @export var route_data: RunRouteData
+@export var random_route_data: RandomRouteData
+@export var route_seed: int = 0
 @export_node_path("Node2D") var room_container_path: NodePath
 @export_node_path("Node2D") var player_path: NodePath
 @export_node_path("Node2D") var projectile_container_path: NodePath
 @export_node_path("Node2D") var effects_container_path: NodePath
 @export_node_path("Label") var room_status_label_path: NodePath
 @export_node_path("Label") var room_hint_label_path: NodePath
+@export_node_path("Label") var route_preview_label_path: NodePath
 
 @onready var room_container: Node2D = get_node(
 	room_container_path
@@ -28,16 +31,22 @@ signal run_completed
 @onready var room_hint_label: Label = get_node(
 	room_hint_label_path
 ) as Label
+@onready var route_preview_label: Label = get_node_or_null(
+	route_preview_label_path
+) as Label
 
 var current_room_index: int = -1
 var current_room: RoomController
 var is_run_complete: bool = false
+var current_route_seed: int = 0
 
 
 func _ready() -> void:
+	_generate_route_if_configured()
 	if route_data == null or route_data.rooms.is_empty():
 		push_error("RoomManager requires a non-empty RunRouteData.")
 		return
+	_update_route_preview()
 	enter_room(0)
 
 
@@ -86,7 +95,7 @@ func advance_room() -> bool:
 	var next_index := current_room_index + 1
 	if next_index >= route_data.rooms.size():
 		is_run_complete = true
-		room_hint_label.text = "固定路线完成"
+		room_hint_label.text = "本次随机路线完成"
 		room_hint_label.modulate = Color(0.45, 1.0, 0.68, 1.0)
 		run_completed.emit()
 		return false
@@ -102,6 +111,16 @@ func get_current_room_data() -> RoomData:
 	):
 		return null
 	return route_data.rooms[current_room_index]
+
+
+func get_route_room_ids() -> Array[StringName]:
+	var room_ids: Array[StringName] = []
+	if route_data == null:
+		return room_ids
+	for room in route_data.rooms:
+		if room != null:
+			room_ids.append(room.id)
+	return room_ids
 
 
 func _configure_room_enemies() -> void:
@@ -124,6 +143,32 @@ func _update_room_status() -> void:
 		current_room_index + 1,
 		route_data.rooms.size(),
 		room_data.display_name,
+	]
+
+
+func _generate_route_if_configured() -> void:
+	if random_route_data == null:
+		return
+
+	current_route_seed = route_seed
+	if current_route_seed == 0:
+		var seed_rng := RandomNumberGenerator.new()
+		seed_rng.randomize()
+		current_route_seed = seed_rng.randi()
+	route_data = random_route_data.generate_route(current_route_seed)
+
+
+func _update_route_preview() -> void:
+	if route_preview_label == null or route_data == null:
+		return
+
+	var room_names := PackedStringArray()
+	for room in route_data.rooms:
+		if room != null:
+			room_names.append(room.display_name)
+	route_preview_label.text = "路线：%s  ·  种子 %d" % [
+		" → ".join(room_names),
+		current_route_seed,
 	]
 
 
