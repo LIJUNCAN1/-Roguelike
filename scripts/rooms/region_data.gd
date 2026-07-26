@@ -15,3 +15,4 @@ extends Resource
 
 @export_group("Decoration")
 @export var decoration_scene: PackedScene
+@export var visual_data: RegionVisualData

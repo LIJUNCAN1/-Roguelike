@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AudioCueData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/audio/audio_cue_data.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = &"dash"
+volume_db = -9.0
+fallback_frequency = 220.0
+fallback_duration = 0.18
+fallback_waveform = 2

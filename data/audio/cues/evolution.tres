@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AudioCueData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/audio/audio_cue_data.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = &"evolution"
+volume_db = -4.0
+fallback_frequency = 330.0
+fallback_duration = 0.72
+fallback_waveform = 2
+pitch_randomness = 0.0

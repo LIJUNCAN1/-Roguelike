@@ -27,6 +27,11 @@ func _ready() -> void:
 		return
 
 	movement_component.configure(enemy_data.move_speed)
+	var pixel_presenter := get_node_or_null(
+		"PixelActorPresenter"
+	) as PixelActorPresenter
+	if pixel_presenter != null:
+		pixel_presenter.configure(enemy_data.visual_data)
 	health_component.configure(enemy_data.max_health)
 	health_component.died.connect(_on_died)
 	hit_feedback_component.configure_container(

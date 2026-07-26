@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ActorVisualData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/actor_visual_data.gd" id="1_data"]
+[ext_resource type="Texture2D" path="res://assets/art/generated/player_forms-v2.png" id="2_atlas"]
+
+[resource]
+script = ExtResource("1_data")
+atlas_texture = ExtResource("2_atlas")
+frame_regions = Array[Rect2]([Rect2(0, 341, 256, 341), Rect2(256, 341, 256, 341), Rect2(512, 341, 256, 341), Rect2(768, 341, 256, 341), Rect2(1024, 341, 256, 341), Rect2(1280, 341, 256, 341)])
+visual_scale = Vector2(0.13, 0.13)
+visual_offset = Vector2(0, -4)
+idle_frames = PackedInt32Array(0, 1)
+move_frames = PackedInt32Array(0, 1)
+attack_frames = PackedInt32Array(2)
+hurt_frames = PackedInt32Array(3)
+death_frames = PackedInt32Array(4)
+evolution_frames = PackedInt32Array(5)
+frames_per_second = 5.0

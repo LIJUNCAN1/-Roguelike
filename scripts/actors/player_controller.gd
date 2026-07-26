@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal dash_started(direction: Vector2)
+signal attack_fired(projectile: Node2D)
 
 @export var character_data: CharacterData
 @export var action_data: PlayerActionData
@@ -101,11 +102,14 @@ func aim_at(world_position: Vector2) -> void:
 
 
 func fire() -> Node2D:
-	return weapon_component.try_fire(
+	var projectile := weapon_component.try_fire(
 		projectile_container,
 		aim_origin.global_position,
 		facing_direction
 	)
+	if projectile != null:
+		attack_fired.emit(projectile)
+	return projectile
 
 
 func start_dash(direction: Vector2) -> bool:

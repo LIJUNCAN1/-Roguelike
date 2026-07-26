@@ -102,7 +102,8 @@ func _assert_current_region(
 		not floor.color.is_equal_approx(
 			room.current_region.floor_color
 		)
-		or decorations.get_child_count() != 1
+		or decorations.get_child_count() < 2
+		or not decorations.has_node("GeneratedTileBackdrop")
 		or not shell.modulate.is_equal_approx(Color.WHITE)
 	):
 		push_error("Region palette or decorations were not applied.")

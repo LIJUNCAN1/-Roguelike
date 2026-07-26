@@ -72,7 +72,21 @@ func apply_region(region: RegionData) -> void:
 		return
 	for child in decoration_anchor.get_children():
 		child.queue_free()
-	if region.decoration_scene != null:
+	if (
+		region.visual_data != null
+		and region.visual_data.source_atlas != null
+		and region.visual_data.sample_floor_region.size.x > 0.0
+	):
+		var tile_backdrop := RegionTileBackdrop.new()
+		tile_backdrop.name = "GeneratedTileBackdrop"
+		decoration_anchor.add_child(tile_backdrop)
+		tile_backdrop.setup(region.visual_data)
+	var replacement_scene: PackedScene
+	if region.visual_data != null:
+		replacement_scene = region.visual_data.environment_scene
+	if replacement_scene != null:
+		decoration_anchor.add_child(replacement_scene.instantiate())
+	elif region.decoration_scene != null:
 		decoration_anchor.add_child(
 			region.decoration_scene.instantiate()
 		)

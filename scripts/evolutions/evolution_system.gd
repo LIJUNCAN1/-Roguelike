@@ -9,6 +9,7 @@ signal evolution_changed(
 @export_node_path("Node") var gene_manager_path: NodePath
 @export_node_path("Node") var fusion_manager_path: NodePath
 @export_node_path("Node2D") var visual_anchor_path: NodePath
+@export_node_path("Node2D") var pixel_presenter_path: NodePath
 @export var base_evolution: EvolutionData
 @export var evolutions: Array[EvolutionData] = []
 
@@ -21,6 +22,9 @@ signal evolution_changed(
 @onready var visual_anchor: Node2D = get_node(
 	visual_anchor_path
 ) as Node2D
+@onready var pixel_presenter: PixelActorPresenter = get_node_or_null(
+	pixel_presenter_path
+) as PixelActorPresenter
 
 var current_evolution: EvolutionData
 
@@ -93,6 +97,9 @@ func _set_evolution(next_evolution: EvolutionData) -> void:
 	var previous_evolution := current_evolution
 	current_evolution = next_evolution
 	_replace_visual(current_evolution.visual_scene)
+	if pixel_presenter != null:
+		pixel_presenter.configure(current_evolution.pixel_visual_data)
+		pixel_presenter.play_evolution()
 	evolution_changed.emit(previous_evolution, current_evolution)
 
 

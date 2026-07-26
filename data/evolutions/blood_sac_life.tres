@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="EvolutionData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="EvolutionData" load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_data.gd" id="1_data"]
 [ext_resource type="Script" path="res://scripts/genes/gene_effect.gd" id="2_effect"]
 [ext_resource type="PackedScene" path="res://scenes/player/forms/blood_sac_life_visual.tscn" id="3_visual"]
 [ext_resource type="Resource" path="res://data/evolutions/effects/blood_sac_projectile_effect.tres" id="4_projectile"]
 [ext_resource type="Resource" path="res://data/evolutions/effects/blood_sac_lifesteal_upgrade.tres" id="5_lifesteal"]
+[ext_resource type="Resource" path="res://data/art/player_abyss_visual.tres" id="9_pixel"]
 
 [resource]
 script = ExtResource("1_data")
@@ -14,4 +15,5 @@ description = "吸血基因形成储血器官，命中回复实际伤害的 70%�
 priority = 10
 required_gene_ids = Array[StringName]([&"lifesteal"])
 visual_scene = ExtResource("3_visual")
+pixel_visual_data = ExtResource("9_pixel")
 effects = Array[ExtResource("2_effect")]([ExtResource("4_projectile"), ExtResource("5_lifesteal")])

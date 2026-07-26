@@ -13,6 +13,7 @@ extends Resource
 
 @export_group("Presentation")
 @export var visual_scene: PackedScene
+@export var pixel_visual_data: ActorVisualData
 
 @export_group("Combat")
 @export var effects: Array[GeneEffect] = []

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/enemy_controller.gd" id="1_enemy_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/combat/hurtbox_component.gd" id="5_hurtbox_component"]
 [ext_resource type="Script" path="res://scripts/combat/hit_feedback_component.gd" id="6_hit_feedback"]
 [ext_resource type="Resource" path="res://data/feedback/test_chaser_feedback.tres" id="7_feedback_data"]
+[ext_resource type="Script" path="res://scripts/art/pixel_actor_presenter.gd" id="8_pixel_presenter"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_enemy"]
 radius = 9.0
@@ -22,6 +23,10 @@ script = ExtResource("2_movement_component")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_health_component")
+
+[node name="PixelActorPresenter" type="Node2D" parent="."]
+script = ExtResource("8_pixel_presenter")
+fallback_visual_path = NodePath("../Visuals")
 
 [node name="HitFeedbackComponent" type="Node" parent="."]
 script = ExtResource("6_hit_feedback")

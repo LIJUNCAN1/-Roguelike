@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="BossData" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="BossData" load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/bosses/boss_data.gd" id="1_data"]
 [ext_resource type="Resource" path="res://data/bosses/phases/devourer_phase_1.tres" id="2_phase_1"]
 [ext_resource type="Resource" path="res://data/bosses/phases/devourer_phase_2.tres" id="3_phase_2"]
+[ext_resource type="Resource" path="res://data/art/gene_devourer_visual.tres" id="4_visual"]
 
 [resource]
 script = ExtResource("1_data")
 id = &"gene_devourer"
 display_name = "基因吞噬体"
+visual_data = ExtResource("4_visual")
 max_health = 240.0
 move_speed = 52.0
 stopping_distance = 105.0

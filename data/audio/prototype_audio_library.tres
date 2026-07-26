@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="GameAudioLibrary" load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/game_audio_library.gd" id="1_library"]
+[ext_resource type="Resource" path="res://data/audio/cues/attack.tres" id="2_attack"]
+[ext_resource type="Resource" path="res://data/audio/cues/dash.tres" id="3_dash"]
+[ext_resource type="Resource" path="res://data/audio/cues/hurt.tres" id="4_hurt"]
+[ext_resource type="Resource" path="res://data/audio/cues/death.tres" id="5_death"]
+[ext_resource type="Resource" path="res://data/audio/cues/evolution.tres" id="6_evolution"]
+[ext_resource type="Resource" path="res://data/audio/cues/boss_phase.tres" id="7_phase"]
+[ext_resource type="Resource" path="res://data/audio/music/organic_region.tres" id="8_organic"]
+[ext_resource type="Resource" path="res://data/audio/music/abyss_region.tres" id="9_abyss"]
+[ext_resource type="Resource" path="res://data/audio/music/mechanical_region.tres" id="10_mechanical"]
+[ext_resource type="Resource" path="res://data/audio/music/boss_music.tres" id="11_boss"]
+
+[resource]
+script = ExtResource("1_library")
+attack = ExtResource("2_attack")
+dash = ExtResource("3_dash")
+hurt = ExtResource("4_hurt")
+death = ExtResource("5_death")
+evolution = ExtResource("6_evolution")
+boss_phase = ExtResource("7_phase")
+region_music = {
+&"abyss_lab": ExtResource("9_abyss"),
+&"mechanical_hive": ExtResource("10_mechanical"),
+&"primordial_culture": ExtResource("8_organic")
+}
+boss_music = ExtResource("11_boss")

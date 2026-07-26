@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3]
+[gd_scene load_steps=33 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/player_controller.gd" id="1_player_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
@@ -30,6 +30,7 @@
 [ext_resource type="Resource" path="res://data/player/default_actions.tres" id="28_actions"]
 [ext_resource type="Resource" path="res://data/evolutions/plague_hive.tres" id="29_plague_hive"]
 [ext_resource type="Script" path="res://scripts/run/run_progression.gd" id="30_progression"]
+[ext_resource type="Script" path="res://scripts/art/pixel_actor_presenter.gd" id="31_pixel_presenter"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 7.0
@@ -53,6 +54,10 @@ script = ExtResource("27_damage_flash")
 health_component_path = NodePath("../HealthComponent")
 visual_root_path = NodePath("../Visuals")
 
+[node name="PixelActorPresenter" type="Node2D" parent="."]
+script = ExtResource("31_pixel_presenter")
+fallback_visual_path = NodePath("../Visuals")
+
 [node name="GeneManager" type="Node" parent="."]
 script = ExtResource("6_gene_manager")
 
@@ -66,6 +71,7 @@ script = ExtResource("12_evolution_system")
 gene_manager_path = NodePath("../GeneManager")
 fusion_manager_path = NodePath("../FusionManager")
 visual_anchor_path = NodePath("../Visuals/FormAnchor")
+pixel_presenter_path = NodePath("../PixelActorPresenter")
 base_evolution = ExtResource("14_base_life")
 evolutions = Array[ExtResource("13_evolution_data")]([ExtResource("15_fire_life"), ExtResource("23_mitosis"), ExtResource("25_blood_sac"), ExtResource("16_fire_dragon"), ExtResource("24_hive"), ExtResource("26_devourer"), ExtResource("29_plague_hive")])
 

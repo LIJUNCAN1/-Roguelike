@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3]
+[gd_scene load_steps=32 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -28,6 +28,8 @@
 [ext_resource type="Script" path="res://scripts/codex/gene_codex_manager.gd" id="26_codex_manager"]
 [ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="27_gene_pool"]
 [ext_resource type="PackedScene" path="res://scenes/ui/gene_codex_panel.tscn" id="28_codex_panel"]
+[ext_resource type="Script" path="res://scripts/audio/game_audio_director.gd" id="29_audio_director"]
+[ext_resource type="Resource" path="res://data/audio/prototype_audio_library.tres" id="30_audio_library"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -120,6 +122,12 @@ status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/Com
 script = ExtResource("22_screen_shake")
 player_health_path = NodePath("../World/Player/HealthComponent")
 camera_path = NodePath("../World/Camera2D")
+
+[node name="GameAudioDirector" type="Node" parent="."]
+script = ExtResource("29_audio_director")
+library = ExtResource("30_audio_library")
+player_path = NodePath("../World/Player")
+room_manager_path = NodePath("../RoomManager")
 
 [node name="World" type="Node2D" parent="."]
 

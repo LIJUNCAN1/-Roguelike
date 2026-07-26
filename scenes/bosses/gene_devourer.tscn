@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/bosses/boss_controller.gd" id="1_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/combat/hit_feedback_component.gd" id="6_feedback"]
 [ext_resource type="Resource" path="res://data/feedback/test_chaser_feedback.tres" id="7_feedback_data"]
 [ext_resource type="PackedScene" path="res://scenes/bosses/boss_attack_indicator.tscn" id="8_indicator"]
+[ext_resource type="Script" path="res://scripts/art/pixel_actor_presenter.gd" id="9_pixel_presenter"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_boss"]
 radius = 17.0
@@ -24,6 +25,10 @@ script = ExtResource("2_movement")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_health")
+
+[node name="PixelActorPresenter" type="Node2D" parent="."]
+script = ExtResource("9_pixel_presenter")
+fallback_visual_path = NodePath("../Visuals")
 
 [node name="HitFeedbackComponent" type="Node" parent="."]
 script = ExtResource("6_feedback")
@@ -85,4 +90,3 @@ offset_right = 46.0
 offset_bottom = -23.0
 mouse_filter = 2
 show_percentage = false
-

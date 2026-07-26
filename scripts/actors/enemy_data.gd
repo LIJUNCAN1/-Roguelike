@@ -4,6 +4,7 @@ extends Resource
 @export_group("Identity")
 @export var id: StringName
 @export var display_name: String
+@export var visual_data: ActorVisualData
 
 @export_group("Survival")
 @export_range(1.0, 1000000.0, 1.0, "or_greater")
