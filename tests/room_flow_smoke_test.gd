@@ -96,8 +96,9 @@ func _run() -> void:
 		push_error("Reward room did not open two route branches.")
 		quit(1)
 		return
-	if not main.get_node("RouteChoicePanel").visible:
-		push_error("Route choice panel was not shown.")
+	var route_exits := room_manager.current_route_exit_selector
+	if route_exits == null or not route_exits.is_active:
+		push_error("Two physical route exits were not opened.")
 		quit(1)
 		return
 	if room_manager.advance_room():
@@ -106,8 +107,13 @@ func _run() -> void:
 		return
 
 	var chosen_branch := room_manager.pending_room_choices[1]
-	if not room_manager.choose_room_branch(1):
-		push_error("Could not choose the random combat branch.")
+	player.global_position = route_exits.get_exit_global_position(1)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+	if room_manager.current_room_index != 3:
+		push_error("Walking into the route exit did not change rooms.")
 		quit(1)
 		return
 

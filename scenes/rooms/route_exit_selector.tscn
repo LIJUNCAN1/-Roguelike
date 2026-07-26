@@ -1,0 +1,99 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/route_exit_selector.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(88, 42)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_left"]
+bg_color = Color(0.08, 0.24, 0.34, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28, 0.78, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_right"]
+bg_color = Color(0.25, 0.12, 0.28, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.4, 0.82, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[node name="RouteExitSelector" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="LeftExit" type="Area2D" parent="."]
+position = Vector2(190, 292)
+collision_layer = 0
+collision_mask = 1
+
+[node name="Glow" type="Polygon2D" parent="LeftExit"]
+polygon = PackedVector2Array(-44, 20, -44, -16, -34, -28, 34, -28, 44, -16, 44, 20)
+color = Color(0.12, 0.58, 0.82, 0.72)
+
+[node name="Core" type="Polygon2D" parent="LeftExit"]
+polygon = PackedVector2Array(-34, 18, -34, -12, -27, -20, 27, -20, 34, -12, 34, 18)
+color = Color(0.02, 0.08, 0.14, 0.95)
+
+[node name="RoomName" type="Label" parent="LeftExit"]
+offset_left = -64.0
+offset_top = -54.0
+offset_right = 64.0
+offset_bottom = -32.0
+theme_override_colors/font_color = Color(0.55, 0.88, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "左侧路线"
+horizontal_alignment = 1
+
+[node name="Direction" type="Label" parent="LeftExit"]
+offset_left = -44.0
+offset_top = -8.0
+offset_right = 44.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.7, 0.92, 1, 1)
+text = "进入"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftExit"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="RightExit" type="Area2D" parent="."]
+position = Vector2(450, 292)
+collision_layer = 0
+collision_mask = 1
+
+[node name="Glow" type="Polygon2D" parent="RightExit"]
+polygon = PackedVector2Array(-44, 20, -44, -16, -34, -28, 34, -28, 44, -16, 44, 20)
+color = Color(0.82, 0.22, 0.68, 0.72)
+
+[node name="Core" type="Polygon2D" parent="RightExit"]
+polygon = PackedVector2Array(-34, 18, -34, -12, -27, -20, 27, -20, 34, -12, 34, 18)
+color = Color(0.12, 0.025, 0.12, 0.95)
+
+[node name="RoomName" type="Label" parent="RightExit"]
+offset_left = -64.0
+offset_top = -54.0
+offset_right = 64.0
+offset_bottom = -32.0
+theme_override_colors/font_color = Color(1, 0.62, 0.9, 1)
+theme_override_font_sizes/font_size = 11
+text = "右侧路线"
+horizontal_alignment = 1
+
+[node name="Direction" type="Label" parent="RightExit"]
+offset_left = -44.0
+offset_top = -8.0
+offset_right = 44.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(1, 0.72, 0.92, 1)
+text = "进入"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightExit"]
+shape = SubResource("RectangleShape2D_exit")

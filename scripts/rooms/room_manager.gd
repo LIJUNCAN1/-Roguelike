@@ -6,6 +6,7 @@ signal run_completed
 
 @export var route_data: RunRouteData
 @export var random_route_data: RandomRouteData
+@export var route_exit_selector_scene: PackedScene
 @export var route_seed: int = 0
 @export_node_path("Node2D") var room_container_path: NodePath
 @export_node_path("Node2D") var player_path: NodePath
@@ -14,7 +15,6 @@ signal run_completed
 @export_node_path("Label") var room_status_label_path: NodePath
 @export_node_path("Label") var room_hint_label_path: NodePath
 @export_node_path("Label") var route_preview_label_path: NodePath
-@export_node_path("CanvasLayer") var route_choice_panel_path: NodePath
 
 @onready var room_container: Node2D = get_node(
 	room_container_path
@@ -35,9 +35,6 @@ signal run_completed
 @onready var route_preview_label: Label = get_node_or_null(
 	route_preview_label_path
 ) as Label
-@onready var route_choice_panel: RouteChoicePanel = get_node_or_null(
-	route_choice_panel_path
-) as RouteChoicePanel
 
 var current_room_index: int = -1
 var current_room: RoomController
@@ -46,6 +43,7 @@ var current_route_seed: int = 0
 var pending_room_choices: Array[RoomData] = []
 var pending_room_index: int = -1
 var chosen_route_layers: Dictionary = {}
+var current_route_exit_selector: RouteExitSelector
 
 
 func _ready() -> void:
@@ -53,8 +51,6 @@ func _ready() -> void:
 	if route_data == null or route_data.rooms.is_empty():
 		push_error("RoomManager requires a non-empty RunRouteData.")
 		return
-	if route_choice_panel != null:
-		route_choice_panel.room_chosen.connect(choose_room_branch)
 	_update_route_preview()
 	enter_room(0)
 
@@ -80,6 +76,9 @@ func enter_room(room_index: int) -> bool:
 	_clear_container(room_container)
 	_clear_container(projectile_container)
 	_clear_container(effects_container)
+	current_route_exit_selector = null
+	pending_room_choices.clear()
+	pending_room_index = -1
 
 	current_room = room_data.room_scene.instantiate() as RoomController
 	room_container.add_child(current_room)
@@ -129,8 +128,7 @@ func choose_room_branch(choice_index: int) -> bool:
 	var selected_index := pending_room_index
 	pending_room_choices.clear()
 	pending_room_index = -1
-	if route_choice_panel != null:
-		route_choice_panel.hide_choices()
+	current_route_exit_selector = null
 	_update_route_preview()
 	return enter_room(selected_index)
 
@@ -228,7 +226,7 @@ func _on_current_room_completed() -> void:
 
 func _prepare_next_room_choices() -> bool:
 	if not pending_room_choices.is_empty():
-		room_hint_label.text = "选择下一间房（按 1 / 2）"
+		room_hint_label.text = "走进左侧或右侧入口选择路线"
 		room_hint_label.modulate = Color(0.4, 0.75, 1.0, 1.0)
 		return true
 	if random_route_data == null:
@@ -246,9 +244,24 @@ func _prepare_next_room_choices() -> bool:
 
 	pending_room_choices.assign(choices)
 	pending_room_index = next_index
-	if route_choice_panel != null:
-		route_choice_panel.show_choices(pending_room_choices)
-	room_hint_label.text = "选择下一间房（按 1 / 2）"
+	if route_exit_selector_scene == null:
+		push_error("RoomManager requires a route exit selector scene.")
+		pending_room_choices.clear()
+		pending_room_index = -1
+		return false
+
+	current_route_exit_selector = (
+		route_exit_selector_scene.instantiate() as RouteExitSelector
+	)
+	current_room.add_child(current_route_exit_selector)
+	current_route_exit_selector.exit_entered.connect(
+		choose_room_branch
+	)
+	current_route_exit_selector.configure(
+		pending_room_choices,
+		player
+	)
+	room_hint_label.text = "走进左侧或右侧入口选择路线"
 	room_hint_label.modulate = Color(0.4, 0.75, 1.0, 1.0)
 	return true
 

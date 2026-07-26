@@ -6,7 +6,7 @@ signal reward_selected(gene: GeneData)
 
 @export var reward_pool: GeneRewardPoolData
 
-@onready var reward_panel: PanelContainer = $RewardInterface/RewardPanel
+@onready var reward_interface: CanvasLayer = $RewardInterface
 @onready var instruction_label: Label = (
 	$RewardInterface/RewardPanel/Margin/Content/Instruction
 )
@@ -25,7 +25,7 @@ var _rng := RandomNumberGenerator.new()
 func _ready() -> void:
 	completion_mode = CompletionMode.EXTERNAL
 	_rng.randomize()
-	reward_panel.visible = false
+	reward_interface.visible = false
 	for index in choice_buttons.size():
 		choice_buttons[index].pressed.connect(
 			_on_choice_pressed.bind(index)
@@ -69,7 +69,7 @@ func choose_gene(choice_index: int) -> bool:
 	selected_gene = gene
 	for button in choice_buttons:
 		button.disabled = true
-	instruction_label.text = "已吸收：%s · 按 N 前进" % gene.display_name
+	reward_interface.visible = false
 	reward_selected.emit(gene)
 	_mark_completed()
 	return true
@@ -96,10 +96,7 @@ func _offer_rewards() -> void:
 	offered_genes.assign(available.slice(0, offer_count))
 
 	if offered_genes.is_empty():
-		instruction_label.text = "所有基因均已获得 · 按 N 前进"
-		reward_panel.visible = true
-		for button in choice_buttons:
-			button.visible = false
+		reward_interface.visible = false
 		_mark_completed()
 		return
 
@@ -118,7 +115,7 @@ func _offer_rewards() -> void:
 		]
 
 	instruction_label.text = "选择一段基因，让本次进化产生新的方向"
-	reward_panel.visible = true
+	reward_interface.visible = true
 	reward_offered.emit(get_offered_genes())
 
 

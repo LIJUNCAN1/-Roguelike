@@ -68,8 +68,18 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if not room_manager.choose_room_branch(0):
-		push_error("Could not leave reward room through a branch.")
+	var route_exits := room_manager.current_route_exit_selector
+	if route_exits == null:
+		push_error("Completed reward did not create physical exits.")
+		quit(1)
+		return
+	player.global_position = route_exits.get_exit_global_position(0)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+	if room_manager.current_room_index != 3:
+		push_error("Could not leave reward room through a physical exit.")
 		quit(1)
 		return
 
