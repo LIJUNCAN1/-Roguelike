@@ -87,7 +87,7 @@ projectile_container_path = NodePath("../Projectiles")
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 430.0
-offset_bottom = 250.0
+offset_bottom = 264.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -108,6 +108,11 @@ text = "生物进化冒险原型"
 theme_override_colors/font_color = Color(0.65, 0.82, 1, 1)
 theme_override_font_sizes/font_size = 10
 text = "房间 1/8：开始房"
+
+[node name="RegionStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.48, 1, 0.68, 1)
+theme_override_font_sizes/font_size = 10
+text = "区域：原生培养区"
 
 [node name="RoomHint" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
 theme_override_colors/font_color = Color(0.45, 1, 0.68, 1)
@@ -173,6 +178,7 @@ player_path = NodePath("../World/Player")
 projectile_container_path = NodePath("../World/Projectiles")
 effects_container_path = NodePath("../World/Effects")
 room_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoomStatus")
+region_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RegionStatus")
 room_hint_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoomHint")
 route_preview_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoutePreview")
 

@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[node name="MechanicalDecorations" type="Node2D"]
+
+[node name="CircuitA" type="Line2D" parent="."]
+points = PackedVector2Array(54, 90, 110, 90, 110, 122, 158, 122)
+width = 2.0
+default_color = Color(0.16, 0.58, 0.8, 0.35)
+
+[node name="CircuitB" type="Line2D" parent="."]
+points = PackedVector2Array(586, 260, 528, 260, 528, 230, 480, 230)
+width = 2.0
+default_color = Color(0.18, 0.68, 0.88, 0.35)
+
+[node name="PlateA" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(68, 250, 142, 250, 150, 258, 142, 286, 68, 286, 60, 278)
+color = Color(0.12, 0.3, 0.42, 0.32)
+
+[node name="PlateB" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(490, 70, 560, 70, 568, 78, 560, 104, 490, 104, 482, 96)
+color = Color(0.12, 0.32, 0.46, 0.32)
+
+[node name="NodeA" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(105, 114, 112, 121, 105, 128, 98, 121)
+color = Color(0.28, 0.9, 1, 0.55)
+
+[node name="NodeB" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(535, 222, 542, 229, 535, 236, 528, 229)
+color = Color(0.28, 0.9, 1, 0.55)

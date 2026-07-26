@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[node name="PrimordialDecorations" type="Node2D"]
+
+[node name="CellClusterA" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(82, 268, 88, 254, 103, 248, 118, 255, 122, 270, 112, 282, 95, 284)
+color = Color(0.18, 0.48, 0.34, 0.34)
+
+[node name="CellCoreA" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(95, 264, 102, 257, 112, 262, 110, 273, 99, 275)
+color = Color(0.46, 0.82, 0.48, 0.35)
+
+[node name="CellClusterB" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(500, 72, 510, 58, 527, 60, 538, 73, 534, 89, 520, 96, 505, 88)
+color = Color(0.16, 0.52, 0.42, 0.3)
+
+[node name="Vessel" type="Line2D" parent="."]
+points = PackedVector2Array(48, 180, 92, 166, 136, 177, 178, 158)
+width = 3.0
+default_color = Color(0.2, 0.58, 0.4, 0.28)

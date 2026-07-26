@@ -13,6 +13,7 @@ signal run_completed
 @export_node_path("Node2D") var projectile_container_path: NodePath
 @export_node_path("Node2D") var effects_container_path: NodePath
 @export_node_path("Label") var room_status_label_path: NodePath
+@export_node_path("Label") var region_status_label_path: NodePath
 @export_node_path("Label") var room_hint_label_path: NodePath
 @export_node_path("Label") var route_preview_label_path: NodePath
 
@@ -28,6 +29,9 @@ signal run_completed
 ) as Node2D
 @onready var room_status_label: Label = get_node(
 	room_status_label_path
+) as Label
+@onready var region_status_label: Label = get_node_or_null(
+	region_status_label_path
 ) as Label
 @onready var room_hint_label: Label = get_node(
 	room_hint_label_path
@@ -87,6 +91,7 @@ func enter_room(room_index: int) -> bool:
 	chosen_route_layers[room_index] = true
 	is_run_complete = false
 	player.global_position = Vector2(320, 180)
+	current_room.apply_region(room_data.region)
 	current_room.configure_run(player, current_route_seed)
 	_configure_room_enemies()
 	_update_room_status()
@@ -188,6 +193,14 @@ func _update_room_status() -> void:
 		route_data.rooms.size(),
 		room_data.display_name,
 	]
+	if region_status_label == null:
+		return
+	if room_data.region == null:
+		region_status_label.text = "区域：未指定"
+		region_status_label.modulate = Color.WHITE
+		return
+	region_status_label.text = "区域：%s" % room_data.region.display_name
+	region_status_label.modulate = room_data.region.accent_color
 
 
 func _generate_route_if_configured() -> void:

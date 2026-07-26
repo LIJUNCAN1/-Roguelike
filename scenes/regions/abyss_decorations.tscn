@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[node name="AbyssDecorations" type="Node2D"]
+
+[node name="RiftA" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(80, 88, 126, 74, 112, 92, 145, 104, 101, 101, 72, 116, 88, 98)
+color = Color(0.42, 0.08, 0.62, 0.38)
+
+[node name="RiftB" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(468, 272, 512, 250, 500, 272, 550, 280, 506, 290, 476, 302, 492, 282)
+color = Color(0.34, 0.04, 0.58, 0.42)
+
+[node name="CrystalTop" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(320, 42, 330, 64, 320, 58, 310, 65)
+color = Color(0.64, 0.2, 0.9, 0.45)
+
+[node name="CrystalBottom" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(320, 318, 331, 296, 320, 302, 309, 295)
+color = Color(0.64, 0.2, 0.9, 0.45)

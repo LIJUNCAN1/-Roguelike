@@ -15,3 +15,4 @@ enum RoomType {
 @export var display_name: String
 @export var room_type: RoomType = RoomType.COMBAT
 @export var room_scene: PackedScene
+@export var region: RegionData

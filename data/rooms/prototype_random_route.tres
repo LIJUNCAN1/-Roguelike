@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RandomRouteData" load_steps=20 format=3]
+[gd_resource type="Resource" script_class="RandomRouteData" load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/random_route_data.gd" id="1_random"]
 [ext_resource type="Script" path="res://scripts/rooms/route_room_pool_data.gd" id="2_pool"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" path="res://data/rooms/event_room.tres" id="9_event"]
 [ext_resource type="Resource" path="res://data/rooms/symbiosis_event_room.tres" id="10_symbiosis"]
 [ext_resource type="Resource" path="res://data/rooms/relic_reward_room.tres" id="11_relic"]
+[ext_resource type="Resource" path="res://data/rooms/abyss_combat_room.tres" id="12_abyss_combat"]
 
 [sub_resource type="Resource" id="RoutePool_start"]
 script = ExtResource("2_pool")
@@ -26,7 +27,7 @@ rooms = Array[ExtResource("5_reward")]([ExtResource("5_reward")])
 
 [sub_resource type="Resource" id="RoutePool_random_combat"]
 script = ExtResource("2_pool")
-rooms = Array[ExtResource("4_combat")]([ExtResource("4_combat"), ExtResource("6_swarm")])
+rooms = Array[ExtResource("12_abyss_combat")]([ExtResource("12_abyss_combat"), ExtResource("6_swarm")])
 
 [sub_resource type="Resource" id="RoutePool_elite"]
 script = ExtResource("2_pool")

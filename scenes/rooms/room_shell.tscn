@@ -24,6 +24,8 @@ color = Color(0.07, 0.115, 0.12, 1)
 polygon = PackedVector2Array(465, 240, 560, 240, 560, 290, 465, 290)
 color = Color(0.07, 0.115, 0.12, 1)
 
+[node name="RegionDecorations" type="Node2D" parent="."]
+
 [node name="Walls" type="Node2D" parent="."]
 
 [node name="Top" type="StaticBody2D" parent="Walls"]
