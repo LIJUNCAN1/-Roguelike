@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="EvolutionData" load_steps=6 format=3]
+[gd_resource type="Resource" script_class="EvolutionData" load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_data.gd" id="1_evolution_data"]
 [ext_resource type="Script" path="res://scripts/genes/gene_effect.gd" id="2_gene_effect"]
 [ext_resource type="PackedScene" path="res://scenes/player/forms/fire_dragon_visual.tscn" id="3_visual"]
 [ext_resource type="Resource" path="res://data/evolutions/effects/fire_dragon_attack_effect.tres" id="4_effect"]
 [ext_resource type="Resource" path="res://data/art/player_original_visual.tres" id="9_pixel"]
+[ext_resource type="Resource" path="res://data/evolutions/presentation/fire_evolution_presentation.tres" id="10_presentation"]
 
 [resource]
 script = ExtResource("1_evolution_data")
@@ -15,4 +16,5 @@ priority = 20
 required_fusion_ids = Array[StringName]([&"fire_burst"])
 visual_scene = ExtResource("3_visual")
 pixel_visual_data = ExtResource("9_pixel")
+presentation_data = ExtResource("10_presentation")
 effects = Array[ExtResource("2_gene_effect")]([ExtResource("4_effect")])

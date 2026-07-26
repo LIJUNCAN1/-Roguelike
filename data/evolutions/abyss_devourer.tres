@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EvolutionData" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="EvolutionData" load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_data.gd" id="1_data"]
 [ext_resource type="Script" path="res://scripts/genes/gene_effect.gd" id="2_effect"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" path="res://data/evolutions/effects/abyss_lifesteal_upgrade.tres" id="5_lifesteal"]
 [ext_resource type="Resource" path="res://data/evolutions/effects/abyss_explosion_upgrade.tres" id="6_explosion"]
 [ext_resource type="Resource" path="res://data/art/player_abyss_visual.tres" id="9_pixel"]
+[ext_resource type="Resource" path="res://data/evolutions/presentation/abyss_evolution_presentation.tres" id="10_presentation"]
 
 [resource]
 script = ExtResource("1_data")
@@ -17,4 +18,5 @@ priority = 20
 required_gene_ids = Array[StringName]([&"lifesteal", &"explosion"])
 visual_scene = ExtResource("3_visual")
 pixel_visual_data = ExtResource("9_pixel")
+presentation_data = ExtResource("10_presentation")
 effects = Array[ExtResource("2_effect")]([ExtResource("4_projectile"), ExtResource("5_lifesteal"), ExtResource("6_explosion")])

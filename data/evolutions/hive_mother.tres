@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EvolutionData" load_steps=7 format=3]
+[gd_resource type="Resource" script_class="EvolutionData" load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_data.gd" id="1_data"]
 [ext_resource type="Script" path="res://scripts/genes/gene_effect.gd" id="2_effect"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" path="res://data/evolutions/effects/hive_mother_attack_effect.tres" id="4_stats"]
 [ext_resource type="Resource" path="res://data/evolutions/effects/hive_mother_split_effect.tres" id="5_split"]
 [ext_resource type="Resource" path="res://data/art/player_original_visual.tres" id="9_pixel"]
+[ext_resource type="Resource" path="res://data/evolutions/presentation/organic_evolution_presentation.tres" id="10_presentation"]
 
 [resource]
 script = ExtResource("1_data")
@@ -16,4 +17,5 @@ priority = 20
 required_gene_ids = Array[StringName]([&"split", &"piercing"])
 visual_scene = ExtResource("3_visual")
 pixel_visual_data = ExtResource("9_pixel")
+presentation_data = ExtResource("10_presentation")
 effects = Array[ExtResource("2_effect")]([ExtResource("4_stats"), ExtResource("5_split")])

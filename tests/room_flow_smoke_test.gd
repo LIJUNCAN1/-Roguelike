@@ -90,6 +90,7 @@ func _run() -> void:
 	gene_manager.add_gene(
 		load("res://data/genes/fire_gene.tres") as GeneData
 	)
+	player_health.invulnerability_remaining = 0.0
 	player_health.take_damage(30.0)
 
 	if not room_manager.advance_room():

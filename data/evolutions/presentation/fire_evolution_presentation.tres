@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EvolutionPresentationData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/evolutions/evolution_presentation_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+accent_color = Color(1, 0.32, 0.08, 1)
+attack_change_text = "火焰器官与爆裂攻击已重构"
+pulse_scale = 1.45
+shake_strength = 10.0
+burst_radius = 68.0
+burst_ring_count = 4

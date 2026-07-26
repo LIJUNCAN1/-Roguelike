@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EvolutionPresentationData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/evolutions/evolution_presentation_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+accent_color = Color(0.36, 1, 0.55, 1)
+attack_change_text = "增殖器官与攻击轨迹已重构"
+transformation_duration = 0.85
+burst_radius = 58.0
