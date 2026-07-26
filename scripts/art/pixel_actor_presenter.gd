@@ -11,6 +11,7 @@ extends Node2D
 
 var sprite := Sprite2D.new()
 var current_state: StringName = &"idle"
+var current_direction: StringName = &"down"
 var frame_cursor: int = 0
 var frame_elapsed: float = 0.0
 var one_shot_remaining: float = 0.0
@@ -65,8 +66,7 @@ func play_evolution() -> void:
 func _process(delta: float) -> void:
 	if not sprite.visible or visual_data == null:
 		return
-	if actor.velocity.x != 0.0:
-		sprite.flip_h = actor.velocity.x < 0.0
+	_update_direction()
 	if one_shot_remaining > 0.0:
 		one_shot_remaining -= delta
 	else:
@@ -98,7 +98,10 @@ func _play_one_shot(state: StringName, duration: float) -> void:
 func _apply_frame() -> void:
 	if visual_data == null:
 		return
-	var frames := visual_data.get_frames(current_state)
+	var frames := visual_data.get_frames(
+		current_state,
+		current_direction
+	)
 	if frames.is_empty():
 		return
 	var region_index := frames[frame_cursor % frames.size()]
@@ -115,7 +118,7 @@ func _on_attack(_arg1: Variant = null, _arg2: Variant = null) -> void:
 
 
 func _on_dash(_direction: Vector2) -> void:
-	_play_one_shot(&"move", 0.25)
+	_play_one_shot(&"dash", 0.25)
 
 
 func _on_damaged(
@@ -135,3 +138,29 @@ func _on_phase_changed(
 	_phase: BossPhaseData
 ) -> void:
 	play_evolution()
+
+
+func _update_direction() -> void:
+	var direction := actor.velocity
+	if actor.has_method("get_facing_direction"):
+		direction = actor.call("get_facing_direction") as Vector2
+	if direction.is_zero_approx():
+		return
+
+	var next_direction: StringName
+	if absf(direction.x) > absf(direction.y):
+		next_direction = &"side"
+		sprite.flip_h = direction.x < 0.0
+	elif direction.y < 0.0:
+		next_direction = &"up"
+		sprite.flip_h = false
+	else:
+		next_direction = &"down"
+		sprite.flip_h = false
+
+	if next_direction == current_direction:
+		return
+	current_direction = next_direction
+	frame_cursor = 0
+	frame_elapsed = 0.0
+	_apply_frame()

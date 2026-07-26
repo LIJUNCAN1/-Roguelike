@@ -1,44 +1,33 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/rooms/room_shell.tscn" id="1_shell"]
 [ext_resource type="Script" path="res://scripts/rewards/gene_reward_room.gd" id="2_reward"]
 [ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="3_pool"]
+[ext_resource type="PackedScene" path="res://scenes/ui/gene_reward_card.tscn" id="4_card"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.025, 0.045, 0.06, 0.97)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.32, 0.9, 0.62, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
-bg_color = Color(0.07, 0.12, 0.135, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.35, 0.62, 0.53, 1)
+[sub_resource type="StyleBoxFlat" id="Panel"]
+bg_color = Color(0.025, 0.012, 0.015, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.31, 0.12, 0.12, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_hover"]
-bg_color = Color(0.12, 0.23, 0.22, 1)
+[sub_resource type="StyleBoxFlat" id="TitleBand"]
+bg_color = Color(0.19, 0.04, 0.055, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.55, 1, 0.72, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+border_color = Color(0.46, 0.19, 0.16, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="RewardRoom" type="Node2D"]
 script = ExtResource("2_reward")
@@ -61,7 +50,7 @@ polygon = PackedVector2Array(320, 166, 327, 178, 320, 190, 313, 178)
 color = Color(0.45, 1, 0.72, 1)
 
 [node name="RewardInterface" type="CanvasLayer" parent="."]
-layer = 5
+layer = 20
 
 [node name="Dimmer" type="ColorRect" parent="RewardInterface"]
 anchors_preset = 15
@@ -70,80 +59,64 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.005, 0.012, 0.018, 0.68)
+color = Color(0.005, 0.003, 0.004, 0.9)
 
 [node name="RewardPanel" type="PanelContainer" parent="RewardInterface"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -278.0
-offset_top = -122.0
-offset_right = 278.0
-offset_bottom = 122.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 8.0
+offset_right = -13.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+theme_override_styles/panel = SubResource("Panel")
 
 [node name="Margin" type="MarginContainer" parent="RewardInterface/RewardPanel"]
-theme_override_constants/margin_left = 14
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 14
-theme_override_constants/margin_bottom = 12
+layout_mode = 2
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 11
+theme_override_constants/margin_bottom = 8
 
 [node name="Content" type="VBoxContainer" parent="RewardInterface/RewardPanel/Margin"]
-theme_override_constants/separation = 8
+layout_mode = 2
+theme_override_constants/separation = 5
 
-[node name="Title" type="Label" parent="RewardInterface/RewardPanel/Margin/Content"]
-theme_override_colors/font_color = Color(0.55, 1, 0.72, 1)
+[node name="TitleBand" type="PanelContainer" parent="RewardInterface/RewardPanel/Margin/Content"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_styles/panel = SubResource("TitleBand")
+
+[node name="Title" type="Label" parent="RewardInterface/RewardPanel/Margin/Content/TitleBand"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.47, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.025, 0.02, 1)
+theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 18
-text = "基因重组"
+text = "◆  进 化 选 择  ◆"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Instruction" type="Label" parent="RewardInterface/RewardPanel/Margin/Content"]
-theme_override_colors/font_color = Color(0.72, 0.82, 0.82, 1)
-theme_override_font_sizes/font_size = 10
-text = "选择一段基因，让本次进化产生新的方向"
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.68, 0.57, 1)
+theme_override_font_sizes/font_size = 9
+text = "选择一段基因，让本次进化产生新的方向 · 按 1 / 2 / 3"
 horizontal_alignment = 1
 
 [node name="Cards" type="HBoxContainer" parent="RewardInterface/RewardPanel/Margin/Content"]
 layout_mode = 2
-theme_override_constants/separation = 8
+size_flags_vertical = 3
+theme_override_constants/separation = 9
 alignment = 1
 
-[node name="Choice1" type="Button" parent="RewardInterface/RewardPanel/Margin/Content/Cards"]
-custom_minimum_size = Vector2(168, 142)
+[node name="Choice1" parent="RewardInterface/RewardPanel/Margin/Content/Cards" instance=ExtResource("4_card")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.82, 0.95, 0.9, 1)
-theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxFlat_card")
-theme_override_styles/hover = SubResource("StyleBoxFlat_card_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_card_hover")
-text = "1"
-autowrap_mode = 2
 
-[node name="Choice2" type="Button" parent="RewardInterface/RewardPanel/Margin/Content/Cards"]
-custom_minimum_size = Vector2(168, 142)
+[node name="Choice2" parent="RewardInterface/RewardPanel/Margin/Content/Cards" instance=ExtResource("4_card")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.82, 0.95, 0.9, 1)
-theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxFlat_card")
-theme_override_styles/hover = SubResource("StyleBoxFlat_card_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_card_hover")
-text = "2"
-autowrap_mode = 2
 
-[node name="Choice3" type="Button" parent="RewardInterface/RewardPanel/Margin/Content/Cards"]
-custom_minimum_size = Vector2(168, 142)
+[node name="Choice3" parent="RewardInterface/RewardPanel/Margin/Content/Cards" instance=ExtResource("4_card")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.82, 0.95, 0.9, 1)
-theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxFlat_card")
-theme_override_styles/hover = SubResource("StyleBoxFlat_card_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_card_hover")
-text = "3"
-autowrap_mode = 2

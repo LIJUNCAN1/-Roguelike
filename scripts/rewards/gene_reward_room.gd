@@ -10,7 +10,7 @@ signal reward_selected(gene: GeneData)
 @onready var instruction_label: Label = (
 	$RewardInterface/RewardPanel/Margin/Content/Instruction
 )
-@onready var choice_buttons: Array[Button] = [
+@onready var choice_buttons: Array[GeneRewardCard] = [
 	$RewardInterface/RewardPanel/Margin/Content/Cards/Choice1,
 	$RewardInterface/RewardPanel/Margin/Content/Cards/Choice2,
 	$RewardInterface/RewardPanel/Margin/Content/Cards/Choice3,
@@ -106,18 +106,18 @@ func _offer_rewards() -> void:
 			button.visible = false
 			continue
 		var gene := offered_genes[index]
-		button.visible = true
-		button.disabled = false
-		button.text = "%d\n%s\n[%s · %s]\n%s" % [
-			index + 1,
-			gene.display_name,
-			gene.get_rarity_name(),
-			gene.get_category_name(),
-			gene.description,
-		]
+		button.configure(
+			gene,
+			index,
+			_get_owned_series_genes(gene)
+		)
 
-	instruction_label.text = "选择一段基因，让本次进化产生新的方向"
+	instruction_label.text = (
+		"选择一段基因，让本次进化产生新的方向 · 按 1 / 2 / 3"
+	)
 	reward_interface.visible = true
+	var focused_index := mini(1, offered_genes.size() - 1)
+	choice_buttons[focused_index].grab_focus()
 	reward_offered.emit(get_offered_genes())
 
 
@@ -131,3 +131,13 @@ func _shuffle_genes(genes: Array[GeneData]) -> void:
 
 func _on_choice_pressed(choice_index: int) -> void:
 	choose_gene(choice_index)
+
+
+func _get_owned_series_genes(gene: GeneData) -> Array[GeneData]:
+	var related: Array[GeneData] = []
+	if gene.series_id.is_empty():
+		return related
+	for owned_gene in gene_manager.get_active_genes():
+		if owned_gene.series_id == gene.series_id:
+			related.append(owned_gene)
+	return related

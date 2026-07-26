@@ -1,18 +1,53 @@
-[gd_resource type="Resource" script_class="ActorVisualData" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="ActorVisualData" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/art/actor_visual_data.gd" id="1_data"]
-[ext_resource type="Texture2D" path="res://assets/art/generated/player_forms-v2.png" id="2_atlas"]
+[ext_resource type="Script" path="res://scripts/art/actor_direction_frames_data.gd" id="2_direction"]
+[ext_resource type="Texture2D" path="res://assets/art/generated/little_life_directions-v1.png" id="3_atlas"]
+
+[sub_resource type="Resource" id="Direction_down"]
+script = ExtResource("2_direction")
+idle_frames = PackedInt32Array(0)
+move_frames = PackedInt32Array(0)
+attack_frames = PackedInt32Array(0)
+dash_frames = PackedInt32Array(0)
+hurt_frames = PackedInt32Array(0)
+death_frames = PackedInt32Array(0)
+evolution_frames = PackedInt32Array(0)
+
+[sub_resource type="Resource" id="Direction_up"]
+script = ExtResource("2_direction")
+idle_frames = PackedInt32Array(1)
+move_frames = PackedInt32Array(1)
+attack_frames = PackedInt32Array(1)
+dash_frames = PackedInt32Array(1)
+hurt_frames = PackedInt32Array(1)
+death_frames = PackedInt32Array(1)
+evolution_frames = PackedInt32Array(1)
+
+[sub_resource type="Resource" id="Direction_side"]
+script = ExtResource("2_direction")
+idle_frames = PackedInt32Array(2)
+move_frames = PackedInt32Array(2)
+attack_frames = PackedInt32Array(2)
+dash_frames = PackedInt32Array(2)
+hurt_frames = PackedInt32Array(2)
+death_frames = PackedInt32Array(2)
+evolution_frames = PackedInt32Array(2)
 
 [resource]
 script = ExtResource("1_data")
-atlas_texture = ExtResource("2_atlas")
-frame_regions = Array[Rect2]([Rect2(0, 0, 256, 341), Rect2(256, 0, 256, 341), Rect2(512, 0, 256, 341), Rect2(768, 0, 256, 341), Rect2(1024, 0, 256, 341), Rect2(1280, 0, 256, 341)])
-visual_scale = Vector2(0.13, 0.13)
-visual_offset = Vector2(0, -4)
-idle_frames = PackedInt32Array(0, 1)
-move_frames = PackedInt32Array(0, 1)
-attack_frames = PackedInt32Array(2)
-hurt_frames = PackedInt32Array(3)
-death_frames = PackedInt32Array(4)
-evolution_frames = PackedInt32Array(5)
-frames_per_second = 5.0
+atlas_texture = ExtResource("3_atlas")
+frame_regions = Array[Rect2]([Rect2(0, 0, 512, 768), Rect2(512, 0, 512, 768), Rect2(1024, 0, 512, 768)])
+visual_scale = Vector2(0.075, 0.075)
+visual_offset = Vector2(0, -5)
+down_frames = SubResource("Direction_down")
+up_frames = SubResource("Direction_up")
+side_frames = SubResource("Direction_side")
+idle_frames = PackedInt32Array(0)
+move_frames = PackedInt32Array(0)
+attack_frames = PackedInt32Array(0)
+dash_frames = PackedInt32Array(0)
+hurt_frames = PackedInt32Array(0)
+death_frames = PackedInt32Array(0)
+evolution_frames = PackedInt32Array(0)
+frames_per_second = 10.0
