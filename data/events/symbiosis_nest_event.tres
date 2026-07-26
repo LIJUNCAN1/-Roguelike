@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="EventData" load_steps=15 format=3]
+
+[ext_resource type="Script" path="res://scripts/events/event_data.gd" id="1_event"]
+[ext_resource type="Script" path="res://scripts/events/event_choice_data.gd" id="2_choice"]
+[ext_resource type="Script" path="res://scripts/events/event_effect.gd" id="3_effect"]
+[ext_resource type="Script" path="res://scripts/events/health_event_effect.gd" id="4_health"]
+[ext_resource type="Script" path="res://scripts/events/grant_random_gene_event_effect.gd" id="5_gene"]
+[ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="6_pool"]
+
+[sub_resource type="Resource" id="HealthEffect_symbiosis"]
+script = ExtResource("4_health")
+amount = 25.0
+
+[sub_resource type="Resource" id="GeneEffect_symbiosis"]
+script = ExtResource("5_gene")
+gene_pool = ExtResource("6_pool")
+amount = 1
+
+[sub_resource type="Resource" id="HealthEffect_feast"]
+script = ExtResource("4_health")
+amount = 60.0
+
+[sub_resource type="Resource" id="HealthEffect_parasite"]
+script = ExtResource("4_health")
+amount = -35.0
+
+[sub_resource type="Resource" id="GeneEffect_parasite"]
+script = ExtResource("5_gene")
+gene_pool = ExtResource("6_pool")
+amount = 2
+
+[sub_resource type="Resource" id="Choice_symbiosis"]
+script = ExtResource("2_choice")
+id = &"gentle_symbiosis"
+display_name = "温和共生"
+description = "恢复 25 生命，获得 1 个随机基因"
+effects = Array[ExtResource("3_effect")]([SubResource("HealthEffect_symbiosis"), SubResource("GeneEffect_symbiosis")])
+
+[sub_resource type="Resource" id="Choice_feast"]
+script = ExtResource("2_choice")
+id = &"nutrient_feast"
+display_name = "营养池"
+description = "恢复 60 点生命"
+effects = Array[ExtResource("3_effect")]([SubResource("HealthEffect_feast")])
+
+[sub_resource type="Resource" id="Choice_parasite"]
+script = ExtResource("2_choice")
+id = &"parasite_bloom"
+display_name = "寄生爆发"
+description = "失去 35 生命，获得 2 个随机基因"
+effects = Array[ExtResource("3_effect")]([SubResource("HealthEffect_parasite"), SubResource("GeneEffect_parasite")])
+
+[resource]
+script = ExtResource("1_event")
+id = &"symbiosis_nest"
+display_name = "共生孵化室"
+description = "潮湿的孵化池孕育着未知共生体。它们可能修复宿主，也可能从内部撕裂生命。"
+choices = Array[ExtResource("2_choice")]([SubResource("Choice_symbiosis"), SubResource("Choice_feast"), SubResource("Choice_parasite")])

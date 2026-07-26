@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RandomRouteData" load_steps=17 format=3]
+[gd_resource type="Resource" script_class="RandomRouteData" load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://scripts/rooms/random_route_data.gd" id="1_random"]
 [ext_resource type="Script" path="res://scripts/rooms/route_room_pool_data.gd" id="2_pool"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" path="res://data/rooms/elite_room.tres" id="7_elite"]
 [ext_resource type="Resource" path="res://data/rooms/boss_room.tres" id="8_boss"]
 [ext_resource type="Resource" path="res://data/rooms/event_room.tres" id="9_event"]
+[ext_resource type="Resource" path="res://data/rooms/symbiosis_event_room.tres" id="10_symbiosis"]
 
 [sub_resource type="Resource" id="RoutePool_start"]
 script = ExtResource("2_pool")
@@ -32,7 +33,7 @@ rooms = Array[ExtResource("7_elite")]([ExtResource("7_elite")])
 
 [sub_resource type="Resource" id="RoutePool_event"]
 script = ExtResource("2_pool")
-rooms = Array[ExtResource("9_event")]([ExtResource("9_event")])
+rooms = Array[ExtResource("9_event")]([ExtResource("9_event"), ExtResource("10_symbiosis")])
 
 [sub_resource type="Resource" id="RoutePool_boss"]
 script = ExtResource("2_pool")

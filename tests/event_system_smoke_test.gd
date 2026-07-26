@@ -16,6 +16,9 @@ func _run() -> void:
 	var player := main.get_node("World/Player") as Node2D
 	var health := player.get_node("HealthComponent") as HealthComponent
 	var gene_manager := player.get_node("GeneManager") as GeneManager
+	room_manager.route_data.rooms[4] = load(
+		"res://data/rooms/event_room.tres"
+	) as RoomData
 
 	if not room_manager.enter_room(4):
 		push_error("Could not enter laboratory event room.")
@@ -49,6 +52,20 @@ func _run() -> void:
 		or gene_manager.get_active_genes().size() != 2
 	):
 		push_error("Risk event effects were not applied from data.")
+		quit(1)
+		return
+
+	var symbiosis_data := load(
+		"res://data/events/symbiosis_nest_event.tres"
+	) as EventData
+	var symbiosis_choice := symbiosis_data.choices[0]
+	symbiosis_choice.apply(EventContext.new(player, 20260726))
+	if (
+		symbiosis_choice.id != &"gentle_symbiosis"
+		or not is_equal_approx(health.current_health, 100.0)
+		or gene_manager.get_active_genes().size() != 3
+	):
+		push_error("Second event did not compose health and gene effects.")
 		quit(1)
 		return
 

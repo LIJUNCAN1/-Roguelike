@@ -45,6 +45,17 @@ func _init() -> void:
 		quit(1)
 		return
 
+	var event_choices := generator.get_room_choices(4, 20260726)
+	if (
+		event_choices.size() != 2
+		or event_choices[0].room_type != RoomData.RoomType.EVENT
+		or event_choices[1].room_type != RoomData.RoomType.EVENT
+		or event_choices[0].id == event_choices[1].id
+	):
+		push_error("Event layer did not provide two distinct branches.")
+		quit(1)
+		return
+
 	print("Random route smoke test passed.")
 	quit()
 

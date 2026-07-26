@@ -129,8 +129,34 @@ func _run() -> void:
 	_defeat_current_room_enemies(room_manager.current_room)
 	await process_frame
 
-	if not room_manager.advance_room():
-		push_error("Could not advance to event room.")
+	if room_manager.pending_room_choices.is_empty():
+		room_manager.advance_room()
+	if room_manager.pending_room_choices.size() != 2:
+		push_error("Event layer did not open two physical entrances.")
+		quit(1)
+		return
+
+	var abandoned_lab_choice := -1
+	for index in room_manager.pending_room_choices.size():
+		if room_manager.pending_room_choices[index].id == &"abandoned_lab":
+			abandoned_lab_choice = index
+			break
+	if abandoned_lab_choice < 0:
+		push_error("Abandoned laboratory was not offered.")
+		quit(1)
+		return
+
+	var event_route_exits := room_manager.current_route_exit_selector
+	player.global_position = event_route_exits.get_exit_global_position(
+		abandoned_lab_choice
+	)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+
+	if room_manager.current_room_index != 4:
+		push_error("Walking into an event entrance did not change rooms.")
 		quit(1)
 		return
 

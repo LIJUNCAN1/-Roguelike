@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/rooms/room_data.gd" id="1_room_data"]
+[ext_resource type="PackedScene" path="res://scenes/rooms/symbiosis_event_room.tscn" id="2_room_scene"]
+
+[resource]
+script = ExtResource("1_room_data")
+id = &"symbiosis_nest"
+display_name = "事件房：共生孵化室"
+room_type = 5
+room_scene = ExtResource("2_room_scene")
