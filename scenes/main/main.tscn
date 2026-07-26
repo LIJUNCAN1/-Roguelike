@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://scripts/rooms/room_manager.gd" id="8_room_manager"]
 [ext_resource type="Resource" path="res://data/rooms/prototype_random_route.tres" id="9_route"]
 [ext_resource type="PackedScene" path="res://scenes/rooms/route_exit_selector.tscn" id="10_route_exit"]
+[ext_resource type="PackedScene" path="res://scenes/ui/run_result_panel.tscn" id="11_result_panel"]
+[ext_resource type="Script" path="res://scripts/run/run_flow_controller.gd" id="12_run_flow"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -127,3 +129,12 @@ effects_container_path = NodePath("../World/Effects")
 room_status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoomStatus")
 room_hint_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoomHint")
 route_preview_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RoutePreview")
+
+[node name="RunResultPanel" parent="." instance=ExtResource("11_result_panel")]
+
+[node name="RunFlowController" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("12_run_flow")
+room_manager_path = NodePath("../RoomManager")
+player_path = NodePath("../World/Player")
+result_panel_path = NodePath("../RunResultPanel")

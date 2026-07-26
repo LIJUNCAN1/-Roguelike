@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/run/run_result_panel.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.025, 0.04, 0.055, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.78, 0.68, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="RunResultPanel" type="CanvasLayer"]
+layer = 20
+process_mode = 3
+script = ExtResource("1_script")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.005, 0.01, 0.018, 0.84)
+
+[node name="Panel" type="PanelContainer" parent="Dimmer"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 82.0
+offset_right = 470.0
+offset_bottom = 278.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Margin" type="MarginContainer" parent="Dimmer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="Content" type="VBoxContainer" parent="Dimmer/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="Title" type="Label" parent="Dimmer/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "进化完成"
+horizontal_alignment = 1
+
+[node name="Summary" type="Label" parent="Dimmer/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.82, 0.84, 1)
+theme_override_font_sizes/font_size = 11
+text = "本次冒险结算"
+horizontal_alignment = 1
+
+[node name="RestartHint" type="Label" parent="Dimmer/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78, 0.35, 1)
+theme_override_font_sizes/font_size = 13
+text = "按 R 开始新的进化"
+horizontal_alignment = 1

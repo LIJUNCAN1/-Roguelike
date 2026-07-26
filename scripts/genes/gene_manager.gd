@@ -31,6 +31,13 @@ func remove_gene(gene_id: StringName) -> bool:
 	return false
 
 
+func clear_genes() -> void:
+	if active_genes.is_empty():
+		return
+	active_genes.clear()
+	genes_changed.emit()
+
+
 func has_gene(gene_id: StringName) -> bool:
 	for gene in active_genes:
 		if gene.id == gene_id:

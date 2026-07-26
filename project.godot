@@ -91,6 +91,10 @@ reward_choice_3={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"physical_keycode":51)]
 }
+restart_run={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"physical_keycode":82)]
+}
 
 [physics]
 

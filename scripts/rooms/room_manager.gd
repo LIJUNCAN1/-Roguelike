@@ -133,6 +133,20 @@ func choose_room_branch(choice_index: int) -> bool:
 	return enter_room(selected_index)
 
 
+func restart_run(new_seed: int = 0) -> bool:
+	route_seed = new_seed
+	current_room_index = -1
+	current_room = null
+	is_run_complete = false
+	pending_room_choices.clear()
+	pending_room_index = -1
+	current_route_exit_selector = null
+	_generate_route_if_configured()
+	if route_data == null or route_data.rooms.is_empty():
+		return false
+	return enter_room(0)
+
+
 func get_current_room_data() -> RoomData:
 	if (
 		route_data == null
