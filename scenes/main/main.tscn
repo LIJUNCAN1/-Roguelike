@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/test_chaser.tscn" id="2_enemy"]
+[ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="3_gene_test"]
+[ext_resource type="Resource" path="res://data/genes/fire_gene.tres" id="4_fire_gene"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal"]
 size = Vector2(576, 16)
@@ -22,6 +24,12 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [node name="Main" type="Node2D"]
+
+[node name="GeneTestHarness" type="Node" parent="."]
+script = ExtResource("3_gene_test")
+test_gene = ExtResource("4_fire_gene")
+gene_manager_path = NodePath("../World/Player/GeneManager")
+status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/GeneStatus")
 
 [node name="World" type="Node2D" parent="."]
 
@@ -105,8 +113,8 @@ feedback_container_path = NodePath("../Effects")
 [node name="StagePanel" type="PanelContainer" parent="Interface"]
 offset_left = 12.0
 offset_top = 12.0
-offset_right = 222.0
-offset_bottom = 58.0
+offset_right = 300.0
+offset_bottom = 76.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -127,3 +135,7 @@ text = "战斗测试场"
 theme_override_colors/font_color = Color(0.58, 0.66, 0.69, 1)
 theme_override_font_sizes/font_size = 10
 text = "命中反馈 · 伤害数字 · 死亡爆裂"
+
+[node name="GeneStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_font_sizes/font_size = 10
+text = "基因：无（按 G 装备火焰基因）"

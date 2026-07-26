@@ -8,13 +8,21 @@ extends Area2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 var travel_direction: Vector2 = Vector2.RIGHT
+var attack_tags: Array[StringName] = []
 var alive_time: float = 0.0
 var hit_count: int = 0
 
 
-func setup(direction: Vector2) -> void:
+func setup(
+	direction: Vector2,
+	data_override: ProjectileData = null,
+	tags: Array[StringName] = []
+) -> void:
 	if not direction.is_zero_approx():
 		travel_direction = direction.normalized()
+	if data_override != null:
+		projectile_data = data_override
+	attack_tags.assign(tags)
 	rotation = travel_direction.angle()
 
 

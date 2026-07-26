@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/player_controller.gd" id="1_player_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
 [ext_resource type="Resource" path="res://data/characters/original_life.tres" id="3_character_data"]
 [ext_resource type="Script" path="res://scripts/combat/weapon_component.gd" id="4_weapon_component"]
 [ext_resource type="Resource" path="res://data/weapons/basic_weapon.tres" id="5_weapon_data"]
+[ext_resource type="Script" path="res://scripts/genes/gene_manager.gd" id="6_gene_manager"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 7.0
@@ -18,9 +19,13 @@ character_data = ExtResource("3_character_data")
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("2_movement_component")
 
+[node name="GeneManager" type="Node" parent="."]
+script = ExtResource("6_gene_manager")
+
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("4_weapon_component")
 weapon_data = ExtResource("5_weapon_data")
+attack_modifier_path = NodePath("../GeneManager")
 
 [node name="Shadow" type="Polygon2D" parent="."]
 position = Vector2(0, 7)
