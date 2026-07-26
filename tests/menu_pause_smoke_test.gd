@@ -16,12 +16,35 @@ func _run() -> void:
 
 	if (
 		title.start_button == null
+		or title.meta_button == null
+		or title.codex_button == null
 		or title.quit_button == null
 		or title.game_scene_path != "res://scenes/main/main.tscn"
 	):
 		push_error("Title screen was not configured.")
 		quit(1)
 		return
+
+	title.open_meta_upgrades()
+	if not title.meta_panel.visible or title.menu.visible:
+		push_error("Meta progression menu did not open.")
+		quit(1)
+		return
+	title.close_submenu()
+	title.open_gene_codex()
+	if (
+		not title.codex_panel.visible
+		or title.menu.visible
+		or not (
+			title.codex_panel.get_node(
+				"Content/Scroll/Text"
+			) as RichTextLabel
+		).text.contains("雷电基因")
+	):
+		push_error("Menu gene codex did not open expanded data.")
+		quit(1)
+		return
+	title.close_submenu()
 
 	title.start_game()
 	await process_frame

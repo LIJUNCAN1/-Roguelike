@@ -120,7 +120,7 @@ fusion_manager_path = NodePath("../FusionManager")
 
 [node name="AttackModifierStack" type="Node" parent="."]
 script = ExtResource("9_modifier_stack")
-modifier_paths = Array[NodePath]([NodePath("../GeneManager"), NodePath("../FusionManager"), NodePath("../EvolutionSystem"), NodePath("../RelicManager"), NodePath("../RunProgression"), NodePath("../CharacterTraitManager")])
+modifier_paths = Array[NodePath]([NodePath("../GeneManager"), NodePath("../FusionManager"), NodePath("../EvolutionSystem"), NodePath("../RelicManager"), NodePath("../RunProgression"), NodePath("../CharacterTraitManager"), NodePath("/root/MetaProgression")])
 
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("4_weapon_component")

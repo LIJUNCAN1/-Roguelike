@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MetaUpgradeData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/meta/meta_upgrade_data.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = &"mobility"
+display_name = "迁徙本能"
+description = "每级移动速度提高 4%。"
+base_cost = 5
+movement_speed_bonus = 0.04

@@ -55,6 +55,17 @@ func _recalculate() -> void:
 			regeneration_per_second += (
 				passive.health_regeneration_per_second
 			)
+	var meta_progression := get_node_or_null(
+		"/root/MetaProgression"
+	) as MetaProgressionManager
+	if meta_progression != null:
+		health_multiplier *= meta_progression.get_health_multiplier()
+		movement_multiplier *= (
+			meta_progression.get_movement_multiplier()
+		)
+		damage_multiplier *= (
+			meta_progression.get_damage_taken_multiplier()
+		)
 	health_component.configure(
 		character.max_health * health_multiplier,
 		false

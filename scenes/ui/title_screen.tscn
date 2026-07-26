@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/title_screen.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/meta/meta_upgrade_panel.gd" id="2_meta_panel"]
+[ext_resource type="Script" path="res://scripts/meta/menu_gene_codex.gd" id="3_codex"]
+[ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="4_gene_pool"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu"]
 bg_color = Color(0.025, 0.055, 0.065, 0.94)
@@ -77,14 +80,14 @@ horizontal_alignment = 1
 
 [node name="Menu" type="PanelContainer" parent="Interface"]
 offset_left = 210.0
-offset_top = 128.0
+offset_top = 108.0
 offset_right = 430.0
-offset_bottom = 300.0
+offset_bottom = 344.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
 
 [node name="Content" type="VBoxContainer" parent="Interface/Menu"]
 layout_mode = 2
-theme_override_constants/separation = 13
+theme_override_constants/separation = 7
 alignment = 1
 
 [node name="StartButton" type="Button" parent="Interface/Menu/Content"]
@@ -95,6 +98,24 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button")
 theme_override_styles/focus = SubResource("StyleBoxFlat_button")
 text = "开始进化"
+
+[node name="MetaButton" type="Button" parent="Interface/Menu/Content"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button")
+text = "局外进化"
+
+[node name="CodexButton" type="Button" parent="Interface/Menu/Content"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button")
+text = "基因图鉴"
 
 [node name="QuitButton" type="Button" parent="Interface/Menu/Content"]
 custom_minimum_size = Vector2(0, 36)
@@ -111,3 +132,82 @@ theme_override_colors/font_color = Color(0.48, 0.62, 0.62, 1)
 theme_override_font_sizes/font_size = 9
 text = "WASD 移动 · 鼠标攻击 · ESC 暂停"
 horizontal_alignment = 1
+
+[node name="MetaUpgradePanel" type="PanelContainer" parent="Interface"]
+visible = false
+offset_left = 125.0
+offset_top = 102.0
+offset_right = 515.0
+offset_bottom = 348.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
+script = ExtResource("2_meta_panel")
+currency_label_path = NodePath("Content/Currency")
+upgrade_list_path = NodePath("Content/Scroll/UpgradeList")
+
+[node name="Content" type="VBoxContainer" parent="Interface/MetaUpgradePanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Interface/MetaUpgradePanel/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "局外进化"
+horizontal_alignment = 1
+
+[node name="Currency" type="Label" parent="Interface/MetaUpgradePanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 1, 0.72, 1)
+text = "进化质：0"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="Interface/MetaUpgradePanel/Content"]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UpgradeList" type="VBoxContainer" parent="Interface/MetaUpgradePanel/Content/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="BackButton" type="Button" parent="Interface/MetaUpgradePanel/Content"]
+layout_mode = 2
+text = "返回主菜单"
+
+[node name="GeneCodexPanel" type="PanelContainer" parent="Interface"]
+visible = false
+offset_left = 105.0
+offset_top = 92.0
+offset_right = 535.0
+offset_bottom = 350.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
+script = ExtResource("3_codex")
+gene_pool = ExtResource("4_gene_pool")
+text_path = NodePath("Content/Scroll/Text")
+
+[node name="Content" type="VBoxContainer" parent="Interface/GeneCodexPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Interface/GeneCodexPanel/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "基因图鉴 · 30"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="Interface/GeneCodexPanel/Content"]
+custom_minimum_size = Vector2(0, 190)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Text" type="RichTextLabel" parent="Interface/GeneCodexPanel/Content/Scroll"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content = true
+text = "读取基因数据……"
+
+[node name="BackButton" type="Button" parent="Interface/GeneCodexPanel/Content"]
+layout_mode = 2
+text = "返回主菜单"

@@ -15,6 +15,10 @@ run/main_scene="res://scenes/ui/title_screen.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MetaProgression="*res://scripts/meta/meta_progression_manager.gd"
+
 [display]
 
 window/size/viewport_width=640

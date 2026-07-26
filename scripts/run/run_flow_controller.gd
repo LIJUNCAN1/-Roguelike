@@ -96,10 +96,24 @@ func _end_run(victory: bool) -> void:
 
 	has_ended = true
 	was_victory = victory
+	var base_meta_reward := maxi(
+		room_manager.current_room_index + 1
+		+ run_progression.essence / 2
+		+ (10 if victory else 0),
+		1
+	)
+	var meta_progression := get_node(
+		"/root/MetaProgression"
+	) as MetaProgressionManager
+	var meta_reward := meta_progression.award_currency(
+		base_meta_reward
+	)
 	result_panel.show_result(
 		victory,
 		room_manager.current_route_seed,
-		gene_manager.get_active_genes().size()
+		gene_manager.get_active_genes().size(),
+		meta_reward,
+		meta_progression.currency
 	)
 	get_tree().paused = true
 	run_ended.emit(victory)

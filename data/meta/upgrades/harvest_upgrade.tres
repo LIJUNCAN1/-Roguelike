@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MetaUpgradeData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/meta/meta_upgrade_data.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = &"harvest"
+display_name = "高效回收"
+description = "每级局外进化质收益提高 10%。"
+base_cost = 6
+currency_gain_bonus = 0.1

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MetaUpgradeData" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/meta/meta_upgrade_data.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = &"precision"
+display_name = "捕食直觉"
+description = "每级暴击率提高 3%。"
+base_cost = 8
+critical_chance_bonus = 0.03
