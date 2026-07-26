@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/enemy_controller.gd" id="1_enemy_controller"]
+[ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
+[ext_resource type="Resource" path="res://data/enemies/test_chaser.tres" id="3_enemy_data"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enemy"]
+radius = 9.0
+
+[node name="TestChaser" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_enemy_controller")
+enemy_data = ExtResource("3_enemy_data")
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("2_movement_component")
+
+[node name="Shadow" type="Polygon2D" parent="."]
+position = Vector2(0, 8)
+polygon = PackedVector2Array(-9, 0, -6, -4, 6, -4, 9, 0, 6, 4, -6, 4)
+color = Color(0.015, 0.02, 0.03, 0.55)
+
+[node name="Body" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-9, -4, -5, -9, 3, -10, 9, -6, 10, 2, 6, 8, -2, 10, -9, 5)
+color = Color(0.74, 0.22, 0.38, 1)
+
+[node name="Core" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-4, -3, 1, -6, 5, -2, 4, 4, -1, 6, -5, 2)
+color = Color(1, 0.52, 0.46, 1)
+
+[node name="FacingMarker" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(3, -2, 9, 0, 3, 2)
+color = Color(1, 0.84, 0.58, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_enemy")
