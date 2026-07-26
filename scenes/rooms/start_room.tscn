@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/rooms/room_shell.tscn" id="1_shell"]
-[ext_resource type="Script" path="res://scripts/rooms/room_controller.gd" id="2_controller"]
+[ext_resource type="Script" path="res://scripts/weapons/weapon_selection_room.gd" id="2_room"]
+[ext_resource type="PackedScene" path="res://scenes/weapons/weapon_choice_selector.tscn" id="3_selector"]
+[ext_resource type="Resource" path="res://data/weapons/organs/needle_organ.tres" id="4_needle"]
+[ext_resource type="Resource" path="res://data/weapons/organs/heavy_spore_organ.tres" id="5_spore"]
 
 [node name="StartRoom" type="Node2D"]
-script = ExtResource("2_controller")
-completion_mode = 0
+script = ExtResource("2_room")
+completion_mode = 2
+weapon_choices = Array[ExtResource("4_needle")]([ExtResource("4_needle"), ExtResource("5_spore")])
 
 [node name="RoomShell" parent="." instance=ExtResource("1_shell")]
 modulate = Color(0.62, 1, 0.86, 1)
@@ -13,3 +17,35 @@ modulate = Color(0.62, 1, 0.86, 1)
 [node name="SpawnPad" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(320, 158, 342, 180, 320, 202, 298, 180)
 color = Color(0.22, 0.72, 0.56, 0.45)
+
+[node name="Title" type="Label" parent="."]
+offset_left = 190.0
+offset_top = 48.0
+offset_right = 450.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0.48, 1, 0.76, 1)
+theme_override_font_sizes/font_size = 18
+text = "选择攻击器官"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="."]
+offset_left = 190.0
+offset_top = 78.0
+offset_right = 450.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.66, 0.8, 0.75, 1)
+theme_override_font_sizes/font_size = 10
+text = "走进一个培养舱，为本次进化确定基础攻击"
+horizontal_alignment = 1
+
+[node name="Result" type="Label" parent="."]
+offset_left = 190.0
+offset_top = 142.0
+offset_right = 450.0
+offset_bottom = 166.0
+theme_override_colors/font_color = Color(1, 0.8, 0.36, 1)
+theme_override_font_sizes/font_size = 11
+text = "已装载攻击器官"
+horizontal_alignment = 1
+
+[node name="WeaponChoiceSelector" parent="." instance=ExtResource("3_selector")]

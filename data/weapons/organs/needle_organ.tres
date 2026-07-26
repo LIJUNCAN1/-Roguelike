@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponOrganData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/weapons/weapon_organ_data.gd" id="1_organ"]
+[ext_resource type="Resource" path="res://data/weapons/basic_weapon.tres" id="2_weapon"]
+
+[resource]
+script = ExtResource("1_organ")
+id = &"needle_organ"
+display_name = "原生喷针"
+description = "均衡、快速的基础攻击器官。"
+weapon_data = ExtResource("2_weapon")

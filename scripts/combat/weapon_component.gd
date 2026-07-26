@@ -11,6 +11,18 @@ extends Node
 var cooldown_remaining: float = 0.0
 
 
+func set_weapon_data(new_weapon_data: WeaponData) -> bool:
+	if (
+		new_weapon_data == null
+		or new_weapon_data.projectile_scene == null
+		or new_weapon_data.projectile_data == null
+	):
+		return false
+	weapon_data = new_weapon_data
+	cooldown_remaining = 0.0
+	return true
+
+
 func _physics_process(delta: float) -> void:
 	cooldown_remaining = maxf(cooldown_remaining - delta, 0.0)
 

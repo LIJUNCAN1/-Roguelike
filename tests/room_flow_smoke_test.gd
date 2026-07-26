@@ -27,6 +27,28 @@ func _run() -> void:
 		quit(1)
 		return
 
+	var weapon_room := room_manager.current_room as WeaponSelectionRoom
+	if weapon_room == null or weapon_room.is_completed:
+		push_error("Start room did not wait for a weapon organ.")
+		quit(1)
+		return
+	player.global_position = (
+		weapon_room.choice_selector.get_choice_global_position(0)
+	)
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await physics_frame
+	await process_frame
+	if (
+		not weapon_room.is_completed
+		or weapon_room.selected_organ == null
+		or weapon_room.selected_organ.id != &"needle_organ"
+	):
+		push_error("Physical weapon chamber did not select an organ.")
+		quit(1)
+		return
+
 	gene_manager.add_gene(
 		load("res://data/genes/fire_gene.tres") as GeneData
 	)

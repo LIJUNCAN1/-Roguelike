@@ -23,12 +23,20 @@ func _run() -> void:
 	var health := player.get_node("HealthComponent") as HealthComponent
 	var gene_manager := player.get_node("GeneManager") as GeneManager
 	var relic_manager := player.get_node("RelicManager") as RelicManager
+	var weapon_manager := player.get_node(
+		"WeaponOrganManager"
+	) as WeaponOrganManager
 
 	gene_manager.add_gene(
 		load("res://data/genes/fire_gene.tres") as GeneData
 	)
 	relic_manager.add_relic(
 		load("res://data/relics/dragon_heart.tres") as RelicData
+	)
+	weapon_manager.equip_organ(
+		load(
+			"res://data/weapons/organs/heavy_spore_organ.tres"
+		) as WeaponOrganData
 	)
 	health.take_damage(health.current_health)
 	if (
@@ -57,6 +65,7 @@ func _run() -> void:
 		or not is_equal_approx(health.current_health, health.max_health)
 		or not gene_manager.get_active_genes().is_empty()
 		or not relic_manager.get_active_relics().is_empty()
+		or not weapon_manager.is_organ(&"needle_organ")
 		or room_manager.current_room_index != 0
 		or room_manager.current_route_seed != 123456
 	):

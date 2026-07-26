@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponOrganData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/weapons/weapon_organ_data.gd" id="1_organ"]
+[ext_resource type="Resource" path="res://data/weapons/heavy_spore_weapon.tres" id="2_weapon"]
+
+[resource]
+script = ExtResource("1_organ")
+id = &"heavy_spore_organ"
+display_name = "重孢炮"
+description = "缓慢发射大型重孢，基础伤害 18。"
+weapon_data = ExtResource("2_weapon")

@@ -21,6 +21,9 @@ signal run_restarted
 @onready var relic_manager: RelicManager = player.get_node(
 	"RelicManager"
 ) as RelicManager
+@onready var weapon_manager: WeaponOrganManager = player.get_node(
+	"WeaponOrganManager"
+) as WeaponOrganManager
 @onready var result_panel: RunResultPanel = get_node(
 	result_panel_path
 ) as RunResultPanel
@@ -48,6 +51,7 @@ func restart_run(seed_value: int = 0) -> bool:
 	get_tree().paused = false
 	gene_manager.clear_genes()
 	relic_manager.clear_relics()
+	weapon_manager.reset_to_default()
 	player.set_physics_process(true)
 	player.visible = true
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/run/run_flow_controller.gd" id="12_run_flow"]
 [ext_resource type="Script" path="res://scripts/relics/relic_test_harness.gd" id="13_relic_test"]
 [ext_resource type="Resource" path="res://data/relics/dragon_heart.tres" id="14_dragon_heart"]
+[ext_resource type="Script" path="res://scripts/weapons/weapon_status_presenter.gd" id="15_weapon_status"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -51,6 +52,11 @@ dragon_heart = ExtResource("14_dragon_heart")
 relic_manager_path = NodePath("../World/Player/RelicManager")
 status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/RelicStatus")
 
+[node name="WeaponStatusPresenter" type="Node" parent="."]
+script = ExtResource("15_weapon_status")
+weapon_manager_path = NodePath("../World/Player/WeaponOrganManager")
+status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/WeaponStatus")
+
 [node name="World" type="Node2D" parent="."]
 
 [node name="RoomContainer" type="Node2D" parent="World"]
@@ -69,7 +75,7 @@ projectile_container_path = NodePath("../Projectiles")
 offset_left = 12.0
 offset_top = 12.0
 offset_right = 430.0
-offset_bottom = 204.0
+offset_bottom = 220.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Interface/StagePanel"]
@@ -130,6 +136,11 @@ text = "形态：原始生命"
 theme_override_colors/font_color = Color(0.58, 0.64, 0.66, 1)
 theme_override_font_sizes/font_size = 10
 text = "秘宝：无"
+
+[node name="WeaponStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+theme_override_colors/font_color = Color(0.55, 0.78, 0.9, 1)
+theme_override_font_sizes/font_size = 10
+text = "攻击器官：原生喷针"
 
 [node name="RoomManager" type="Node" parent="."]
 script = ExtResource("8_room_manager")
