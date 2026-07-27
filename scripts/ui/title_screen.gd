@@ -119,7 +119,10 @@ func animate_button(button: Button, is_active: bool) -> void:
 			previous.kill()
 	var tween := create_tween().set_parallel(true)
 	button_tweens[button] = tween
-	var target_scale := Vector2(1.045, 1.045) if is_active else Vector2.ONE
+	var is_social_icon := button.is_in_group("social_icon_buttons")
+	var target_scale := Vector2.ONE
+	if not is_social_icon and is_active:
+		target_scale = Vector2(1.045, 1.045)
 	var target_color := Color(1.12, 1.08, 1.18, 1) if is_active else Color.WHITE
 	tween.tween_property(button, "scale", target_scale, 0.13).set_trans(
 		Tween.TRANS_QUAD
