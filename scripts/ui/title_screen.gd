@@ -118,8 +118,9 @@ func prepare_button_animations() -> void:
 		button.pivot_offset = button.size * 0.5
 		button.mouse_entered.connect(animate_button.bind(button, true))
 		button.mouse_exited.connect(animate_button.bind(button, false))
-		button.focus_entered.connect(animate_button.bind(button, true))
-		button.focus_exited.connect(animate_button.bind(button, false))
+		if button not in [settings_apply_button, settings_back_button]:
+			button.focus_entered.connect(animate_button.bind(button, true))
+			button.focus_exited.connect(animate_button.bind(button, false))
 
 
 func animate_button(button: Button, is_active: bool) -> void:
@@ -130,9 +131,18 @@ func animate_button(button: Button, is_active: bool) -> void:
 	var tween := create_tween().set_parallel(true)
 	button_tweens[button] = tween
 	var is_social_icon := button.is_in_group("social_icon_buttons")
-	var target_scale := Vector2.ONE
 	var is_tech_menu_button := button is TechMenuButton
-	if not is_social_icon and not is_tech_menu_button and is_active:
+	var is_settings_action := button in [
+		settings_apply_button,
+		settings_back_button,
+	]
+	var target_scale := Vector2.ONE
+	if (
+		not is_social_icon
+		and not is_tech_menu_button
+		and not is_settings_action
+		and is_active
+	):
 		target_scale = Vector2(1.045, 1.045)
 	var target_color := Color.WHITE
 	if is_active and not is_tech_menu_button:

@@ -13,7 +13,7 @@ func _ready() -> void:
 func _draw() -> void:
 	var width := size.x
 	var height := size.y
-	var cut := 13.0
+	var cut := 9.0
 	var outer := PackedVector2Array([
 		Vector2(cut, 0.75),
 		Vector2(width - cut, 0.75),
@@ -27,8 +27,8 @@ func _draw() -> void:
 	])
 	draw_polyline(outer, frame_color, 1.05, true)
 
-	var inner_cut := 8.0
-	var inner_margin := 7.0
+	var inner_cut := 6.0
+	var inner_margin := 5.0
 	var inner := PackedVector2Array([
 		Vector2(inner_margin + inner_cut, inner_margin),
 		Vector2(width - inner_margin - inner_cut, inner_margin),
@@ -41,9 +41,9 @@ func _draw() -> void:
 	])
 	draw_polyline(inner, faint_color, 0.65, true)
 
-	var title_y := 41.0
+	var title_y := 29.0
 	draw_line(
-		Vector2(18.0, title_y),
+		Vector2(13.0, title_y),
 		Vector2(width * 0.36, title_y),
 		faint_color,
 		0.65,
@@ -51,7 +51,7 @@ func _draw() -> void:
 	)
 	draw_line(
 		Vector2(width * 0.64, title_y),
-		Vector2(width - 18.0, title_y),
+		Vector2(width - 13.0, title_y),
 		faint_color,
 		0.65,
 		true

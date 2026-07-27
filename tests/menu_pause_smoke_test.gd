@@ -57,15 +57,22 @@ func _run() -> void:
 		push_error("Version information was not moved to the corner.")
 		quit(1)
 		return
-	if not title.start_button.has_focus():
-		push_error("Start button did not receive the initial highlight.")
+	if (
+		not title.start_button.has_focus()
+		or title.start_button.hover_amount > 0.01
+		or not title.start_button.scale.is_equal_approx(Vector2.ONE)
+	):
+		push_error("Keyboard focus incorrectly lit or scaled the start button.")
 		quit(1)
 		return
 
 	title.start_button.mouse_entered.emit()
 	await create_timer(0.22).timeout
-	if title.start_button.hover_amount < 0.9:
-		push_error("Title button did not gradually brighten.")
+	if (
+		title.start_button.hover_amount < 0.9
+		or not title.start_button.scale.is_equal_approx(Vector2.ONE)
+	):
+		push_error("Title button glow or fixed scale was invalid on hover.")
 		quit(1)
 		return
 	title.start_button.mouse_exited.emit()
@@ -109,17 +116,56 @@ func _run() -> void:
 	title.music_slider.value = original_music
 	title.sfx_slider.value = original_sfx
 
+	title.open_roadmap()
+	await process_frame
+	if (
+		not title.info_panel.visible
+		or title.menu.visible
+		or title.info_panel.size != Vector2(262.0, 167.0)
+	):
+		push_error("EA roadmap panel was not compacted by 30 percent.")
+		quit(1)
+		return
+	title.close_submenu()
+
 	title.open_settings()
+	await process_frame
 	var resolution_control_x: float = title.resolution_option.position.x
 	var music_control_x: float = title.music_slider.position.x
 	var sfx_control_x: float = title.sfx_slider.position.x
 	var music_value_x: float = title.music_value_label.position.x
 	var sfx_value_x: float = title.sfx_value_label.position.x
+	var music_label: Label = title.settings_panel.get_node(
+		"Margin/Content/MusicVolumeRow/Label"
+	)
+	var sfx_label: Label = title.settings_panel.get_node(
+		"Margin/Content/SfxVolumeRow/Label"
+	)
+	var music_slider_center_y: float = (
+		title.music_slider.position.y + title.music_slider.size.y * 0.5
+	)
+	var sfx_slider_center_y: float = (
+		title.sfx_slider.position.y + title.sfx_slider.size.y * 0.5
+	)
+	var music_label_center_y: float = (
+		music_label.position.y + music_label.size.y * 0.5
+	)
+	var sfx_label_center_y: float = (
+		sfx_label.position.y + sfx_label.size.y * 0.5
+	)
+	var slider_track_height: float = (
+		title.music_slider.get_theme_stylebox("slider")
+		.get_minimum_size().y
+	)
+	var apply_idle_style := (
+		title.settings_apply_button.get_theme_stylebox("normal")
+		as StyleBoxFlat
+	)
 	if (
 		not title.settings_panel.visible
 		or title.menu.visible
 		or not title.settings_panel is TechSettingsPanel
-		or title.settings_panel.size != Vector2(540.0, 304.0)
+		or title.settings_panel.size != Vector2(378.0, 213.0)
 		or title.resolution_option.item_count != 4
 		or title.display_mode_option.item_count != 3
 		or title.music_slider.get_theme_icon("grabber") == null
@@ -127,13 +173,19 @@ func _run() -> void:
 		or not is_equal_approx(resolution_control_x, music_control_x)
 		or not is_equal_approx(music_control_x, sfx_control_x)
 		or not is_equal_approx(music_value_x, sfx_value_x)
+		or not is_equal_approx(music_slider_center_y, music_label_center_y)
+		or not is_equal_approx(sfx_slider_center_y, sfx_label_center_y)
+		or slider_track_height < 4.0
+		or apply_idle_style == null
+		or apply_idle_style.shadow_size > 0
 	):
 		push_error(
 			(
 				"Display settings menu was not configured: "
 				+ "visible=%s menu=%s tech=%s size=%s "
 				+ "res=%d mode=%d grabber=%s highlight=%s "
-				+ "control_x=(%.1f, %.1f, %.1f) value_x=(%.1f, %.1f)"
+				+ "control_x=(%.1f, %.1f, %.1f) value_x=(%.1f, %.1f) "
+				+ "center_y=(%.1f/%.1f, %.1f/%.1f) track=%.1f"
 			) % [
 				title.settings_panel.visible,
 				title.menu.visible,
@@ -150,10 +202,22 @@ func _run() -> void:
 				sfx_control_x,
 				music_value_x,
 				sfx_value_x,
+				music_slider_center_y,
+				music_label_center_y,
+				sfx_slider_center_y,
+				sfx_label_center_y,
+				slider_track_height,
 			]
 		)
 		quit(1)
 		return
+	title.settings_apply_button.mouse_entered.emit()
+	await create_timer(0.16).timeout
+	if not title.settings_apply_button.scale.is_equal_approx(Vector2.ONE):
+		push_error("Settings button enlarged on mouse hover.")
+		quit(1)
+		return
+	title.settings_apply_button.mouse_exited.emit()
 	title.close_submenu()
 
 	title.open_meta_upgrades()
