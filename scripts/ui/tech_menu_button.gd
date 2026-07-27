@@ -44,22 +44,6 @@ func _draw() -> void:
 	if intensity <= 0.001:
 		return
 
-	for segment_index in 24:
-		var progress := float(segment_index) / 23.0
-		var segment_width := width / 24.0
-		var fill_alpha := (
-			pow(1.0 - progress, 1.7) * 0.085 * intensity
-		)
-		draw_rect(
-			Rect2(
-				segment_width * segment_index,
-				1.0,
-				segment_width + 0.5,
-				height - 2.0
-			),
-			Color(active_color, fill_alpha)
-		)
-
 	for offset_value in [2.0, 1.0]:
 		var offset := float(offset_value)
 		_draw_fading_line(

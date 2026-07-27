@@ -39,6 +39,18 @@ func _run() -> void:
 			push_error("A title menu button is missing its tech frame.")
 			quit(1)
 			return
+		if button.custom_minimum_size.y > 28.0:
+			push_error("Title menu buttons were not compacted.")
+			quit(1)
+			return
+	if (
+		title.menu.size.x > 220.0
+		or title.menu_backdrop.anchor_top != 0.0
+		or title.menu_backdrop.anchor_bottom != 1.0
+	):
+		push_error("Title menu or full-height backdrop sizing is invalid.")
+		quit(1)
+		return
 	if (
 		title.has_node("Interface/Menu/Content/VersionButton")
 		or title.version_label.text != TitleScreen.CURRENT_VERSION
