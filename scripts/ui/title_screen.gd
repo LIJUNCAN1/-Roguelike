@@ -118,7 +118,11 @@ func prepare_button_animations() -> void:
 		button.pivot_offset = button.size * 0.5
 		button.mouse_entered.connect(animate_button.bind(button, true))
 		button.mouse_exited.connect(animate_button.bind(button, false))
-		if button not in [settings_apply_button, settings_back_button]:
+		if button not in [
+			settings_apply_button,
+			settings_back_button,
+			info_back_button,
+		]:
 			button.focus_entered.connect(animate_button.bind(button, true))
 			button.focus_exited.connect(animate_button.bind(button, false))
 
@@ -132,15 +136,16 @@ func animate_button(button: Button, is_active: bool) -> void:
 	button_tweens[button] = tween
 	var is_social_icon := button.is_in_group("social_icon_buttons")
 	var is_tech_menu_button := button is TechMenuButton
-	var is_settings_action := button in [
+	var is_dialog_action := button in [
 		settings_apply_button,
 		settings_back_button,
+		info_back_button,
 	]
 	var target_scale := Vector2.ONE
 	if (
 		not is_social_icon
 		and not is_tech_menu_button
-		and not is_settings_action
+		and not is_dialog_action
 		and is_active
 	):
 		target_scale = Vector2(1.045, 1.045)
@@ -262,6 +267,7 @@ func apply_display_settings() -> void:
 	_apply_audio_volume()
 	save_display_settings(resolution, display_mode)
 	settings_status.text = "设置已应用并保存"
+	close_submenu()
 
 
 func apply_display_values(resolution: Vector2i, display_mode: int) -> void:
@@ -407,6 +413,7 @@ func close_submenu() -> void:
 	codex_panel.visible = false
 	menu.visible = true
 	set_main_decoration_visible(true)
+	start_button.grab_focus()
 
 
 func set_main_decoration_visible(is_visible: bool) -> void:

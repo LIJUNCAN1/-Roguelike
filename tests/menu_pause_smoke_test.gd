@@ -121,9 +121,10 @@ func _run() -> void:
 	if (
 		not title.info_panel.visible
 		or title.menu.visible
+		or not title.info_panel is TechSettingsPanel
 		or title.info_panel.size != Vector2(262.0, 167.0)
 	):
-		push_error("EA roadmap panel was not compacted by 30 percent.")
+		push_error("EA roadmap panel did not use the compact tech style.")
 		quit(1)
 		return
 	title.close_submenu()
@@ -218,7 +219,12 @@ func _run() -> void:
 		quit(1)
 		return
 	title.settings_apply_button.mouse_exited.emit()
-	title.close_submenu()
+	title.settings_apply_button.pressed.emit()
+	await process_frame
+	if title.settings_panel.visible or not title.menu.visible:
+		push_error("Applying settings did not return to the main menu.")
+		quit(1)
+		return
 
 	title.open_meta_upgrades()
 	if not title.meta_panel.visible or title.menu.visible:
