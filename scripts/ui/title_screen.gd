@@ -9,6 +9,7 @@ const SETTINGS_PATH := "user://display_settings.cfg"
 const DISPLAY_MODE_WINDOWED := 0
 const DISPLAY_MODE_FULLSCREEN := 1
 const DISPLAY_MODE_BORDERLESS := 2
+const CURRENT_VERSION := "EA v0.1.0"
 const DISPLAY_RESOLUTIONS := [
 	Vector2i(1280, 720),
 	Vector2i(1600, 900),
@@ -18,7 +19,6 @@ const DISPLAY_RESOLUTIONS := [
 
 @onready var start_button: Button = $Interface/Menu/Content/StartButton
 @onready var settings_button: Button = $Interface/Menu/Content/SettingsButton
-@onready var version_button: Button = $Interface/Menu/Content/VersionButton
 @onready var roadmap_button: Button = $Interface/Menu/Content/RoadmapButton
 @onready var credits_button: Button = $Interface/Menu/Content/CreditsButton
 @onready var codex_button: Button = $Interface/Menu/Content/CodexButton
@@ -31,6 +31,7 @@ const DISPLAY_RESOLUTIONS := [
 @onready var menu_backdrop: Control = $Interface/MenuBackdrop
 @onready var title_image: Control = $Interface/TitleImage
 @onready var social_icons: Control = $Interface/SocialIcons
+@onready var version_label: Label = $Interface/VersionLabel
 @onready var meta_panel: Control = $Interface/MetaUpgradePanel
 @onready var codex_panel: Control = $Interface/GeneCodexPanel
 @onready var settings_panel: Control = $Interface/SettingsPanel
@@ -70,7 +71,6 @@ func _ready() -> void:
 	setup_display_settings()
 	start_button.pressed.connect(start_game)
 	settings_button.pressed.connect(open_settings)
-	version_button.pressed.connect(open_version_info)
 	roadmap_button.pressed.connect(open_roadmap)
 	credits_button.pressed.connect(open_credits)
 	codex_button.pressed.connect(open_gene_codex)
@@ -82,6 +82,7 @@ func _ready() -> void:
 	meta_back_button.pressed.connect(close_submenu)
 	codex_back_button.pressed.connect(close_submenu)
 	close_submenu()
+	version_label.text = CURRENT_VERSION
 	call_deferred("prepare_button_animations")
 	start_button.grab_focus()
 
@@ -90,7 +91,6 @@ func prepare_button_animations() -> void:
 	var buttons: Array[Button] = [
 		start_button,
 		settings_button,
-		version_button,
 		roadmap_button,
 		credits_button,
 		codex_button,
@@ -271,16 +271,6 @@ func save_display_settings(resolution: Vector2i, display_mode: int) -> void:
 	config.set_value("display", "height", resolution.y)
 	config.set_value("display", "mode", display_mode)
 	config.save(SETTINGS_PATH)
-
-
-func open_version_info() -> void:
-	open_info(
-		"版本信息",
-		"《原初之种》 Early Access\n"
-		+ "当前版本：EA 0.1.0\n"
-		+ "开发阶段：核心战斗、基因构筑与冒险循环验证\n\n"
-		+ "感谢参与早期版本测试。"
-	)
 
 
 func open_roadmap() -> void:

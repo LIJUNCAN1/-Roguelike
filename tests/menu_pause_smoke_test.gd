@@ -28,7 +28,6 @@ func _run() -> void:
 	var styled_buttons: Array[Button] = [
 		title.start_button,
 		title.settings_button,
-		title.version_button,
 		title.roadmap_button,
 		title.credits_button,
 		title.codex_button,
@@ -39,6 +38,13 @@ func _run() -> void:
 			push_error("A title menu button is missing its tech frame.")
 			quit(1)
 			return
+	if (
+		title.has_node("Interface/Menu/Content/VersionButton")
+		or title.version_label.text != TitleScreen.CURRENT_VERSION
+	):
+		push_error("Version information was not moved to the corner.")
+		quit(1)
+		return
 	if not title.start_button.has_focus():
 		push_error("Start button did not receive the initial highlight.")
 		quit(1)

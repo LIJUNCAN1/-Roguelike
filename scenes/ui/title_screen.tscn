@@ -32,19 +32,19 @@ fill_to = Vector2(1, 0.5)
 bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
-bg_color = Color(0.005, 0.018, 0.026, 0.86)
-content_margin_left = 12.0
-content_margin_right = 12.0
+bg_color = Color(0.002, 0.012, 0.016, 0.24)
+content_margin_left = 20.0
+content_margin_right = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
-bg_color = Color(0.015, 0.24, 0.17, 0.96)
-content_margin_left = 12.0
-content_margin_right = 12.0
+bg_color = Color(0.01, 0.22, 0.145, 0.82)
+content_margin_left = 20.0
+content_margin_right = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
-bg_color = Color(0.01, 0.2, 0.145, 0.92)
-content_margin_left = 12.0
-content_margin_right = 12.0
+bg_color = Color(0.008, 0.18, 0.12, 0.68)
+content_margin_left = 20.0
+content_margin_right = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_info_panel"]
 bg_color = Color(0.012, 0.01, 0.025, 0.94)
@@ -124,9 +124,9 @@ stretch_mode = 6
 [node name="Interface" type="CanvasLayer" parent="." unique_id=24458870]
 
 [node name="MenuBackdrop" type="TextureRect" parent="Interface"]
-offset_left = 344.0
-offset_top = 56.0
-offset_right = 640.0
+offset_left = 0.0
+offset_top = 42.0
+offset_right = 360.0
 offset_bottom = 360.0
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_menu_backdrop")
@@ -165,10 +165,10 @@ text = "吞噬基因 · 构筑生命 · 完成进化"
 horizontal_alignment = 1
 
 [node name="Menu" type="PanelContainer" parent="Interface" unique_id=1233610578]
-offset_left = 403.0
-offset_top = 124.0
-offset_right = 601.0
-offset_bottom = 344.0
+offset_left = 42.0
+offset_top = 57.0
+offset_right = 330.0
+offset_bottom = 315.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
 
 [node name="Content" type="VBoxContainer" parent="Interface/Menu" unique_id=1850334910]
@@ -177,7 +177,7 @@ theme_override_constants/separation = 2
 alignment = 1
 
 [node name="StartButton" type="Button" parent="Interface/Menu/Content" unique_id=1447712269]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.98, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -186,87 +186,79 @@ theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
-text = "开始"
+theme_override_styles/focus = SubResource("StyleBoxFlat_button")
+text = "开始游戏"
 script = ExtResource("12_tech_button")
 active_color = Color(0.28, 1, 0.75, 1)
 
 [node name="SettingsButton" type="Button" parent="Interface/Menu/Content" unique_id=1389030782]
-custom_minimum_size = Vector2(0, 27)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button")
 text = "设置"
 script = ExtResource("12_tech_button")
 
-[node name="VersionButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 27)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
-theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
-text = "版本信息"
-script = ExtResource("12_tech_button")
-
 [node name="RoadmapButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 27)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button")
 text = "EA 开发规划"
 script = ExtResource("12_tech_button")
 
 [node name="CreditsButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 27)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button")
 text = "制作名单"
 script = ExtResource("12_tech_button")
 
 [node name="CodexButton" type="Button" parent="Interface/Menu/Content" unique_id=1717962536]
-custom_minimum_size = Vector2(0, 27)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button")
 text = "图鉴"
 script = ExtResource("12_tech_button")
 
 [node name="QuitButton" type="Button" parent="Interface/Menu/Content" unique_id=666523798]
-custom_minimum_size = Vector2(0, 27)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.82, 0.88, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_font_sizes/font_size = 12
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
-text = "退出"
+theme_override_styles/focus = SubResource("StyleBoxFlat_button")
+text = "退出游戏"
 script = ExtResource("12_tech_button")
 
 [node name="SocialIcons" type="HBoxContainer" parent="Interface"]
@@ -295,6 +287,17 @@ icon_texture = ExtResource("9_social_qq")
 layout_mode = 2
 social_name = "微博"
 icon_texture = ExtResource("10_social_weibo")
+
+[node name="VersionLabel" type="Label" parent="Interface"]
+offset_left = 510.0
+offset_top = 336.0
+offset_right = 630.0
+offset_bottom = 354.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.5, 0.53, 0.56, 0.72)
+theme_override_font_sizes/font_size = 9
+text = "EA v0.1.0"
+horizontal_alignment = 2
 
 [node name="SettingsPanel" type="PanelContainer" parent="Interface"]
 visible = false
