@@ -7,6 +7,13 @@ extends Control
 @export_node_path("ProgressBar") var experience_bar_path: NodePath
 @export_node_path("Label") var health_text_path: NodePath
 @export_node_path("Label") var experience_text_path: NodePath
+@export_node_path("Label") var level_text_path: NodePath
+
+@export_group("Adaptive Colors")
+@export var health_full_color := Color(0.52, 0.035, 0.05, 1.0)
+@export var health_low_color := Color(1.0, 0.18, 0.12, 1.0)
+@export var experience_full_color := Color(0.08, 0.38, 0.4, 1.0)
+@export var experience_low_color := Color(0.22, 1.0, 0.95, 1.0)
 
 @onready var health_component: HealthComponent = get_node(
 	health_component_path
@@ -26,9 +33,26 @@ extends Control
 @onready var experience_text: Label = get_node(
 	experience_text_path
 ) as Label
+@onready var level_text: Label = get_node(level_text_path) as Label
+
+var health_fill_style: StyleBoxFlat
+var experience_fill_style: StyleBoxFlat
 
 
 func _ready() -> void:
+	health_fill_style = (
+		health_bar.get_theme_stylebox("fill").duplicate()
+		as StyleBoxFlat
+	)
+	experience_fill_style = (
+		experience_bar.get_theme_stylebox("fill").duplicate()
+		as StyleBoxFlat
+	)
+	health_bar.add_theme_stylebox_override("fill", health_fill_style)
+	experience_bar.add_theme_stylebox_override(
+		"fill",
+		experience_fill_style
+	)
 	health_component.health_changed.connect(_update_health)
 	progression.experience_changed.connect(_update_experience)
 	_update_health(
@@ -45,6 +69,11 @@ func _ready() -> void:
 func _update_health(current: float, maximum: float) -> void:
 	health_bar.max_value = maxf(maximum, 1.0)
 	health_bar.value = clampf(current, 0.0, maximum)
+	var health_ratio := clampf(current / maxf(maximum, 1.0), 0.0, 1.0)
+	health_fill_style.bg_color = health_low_color.lerp(
+		health_full_color,
+		health_ratio
+	)
 	health_text.text = "%d/%d" % [
 		roundi(current),
 		roundi(maximum),
@@ -54,8 +83,18 @@ func _update_health(current: float, maximum: float) -> void:
 func _update_experience(
 	current: int,
 	required: int,
-	_level: int
+	level: int
 ) -> void:
 	experience_bar.max_value = maxi(required, 1)
 	experience_bar.value = clampi(current, 0, required)
+	var experience_ratio := clampf(
+		float(current) / float(maxi(required, 1)),
+		0.0,
+		1.0
+	)
+	experience_fill_style.bg_color = experience_low_color.lerp(
+		experience_full_color,
+		experience_ratio
+	)
+	level_text.text = "Lv.%d" % level
 	experience_text.text = "%d/%d" % [current, required]

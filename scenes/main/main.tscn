@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3]
+[gd_scene load_steps=39 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -32,6 +32,7 @@
 [ext_resource type="Resource" path="res://data/audio/prototype_audio_library.tres" id="30_audio_library"]
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_presentation_controller.gd" id="31_evolution_presentation"]
 [ext_resource type="Script" path="res://scripts/ui/pixel_vitals_presenter.gd" id="32_pixel_vitals"]
+[ext_resource type="Texture2D" path="res://assets/ui/pixel_heart.svg" id="33_pixel_heart"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -46,16 +47,48 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vital_empty"]
-bg_color = Color(0.055, 0.045, 0.055, 1)
+bg_color = Color(0.008, 0.012, 0.016, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.12, 0.16, 0.18, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health_fill"]
-bg_color = Color(0.84, 0.2, 0.23, 1)
+bg_color = Color(0.52, 0.035, 0.05, 1)
+border_width_top = 1
+border_color = Color(1, 0.25, 0.18, 0.9)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_experience_fill"]
-bg_color = Color(0.6, 0.83, 0.95, 1)
+bg_color = Color(0.08, 0.38, 0.4, 1)
+border_width_top = 1
+border_color = Color(0.35, 1, 0.96, 0.9)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vital_frame"]
-bg_color = Color(0.025, 0.025, 0.035, 1)
+bg_color = Color(0.006, 0.009, 0.012, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.16, 0.19, 0.21, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0, 0, 0, 0.75)
+shadow_size = 3
 
 [node name="Main" type="Node2D"]
 
@@ -182,9 +215,9 @@ color = Color(0.45, 1, 0.7, 0)
 layout_mode = 3
 anchors_preset = 0
 offset_left = 24.0
-offset_top = 12.0
-offset_right = 350.0
-offset_bottom = 78.0
+offset_top = 8.0
+offset_right = 152.0
+offset_bottom = 44.0
 mouse_filter = 2
 script = ExtResource("32_pixel_vitals")
 health_component_path = NodePath("../../World/Player/HealthComponent")
@@ -193,6 +226,7 @@ health_bar_path = NodePath("Frame/HealthBar")
 experience_bar_path = NodePath("Frame/ExperienceBar")
 health_text_path = NodePath("Frame/HealthText")
 experience_text_path = NodePath("Frame/ExperienceText")
+level_text_path = NodePath("Frame/LevelText")
 
 [node name="Frame" type="Panel" parent="Interface/PlayerVitals"]
 layout_mode = 1
@@ -206,9 +240,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_vital_frame")
 [node name="HealthBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
 offset_left = 6.0
-offset_top = 6.0
-offset_right = 320.0
-offset_bottom = 35.0
+offset_top = 3.0
+offset_right = 125.0
+offset_bottom = 18.0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vital_empty")
 theme_override_styles/fill = SubResource("StyleBoxFlat_health_fill")
@@ -217,10 +251,10 @@ show_percentage = false
 
 [node name="ExperienceBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 39.0
-offset_right = 320.0
-offset_bottom = 60.0
+offset_left = 30.0
+offset_top = 21.0
+offset_right = 125.0
+offset_bottom = 33.0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vital_empty")
 theme_override_styles/fill = SubResource("StyleBoxFlat_experience_fill")
@@ -228,30 +262,54 @@ show_percentage = false
 
 [node name="HealthText" type="Label" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 5.0
-offset_right = 320.0
-offset_bottom = 36.0
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 110.0
+offset_bottom = 19.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.02, 0.02, 0.03, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 16
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
 text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="HeartIcon" type="TextureRect" parent="Interface/PlayerVitals/Frame"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 6.0
+offset_right = 122.0
+offset_bottom = 15.0
+mouse_filter = 2
+texture = ExtResource("33_pixel_heart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LevelText" type="Label" parent="Interface/PlayerVitals/Frame"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 19.0
+offset_right = 29.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0.45, 0.9, 1, 1)
+theme_override_colors/font_outline_color = Color(0.01, 0.035, 0.045, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 7
+text = "Lv.1"
+vertical_alignment = 1
+
 [node name="ExperienceText" type="Label" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 37.0
-offset_right = 320.0
-offset_bottom = 62.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+offset_left = 30.0
+offset_top = 20.0
+offset_right = 124.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(0.84, 1, 1, 0.9)
 theme_override_colors/font_outline_color = Color(0.02, 0.02, 0.03, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 14
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 6
 text = "0/20"
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="StagePanel" type="PanelContainer" parent="Interface"]
