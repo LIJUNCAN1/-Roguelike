@@ -25,10 +25,12 @@ func _ready() -> void:
 	rng.randomize()
 	audio_output_enabled = DisplayServer.get_name() != "headless"
 	music_player.name = "MusicPlayer"
+	music_player.bus = &"Music"
 	add_child(music_player)
 	for index in 8:
 		var sfx_player := AudioStreamPlayer.new()
 		sfx_player.name = "SfxPlayer%d" % index
+		sfx_player.bus = &"SFX"
 		add_child(sfx_player)
 		sfx_players.append(sfx_player)
 	player.attack_fired.connect(

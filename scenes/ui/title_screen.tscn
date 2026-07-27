@@ -124,8 +124,8 @@ stretch_mode = 6
 [node name="Interface" type="CanvasLayer" parent="." unique_id=24458870]
 
 [node name="MenuBackdrop" type="TextureRect" parent="Interface"]
-offset_left = 238.0
-offset_top = 96.0
+offset_left = 352.0
+offset_top = 110.0
 offset_right = 640.0
 offset_bottom = 360.0
 mouse_filter = 2
@@ -133,10 +133,10 @@ texture = SubResource("GradientTexture2D_menu_backdrop")
 expand_mode = 1
 
 [node name="TitleImage" type="TextureRect" parent="Interface" unique_id=1299536591]
-offset_left = 60.0
-offset_top = 8.0
-offset_right = 580.0
-offset_bottom = 108.0
+offset_left = 332.0
+offset_top = 12.0
+offset_right = 622.0
+offset_bottom = 118.0
 mouse_filter = 2
 texture = ExtResource("5_title_logo")
 expand_mode = 1
@@ -165,19 +165,19 @@ text = "吞噬基因 · 构筑生命 · 完成进化"
 horizontal_alignment = 1
 
 [node name="Menu" type="PanelContainer" parent="Interface" unique_id=1233610578]
-offset_left = 300.0
-offset_top = 108.0
-offset_right = 604.0
-offset_bottom = 322.0
+offset_left = 382.0
+offset_top = 124.0
+offset_right = 622.0
+offset_bottom = 350.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
 
 [node name="Content" type="VBoxContainer" parent="Interface/Menu" unique_id=1850334910]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 7
 alignment = 1
 
 [node name="StartButton" type="Button" parent="Interface/Menu/Content" unique_id=1447712269]
-custom_minimum_size = Vector2(0, 34)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.98, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -192,7 +192,7 @@ script = ExtResource("12_tech_button")
 active_color = Color(0.28, 1, 0.75, 1)
 
 [node name="SettingsButton" type="Button" parent="Interface/Menu/Content" unique_id=1389030782]
-custom_minimum_size = Vector2(0, 34)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
@@ -206,7 +206,7 @@ text = "设置"
 script = ExtResource("12_tech_button")
 
 [node name="RoadmapButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 34)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
@@ -220,7 +220,7 @@ text = "EA 开发规划"
 script = ExtResource("12_tech_button")
 
 [node name="CreditsButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 34)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
@@ -234,7 +234,7 @@ text = "制作名单"
 script = ExtResource("12_tech_button")
 
 [node name="CodexButton" type="Button" parent="Interface/Menu/Content" unique_id=1717962536]
-custom_minimum_size = Vector2(0, 34)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
@@ -248,7 +248,7 @@ text = "图鉴"
 script = ExtResource("12_tech_button")
 
 [node name="QuitButton" type="Button" parent="Interface/Menu/Content" unique_id=666523798]
-custom_minimum_size = Vector2(0, 34)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.82, 0.88, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
@@ -302,28 +302,28 @@ horizontal_alignment = 2
 [node name="SettingsPanel" type="PanelContainer" parent="Interface"]
 visible = false
 offset_left = 154.0
-offset_top = 72.0
+offset_top = 35.0
 offset_right = 506.0
-offset_bottom = 318.0
+offset_bottom = 338.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_info_panel")
 
 [node name="Margin" type="MarginContainer" parent="Interface/SettingsPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 22
-theme_override_constants/margin_top = 18
+theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 22
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_bottom = 12
 
 [node name="Content" type="VBoxContainer" parent="Interface/SettingsPanel/Margin"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 7
 
 [node name="Title" type="Label" parent="Interface/SettingsPanel/Margin/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.95, 1, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_font_sizes/font_size = 18
-text = "显示设置"
+text = "设置"
 horizontal_alignment = 1
 
 [node name="ResolutionRow" type="HBoxContainer" parent="Interface/SettingsPanel/Margin/Content"]
@@ -374,12 +374,74 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
 
+[node name="MusicVolumeRow" type="HBoxContainer" parent="Interface/SettingsPanel/Margin/Content"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Interface/SettingsPanel/Margin/Content/MusicVolumeRow"]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.84, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 11
+text = "音乐"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Interface/SettingsPanel/Margin/Content/MusicVolumeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+step = 1.0
+value = 75.0
+ticks_on_borders = true
+
+[node name="Value" type="Label" parent="Interface/SettingsPanel/Margin/Content/MusicVolumeRow"]
+custom_minimum_size = Vector2(38, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 1, 0.76, 1)
+theme_override_font_sizes/font_size = 10
+text = "75%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SfxVolumeRow" type="HBoxContainer" parent="Interface/SettingsPanel/Margin/Content"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Interface/SettingsPanel/Margin/Content/SfxVolumeRow"]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.84, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 11
+text = "音效"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Interface/SettingsPanel/Margin/Content/SfxVolumeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+step = 1.0
+value = 85.0
+ticks_on_borders = true
+
+[node name="Value" type="Label" parent="Interface/SettingsPanel/Margin/Content/SfxVolumeRow"]
+custom_minimum_size = Vector2(38, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 1, 0.76, 1)
+theme_override_font_sizes/font_size = 10
+text = "85%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="Hint" type="Label" parent="Interface/SettingsPanel/Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.62, 0.7, 1)
 theme_override_font_sizes/font_size = 9
-text = "全屏与无边框会使用当前显示器的原生分辨率。\n窗口模式可选择分辨率；设置会自动保存。"
+text = "显示与音量设置会自动保存。"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2

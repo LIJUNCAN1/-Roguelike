@@ -6,6 +6,7 @@ func _init() -> void:
 
 
 func _run() -> void:
+	root.size = Vector2i(640, 360)
 	var title_scene := load(
 		"res://scenes/ui/title_screen.tscn"
 	) as PackedScene
@@ -49,6 +50,53 @@ func _run() -> void:
 		push_error("Start button did not receive the initial highlight.")
 		quit(1)
 		return
+
+	title.start_button.mouse_entered.emit()
+	await create_timer(0.22).timeout
+	if title.start_button.hover_amount < 0.9:
+		push_error("Title button did not gradually brighten.")
+		quit(1)
+		return
+	title.start_button.mouse_exited.emit()
+	await create_timer(0.32).timeout
+	if title.start_button.hover_amount > 0.1:
+		push_error("Title button did not gradually dim.")
+		quit(1)
+		return
+
+	var music_bus := AudioServer.get_bus_index(&"Music")
+	var sfx_bus := AudioServer.get_bus_index(&"SFX")
+	if (
+		music_bus < 0
+		or sfx_bus < 0
+		or title.music_slider.max_value != 100.0
+		or title.sfx_slider.max_value != 100.0
+	):
+		push_error("Audio settings buses or sliders were not configured.")
+		quit(1)
+		return
+	var original_music := title.music_slider.value
+	var original_sfx := title.sfx_slider.value
+	title.music_slider.value = 50.0
+	title.sfx_slider.value = 25.0
+	await process_frame
+	if (
+		not is_equal_approx(
+			AudioServer.get_bus_volume_db(music_bus),
+			linear_to_db(0.5)
+		)
+		or not is_equal_approx(
+			AudioServer.get_bus_volume_db(sfx_bus),
+			linear_to_db(0.25)
+		)
+		or title.music_value_label.text != "50%"
+		or title.sfx_value_label.text != "25%"
+	):
+		push_error("Audio settings did not update live volume.")
+		quit(1)
+		return
+	title.music_slider.value = original_music
+	title.sfx_slider.value = original_sfx
 
 	title.open_settings()
 	if (

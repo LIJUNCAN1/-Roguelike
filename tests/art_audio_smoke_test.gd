@@ -34,10 +34,16 @@ func _run() -> void:
 		audio.library == null
 		or audio.current_music_id != &"organic_region"
 		or not audio.music_player.stream is AudioStreamWAV
+		or audio.music_player.bus != &"Music"
 	):
 		push_error("Region music fallback was not active.")
 		quit(1)
 		return
+	for sfx_player in audio.sfx_players:
+		if sfx_player.bus != &"SFX":
+			push_error("Sound effect player was not routed to SFX.")
+			quit(1)
+			return
 
 	var room_manager := main.get_node("RoomManager") as RoomManager
 	room_manager.enter_room(1)

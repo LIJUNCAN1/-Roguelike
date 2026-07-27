@@ -10,6 +10,8 @@ const DISPLAY_MODE_WINDOWED := 0
 const DISPLAY_MODE_FULLSCREEN := 1
 const DISPLAY_MODE_BORDERLESS := 2
 const CURRENT_VERSION := "EA v0.1.0"
+const DEFAULT_MUSIC_VOLUME := 0.75
+const DEFAULT_SFX_VOLUME := 0.85
 const DISPLAY_RESOLUTIONS := [
 	Vector2i(1280, 720),
 	Vector2i(1600, 900),
@@ -40,6 +42,18 @@ const DISPLAY_RESOLUTIONS := [
 )
 @onready var display_mode_option: OptionButton = (
 	$Interface/SettingsPanel/Margin/Content/WindowModeRow/Option
+)
+@onready var music_slider: HSlider = (
+	$Interface/SettingsPanel/Margin/Content/MusicVolumeRow/Slider
+)
+@onready var music_value_label: Label = (
+	$Interface/SettingsPanel/Margin/Content/MusicVolumeRow/Value
+)
+@onready var sfx_slider: HSlider = (
+	$Interface/SettingsPanel/Margin/Content/SfxVolumeRow/Slider
+)
+@onready var sfx_value_label: Label = (
+	$Interface/SettingsPanel/Margin/Content/SfxVolumeRow/Value
 )
 @onready var settings_status: Label = (
 	$Interface/SettingsPanel/Margin/Content/Status
@@ -78,6 +92,8 @@ func _ready() -> void:
 	settings_apply_button.pressed.connect(apply_display_settings)
 	settings_back_button.pressed.connect(close_submenu)
 	display_mode_option.item_selected.connect(on_display_mode_selected)
+	music_slider.value_changed.connect(_on_audio_volume_changed)
+	sfx_slider.value_changed.connect(_on_audio_volume_changed)
 	info_back_button.pressed.connect(close_submenu)
 	meta_back_button.pressed.connect(close_submenu)
 	codex_back_button.pressed.connect(close_submenu)
@@ -190,6 +206,30 @@ func setup_display_settings() -> void:
 	)
 	display_mode_option.select(display_mode)
 	on_display_mode_selected(display_mode)
+	music_slider.value = clampf(
+		float(
+			config.get_value(
+				"audio",
+				"music_volume",
+				DEFAULT_MUSIC_VOLUME
+			)
+		) * 100.0,
+		0.0,
+		100.0
+	)
+	sfx_slider.value = clampf(
+		float(
+			config.get_value(
+				"audio",
+				"sfx_volume",
+				DEFAULT_SFX_VOLUME
+			)
+		) * 100.0,
+		0.0,
+		100.0
+	)
+	_apply_audio_volume()
+	_update_audio_value_labels()
 	if DisplayServer.get_name() != "headless":
 		apply_display_values(
 			DISPLAY_RESOLUTIONS[resolution_index],
@@ -215,6 +255,7 @@ func apply_display_settings() -> void:
 	)
 	if DisplayServer.get_name() != "headless":
 		apply_display_values(resolution, display_mode)
+	_apply_audio_volume()
 	save_display_settings(resolution, display_mode)
 	settings_status.text = "设置已应用并保存"
 
@@ -270,7 +311,47 @@ func save_display_settings(resolution: Vector2i, display_mode: int) -> void:
 	config.set_value("display", "width", resolution.x)
 	config.set_value("display", "height", resolution.y)
 	config.set_value("display", "mode", display_mode)
+	config.set_value(
+		"audio",
+		"music_volume",
+		music_slider.value / 100.0
+	)
+	config.set_value(
+		"audio",
+		"sfx_volume",
+		sfx_slider.value / 100.0
+	)
 	config.save(SETTINGS_PATH)
+
+
+func _on_audio_volume_changed(_value: float) -> void:
+	_apply_audio_volume()
+	_update_audio_value_labels()
+
+
+func _apply_audio_volume() -> void:
+	_set_bus_linear_volume(&"Music", music_slider.value / 100.0)
+	_set_bus_linear_volume(&"SFX", sfx_slider.value / 100.0)
+
+
+func _set_bus_linear_volume(
+	bus_name: StringName,
+	linear_volume: float
+) -> void:
+	var bus_index := AudioServer.get_bus_index(bus_name)
+	if bus_index < 0:
+		return
+	var volume_db := (
+		-80.0
+		if linear_volume <= 0.0001
+		else linear_to_db(linear_volume)
+	)
+	AudioServer.set_bus_volume_db(bus_index, volume_db)
+
+
+func _update_audio_value_labels() -> void:
+	music_value_label.text = "%d%%" % roundi(music_slider.value)
+	sfx_value_label.text = "%d%%" % roundi(sfx_slider.value)
 
 
 func open_roadmap() -> void:
