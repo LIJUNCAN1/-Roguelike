@@ -113,10 +113,31 @@ func _run() -> void:
 	if (
 		not title.settings_panel.visible
 		or title.menu.visible
+		or not title.settings_panel is TechSettingsPanel
+		or title.settings_panel.size != Vector2(604.0, 342.0)
 		or title.resolution_option.item_count != 4
 		or title.display_mode_option.item_count != 3
+		or title.music_slider.get_theme_icon("grabber") == null
+		or title.sfx_slider.get_theme_icon("grabber_highlight") == null
 	):
-		push_error("Display settings menu was not configured.")
+		push_error(
+			(
+				"Display settings menu was not configured: "
+				+ "visible=%s menu=%s tech=%s size=%s "
+				+ "res=%d mode=%d grabber=%s highlight=%s"
+			) % [
+				title.settings_panel.visible,
+				title.menu.visible,
+				title.settings_panel is TechSettingsPanel,
+				title.settings_panel.size,
+				title.resolution_option.item_count,
+				title.display_mode_option.item_count,
+				title.music_slider.get_theme_icon("grabber") != null,
+				title.sfx_slider.get_theme_icon(
+					"grabber_highlight"
+				) != null,
+			]
+		)
 		quit(1)
 		return
 	title.close_submenu()
