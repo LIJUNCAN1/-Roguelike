@@ -9,3 +9,5 @@ id = &"needle_organ"
 display_name = "原生喷针"
 description = "均衡、快速的基础攻击器官。"
 weapon_data = ExtResource("2_weapon")
+hud_symbol = "➤"
+hud_color = Color(1, 0.52, 0.16, 1)

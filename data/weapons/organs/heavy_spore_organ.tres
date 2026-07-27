@@ -9,3 +9,5 @@ id = &"heavy_spore_organ"
 display_name = "重孢炮"
 description = "缓慢发射大型重孢，基础伤害 18。"
 weapon_data = ExtResource("2_weapon")
+hud_symbol = "✦"
+hud_color = Color(1, 0.74, 0.24, 1)

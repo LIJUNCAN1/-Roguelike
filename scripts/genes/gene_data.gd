@@ -41,27 +41,27 @@ enum Category {
 func get_rarity_name() -> String:
 	match rarity:
 		Rarity.UNCOMMON:
-			return "优秀"
-		Rarity.RARE:
 			return "稀有"
-		Rarity.EPIC:
+		Rarity.RARE:
 			return "史诗"
-		Rarity.LEGENDARY:
+		Rarity.EPIC:
 			return "传说"
+		Rarity.LEGENDARY:
+			return "神话"
 	return "普通"
 
 
 func get_rarity_color_hex() -> String:
 	match rarity:
 		Rarity.UNCOMMON:
-			return "#72e69a"
+			return "#5aa8ff"
 		Rarity.RARE:
-			return "#65a9ff"
+			return "#bd68ff"
 		Rarity.EPIC:
-			return "#bd78ff"
+			return "#ff9b35"
 		Rarity.LEGENDARY:
-			return "#ffb84d"
-	return "#d8e8e4"
+			return "#ff3f45"
+	return "#eef4f2"
 
 
 func get_category_name() -> String:

@@ -19,6 +19,16 @@ effects
 
 `COMMON`、`UNCOMMON`、`RARE`、`EPIC`、`LEGENDARY`。
 
+显示层级固定为：
+
+```text
+COMMON     普通  白色
+UNCOMMON   稀有  蓝色
+RARE       史诗  紫色
+EPIC       传说  橙色
+LEGENDARY  神话  红色
+```
+
 ## 分类
 
 `COMBUSTION`、`PROLIFERATION`、`SURVIVAL`、`ADAPTATION`、`ABYSS`、`MECHANICAL`、`ELEMENTAL`、`SUMMONING`。

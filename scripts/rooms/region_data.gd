@@ -5,6 +5,7 @@ extends Resource
 @export var id: StringName
 @export var display_name: String
 @export_multiline var description: String
+@export var entry_objective: String = "继续深入区域"
 
 @export_group("Palette")
 @export var void_color: Color = Color(0.018, 0.025, 0.037, 1.0)

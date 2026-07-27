@@ -9,6 +9,7 @@ script = ExtResource("1_data")
 id = &"mechanical_hive"
 display_name = "机械铸巢区"
 description = "自动机械仍在铸造未知生命容器。"
+entry_objective = "进入铸造核心"
 void_color = Color(0.008, 0.02, 0.035, 1)
 floor_color = Color(0.035, 0.085, 0.12, 1)
 patch_color = Color(0.055, 0.14, 0.19, 1)

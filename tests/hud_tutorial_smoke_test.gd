@@ -32,6 +32,21 @@ func _run() -> void:
 	var tutorial := main.get_node(
 		"TutorialOverlay"
 	) as TutorialOverlay
+	var minimap := main.get_node(
+		"Interface/RunMinimap"
+	) as RunMinimapPresenter
+	var weapon_slots := main.get_node(
+		"Interface/WeaponSlots"
+	) as WeaponSlotsHud
+	var area_intro := main.get_node(
+		"Interface/AreaIntro"
+	) as AreaIntroPresenter
+	var essence_icon := main.get_node(
+		"Interface/PlayerVitals/EssenceRow/Icon"
+	) as TextureRect
+	var essence_amount := main.get_node(
+		"Interface/PlayerVitals/EssenceRow/Amount"
+	) as Label
 
 	if (
 		bool(gene_harness.get("debug_hotkeys_enabled"))
@@ -41,8 +56,17 @@ func _run() -> void:
 		or not is_equal_approx(experience_bar.value, 0.0)
 		or health_text.text != "100/100"
 		or experience_text.text != "0/20"
+		or minimap.size != Vector2(68.0, 64.0)
+		or minimap.room_manager.current_room_index != 0
+		or weapon_slots.active_slot != 0
+		or weapon_slots.get_slot_organ(0) == null
+		or not area_intro.visible
+		or area_intro.title_label.text != "原生培养区"
+		or area_intro.objective_label.text != "走进孵化仓"
+		or essence_icon.texture == null
+		or essence_amount.text != "× 0"
 	):
-		push_error("Release HUD still exposed developer controls.")
+		push_error("Release HUD or new run interface is invalid.")
 		quit(1)
 		return
 
@@ -57,6 +81,12 @@ func _run() -> void:
 		return
 
 	var player := main.get_node("World/Player") as CharacterBody2D
+	var progression := player.get_node("RunProgression") as RunProgression
+	progression.add_essence(5)
+	if essence_amount.text != "× 5":
+		push_error("Gene essence HUD did not follow run progression.")
+		quit(1)
+		return
 	var gene_manager := player.get_node("GeneManager") as GeneManager
 	var gene_status := main.get_node(
 		"Interface/StagePanel/MarginContainer/Labels/GeneStatus"

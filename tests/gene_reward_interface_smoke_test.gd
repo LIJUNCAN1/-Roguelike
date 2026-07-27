@@ -56,6 +56,10 @@ func _run() -> void:
 			or card.description_label.text != offered_gene.description
 			or card.size.x < 180.0
 			or card.size.y < 240.0
+			or card.rarity_gem.gem_color != Color.from_string(
+				offered_gene.get_rarity_color_hex(),
+				Color.WHITE
+			)
 		):
 			push_error("Gene reward card content or sizing is invalid.")
 			quit(1)

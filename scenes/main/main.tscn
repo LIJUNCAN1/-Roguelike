@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3]
+[gd_scene load_steps=43 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -33,6 +33,10 @@
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_presentation_controller.gd" id="31_evolution_presentation"]
 [ext_resource type="Script" path="res://scripts/ui/pixel_vitals_presenter.gd" id="32_pixel_vitals"]
 [ext_resource type="Texture2D" path="res://assets/ui/pixel_heart.svg" id="33_pixel_heart"]
+[ext_resource type="Script" path="res://scripts/ui/run_minimap_presenter.gd" id="34_minimap"]
+[ext_resource type="Script" path="res://scripts/ui/weapon_slots_hud.gd" id="35_weapon_slots"]
+[ext_resource type="Script" path="res://scripts/ui/area_intro_presenter.gd" id="36_area_intro"]
+[ext_resource type="Texture2D" path="res://assets/ui/gene_essence_dna.svg" id="37_essence_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -126,7 +130,7 @@ evolution_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/
 [node name="ProgressionStatusPresenter" type="Node" parent="."]
 script = ExtResource("23_progression_status")
 progression_path = NodePath("../World/Player/RunProgression")
-essence_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/EssenceStatus")
+essence_label_path = NodePath("../Interface/PlayerVitals/EssenceRow/Amount")
 
 [node name="BuildNotificationPresenter" type="Node" parent="."]
 script = ExtResource("24_build_notification")
@@ -217,7 +221,7 @@ anchors_preset = 0
 offset_left = 24.0
 offset_top = 8.0
 offset_right = 152.0
-offset_bottom = 44.0
+offset_bottom = 58.0
 mouse_filter = 2
 script = ExtResource("32_pixel_vitals")
 health_component_path = NodePath("../../World/Player/HealthComponent")
@@ -229,12 +233,9 @@ experience_text_path = NodePath("Frame/ExperienceText")
 level_text_path = NodePath("Frame/LevelText")
 
 [node name="Frame" type="Panel" parent="Interface/PlayerVitals"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 36.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vital_frame")
 
 [node name="HealthBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
@@ -312,6 +313,89 @@ text = "0/20"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="EssenceRow" type="Control" parent="Interface/PlayerVitals"]
+layout_mode = 0
+offset_top = 38.0
+offset_right = 128.0
+offset_bottom = 50.0
+
+[node name="Icon" type="TextureRect" parent="Interface/PlayerVitals/EssenceRow"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 20.0
+offset_bottom = 10.0
+mouse_filter = 2
+texture = ExtResource("37_essence_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Amount" type="Label" parent="Interface/PlayerVitals/EssenceRow"]
+layout_mode = 0
+offset_left = 23.0
+offset_right = 70.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.86, 1, 0.3, 1)
+theme_override_colors/font_outline_color = Color(0.04, 0.06, 0.01, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "× 0"
+vertical_alignment = 1
+
+[node name="RunMinimap" type="Control" parent="Interface"]
+offset_left = 564.0
+offset_top = 8.0
+offset_right = 632.0
+offset_bottom = 72.0
+mouse_filter = 2
+script = ExtResource("34_minimap")
+room_manager_path = NodePath("../../RoomManager")
+
+[node name="WeaponSlots" type="Control" parent="Interface"]
+offset_left = 566.0
+offset_top = 320.0
+offset_right = 632.0
+offset_bottom = 350.0
+mouse_filter = 2
+script = ExtResource("35_weapon_slots")
+weapon_manager_path = NodePath("../../World/Player/WeaponOrganManager")
+
+[node name="AreaIntro" type="Control" parent="Interface"]
+offset_left = 175.0
+offset_top = 125.0
+offset_right = 465.0
+offset_bottom = 210.0
+mouse_filter = 2
+script = ExtResource("36_area_intro")
+room_manager_path = NodePath("../../RoomManager")
+title_label_path = NodePath("Title")
+objective_label_path = NodePath("Objective")
+
+[node name="Title" type="Label" parent="Interface/AreaIntro"]
+layout_mode = 0
+offset_right = 290.0
+offset_bottom = 42.0
+theme_override_colors/font_color = Color(0.48, 1, 0.68, 1)
+theme_override_colors/font_outline_color = Color(0.005, 0.02, 0.018, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 23
+text = "原生培养区"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Objective" type="Label" parent="Interface/AreaIntro"]
+layout_mode = 0
+offset_top = 42.0
+offset_right = 290.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.82, 0.9, 0.86, 1)
+theme_override_colors/font_outline_color = Color(0.005, 0.02, 0.018, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 11
+text = "走进孵化仓"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="StagePanel" type="PanelContainer" parent="Interface"]
 offset_left = 12.0
 offset_top = 86.0
@@ -361,6 +445,7 @@ theme_override_font_sizes/font_size = 10
 text = "G火焰  H分裂  J穿透  K吸血  L爆炸"
 
 [node name="EssenceStatus" type="Label" parent="Interface/StagePanel/MarginContainer/Labels"]
+visible = false
 theme_override_colors/font_color = Color(0.75, 0.55, 1, 1)
 theme_override_font_sizes/font_size = 10
 text = "基因精华：0"

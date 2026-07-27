@@ -23,6 +23,9 @@ func _run() -> void:
 	var status_label := main.get_node(
 		"Interface/StagePanel/MarginContainer/Labels/WeaponStatus"
 	) as Label
+	var weapon_slots := main.get_node(
+		"Interface/WeaponSlots"
+	) as WeaponSlotsHud
 	var start_room := room_manager.current_room as WeaponSelectionRoom
 
 	player.global_position = (
@@ -54,6 +57,11 @@ func _run() -> void:
 			0.55
 		)
 		or not status_label.text.contains("重孢炮")
+		or weapon_slots.active_slot != 1
+		or weapon_slots.get_slot_organ(0) == null
+		or weapon_slots.get_slot_organ(0).id != &"needle_organ"
+		or weapon_slots.get_slot_organ(1) == null
+		or weapon_slots.get_slot_organ(1).id != &"heavy_spore_organ"
 	):
 		push_error("Heavy spore organ was not equipped from the chamber.")
 		quit(1)

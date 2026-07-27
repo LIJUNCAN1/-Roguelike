@@ -18,4 +18,4 @@ func _ready() -> void:
 
 
 func _update_essence(current: int) -> void:
-	essence_label.text = "基因精华：%d" % current
+	essence_label.text = "× %d" % current

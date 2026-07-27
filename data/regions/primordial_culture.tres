@@ -9,6 +9,7 @@ script = ExtResource("1_data")
 id = &"primordial_culture"
 display_name = "原生培养区"
 description = "温暖、潮湿的生命培养设施。"
+entry_objective = "走进孵化仓"
 void_color = Color(0.012, 0.032, 0.028, 1)
 floor_color = Color(0.045, 0.12, 0.095, 1)
 patch_color = Color(0.07, 0.18, 0.13, 1)

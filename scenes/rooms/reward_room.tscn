@@ -95,7 +95,7 @@ theme_override_colors/font_color = Color(1, 0.84, 0.47, 1)
 theme_override_colors/font_outline_color = Color(0.16, 0.025, 0.02, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 18
-text = "◆  进 化 选 择  ◆"
+text = "◆  基 因 进 化  ◆"
 horizontal_alignment = 1
 vertical_alignment = 1
 

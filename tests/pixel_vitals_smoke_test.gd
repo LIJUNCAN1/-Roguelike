@@ -47,7 +47,7 @@ func _run() -> void:
 		or not is_equal_approx(vitals.health_bar.value, 63.0)
 		or vitals.experience_text.text != "9/20"
 		or not is_equal_approx(vitals.experience_bar.value, 9.0)
-		or vitals.size != Vector2(128.0, 36.0)
+		or vitals.size != Vector2(128.0, 50.0)
 		or vitals.position != Vector2(24.0, 8.0)
 		or heart_icon.texture == null
 		or level_text.text != "Lv.1"

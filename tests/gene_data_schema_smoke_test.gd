@@ -54,6 +54,31 @@ func _run() -> void:
 		"召唤系",
 	]
 	var schema_probe := GeneData.new()
+	var expected_rarity_names := [
+		"普通",
+		"稀有",
+		"史诗",
+		"传说",
+		"神话",
+	]
+	var expected_rarity_colors := [
+		"#eef4f2",
+		"#5aa8ff",
+		"#bd68ff",
+		"#ff9b35",
+		"#ff3f45",
+	]
+	for rarity_index in expected_rarity_names.size():
+		schema_probe.rarity = rarity_index
+		if (
+			schema_probe.get_rarity_name()
+			!= expected_rarity_names[rarity_index]
+			or schema_probe.get_rarity_color_hex()
+			!= expected_rarity_colors[rarity_index]
+		):
+			push_error("Gene rarity colors do not match the five tiers.")
+			quit(1)
+			return
 	for category_index in expected_categories.size():
 		schema_probe.category = category_index
 		if schema_probe.get_category_name() != expected_categories[

@@ -9,6 +9,7 @@ script = ExtResource("1_data")
 id = &"abyss_lab"
 display_name = "深渊实验区"
 description = "被虚空污染的废弃基因实验室。"
+entry_objective = "寻找污染源"
 void_color = Color(0.018, 0.008, 0.035, 1)
 floor_color = Color(0.075, 0.035, 0.12, 1)
 patch_color = Color(0.12, 0.05, 0.19, 1)
