@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b4l5iecbr4qes" path="res://scripts/meta/meta_upgrade_panel.gd" id="2_meta_panel"]
 [ext_resource type="Script" uid="uid://bhblbgthwxtr5" path="res://scripts/meta/menu_gene_codex.gd" id="3_codex"]
 [ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="4_gene_pool"]
-[ext_resource type="Texture2D" uid="uid://bor2lchmr4nqv" path="res://assets/ui/title_logo.png" id="5_title_logo"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_logo-v2.png" id="5_title_logo"]
 [ext_resource type="Texture2D" path="res://assets/ui/title_background.png" id="6_title_background"]
 [ext_resource type="Texture2D" path="res://assets/ui/social_github.png" id="7_social_github"]
 [ext_resource type="Texture2D" path="res://assets/ui/social_bilibili.png" id="8_social_bilibili"]
@@ -37,12 +37,12 @@ content_margin_left = 20.0
 content_margin_right = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
-bg_color = Color(0.01, 0.22, 0.145, 0.82)
+bg_color = Color(0.01, 0.22, 0.145, 0.18)
 content_margin_left = 20.0
 content_margin_right = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
-bg_color = Color(0.008, 0.18, 0.12, 0.68)
+bg_color = Color(0.008, 0.18, 0.12, 0.12)
 content_margin_left = 20.0
 content_margin_right = 10.0
 
@@ -124,19 +124,19 @@ stretch_mode = 6
 [node name="Interface" type="CanvasLayer" parent="." unique_id=24458870]
 
 [node name="MenuBackdrop" type="TextureRect" parent="Interface"]
-offset_left = 0.0
-offset_top = 42.0
-offset_right = 360.0
+offset_left = 238.0
+offset_top = 96.0
+offset_right = 640.0
 offset_bottom = 360.0
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_menu_backdrop")
 expand_mode = 1
 
 [node name="TitleImage" type="TextureRect" parent="Interface" unique_id=1299536591]
-offset_left = 376.0
-offset_top = 15.0
-offset_right = 628.0
-offset_bottom = 116.0
+offset_left = 60.0
+offset_top = 8.0
+offset_right = 580.0
+offset_bottom = 108.0
 mouse_filter = 2
 texture = ExtResource("5_title_logo")
 expand_mode = 1
@@ -165,10 +165,10 @@ text = "吞噬基因 · 构筑生命 · 完成进化"
 horizontal_alignment = 1
 
 [node name="Menu" type="PanelContainer" parent="Interface" unique_id=1233610578]
-offset_left = 42.0
-offset_top = 57.0
-offset_right = 330.0
-offset_bottom = 315.0
+offset_left = 300.0
+offset_top = 108.0
+offset_right = 604.0
+offset_bottom = 322.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
 
 [node name="Content" type="VBoxContainer" parent="Interface/Menu" unique_id=1850334910]
@@ -177,7 +177,7 @@ theme_override_constants/separation = 2
 alignment = 1
 
 [node name="StartButton" type="Button" parent="Interface/Menu/Content" unique_id=1447712269]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.98, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
@@ -192,7 +192,7 @@ script = ExtResource("12_tech_button")
 active_color = Color(0.28, 1, 0.75, 1)
 
 [node name="SettingsButton" type="Button" parent="Interface/Menu/Content" unique_id=1389030782]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
@@ -206,7 +206,7 @@ text = "设置"
 script = ExtResource("12_tech_button")
 
 [node name="RoadmapButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
@@ -220,7 +220,7 @@ text = "EA 开发规划"
 script = ExtResource("12_tech_button")
 
 [node name="CreditsButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
@@ -234,7 +234,7 @@ text = "制作名单"
 script = ExtResource("12_tech_button")
 
 [node name="CodexButton" type="Button" parent="Interface/Menu/Content" unique_id=1717962536]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
@@ -248,7 +248,7 @@ text = "图鉴"
 script = ExtResource("12_tech_button")
 
 [node name="QuitButton" type="Button" parent="Interface/Menu/Content" unique_id=666523798]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.82, 0.88, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
