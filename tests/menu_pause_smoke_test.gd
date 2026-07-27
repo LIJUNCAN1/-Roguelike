@@ -25,6 +25,18 @@ func _run() -> void:
 		quit(1)
 		return
 
+	title.open_settings()
+	if (
+		not title.settings_panel.visible
+		or title.menu.visible
+		or title.resolution_option.item_count != 4
+		or title.display_mode_option.item_count != 3
+	):
+		push_error("Display settings menu was not configured.")
+		quit(1)
+		return
+	title.close_submenu()
+
 	title.open_meta_upgrades()
 	if not title.meta_panel.visible or title.menu.visible:
 		push_error("Meta progression menu did not open.")

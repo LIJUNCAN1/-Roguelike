@@ -5,6 +5,17 @@ extends Node2D
 	"res://scenes/main/main.tscn"
 )
 
+const SETTINGS_PATH := "user://display_settings.cfg"
+const DISPLAY_MODE_WINDOWED := 0
+const DISPLAY_MODE_FULLSCREEN := 1
+const DISPLAY_MODE_BORDERLESS := 2
+const DISPLAY_RESOLUTIONS := [
+	Vector2i(1280, 720),
+	Vector2i(1600, 900),
+	Vector2i(1920, 1080),
+	Vector2i(2560, 1440),
+]
+
 @onready var start_button: Button = $Interface/Menu/Content/StartButton
 @onready var settings_button: Button = $Interface/Menu/Content/SettingsButton
 @onready var version_button: Button = $Interface/Menu/Content/VersionButton
@@ -22,6 +33,22 @@ extends Node2D
 @onready var social_icons: Control = $Interface/SocialIcons
 @onready var meta_panel: Control = $Interface/MetaUpgradePanel
 @onready var codex_panel: Control = $Interface/GeneCodexPanel
+@onready var settings_panel: Control = $Interface/SettingsPanel
+@onready var resolution_option: OptionButton = (
+	$Interface/SettingsPanel/Margin/Content/ResolutionRow/Option
+)
+@onready var display_mode_option: OptionButton = (
+	$Interface/SettingsPanel/Margin/Content/WindowModeRow/Option
+)
+@onready var settings_status: Label = (
+	$Interface/SettingsPanel/Margin/Content/Status
+)
+@onready var settings_apply_button: Button = (
+	$Interface/SettingsPanel/Margin/Content/Actions/ApplyButton
+)
+@onready var settings_back_button: Button = (
+	$Interface/SettingsPanel/Margin/Content/Actions/BackButton
+)
 @onready var info_panel: Control = $Interface/GeneralInfoPanel
 @onready var info_title: Label = $Interface/GeneralInfoPanel/Margin/Content/Title
 @onready var info_body: Label = $Interface/GeneralInfoPanel/Margin/Content/Body
@@ -40,6 +67,7 @@ var button_tweens: Dictionary = {}
 
 func _ready() -> void:
 	get_tree().paused = false
+	setup_display_settings()
 	start_button.pressed.connect(start_game)
 	settings_button.pressed.connect(open_settings)
 	version_button.pressed.connect(open_version_info)
@@ -47,6 +75,9 @@ func _ready() -> void:
 	credits_button.pressed.connect(open_credits)
 	codex_button.pressed.connect(open_gene_codex)
 	quit_button.pressed.connect(quit_game)
+	settings_apply_button.pressed.connect(apply_display_settings)
+	settings_back_button.pressed.connect(close_submenu)
+	display_mode_option.item_selected.connect(on_display_mode_selected)
 	info_back_button.pressed.connect(close_submenu)
 	meta_back_button.pressed.connect(close_submenu)
 	codex_back_button.pressed.connect(close_submenu)
@@ -64,6 +95,8 @@ func prepare_button_animations() -> void:
 		credits_button,
 		codex_button,
 		quit_button,
+		settings_apply_button,
+		settings_back_button,
 		info_back_button,
 		meta_back_button,
 		codex_back_button,
@@ -106,13 +139,132 @@ func quit_game() -> void:
 
 
 func open_settings() -> void:
-	open_info(
-		"设置",
-		"显示设置\n"
-		+ "• 分辨率：1280 × 720\n"
-		+ "• 画面模式：窗口化\n\n"
-		+ "音频、按键与更多显示选项将在后续 EA 版本中开放。"
+	menu.visible = false
+	info_panel.visible = false
+	meta_panel.visible = false
+	codex_panel.visible = false
+	settings_panel.visible = true
+	settings_status.text = ""
+	set_main_decoration_visible(false)
+	resolution_option.grab_focus()
+
+
+func setup_display_settings() -> void:
+	resolution_option.clear()
+	for resolution in DISPLAY_RESOLUTIONS:
+		resolution_option.add_item(
+			"%d × %d" % [resolution.x, resolution.y]
+		)
+	display_mode_option.clear()
+	display_mode_option.add_item("窗口")
+	display_mode_option.add_item("全屏")
+	display_mode_option.add_item("无边框")
+
+	var config := ConfigFile.new()
+	var width := 1280
+	var height := 720
+	var display_mode := DISPLAY_MODE_WINDOWED
+	if config.load(SETTINGS_PATH) == OK:
+		width = int(config.get_value("display", "width", width))
+		height = int(config.get_value("display", "height", height))
+		display_mode = int(
+			config.get_value("display", "mode", display_mode)
+		)
+
+	var resolution_index := 0
+	for index in range(DISPLAY_RESOLUTIONS.size()):
+		if DISPLAY_RESOLUTIONS[index] == Vector2i(width, height):
+			resolution_index = index
+			break
+	resolution_option.select(resolution_index)
+	display_mode = clampi(
+		display_mode,
+		DISPLAY_MODE_WINDOWED,
+		DISPLAY_MODE_BORDERLESS
 	)
+	display_mode_option.select(display_mode)
+	on_display_mode_selected(display_mode)
+	if DisplayServer.get_name() != "headless":
+		apply_display_values(
+			DISPLAY_RESOLUTIONS[resolution_index],
+			display_mode
+		)
+
+
+func on_display_mode_selected(mode_index: int) -> void:
+	resolution_option.disabled = mode_index != DISPLAY_MODE_WINDOWED
+
+
+func apply_display_settings() -> void:
+	var resolution_index := clampi(
+		resolution_option.selected,
+		0,
+		DISPLAY_RESOLUTIONS.size() - 1
+	)
+	var resolution: Vector2i = DISPLAY_RESOLUTIONS[resolution_index]
+	var display_mode := clampi(
+		display_mode_option.selected,
+		DISPLAY_MODE_WINDOWED,
+		DISPLAY_MODE_BORDERLESS
+	)
+	if DisplayServer.get_name() != "headless":
+		apply_display_values(resolution, display_mode)
+	save_display_settings(resolution, display_mode)
+	settings_status.text = "设置已应用并保存"
+
+
+func apply_display_values(resolution: Vector2i, display_mode: int) -> void:
+	match display_mode:
+		DISPLAY_MODE_FULLSCREEN:
+			DisplayServer.window_set_flag(
+				DisplayServer.WINDOW_FLAG_BORDERLESS,
+				false
+			)
+			DisplayServer.window_set_mode(
+				DisplayServer.WINDOW_MODE_FULLSCREEN
+			)
+		DISPLAY_MODE_BORDERLESS:
+			DisplayServer.window_set_mode(
+				DisplayServer.WINDOW_MODE_WINDOWED
+			)
+			DisplayServer.window_set_flag(
+				DisplayServer.WINDOW_FLAG_BORDERLESS,
+				true
+			)
+			var screen := DisplayServer.window_get_current_screen()
+			DisplayServer.window_set_size(
+				DisplayServer.screen_get_size(screen)
+			)
+			DisplayServer.window_set_position(
+				DisplayServer.screen_get_position(screen)
+			)
+		_:
+			DisplayServer.window_set_mode(
+				DisplayServer.WINDOW_MODE_WINDOWED
+			)
+			DisplayServer.window_set_flag(
+				DisplayServer.WINDOW_FLAG_BORDERLESS,
+				false
+			)
+			DisplayServer.window_set_size(resolution)
+			center_window(resolution)
+
+
+func center_window(resolution: Vector2i) -> void:
+	var screen := DisplayServer.window_get_current_screen()
+	var screen_position := DisplayServer.screen_get_position(screen)
+	var screen_size := DisplayServer.screen_get_size(screen)
+	DisplayServer.window_set_position(
+		screen_position + (screen_size - resolution) / 2
+	)
+
+
+func save_display_settings(resolution: Vector2i, display_mode: int) -> void:
+	var config := ConfigFile.new()
+	config.set_value("display", "width", resolution.x)
+	config.set_value("display", "height", resolution.y)
+	config.set_value("display", "mode", display_mode)
+	config.save(SETTINGS_PATH)
 
 
 func open_version_info() -> void:
@@ -148,6 +300,7 @@ func open_credits() -> void:
 
 func open_info(title: String, body: String) -> void:
 	menu.visible = false
+	settings_panel.visible = false
 	meta_panel.visible = false
 	codex_panel.visible = false
 	info_title.text = title
@@ -160,6 +313,7 @@ func open_info(title: String, body: String) -> void:
 # Preserved for the existing progression panel and automated test coverage.
 func open_meta_upgrades() -> void:
 	menu.visible = false
+	settings_panel.visible = false
 	info_panel.visible = false
 	codex_panel.visible = false
 	meta_panel.visible = true
@@ -168,6 +322,7 @@ func open_meta_upgrades() -> void:
 
 func open_gene_codex() -> void:
 	menu.visible = false
+	settings_panel.visible = false
 	info_panel.visible = false
 	meta_panel.visible = false
 	codex_panel.visible = true
@@ -175,6 +330,7 @@ func open_gene_codex() -> void:
 
 
 func close_submenu() -> void:
+	settings_panel.visible = false
 	info_panel.visible = false
 	meta_panel.visible = false
 	codex_panel.visible = false

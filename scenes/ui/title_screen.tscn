@@ -328,6 +328,128 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_social_hover")
 theme_override_styles/focus = SubResource("StyleBoxFlat_social_hover")
 text = "✦"
 
+[node name="SettingsPanel" type="PanelContainer" parent="Interface"]
+visible = false
+offset_left = 154.0
+offset_top = 72.0
+offset_right = 506.0
+offset_bottom = 318.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_info_panel")
+
+[node name="Margin" type="MarginContainer" parent="Interface/SettingsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 16
+
+[node name="Content" type="VBoxContainer" parent="Interface/SettingsPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Interface/SettingsPanel/Margin/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.95, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 18
+text = "显示设置"
+horizontal_alignment = 1
+
+[node name="ResolutionRow" type="HBoxContainer" parent="Interface/SettingsPanel/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Interface/SettingsPanel/Margin/Content/ResolutionRow"]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.84, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 11
+text = "分辨率"
+vertical_alignment = 1
+
+[node name="Option" type="OptionButton" parent="Interface/SettingsPanel/Margin/Content/ResolutionRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.94, 0.94, 0.98, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+
+[node name="WindowModeRow" type="HBoxContainer" parent="Interface/SettingsPanel/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Interface/SettingsPanel/Margin/Content/WindowModeRow"]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.84, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 11
+text = "显示模式"
+vertical_alignment = 1
+
+[node name="Option" type="OptionButton" parent="Interface/SettingsPanel/Margin/Content/WindowModeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.94, 0.94, 0.98, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+
+[node name="Hint" type="Label" parent="Interface/SettingsPanel/Margin/Content"]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.62, 0.7, 1)
+theme_override_font_sizes/font_size = 9
+text = "全屏与无边框会使用当前显示器的原生分辨率。\n窗口模式可选择分辨率；设置会自动保存。"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Status" type="Label" parent="Interface/SettingsPanel/Margin/Content"]
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.82, 1, 1)
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="Actions" type="HBoxContainer" parent="Interface/SettingsPanel/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ApplyButton" type="Button" parent="Interface/SettingsPanel/Margin/Content/Actions"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.94, 0.94, 0.98, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+text = "应用"
+
+[node name="BackButton" type="Button" parent="Interface/SettingsPanel/Margin/Content/Actions"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.86, 0.86, 0.92, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+text = "返回"
+
 [node name="GeneralInfoPanel" type="PanelContainer" parent="Interface"]
 visible = false
 offset_left = 142.0
