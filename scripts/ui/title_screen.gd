@@ -22,8 +22,6 @@ const DISPLAY_RESOLUTIONS := [
 @onready var start_button: Button = $Interface/Menu/Content/StartButton
 @onready var settings_button: Button = $Interface/Menu/Content/SettingsButton
 @onready var roadmap_button: Button = $Interface/Menu/Content/RoadmapButton
-@onready var credits_button: Button = $Interface/Menu/Content/CreditsButton
-@onready var codex_button: Button = $Interface/Menu/Content/CodexButton
 @onready var quit_button: Button = $Interface/Menu/Content/QuitButton
 
 # Kept as a compatibility alias for the existing smoke test and old callers.
@@ -86,8 +84,6 @@ func _ready() -> void:
 	start_button.pressed.connect(start_game)
 	settings_button.pressed.connect(open_settings)
 	roadmap_button.pressed.connect(open_roadmap)
-	credits_button.pressed.connect(open_credits)
-	codex_button.pressed.connect(open_gene_codex)
 	quit_button.pressed.connect(quit_game)
 	settings_apply_button.pressed.connect(apply_display_settings)
 	settings_back_button.pressed.connect(close_submenu)
@@ -108,8 +104,6 @@ func prepare_button_animations() -> void:
 		start_button,
 		settings_button,
 		roadmap_button,
-		credits_button,
-		codex_button,
 		quit_button,
 		settings_apply_button,
 		settings_back_button,
@@ -362,16 +356,6 @@ func open_roadmap() -> void:
 		+ "• 扩充区域事件、首领与进化路线\n"
 		+ "• 加入完整音频、设置与存档功能\n"
 		+ "• 持续优化 UI、性能和操作反馈"
-	)
-
-
-func open_credits() -> void:
-	open_info(
-		"制作名单",
-		"游戏设计 / 程序 / 美术\n"
-		+ "原初之种开发团队\n\n"
-		+ "特别感谢\n"
-		+ "所有参与测试与提供建议的玩家"
 	)
 
 

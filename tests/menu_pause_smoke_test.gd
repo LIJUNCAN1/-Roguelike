@@ -18,7 +18,6 @@ func _run() -> void:
 	if (
 		title.start_button == null
 		or title.meta_button == null
-		or title.codex_button == null
 		or title.quit_button == null
 		or title.game_scene_path != "res://scenes/main/main.tscn"
 	):
@@ -30,8 +29,6 @@ func _run() -> void:
 		title.start_button,
 		title.settings_button,
 		title.roadmap_button,
-		title.credits_button,
-		title.codex_button,
 		title.quit_button,
 	]
 	for button in styled_buttons:
@@ -53,6 +50,8 @@ func _run() -> void:
 		return
 	if (
 		title.has_node("Interface/Menu/Content/VersionButton")
+		or title.has_node("Interface/Menu/Content/CreditsButton")
+		or title.has_node("Interface/Menu/Content/CodexButton")
 		or title.version_label.text != TitleScreen.CURRENT_VERSION
 	):
 		push_error("Version information was not moved to the corner.")

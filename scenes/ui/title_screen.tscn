@@ -137,9 +137,9 @@ expand_mode = 1
 
 [node name="TitleImage" type="TextureRect" parent="Interface" unique_id=1299536591]
 offset_left = 332.0
-offset_top = 12.0
+offset_top = 4.0
 offset_right = 622.0
-offset_bottom = 118.0
+offset_bottom = 110.0
 mouse_filter = 2
 texture = ExtResource("5_title_logo")
 expand_mode = 1
@@ -169,9 +169,9 @@ horizontal_alignment = 1
 
 [node name="Menu" type="PanelContainer" parent="Interface" unique_id=1233610578]
 offset_left = 397.0
-offset_top = 132.0
+offset_top = 112.0
 offset_right = 617.0
-offset_bottom = 337.0
+offset_bottom = 255.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
 
 [node name="Content" type="VBoxContainer" parent="Interface/Menu" unique_id=1850334910]
@@ -220,34 +220,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/focus = SubResource("StyleBoxFlat_button")
 text = "EA 开发规划"
-script = ExtResource("12_tech_button")
-
-[node name="CreditsButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 28)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
-theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button")
-text = "制作名单"
-script = ExtResource("12_tech_button")
-
-[node name="CodexButton" type="Button" parent="Interface/Menu/Content" unique_id=1717962536]
-custom_minimum_size = Vector2(0, 28)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
-theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button")
-text = "图鉴"
 script = ExtResource("12_tech_button")
 
 [node name="QuitButton" type="Button" parent="Interface/Menu/Content" unique_id=666523798]
