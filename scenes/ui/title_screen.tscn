@@ -1,64 +1,157 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3 uid="uid://b4s4g0dg4x011"]
 
-[ext_resource type="Script" path="res://scripts/ui/title_screen.gd" id="1_script"]
-[ext_resource type="Script" path="res://scripts/meta/meta_upgrade_panel.gd" id="2_meta_panel"]
-[ext_resource type="Script" path="res://scripts/meta/menu_gene_codex.gd" id="3_codex"]
+[ext_resource type="Script" uid="uid://bo5tpoy1hatwr" path="res://scripts/ui/title_screen.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://b4l5iecbr4qes" path="res://scripts/meta/meta_upgrade_panel.gd" id="2_meta_panel"]
+[ext_resource type="Script" uid="uid://bhblbgthwxtr5" path="res://scripts/meta/menu_gene_codex.gd" id="3_codex"]
 [ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="4_gene_pool"]
+[ext_resource type="Texture2D" uid="uid://bor2lchmr4nqv" path="res://assets/ui/title_logo.png" id="5_title_logo"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_background.png" id="6_title_background"]
+
+[sub_resource type="SystemFont" id="SystemFont_bold"]
+font_names = PackedStringArray("Microsoft YaHei UI", "Noto Sans CJK SC", "Arial")
+font_weight = 700
+
+[sub_resource type="Gradient" id="Gradient_menu_backdrop"]
+offsets = PackedFloat32Array(0, 0.22, 0.78, 1)
+colors = PackedColorArray(0.0, 0.0, 0.0, 0.0, 0.005, 0.004, 0.012, 0.82, 0.005, 0.004, 0.012, 0.82, 0.0, 0.0, 0.0, 0.0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_menu_backdrop"]
+gradient = SubResource("Gradient_menu_backdrop")
+width = 512
+height = 64
+fill_from = Vector2(0, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu"]
-bg_color = Color(0.025, 0.055, 0.065, 0.94)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.25, 0.78, 0.6, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
-bg_color = Color(0.08, 0.2, 0.18, 1)
+bg_color = Color(0, 0, 0, 0.18)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
+bg_color = Color(0.23, 0.18, 0.38, 0.86)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0.18, 0.14, 0.3, 0.74)
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_info_panel"]
+bg_color = Color(0.012, 0.01, 0.025, 0.94)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.35, 0.9, 0.65, 1)
+border_color = Color(1, 1, 1, 0.14)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.65)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_social"]
+bg_color = Color(0.01, 0.008, 0.02, 0.62)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="TitleScreen" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_social_hover"]
+bg_color = Color(0.22, 0.18, 0.36, 0.88)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="TitleScreen" type="Node2D" unique_id=1701984781]
 script = ExtResource("1_script")
 
-[node name="Background" type="Polygon2D" parent="."]
+[node name="Background" type="Polygon2D" parent="." unique_id=1989592593]
+color = Color(0.012, 0.003, 0.028, 1)
 polygon = PackedVector2Array(0, 0, 640, 0, 640, 360, 0, 360)
-color = Color(0.008, 0.022, 0.026, 1)
 
-[node name="CulturePool" type="Polygon2D" parent="."]
+[node name="CulturePool" type="Polygon2D" parent="." unique_id=354614366]
+color = Color(0.055, 0.008, 0.09, 1)
 polygon = PackedVector2Array(0, 250, 80, 220, 155, 240, 245, 205, 330, 240, 430, 215, 530, 245, 640, 220, 640, 360, 0, 360)
-color = Color(0.025, 0.13, 0.1, 1)
 
-[node name="CellLeft" type="Polygon2D" parent="."]
+[node name="CellLeft" type="Polygon2D" parent="." unique_id=1074985831]
+color = Color(0.28, 0.04, 0.48, 0.3)
 polygon = PackedVector2Array(60, 90, 78, 63, 112, 58, 137, 82, 135, 116, 110, 139, 76, 132, 53, 113)
-color = Color(0.12, 0.48, 0.34, 0.44)
 
-[node name="CellLeftCore" type="Polygon2D" parent="."]
+[node name="CellLeftCore" type="Polygon2D" parent="." unique_id=262399789]
+color = Color(0.75, 0.32, 1, 0.24)
 polygon = PackedVector2Array(83, 91, 97, 75, 116, 87, 113, 108, 93, 114, 78, 103)
-color = Color(0.52, 1, 0.62, 0.42)
 
-[node name="CellRight" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(500, 65, 525, 48, 558, 56, 577, 83, 568, 115, 541, 130, 510, 117, 493, 94)
+[node name="CellRight" type="Polygon2D" parent="." unique_id=1699385893]
+visible = false
 color = Color(0.22, 0.18, 0.58, 0.42)
+polygon = PackedVector2Array(500, 65, 525, 48, 558, 56, 577, 83, 568, 115, 541, 130, 510, 117, 493, 94)
 
-[node name="CellRightCore" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(520, 84, 540, 68, 559, 82, 556, 104, 535, 112, 516, 100)
+[node name="CellRightCore" type="Polygon2D" parent="." unique_id=957597285]
+visible = false
 color = Color(0.66, 0.42, 1, 0.42)
+polygon = PackedVector2Array(520, 84, 540, 68, 559, 82, 556, 104, 535, 112, 516, 100)
 
-[node name="Interface" type="CanvasLayer" parent="."]
+[node name="MoonGlow" type="Polygon2D" parent="." unique_id=1056441986]
+color = Color(0.48, 0.12, 0.78, 0.2)
+polygon = PackedVector2Array(111, 11, 132, 15, 151, 25, 166, 42, 175, 62, 178, 84, 173, 106, 162, 125, 145, 140, 124, 149, 102, 151, 80, 146, 61, 135, 46, 118, 37, 98, 34, 76, 39, 54, 50, 35, 67, 20, 88, 12)
 
-[node name="GameTitle" type="Label" parent="Interface"]
+[node name="Moon" type="Polygon2D" parent="." unique_id=530065099]
+color = Color(0.82, 0.52, 1, 0.96)
+polygon = PackedVector2Array(108, 20, 127, 24, 144, 33, 157, 48, 165, 66, 167, 85, 163, 103, 153, 120, 138, 133, 120, 141, 101, 142, 83, 138, 66, 128, 53, 113, 45, 95, 43, 76, 47, 58, 57, 41, 72, 29, 90, 21)
+
+[node name="MoonShade" type="Polygon2D" parent="." unique_id=87161081]
+color = Color(0.2, 0.025, 0.36, 0.42)
+polygon = PackedVector2Array(103, 21, 86, 31, 74, 47, 68, 65, 70, 84, 78, 101, 92, 114, 109, 122, 126, 123, 143, 117, 153, 107, 145, 126, 130, 138, 111, 144, 91, 142, 73, 134, 58, 120, 48, 103, 43, 84, 44, 64, 51, 47, 64, 33, 82, 24)
+
+[node name="DistantSpire" type="Polygon2D" parent="." unique_id=717106645]
+color = Color(0.015, 0.004, 0.027, 1)
+polygon = PackedVector2Array(12, 284, 20, 243, 29, 245, 35, 206, 43, 214, 48, 170, 56, 191, 63, 149, 70, 178, 80, 163, 87, 208, 98, 181, 107, 230, 119, 218, 132, 281)
+
+[node name="TowerWindows" type="Polygon2D" parent="." unique_id=1130320234]
+color = Color(0.63, 0.16, 0.92, 0.75)
+polygon = PackedVector2Array(49, 215, 53, 201, 57, 215, 57, 251, 49, 251)
+
+[node name="Foreground" type="Polygon2D" parent="." unique_id=827654630]
+color = Color(0.008, 0.002, 0.016, 1)
+polygon = PackedVector2Array(0, 286, 46, 269, 89, 278, 133, 255, 177, 273, 222, 252, 269, 276, 318, 260, 360, 284, 404, 269, 449, 287, 496, 270, 543, 282, 588, 266, 640, 278, 640, 360, 0, 360)
+
+[node name="BackgroundImage" type="TextureRect" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+texture = ExtResource("6_title_background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Interface" type="CanvasLayer" parent="." unique_id=24458870]
+
+[node name="MenuBackdrop" type="TextureRect" parent="Interface"]
+offset_left = 344.0
+offset_top = 106.0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_menu_backdrop")
+expand_mode = 1
+
+[node name="TitleImage" type="TextureRect" parent="Interface" unique_id=1299536591]
+offset_left = 376.0
+offset_top = 15.0
+offset_right = 628.0
+offset_bottom = 116.0
+mouse_filter = 2
+texture = ExtResource("5_title_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GameTitle" type="Label" parent="Interface" unique_id=337158461]
+visible = false
 offset_left = 100.0
 offset_top = 34.0
 offset_right = 540.0
@@ -68,146 +161,297 @@ theme_override_font_sizes/font_size = 28
 text = "生物进化 ROGUELIKE"
 horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="Interface"]
-offset_left = 120.0
-offset_top = 76.0
-offset_right = 520.0
-offset_bottom = 98.0
-theme_override_colors/font_color = Color(0.46, 0.7, 0.66, 1)
-theme_override_font_sizes/font_size = 11
+[node name="Subtitle" type="Label" parent="Interface" unique_id=1162232873]
+visible = false
+offset_left = 372.0
+offset_top = 112.0
+offset_right = 620.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0.74, 0.48, 0.92, 1)
+theme_override_font_sizes/font_size = 8
 text = "吞噬基因 · 构筑生命 · 完成进化"
 horizontal_alignment = 1
 
-[node name="Menu" type="PanelContainer" parent="Interface"]
-offset_left = 210.0
-offset_top = 108.0
-offset_right = 430.0
+[node name="Menu" type="PanelContainer" parent="Interface" unique_id=1233610578]
+offset_left = 424.0
+offset_top = 124.0
+offset_right = 622.0
 offset_bottom = 344.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
 
-[node name="Content" type="VBoxContainer" parent="Interface/Menu"]
+[node name="Content" type="VBoxContainer" parent="Interface/Menu" unique_id=1850334910]
 layout_mode = 2
-theme_override_constants/separation = 7
+theme_override_constants/separation = 2
 alignment = 1
 
-[node name="StartButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 42)
+[node name="StartButton" type="Button" parent="Interface/Menu/Content" unique_id=1447712269]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button")
-text = "开始进化"
-
-[node name="MetaButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 36)
-layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_font_sizes/font_size = 13
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button")
-text = "局外进化"
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+text = "开始"
 
-[node name="CodexButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 36)
+[node name="SettingsButton" type="Button" parent="Interface/Menu/Content" unique_id=1389030782]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
-theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button")
-text = "基因图鉴"
-
-[node name="QuitButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 36)
-layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button")
-theme_override_styles/focus = SubResource("StyleBoxFlat_button")
-text = "离开培养舱"
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+text = "设置"
 
-[node name="Controls" type="Label" parent="Interface/Menu/Content"]
+[node name="VersionButton" type="Button" parent="Interface/Menu/Content"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.48, 0.62, 0.62, 1)
-theme_override_font_sizes/font_size = 9
-text = "WASD 移动 · 鼠标攻击 · ESC 暂停"
+theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+text = "版本信息"
+
+[node name="RoadmapButton" type="Button" parent="Interface/Menu/Content"]
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+text = "EA 开发规划"
+
+[node name="CreditsButton" type="Button" parent="Interface/Menu/Content"]
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+text = "制作名单"
+
+[node name="CodexButton" type="Button" parent="Interface/Menu/Content" unique_id=1717962536]
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+text = "图鉴"
+
+[node name="QuitButton" type="Button" parent="Interface/Menu/Content" unique_id=666523798]
+custom_minimum_size = Vector2(0, 27)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.82, 0.88, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+text = "退出"
+
+[node name="SocialIcons" type="HBoxContainer" parent="Interface"]
+offset_left = 18.0
+offset_top = 318.0
+offset_right = 166.0
+offset_bottom = 350.0
+theme_override_constants/separation = 6
+
+[node name="Social1" type="Button" parent="Interface/SocialIcons"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+tooltip_text = "官方社区（占位）"
+theme_override_colors/font_color = Color(0.82, 0.82, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_social")
+theme_override_styles/hover = SubResource("StyleBoxFlat_social_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_social_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_social_hover")
+text = "◉"
+
+[node name="Social2" type="Button" parent="Interface/SocialIcons"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+tooltip_text = "视频主页（占位）"
+theme_override_colors/font_color = Color(0.82, 0.82, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_social")
+theme_override_styles/hover = SubResource("StyleBoxFlat_social_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_social_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_social_hover")
+text = "▶"
+
+[node name="Social3" type="Button" parent="Interface/SocialIcons"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+tooltip_text = "社交媒体（占位）"
+theme_override_colors/font_color = Color(0.82, 0.82, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_social")
+theme_override_styles/hover = SubResource("StyleBoxFlat_social_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_social_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_social_hover")
+text = "◆"
+
+[node name="Social4" type="Button" parent="Interface/SocialIcons"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+tooltip_text = "官方网站（占位）"
+theme_override_colors/font_color = Color(0.82, 0.82, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_social")
+theme_override_styles/hover = SubResource("StyleBoxFlat_social_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_social_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_social_hover")
+text = "✦"
+
+[node name="GeneralInfoPanel" type="PanelContainer" parent="Interface"]
+visible = false
+offset_left = 142.0
+offset_top = 76.0
+offset_right = 516.0
+offset_bottom = 314.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_info_panel")
+
+[node name="Margin" type="MarginContainer" parent="Interface/GeneralInfoPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 16
+
+[node name="Content" type="VBoxContainer" parent="Interface/GeneralInfoPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Interface/GeneralInfoPanel/Margin/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.95, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 18
+text = "信息"
 horizontal_alignment = 1
 
-[node name="MetaUpgradePanel" type="PanelContainer" parent="Interface"]
+[node name="Body" type="Label" parent="Interface/GeneralInfoPanel/Margin/Content"]
+custom_minimum_size = Vector2(0, 142)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.78, 0.78, 0.86, 1)
+theme_override_font_sizes/font_size = 11
+text = "内容准备中……"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="BackButton" type="Button" parent="Interface/GeneralInfoPanel/Margin/Content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.94, 0.98, 1)
+theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
+text = "返回"
+
+[node name="MetaUpgradePanel" type="PanelContainer" parent="Interface" unique_id=283189137]
 visible = false
 offset_left = 125.0
 offset_top = 102.0
 offset_right = 515.0
 offset_bottom = 348.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_info_panel")
 script = ExtResource("2_meta_panel")
 currency_label_path = NodePath("Content/Currency")
 upgrade_list_path = NodePath("Content/Scroll/UpgradeList")
 
-[node name="Content" type="VBoxContainer" parent="Interface/MetaUpgradePanel"]
+[node name="Content" type="VBoxContainer" parent="Interface/MetaUpgradePanel" unique_id=953605705]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Title" type="Label" parent="Interface/MetaUpgradePanel/Content"]
+[node name="Title" type="Label" parent="Interface/MetaUpgradePanel/Content" unique_id=777274475]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "局外进化"
 horizontal_alignment = 1
 
-[node name="Currency" type="Label" parent="Interface/MetaUpgradePanel/Content"]
+[node name="Currency" type="Label" parent="Interface/MetaUpgradePanel/Content" unique_id=712568067]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 1, 0.72, 1)
 text = "进化质：0"
 horizontal_alignment = 1
 
-[node name="Scroll" type="ScrollContainer" parent="Interface/MetaUpgradePanel/Content"]
+[node name="Scroll" type="ScrollContainer" parent="Interface/MetaUpgradePanel/Content" unique_id=1102834512]
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="UpgradeList" type="VBoxContainer" parent="Interface/MetaUpgradePanel/Content/Scroll"]
+[node name="UpgradeList" type="VBoxContainer" parent="Interface/MetaUpgradePanel/Content/Scroll" unique_id=533099051]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 5
 
-[node name="BackButton" type="Button" parent="Interface/MetaUpgradePanel/Content"]
+[node name="BackButton" type="Button" parent="Interface/MetaUpgradePanel/Content" unique_id=1714570736]
 layout_mode = 2
 text = "返回主菜单"
 
-[node name="GeneCodexPanel" type="PanelContainer" parent="Interface"]
+[node name="GeneCodexPanel" type="PanelContainer" parent="Interface" unique_id=1372072785]
 visible = false
 offset_left = 105.0
 offset_top = 92.0
 offset_right = 535.0
 offset_bottom = 350.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_info_panel")
 script = ExtResource("3_codex")
 gene_pool = ExtResource("4_gene_pool")
 text_path = NodePath("Content/Scroll/Text")
 
-[node name="Content" type="VBoxContainer" parent="Interface/GeneCodexPanel"]
+[node name="Content" type="VBoxContainer" parent="Interface/GeneCodexPanel" unique_id=1335386615]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Title" type="Label" parent="Interface/GeneCodexPanel/Content"]
+[node name="Title" type="Label" parent="Interface/GeneCodexPanel/Content" unique_id=1095258584]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "基因图鉴 · 30"
 horizontal_alignment = 1
 
-[node name="Scroll" type="ScrollContainer" parent="Interface/GeneCodexPanel/Content"]
+[node name="Scroll" type="ScrollContainer" parent="Interface/GeneCodexPanel/Content" unique_id=1901918084]
 custom_minimum_size = Vector2(0, 190)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Text" type="RichTextLabel" parent="Interface/GeneCodexPanel/Content/Scroll"]
+[node name="Text" type="RichTextLabel" parent="Interface/GeneCodexPanel/Content/Scroll" unique_id=1934877034]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-fit_content = true
 text = "读取基因数据……"
+fit_content = true
 
-[node name="BackButton" type="Button" parent="Interface/GeneCodexPanel/Content"]
+[node name="BackButton" type="Button" parent="Interface/GeneCodexPanel/Content" unique_id=1492053473]
 layout_mode = 2
 text = "返回主菜单"
