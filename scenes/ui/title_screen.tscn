@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" path="res://assets/ui/social_qq.png" id="9_social_qq"]
 [ext_resource type="Texture2D" path="res://assets/ui/social_weibo.png" id="10_social_weibo"]
 [ext_resource type="PackedScene" path="res://scenes/ui/social_link_button.tscn" id="11_social_button"]
+[ext_resource type="Script" path="res://scripts/ui/tech_menu_button.gd" id="12_tech_button"]
 
 [sub_resource type="SystemFont" id="SystemFont_bold"]
 font_names = PackedStringArray("Microsoft YaHei UI", "Noto Sans CJK SC", "Arial")
@@ -31,21 +32,17 @@ fill_to = Vector2(1, 0.5)
 bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
-bg_color = Color(0, 0, 0, 0.18)
+bg_color = Color(0.005, 0.018, 0.026, 0.86)
 content_margin_left = 12.0
 content_margin_right = 12.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
-bg_color = Color(0.23, 0.18, 0.38, 0.86)
+bg_color = Color(0.015, 0.24, 0.17, 0.96)
 content_margin_left = 12.0
 content_margin_right = 12.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
-bg_color = Color(0.18, 0.14, 0.3, 0.74)
-content_margin_left = 12.0
-content_margin_right = 12.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_main_button"]
+bg_color = Color(0.01, 0.2, 0.145, 0.92)
 content_margin_left = 12.0
 content_margin_right = 12.0
 
@@ -186,11 +183,13 @@ theme_override_colors/font_color = Color(0.98, 0.98, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_main_button")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
 text = "开始"
+script = ExtResource("12_tech_button")
+active_color = Color(0.28, 1, 0.75, 1)
 
 [node name="SettingsButton" type="Button" parent="Interface/Menu/Content" unique_id=1389030782]
 custom_minimum_size = Vector2(0, 27)
@@ -198,11 +197,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_main_button")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
 text = "设置"
+script = ExtResource("12_tech_button")
 
 [node name="VersionButton" type="Button" parent="Interface/Menu/Content"]
 custom_minimum_size = Vector2(0, 27)
@@ -210,11 +210,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_main_button")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
 text = "版本信息"
+script = ExtResource("12_tech_button")
 
 [node name="RoadmapButton" type="Button" parent="Interface/Menu/Content"]
 custom_minimum_size = Vector2(0, 27)
@@ -222,11 +223,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_main_button")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
 text = "EA 开发规划"
+script = ExtResource("12_tech_button")
 
 [node name="CreditsButton" type="Button" parent="Interface/Menu/Content"]
 custom_minimum_size = Vector2(0, 27)
@@ -234,11 +236,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_main_button")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
 text = "制作名单"
+script = ExtResource("12_tech_button")
 
 [node name="CodexButton" type="Button" parent="Interface/Menu/Content" unique_id=1717962536]
 custom_minimum_size = Vector2(0, 27)
@@ -246,11 +249,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_main_button")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
 text = "图鉴"
+script = ExtResource("12_tech_button")
 
 [node name="QuitButton" type="Button" parent="Interface/Menu/Content" unique_id=666523798]
 custom_minimum_size = Vector2(0, 27)
@@ -258,11 +262,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.82, 0.88, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_main_button")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_main_button")
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_button_hover")
 text = "退出"
+script = ExtResource("12_tech_button")
 
 [node name="SocialIcons" type="HBoxContainer" parent="Interface"]
 offset_left = 18.0

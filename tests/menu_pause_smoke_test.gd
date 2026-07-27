@@ -25,6 +25,25 @@ func _run() -> void:
 		quit(1)
 		return
 
+	var styled_buttons: Array[Button] = [
+		title.start_button,
+		title.settings_button,
+		title.version_button,
+		title.roadmap_button,
+		title.credits_button,
+		title.codex_button,
+		title.quit_button,
+	]
+	for button in styled_buttons:
+		if not button is TechMenuButton:
+			push_error("A title menu button is missing its tech frame.")
+			quit(1)
+			return
+	if not title.start_button.has_focus():
+		push_error("Start button did not receive the initial highlight.")
+		quit(1)
+		return
+
 	title.open_settings()
 	if (
 		not title.settings_panel.visible
