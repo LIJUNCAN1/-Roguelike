@@ -110,21 +110,30 @@ func _run() -> void:
 	title.sfx_slider.value = original_sfx
 
 	title.open_settings()
+	var resolution_control_x: float = title.resolution_option.position.x
+	var music_control_x: float = title.music_slider.position.x
+	var sfx_control_x: float = title.sfx_slider.position.x
+	var music_value_x: float = title.music_value_label.position.x
+	var sfx_value_x: float = title.sfx_value_label.position.x
 	if (
 		not title.settings_panel.visible
 		or title.menu.visible
 		or not title.settings_panel is TechSettingsPanel
-		or title.settings_panel.size != Vector2(604.0, 342.0)
+		or title.settings_panel.size != Vector2(540.0, 304.0)
 		or title.resolution_option.item_count != 4
 		or title.display_mode_option.item_count != 3
 		or title.music_slider.get_theme_icon("grabber") == null
 		or title.sfx_slider.get_theme_icon("grabber_highlight") == null
+		or not is_equal_approx(resolution_control_x, music_control_x)
+		or not is_equal_approx(music_control_x, sfx_control_x)
+		or not is_equal_approx(music_value_x, sfx_value_x)
 	):
 		push_error(
 			(
 				"Display settings menu was not configured: "
 				+ "visible=%s menu=%s tech=%s size=%s "
-				+ "res=%d mode=%d grabber=%s highlight=%s"
+				+ "res=%d mode=%d grabber=%s highlight=%s "
+				+ "control_x=(%.1f, %.1f, %.1f) value_x=(%.1f, %.1f)"
 			) % [
 				title.settings_panel.visible,
 				title.menu.visible,
@@ -136,6 +145,11 @@ func _run() -> void:
 				title.sfx_slider.get_theme_icon(
 					"grabber_highlight"
 				) != null,
+				resolution_control_x,
+				music_control_x,
+				sfx_control_x,
+				music_value_x,
+				sfx_value_x,
 			]
 		)
 		quit(1)

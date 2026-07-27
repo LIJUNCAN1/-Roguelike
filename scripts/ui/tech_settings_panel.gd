@@ -41,7 +41,7 @@ func _draw() -> void:
 	])
 	draw_polyline(inner, faint_color, 0.65, true)
 
-	var title_y := 48.0
+	var title_y := 41.0
 	draw_line(
 		Vector2(18.0, title_y),
 		Vector2(width * 0.36, title_y),

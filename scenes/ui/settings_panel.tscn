@@ -84,120 +84,120 @@ corner_radius_bottom_left = 4
 [sub_resource type="StyleBoxEmpty" id="Empty"]
 
 [node name="SettingsPanel" type="PanelContainer"]
-custom_minimum_size = Vector2(604, 342)
+custom_minimum_size = Vector2(540, 304)
 theme_override_styles/panel = SubResource("Panel")
 script = ExtResource("1_panel")
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 46
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 46
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 11
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 11
 
 [node name="Content" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 3
 
 [node name="Title" type="Label" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.03, 0.45, 0.48, 0.65)
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 23
 text = "设置"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ResolutionRow" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
-theme_override_constants/separation = 9
+theme_override_constants/separation = 7
 
 [node name="Icon" type="Label" parent="Margin/Content/ResolutionRow"]
-custom_minimum_size = Vector2(28, 0)
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.08, 0.86, 0.82, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 text = "▣"
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="Margin/Content/ResolutionRow"]
-custom_minimum_size = Vector2(105, 0)
+custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.92, 0.94, 1)
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 12
 text = "分辨率"
 vertical_alignment = 1
 
 [node name="Option" type="OptionButton" parent="Margin/Content/ResolutionRow"]
-custom_minimum_size = Vector2(0, 31)
+custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.92, 0.96, 0.98, 1)
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 11
 theme_override_styles/normal = SubResource("Field")
 theme_override_styles/hover = SubResource("FieldHover")
 theme_override_styles/pressed = SubResource("FieldHover")
 theme_override_styles/focus = SubResource("FieldHover")
 
 [node name="WindowModeRow" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
-theme_override_constants/separation = 9
+theme_override_constants/separation = 7
 
 [node name="Icon" type="Label" parent="Margin/Content/WindowModeRow"]
-custom_minimum_size = Vector2(28, 0)
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.08, 0.86, 0.82, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 text = "⊞"
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="Margin/Content/WindowModeRow"]
-custom_minimum_size = Vector2(105, 0)
+custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.92, 0.94, 1)
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 12
 text = "显示模式"
 vertical_alignment = 1
 
 [node name="Option" type="OptionButton" parent="Margin/Content/WindowModeRow"]
-custom_minimum_size = Vector2(0, 31)
+custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.92, 0.96, 0.98, 1)
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 11
 theme_override_styles/normal = SubResource("Field")
 theme_override_styles/hover = SubResource("FieldHover")
 theme_override_styles/pressed = SubResource("FieldHover")
 theme_override_styles/focus = SubResource("FieldHover")
 
 [node name="MusicVolumeRow" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
-theme_override_constants/separation = 9
+theme_override_constants/separation = 7
 
 [node name="Icon" type="Label" parent="Margin/Content/MusicVolumeRow"]
-custom_minimum_size = Vector2(28, 0)
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.08, 0.86, 0.82, 1)
-theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/font_size = 18
 text = "♫"
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="Margin/Content/MusicVolumeRow"]
-custom_minimum_size = Vector2(105, 0)
+custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.92, 0.94, 1)
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 12
 text = "音乐"
 vertical_alignment = 1
 
@@ -214,33 +214,33 @@ theme_override_styles/grabber_area = SubResource("SliderFill")
 theme_override_styles/grabber_area_highlight = SubResource("SliderFill")
 
 [node name="Value" type="Label" parent="Margin/Content/MusicVolumeRow"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(38, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.12, 0.94, 0.76, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 11
 text = "75%"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="SfxVolumeRow" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
-theme_override_constants/separation = 9
+theme_override_constants/separation = 7
 
 [node name="Icon" type="Label" parent="Margin/Content/SfxVolumeRow"]
-custom_minimum_size = Vector2(28, 0)
+custom_minimum_size = Vector2(24, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.08, 0.86, 0.82, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 18
 text = "◖"
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="Margin/Content/SfxVolumeRow"]
-custom_minimum_size = Vector2(105, 0)
+custom_minimum_size = Vector2(92, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.92, 0.94, 1)
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 12
 text = "音效"
 vertical_alignment = 1
 
@@ -257,42 +257,42 @@ theme_override_styles/grabber_area = SubResource("SliderFill")
 theme_override_styles/grabber_area_highlight = SubResource("SliderFill")
 
 [node name="Value" type="Label" parent="Margin/Content/SfxVolumeRow"]
-custom_minimum_size = Vector2(42, 0)
+custom_minimum_size = Vector2(38, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.12, 0.94, 0.76, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 11
 text = "85%"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Hint" type="Label" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 24)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35, 0.62, 0.68, 1)
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 9
 text = "———  显示与音量设置会自动保存。  ———"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Status" type="Label" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 14)
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.35, 0.9, 0.86, 1)
 theme_override_font_sizes/font_size = 9
 horizontal_alignment = 1
 
 [node name="Actions" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 38)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
-theme_override_constants/separation = 36
+theme_override_constants/separation = 28
 alignment = 1
 
 [node name="ApplyButton" type="Button" parent="Margin/Content/Actions"]
-custom_minimum_size = Vector2(196, 36)
+custom_minimum_size = Vector2(174, 32)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 1, 1, 1)
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("Apply")
 theme_override_styles/hover = SubResource("Apply")
 theme_override_styles/pressed = SubResource("Apply")
@@ -300,11 +300,11 @@ theme_override_styles/focus = SubResource("Apply")
 text = "应用"
 
 [node name="BackButton" type="Button" parent="Margin/Content/Actions"]
-custom_minimum_size = Vector2(196, 36)
+custom_minimum_size = Vector2(174, 32)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.93, 0.96, 1)
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("Back")
 theme_override_styles/hover = SubResource("FieldHover")
 theme_override_styles/pressed = SubResource("FieldHover")
