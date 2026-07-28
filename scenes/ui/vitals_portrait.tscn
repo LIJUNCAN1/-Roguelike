@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/vitals_portrait.gd" id="1_script"]
+
+[sub_resource type="Gradient" id="Gradient_portrait_fade"]
+offsets = PackedFloat32Array(0, 0.42, 1)
+colors = PackedColorArray(0, 0, 0, 0.9, 0, 0, 0, 0.62, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_portrait_fade"]
+gradient = SubResource("Gradient_portrait_fade")
+width = 256
+height = 32
+fill_from = Vector2(0, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="VitalsPortrait" type="Control"]
+custom_minimum_size = Vector2(156, 78)
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="Portrait" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 74.0
+offset_bottom = 74.0
+mouse_filter = 2
+texture_filter = 1
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Fade" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 44.0
+offset_right = 156.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_portrait_fade")
+expand_mode = 1

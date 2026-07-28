@@ -74,6 +74,7 @@ func _update_health(current: float, maximum: float) -> void:
 		health_full_color,
 		health_ratio
 	)
+	health_bar.queue_redraw()
 	health_text.text = "%d/%d" % [
 		roundi(current),
 		roundi(maximum),
@@ -96,5 +97,6 @@ func _update_experience(
 		experience_full_color,
 		experience_ratio
 	)
+	experience_bar.queue_redraw()
 	level_text.text = "Lv.%d" % level
 	experience_text.text = ""
