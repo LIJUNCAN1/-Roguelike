@@ -75,6 +75,20 @@ func _run() -> void:
 		push_error("First-run tutorial was not visible.")
 		quit(1)
 		return
+	var hint_content := tutorial.get_node(
+		"ControlHints/Content"
+	) as HBoxContainer
+	var hint_bottom := (
+		tutorial.panel.position.y
+		+ tutorial.panel.size.y * tutorial.panel.scale.y
+	)
+	if (
+		not is_equal_approx(hint_bottom, 360.0)
+		or hint_content.get_theme_constant("separation") < 28
+	):
+		push_error("Control hints were not spaced or bottom-aligned.")
+		quit(1)
+		return
 	for icon_path in [
 		"ControlHints/Content/Movement/Icon",
 		"ControlHints/Content/Aim/Icon",

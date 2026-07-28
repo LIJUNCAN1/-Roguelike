@@ -26,9 +26,9 @@ script = ExtResource("1_script")
 
 [node name="ControlHints" type="Control" parent="."]
 offset_left = 8.0
-offset_top = 329.0
+offset_top = 335.0
 offset_right = 388.0
-offset_bottom = 379.0
+offset_bottom = 385.0
 scale = Vector2(0.5, 0.5)
 mouse_filter = 2
 
@@ -49,7 +49,7 @@ offset_left = 7.0
 offset_top = 5.0
 offset_right = 355.0
 offset_bottom = 45.0
-theme_override_constants/separation = 12
+theme_override_constants/separation = 28
 alignment = 0
 
 [node name="Movement" type="HBoxContainer" parent="ControlHints/Content"]
