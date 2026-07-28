@@ -192,6 +192,7 @@ room_manager_path = NodePath("../RoomManager")
 
 [node name="Camera2D" type="Camera2D" parent="World"]
 position = Vector2(320, 180)
+zoom = Vector2(2, 2)
 
 [node name="RoomContainer" type="Node2D" parent="World"]
 
@@ -204,14 +205,12 @@ position = Vector2(320, 180)
 projectile_container_path = NodePath("../Projectiles")
 
 [node name="Interface" type="CanvasLayer" parent="."]
+transform = Transform2D(2, 0, 0, 2, 0, 0)
 
 [node name="EvolutionFlash" type="ColorRect" parent="Interface"]
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 640.0
+offset_bottom = 360.0
 mouse_filter = 2
 color = Color(0.45, 1, 0.7, 0)
 

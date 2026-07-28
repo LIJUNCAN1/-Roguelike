@@ -6,7 +6,7 @@ func _init() -> void:
 
 
 func _run() -> void:
-	root.size = Vector2i(640, 360)
+	root.size = Vector2i(1280, 720)
 	var main := (
 		load("res://scenes/main/main.tscn") as PackedScene
 	).instantiate()

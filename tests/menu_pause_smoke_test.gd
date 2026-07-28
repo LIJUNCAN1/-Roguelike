@@ -6,7 +6,7 @@ func _init() -> void:
 
 
 func _run() -> void:
-	root.size = Vector2i(640, 360)
+	root.size = Vector2i(1280, 720)
 	var title_scene := load(
 		"res://scenes/ui/title_screen.tscn"
 	) as PackedScene
@@ -42,8 +42,14 @@ func _run() -> void:
 			return
 	if (
 		title.menu.size.x > 220.0
-		or title.menu_backdrop.anchor_top != 0.0
-		or title.menu_backdrop.anchor_bottom != 1.0
+		or title.menu_backdrop.size.y != 360.0
+		or title.get_node("Interface").transform.x != Vector2(2, 0)
+		or int(ProjectSettings.get_setting(
+			"display/window/size/viewport_width"
+		)) != 1280
+		or int(ProjectSettings.get_setting(
+			"display/window/size/viewport_height"
+		)) != 720
 	):
 		push_error("Title menu or full-height backdrop sizing is invalid.")
 		quit(1)

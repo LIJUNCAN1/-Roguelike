@@ -16,17 +16,15 @@ corner_radius_bottom_left = 5
 
 [node name="GeneCodexPanel" type="CanvasLayer"]
 layer = 30
+transform = Transform2D(2, 0, 0, 2, 0, 0)
 process_mode = 3
 script = ExtResource("1_script")
 codex_manager_path = NodePath("../GeneCodexManager")
 gene_manager_path = NodePath("../World/Player/GeneManager")
 
 [node name="Dimmer" type="ColorRect" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 640.0
+offset_bottom = 360.0
 color = Color(0.005, 0.012, 0.018, 0.84)
 
 [node name="Panel" type="PanelContainer" parent="Dimmer"]
