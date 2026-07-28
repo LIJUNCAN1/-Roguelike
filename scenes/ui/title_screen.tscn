@@ -40,17 +40,17 @@ bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
 bg_color = Color(0, 0, 0, 0)
-content_margin_left = 40.0
+content_margin_left = 20.0
 content_margin_right = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
 bg_color = Color(0, 0, 0, 0)
-content_margin_left = 40.0
+content_margin_left = 20.0
 content_margin_right = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
 bg_color = Color(0, 0, 0, 0)
-content_margin_left = 40.0
+content_margin_left = 20.0
 content_margin_right = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_info_panel"]
@@ -177,10 +177,10 @@ texture = SubResource("GradientTexture2D_menu_backdrop")
 expand_mode = 1
 
 [node name="TitleImage" type="TextureRect" parent="Interface" unique_id=1299536591]
-offset_left = 664.0
-offset_top = 108.0
-offset_right = 1244.0
-offset_bottom = 320.0
+offset_left = 751.0
+offset_top = 140.0
+offset_right = 1157.0
+offset_bottom = 288.0
 mouse_filter = 2
 texture = ExtResource("5_title_logo")
 expand_mode = 1

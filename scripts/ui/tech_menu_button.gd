@@ -16,7 +16,7 @@ var hover_tween: Tween
 
 
 func _ready() -> void:
-	alignment = HORIZONTAL_ALIGNMENT_LEFT
+	alignment = HORIZONTAL_ALIGNMENT_CENTER
 	mouse_entered.connect(_animate_hover.bind(true))
 	mouse_exited.connect(_animate_hover.bind(false))
 	focus_entered.connect(queue_redraw)
