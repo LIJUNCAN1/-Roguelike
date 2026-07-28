@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/ui/tech_settings_panel.gd" id="2_tech_panel"]
 
 [sub_resource type="SystemFont" id="Font_bold"]
 font_names = PackedStringArray("Microsoft YaHei UI", "Noto Sans CJK SC", "Arial")
@@ -77,6 +78,7 @@ offset_top = 210.0
 offset_right = 970.0
 offset_bottom = 510.0
 theme_override_styles/panel = SubResource("Panel")
+script = ExtResource("2_tech_panel")
 
 [node name="Margin" type="MarginContainer" parent="Dimmer/Panel"]
 layout_mode = 2

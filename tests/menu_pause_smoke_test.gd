@@ -264,9 +264,11 @@ func _run() -> void:
 		return
 
 	var pause_menu := main.get_node("PauseMenu") as PauseMenu
+	var pause_panel := pause_menu.get_node("Dimmer/Panel")
 	if (
 		pause_menu.is_pause_visible()
 		or paused
+		or not pause_panel is TechSettingsPanel
 		or not pause_menu.pause_game()
 		or not paused
 		or not pause_menu.is_pause_visible()
