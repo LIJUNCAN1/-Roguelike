@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3]
+[gd_scene load_steps=49 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -41,7 +41,10 @@
 [ext_resource type="Script" path="res://scripts/ui/framed_vital_bar.gd" id="40_framed_bar"]
 [ext_resource type="Texture2D" path="res://assets/ui/vital_health_frame.png" id="41_health_frame"]
 [ext_resource type="Texture2D" path="res://assets/ui/vital_experience_frame.png" id="42_experience_frame"]
-[ext_resource type="Texture2D" path="res://assets/ui/vital_pattern.png" id="43_vital_pattern"]
+[ext_resource type="Texture2D" path="res://assets/ui/vital_health_fill.png" id="44_health_fill"]
+[ext_resource type="Texture2D" path="res://assets/ui/vital_health_empty.png" id="45_health_empty"]
+[ext_resource type="Texture2D" path="res://assets/ui/vital_experience_fill.png" id="46_experience_fill"]
+[ext_resource type="Texture2D" path="res://assets/ui/vital_experience_empty.png" id="47_experience_empty"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -186,7 +189,9 @@ offset_left = 24.0
 offset_top = 14.0
 offset_right = 328.0
 offset_bottom = 126.0
+scale = Vector2(0.5, 0.5)
 mouse_filter = 2
+texture_filter = 1
 script = ExtResource("32_pixel_vitals")
 health_component_path = NodePath("../../World/Player/HealthComponent")
 progression_path = NodePath("../../World/Player/RunProgression")
@@ -221,9 +226,9 @@ value = 100.0
 show_percentage = false
 script = ExtResource("40_framed_bar")
 frame_texture = ExtResource("41_health_frame")
-pattern_texture = ExtResource("43_vital_pattern")
+fill_texture = ExtResource("44_health_fill")
+empty_texture = ExtResource("45_health_empty")
 right_cut = 17.0
-pattern_height_ratio = 0.5
 
 [node name="ExperienceBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
@@ -238,9 +243,9 @@ show_percentage = false
 script = ExtResource("40_framed_bar")
 fill_color = Color(0.02, 0.45, 0.72, 1)
 frame_texture = ExtResource("42_experience_frame")
-pattern_texture = ExtResource("43_vital_pattern")
+fill_texture = ExtResource("46_experience_fill")
+empty_texture = ExtResource("47_experience_empty")
 right_cut = 14.0
-pattern_height_ratio = 0.5
 
 [node name="HealthText" type="Label" parent="Interface/PlayerVitals/Frame"]
 z_index = 3

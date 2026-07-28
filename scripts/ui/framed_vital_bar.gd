@@ -7,11 +7,11 @@ extends ProgressBar
 		queue_redraw()
 @export var empty_color := Color(0.008, 0.018, 0.02, 0.98)
 @export var frame_texture: Texture2D
-@export var pattern_texture: Texture2D
+@export var fill_texture: Texture2D
+@export var empty_texture: Texture2D
 
 @export_group("Bar Shape")
 @export var right_cut := 16.0
-@export_range(0.1, 1.0, 0.05) var pattern_height_ratio := 0.5
 
 
 func _ready() -> void:
@@ -21,10 +21,17 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	draw_colored_polygon(
-		_create_bar_polygon(size.x),
-		empty_color
-	)
+	if empty_texture != null:
+		draw_texture_rect(
+			empty_texture,
+			Rect2(Vector2.ZERO, size),
+			false
+		)
+	else:
+		draw_colored_polygon(
+			_create_bar_polygon(size.x),
+			empty_color
+		)
 
 	var ratio := clampf(
 		(value - min_value) / maxf(max_value - min_value, 0.001),
@@ -33,11 +40,28 @@ func _draw() -> void:
 	)
 	if ratio > 0.0001:
 		var fill_width := size.x * ratio
-		draw_colored_polygon(
-			_create_bar_polygon(fill_width),
-			fill_color
-		)
-		_draw_pattern(fill_width, ratio)
+		if fill_texture != null:
+			var source_size := fill_texture.get_size()
+			draw_texture_rect_region(
+				fill_texture,
+				Rect2(
+					Vector2.ZERO,
+					Vector2(fill_width, size.y)
+				),
+				Rect2(
+					Vector2.ZERO,
+					Vector2(
+						source_size.x * ratio,
+						source_size.y
+					)
+				),
+				fill_color
+			)
+		else:
+			draw_colored_polygon(
+				_create_bar_polygon(fill_width),
+				fill_color
+			)
 
 	if frame_texture != null:
 		draw_texture_rect(
@@ -45,34 +69,6 @@ func _draw() -> void:
 			Rect2(Vector2.ZERO, size),
 			false
 		)
-
-
-func _draw_pattern(
-	fill_width: float,
-	ratio: float
-) -> void:
-	if pattern_texture == null:
-		return
-	var source_size := pattern_texture.get_size()
-	var pattern_width := minf(
-		fill_width,
-		size.x - right_cut
-	)
-	var pattern_height := size.y * pattern_height_ratio
-	var pattern_top := (size.y - pattern_height) * 0.5
-	var source_region := Rect2(
-		Vector2.ZERO,
-		Vector2(source_size.x * ratio, source_size.y)
-	)
-	draw_texture_rect_region(
-		pattern_texture,
-		Rect2(
-			Vector2(0.0, pattern_top),
-			Vector2(pattern_width, pattern_height)
-		),
-		source_region,
-		Color(fill_color.darkened(0.22), 0.9)
-	)
 
 
 func _on_value_changed(_new_value: float) -> void:

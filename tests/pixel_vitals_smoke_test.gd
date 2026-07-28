@@ -56,6 +56,7 @@ func _run() -> void:
 		or not is_equal_approx(vitals.experience_bar.value, 9.0)
 		or vitals.size != Vector2(304.0, 112.0)
 		or vitals.position != Vector2(24.0, 14.0)
+		or vitals.scale != Vector2(0.5, 0.5)
 		or portrait.texture == null
 		or portrait_fade.texture == null
 		or portrait_component.portrait_texture == null
@@ -69,16 +70,16 @@ func _run() -> void:
 		).frame_texture == null
 		or (
 			vitals.health_bar as FramedVitalBar
-		).pattern_texture == null
-		or not is_equal_approx(
-			(
-				vitals.health_bar as FramedVitalBar
-			).pattern_height_ratio,
-			0.5
-		)
+		).fill_texture == null
 		or (
 			vitals.health_bar as FramedVitalBar
-		).right_cut <= 0.0
+		).empty_texture == null
+		or (
+			vitals.experience_bar as FramedVitalBar
+		).fill_texture == null
+		or (
+			vitals.experience_bar as FramedVitalBar
+		).empty_texture == null
 		or vitals.experience_bar.position.x <= level_text.position.x
 		or vitals.get_node("EssenceRow").position.y < 80.0
 		or level_text.text != "Lv.1"
