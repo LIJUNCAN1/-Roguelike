@@ -166,9 +166,10 @@ func _run() -> void:
 		not title.settings_panel.visible
 		or title.menu.visible
 		or not title.settings_panel is TechSettingsPanel
-		or title.settings_panel.size != Vector2(378.0, 213.0)
+		or title.settings_panel.size != Vector2(378.0, 238.0)
 		or title.resolution_option.item_count != 4
 		or title.display_mode_option.item_count != 3
+		or title.control_hints_toggle == null
 		or title.music_slider.get_theme_icon("grabber") == null
 		or title.sfx_slider.get_theme_icon("grabber_highlight") == null
 		or not is_equal_approx(resolution_control_x, music_control_x)

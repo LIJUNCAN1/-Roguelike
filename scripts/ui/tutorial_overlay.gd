@@ -1,26 +1,24 @@
 class_name TutorialOverlay
 extends CanvasLayer
 
-@onready var panel: Control = $Panel
+const SETTINGS_PATH := "user://display_settings.cfg"
+const DEFAULT_SHOW_CONTROL_HINTS := true
+
+@onready var panel: Control = $ControlHints
 
 
 func _ready() -> void:
-	panel.visible = true
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if not panel.visible:
-		return
-	if (
-		event.is_action_pressed("move_up")
-		or event.is_action_pressed("move_down")
-		or event.is_action_pressed("move_left")
-		or event.is_action_pressed("move_right")
-		or event.is_action_pressed("attack")
-		or event.is_action_pressed("dash")
-		or event.is_action_pressed("ui_accept")
-	):
-		dismiss()
+	var config := ConfigFile.new()
+	var show_hints := DEFAULT_SHOW_CONTROL_HINTS
+	if config.load(SETTINGS_PATH) == OK:
+		show_hints = bool(
+			config.get_value(
+				"interface",
+				"show_control_hints",
+				DEFAULT_SHOW_CONTROL_HINTS
+			)
+		)
+	panel.visible = show_hints
 
 
 func dismiss() -> void:

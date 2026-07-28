@@ -74,6 +74,16 @@ func _run() -> void:
 		push_error("First-run tutorial was not visible.")
 		quit(1)
 		return
+	for icon_path in [
+		"ControlHints/Content/Movement/Icon",
+		"ControlHints/Content/Aim/Icon",
+		"ControlHints/Content/Dash/Icon",
+	]:
+		var icon := tutorial.get_node(icon_path) as TextureRect
+		if icon.texture == null:
+			push_error("Control hint icon was not configured: " + icon_path)
+			quit(1)
+			return
 	tutorial.dismiss()
 	if tutorial.is_tutorial_visible():
 		push_error("Tutorial overlay could not be dismissed.")

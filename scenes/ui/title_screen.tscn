@@ -318,9 +318,9 @@ horizontal_alignment = 2
 [node name="SettingsPanel" parent="Interface" instance=ExtResource("13_settings_panel")]
 visible = false
 offset_left = 131.0
-offset_top = 73.0
+offset_top = 61.0
 offset_right = 509.0
-offset_bottom = 286.0
+offset_bottom = 299.0
 
 [node name="GeneralInfoPanel" type="PanelContainer" parent="Interface"]
 visible = false

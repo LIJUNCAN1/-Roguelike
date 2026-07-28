@@ -12,6 +12,7 @@ const DISPLAY_MODE_BORDERLESS := 2
 const CURRENT_VERSION := "EA v0.1.0"
 const DEFAULT_MUSIC_VOLUME := 0.75
 const DEFAULT_SFX_VOLUME := 0.85
+const DEFAULT_SHOW_CONTROL_HINTS := true
 const DISPLAY_RESOLUTIONS := [
 	Vector2i(1280, 720),
 	Vector2i(1600, 900),
@@ -52,6 +53,9 @@ const DISPLAY_RESOLUTIONS := [
 )
 @onready var sfx_value_label: Label = (
 	$Interface/SettingsPanel/Margin/Content/SfxVolumeRow/Value
+)
+@onready var control_hints_toggle: CheckButton = (
+	$Interface/SettingsPanel/Margin/Content/ControlHintsRow/Toggle
 )
 @onready var settings_status: Label = (
 	$Interface/SettingsPanel/Margin/Content/Status
@@ -237,6 +241,13 @@ func setup_display_settings() -> void:
 		0.0,
 		100.0
 	)
+	control_hints_toggle.button_pressed = bool(
+		config.get_value(
+			"interface",
+			"show_control_hints",
+			DEFAULT_SHOW_CONTROL_HINTS
+		)
+	)
 	_apply_audio_volume()
 	_update_audio_value_labels()
 	if DisplayServer.get_name() != "headless":
@@ -330,6 +341,11 @@ func save_display_settings(resolution: Vector2i, display_mode: int) -> void:
 		"audio",
 		"sfx_volume",
 		sfx_slider.value / 100.0
+	)
+	config.set_value(
+		"interface",
+		"show_control_hints",
+		control_hints_toggle.button_pressed
 	)
 	config.save(SETTINGS_PATH)
 
