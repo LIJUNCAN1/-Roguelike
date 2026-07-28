@@ -154,11 +154,11 @@ expand_mode = 1
 stretch_mode = 6
 
 [node name="BackgroundVideo" type="VideoStreamPlayer" parent="."]
+visible = false
 offset_right = 640.0
 offset_bottom = 360.0
 mouse_filter = 2
 stream = ExtResource("15_background_video")
-autoplay = true
 expand = true
 loop = true
 
