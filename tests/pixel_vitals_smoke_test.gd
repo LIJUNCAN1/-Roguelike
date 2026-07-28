@@ -70,6 +70,15 @@ func _run() -> void:
 		or (
 			vitals.health_bar as FramedVitalBar
 		).pattern_texture == null
+		or not is_equal_approx(
+			(
+				vitals.health_bar as FramedVitalBar
+			).pattern_height_ratio,
+			0.5
+		)
+		or (
+			vitals.health_bar as FramedVitalBar
+		).right_cut <= 0.0
 		or vitals.experience_bar.position.x <= level_text.position.x
 		or vitals.get_node("EssenceRow").position.y < 80.0
 		or level_text.text != "Lv.1"
