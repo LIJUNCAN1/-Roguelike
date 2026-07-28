@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3]
+[gd_scene load_steps=46 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -32,11 +32,12 @@
 [ext_resource type="Resource" path="res://data/audio/prototype_audio_library.tres" id="30_audio_library"]
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_presentation_controller.gd" id="31_evolution_presentation"]
 [ext_resource type="Script" path="res://scripts/ui/pixel_vitals_presenter.gd" id="32_pixel_vitals"]
-[ext_resource type="Texture2D" path="res://assets/ui/pixel_heart.svg" id="33_pixel_heart"]
+[ext_resource type="Texture2D" path="res://assets/ui/heart_icon.png" id="33_pixel_heart"]
 [ext_resource type="Script" path="res://scripts/ui/run_minimap_presenter.gd" id="34_minimap"]
 [ext_resource type="Script" path="res://scripts/ui/weapon_slots_hud.gd" id="35_weapon_slots"]
 [ext_resource type="Script" path="res://scripts/ui/area_intro_presenter.gd" id="36_area_intro"]
 [ext_resource type="Texture2D" path="res://assets/ui/gene_essence_dna.svg" id="37_essence_icon"]
+[ext_resource type="Texture2D" path="res://assets/ui/player_portrait.png" id="38_player_portrait"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -63,7 +64,7 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health_fill"]
-bg_color = Color(0.68, 0.025, 0.035, 1)
+bg_color = Color(0.4, 0.012, 0.025, 1)
 border_width_top = 2
 border_color = Color(1, 0.31, 0.19, 1)
 corner_radius_top_left = 2
@@ -81,18 +82,18 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vital_frame"]
-bg_color = Color(0.004, 0.007, 0.011, 0.97)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.34, 0.38, 0.41, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_color = Color(0, 0, 0, 0.75)
-shadow_size = 6
+bg_color = Color(0.004, 0.007, 0.011, 0.18)
+
+[sub_resource type="Gradient" id="Gradient_portrait_fade"]
+offsets = PackedFloat32Array(0, 0.42, 1)
+colors = PackedColorArray(0, 0, 0, 0.9, 0, 0, 0, 0.62, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_portrait_fade"]
+gradient = SubResource("Gradient_portrait_fade")
+width = 256
+height = 32
+fill_from = Vector2(0, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [node name="Main" type="Node2D"]
 
@@ -216,10 +217,10 @@ color = Color(0.45, 1, 0.7, 0)
 [node name="PlayerVitals" type="Control" parent="Interface"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 48.0
+offset_left = 16.0
 offset_top = 16.0
-offset_right = 376.0
-offset_bottom = 152.0
+offset_right = 272.0
+offset_bottom = 128.0
 mouse_filter = 2
 script = ExtResource("32_pixel_vitals")
 health_component_path = NodePath("../../World/Player/HealthComponent")
@@ -232,16 +233,35 @@ level_text_path = NodePath("Frame/LevelText")
 
 [node name="Frame" type="Panel" parent="Interface/PlayerVitals"]
 layout_mode = 0
-offset_right = 328.0
-offset_bottom = 96.0
+offset_right = 256.0
+offset_bottom = 80.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_vital_frame")
+
+[node name="Portrait" type="TextureRect" parent="Interface/PlayerVitals/Frame"]
+layout_mode = 0
+offset_right = 74.0
+offset_bottom = 74.0
+mouse_filter = 2
+texture_filter = 1
+texture = ExtResource("38_player_portrait")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PortraitFade" type="TextureRect" parent="Interface/PlayerVitals/Frame"]
+layout_mode = 0
+offset_top = 44.0
+offset_right = 156.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_portrait_fade")
+expand_mode = 1
 
 [node name="HealthBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 8.0
-offset_right = 318.0
-offset_bottom = 48.0
+offset_left = 88.0
+offset_top = 12.0
+offset_right = 252.0
+offset_bottom = 38.0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vital_empty")
 theme_override_styles/fill = SubResource("StyleBoxFlat_health_fill")
@@ -250,10 +270,10 @@ show_percentage = false
 
 [node name="ExperienceBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
-offset_left = 88.0
-offset_top = 62.0
-offset_right = 318.0
-offset_bottom = 86.0
+offset_left = 108.0
+offset_top = 51.0
+offset_right = 252.0
+offset_bottom = 67.0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vital_empty")
 theme_override_styles/fill = SubResource("StyleBoxFlat_experience_fill")
@@ -261,24 +281,24 @@ show_percentage = false
 
 [node name="HealthText" type="Label" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
-offset_left = 56.0
-offset_top = 8.0
-offset_right = 314.0
-offset_bottom = 48.0
+offset_left = 94.0
+offset_top = 12.0
+offset_right = 250.0
+offset_bottom = 38.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.02, 0.02, 0.03, 1)
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 14
 text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HeartIcon" type="TextureRect" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
-offset_left = 18.0
-offset_top = 14.0
-offset_right = 50.0
-offset_bottom = 42.0
+offset_left = 52.0
+offset_top = 4.0
+offset_right = 92.0
+offset_bottom = 44.0
 mouse_filter = 2
 texture_filter = 1
 texture = ExtResource("33_pixel_heart")
@@ -286,6 +306,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Divider" type="ColorRect" parent="Interface/PlayerVitals/Frame"]
+visible = false
 layout_mode = 0
 offset_left = 10.0
 offset_top = 52.0
@@ -296,24 +317,24 @@ color = Color(0.25, 0.29, 0.31, 0.72)
 
 [node name="LevelText" type="Label" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 56.0
-offset_right = 84.0
-offset_bottom = 92.0
+offset_left = 64.0
+offset_top = 45.0
+offset_right = 106.0
+offset_bottom = 72.0
 theme_override_colors/font_color = Color(0.45, 0.9, 1, 1)
 theme_override_colors/font_outline_color = Color(0.01, 0.035, 0.045, 1)
 theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 14
 text = "Lv.1"
 vertical_alignment = 1
 
 [node name="ExperienceText" type="Label" parent="Interface/PlayerVitals/Frame"]
 visible = false
 layout_mode = 0
-offset_left = 88.0
-offset_top = 60.0
-offset_right = 316.0
-offset_bottom = 88.0
+offset_left = 108.0
+offset_top = 49.0
+offset_right = 252.0
+offset_bottom = 69.0
 theme_override_colors/font_color = Color(0.84, 1, 1, 0.9)
 theme_override_colors/font_outline_color = Color(0.02, 0.02, 0.03, 1)
 theme_override_constants/outline_size = 2
@@ -323,9 +344,9 @@ vertical_alignment = 1
 
 [node name="EssenceRow" type="Control" parent="Interface/PlayerVitals"]
 layout_mode = 0
-offset_top = 112.0
-offset_right = 328.0
-offset_bottom = 136.0
+offset_top = 84.0
+offset_right = 256.0
+offset_bottom = 110.0
 
 [node name="Icon" type="TextureRect" parent="Interface/PlayerVitals/EssenceRow"]
 layout_mode = 0

@@ -23,6 +23,12 @@ func _run() -> void:
 	var heart_icon := main.get_node(
 		"Interface/PlayerVitals/Frame/HeartIcon"
 	) as TextureRect
+	var portrait := main.get_node(
+		"Interface/PlayerVitals/Frame/Portrait"
+	) as TextureRect
+	var portrait_fade := main.get_node(
+		"Interface/PlayerVitals/Frame/PortraitFade"
+	) as TextureRect
 	var level_text := main.get_node(
 		"Interface/PlayerVitals/Frame/LevelText"
 	) as Label
@@ -48,11 +54,18 @@ func _run() -> void:
 		or vitals.experience_text.text != ""
 		or vitals.experience_text.visible
 		or not is_equal_approx(vitals.experience_bar.value, 9.0)
-		or vitals.size != Vector2(328.0, 136.0)
-		or vitals.position != Vector2(48.0, 16.0)
+		or vitals.size != Vector2(256.0, 112.0)
+		or vitals.position != Vector2(16.0, 16.0)
 		or heart_icon.texture == null
-		or heart_icon.position.x >= vitals.health_text.position.x
-		or vitals.get_node("EssenceRow").position.y < 108.0
+		or portrait.texture == null
+		or portrait_fade.texture == null
+		or vitals.health_bar.position.x < heart_icon.position.x
+		or vitals.health_bar.position.x > (
+			heart_icon.position.x + heart_icon.size.x
+		)
+		or vitals.health_bar.size.y > heart_icon.size.y
+		or vitals.experience_bar.position.x <= level_text.position.x
+		or vitals.get_node("EssenceRow").position.y < 80.0
 		or level_text.text != "Lv.1"
 		or damaged_health_color.get_luminance()
 		<= full_health_color.get_luminance()
