@@ -45,16 +45,19 @@ func _run() -> void:
 	if (
 		vitals.health_text.text != "63/100"
 		or not is_equal_approx(vitals.health_bar.value, 63.0)
-		or vitals.experience_text.text != "9/20"
+		or vitals.experience_text.text != ""
+		or vitals.experience_text.visible
 		or not is_equal_approx(vitals.experience_bar.value, 9.0)
-		or vitals.size != Vector2(128.0, 50.0)
+		or vitals.size != Vector2(164.0, 68.0)
 		or vitals.position != Vector2(24.0, 8.0)
 		or heart_icon.texture == null
+		or heart_icon.position.x >= vitals.health_text.position.x
+		or vitals.get_node("EssenceRow").position.y < 54.0
 		or level_text.text != "Lv.1"
 		or damaged_health_color.get_luminance()
 		<= full_health_color.get_luminance()
 		or gained_experience_color.get_luminance()
-		>= empty_experience_color.get_luminance()
+		<= empty_experience_color.get_luminance()
 	):
 		push_error("Pixel vitals did not match the reference behavior.")
 		quit(1)

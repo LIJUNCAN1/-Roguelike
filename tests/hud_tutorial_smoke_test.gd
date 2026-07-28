@@ -55,7 +55,8 @@ func _run() -> void:
 		or not is_equal_approx(health_bar.value, 100.0)
 		or not is_equal_approx(experience_bar.value, 0.0)
 		or health_text.text != "100/100"
-		or experience_text.text != "0/20"
+		or experience_text.text != ""
+		or experience_text.visible
 		or minimap.size != Vector2(68.0, 64.0)
 		or minimap.room_manager.current_room_index != 0
 		or weapon_slots.active_slot != 0

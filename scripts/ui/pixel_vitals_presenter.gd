@@ -10,10 +10,10 @@ extends Control
 @export_node_path("Label") var level_text_path: NodePath
 
 @export_group("Adaptive Colors")
-@export var health_full_color := Color(0.52, 0.035, 0.05, 1.0)
-@export var health_low_color := Color(1.0, 0.18, 0.12, 1.0)
-@export var experience_full_color := Color(0.08, 0.38, 0.4, 1.0)
-@export var experience_low_color := Color(0.22, 1.0, 0.95, 1.0)
+@export var health_full_color := Color(0.68, 0.025, 0.035, 1.0)
+@export var health_low_color := Color(1.0, 0.18, 0.1, 1.0)
+@export var experience_full_color := Color(0.08, 0.78, 0.72, 1.0)
+@export var experience_low_color := Color(0.02, 0.3, 0.32, 1.0)
 
 @onready var health_component: HealthComponent = get_node(
 	health_component_path
@@ -97,4 +97,4 @@ func _update_experience(
 		experience_ratio
 	)
 	level_text.text = "Lv.%d" % level
-	experience_text.text = "%d/%d" % [current, required]
+	experience_text.text = ""
