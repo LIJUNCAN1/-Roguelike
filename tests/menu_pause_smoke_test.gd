@@ -36,6 +36,10 @@ func _run() -> void:
 			push_error("A title menu button is missing its tech frame.")
 			quit(1)
 			return
+		if (button as TechMenuButton).draw_frame:
+			push_error("A title menu button still draws a frame.")
+			quit(1)
+			return
 		if button.custom_minimum_size.y > 56.0:
 			push_error("Title menu buttons were not compacted.")
 			quit(1)

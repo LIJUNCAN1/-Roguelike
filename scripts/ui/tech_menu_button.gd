@@ -5,6 +5,7 @@ extends Button
 @export var idle_color := Color(0.23, 0.34, 0.37, 0.35)
 @export var idle_text_color := Color(0.86, 0.87, 0.89, 1.0)
 @export var active_text_color := Color(0.96, 1.0, 0.97, 1.0)
+@export var draw_frame := true
 
 var hover_amount: float = 0.0:
 	set(value):
@@ -28,6 +29,8 @@ func _ready() -> void:
 
 
 func _draw() -> void:
+	if not draw_frame:
+		return
 	var intensity := maxf(
 		hover_amount,
 		1.0 if button_pressed else 0.0

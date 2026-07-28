@@ -20,6 +20,10 @@
 font_names = PackedStringArray("Microsoft YaHei UI", "Noto Sans CJK SC", "Arial")
 font_weight = 700
 
+[sub_resource type="SystemFont" id="SystemFont_menu_regular"]
+font_names = PackedStringArray("Microsoft YaHei UI", "Noto Sans CJK SC", "Arial")
+font_weight = 400
+
 [sub_resource type="Gradient" id="Gradient_menu_backdrop"]
 offsets = PackedFloat32Array(0, 0.22, 0.78, 1)
 colors = PackedColorArray(0.0, 0.0, 0.0, 0.0, 0.005, 0.004, 0.012, 0.82, 0.005, 0.004, 0.012, 0.82, 0.0, 0.0, 0.0, 0.0)
@@ -35,17 +39,17 @@ fill_to = Vector2(1, 0.5)
 bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
-bg_color = Color(0.002, 0.012, 0.016, 0.24)
+bg_color = Color(0, 0, 0, 0)
 content_margin_left = 40.0
 content_margin_right = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
-bg_color = Color(0.01, 0.22, 0.145, 0.18)
+bg_color = Color(0, 0, 0, 0)
 content_margin_left = 40.0
 content_margin_right = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
-bg_color = Color(0.008, 0.18, 0.12, 0.12)
+bg_color = Color(0, 0, 0, 0)
 content_margin_left = 40.0
 content_margin_right = 20.0
 
@@ -221,7 +225,7 @@ custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.98, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_fonts/font = SubResource("SystemFont_menu_regular")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
@@ -230,12 +234,13 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_button")
 text = "开始游戏"
 script = ExtResource("12_tech_button")
 active_color = Color(0.28, 1, 0.75, 1)
+draw_frame = false
 
 [node name="SettingsButton" type="Button" parent="Interface/Menu/Content" unique_id=1389030782]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
-theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_fonts/font = SubResource("SystemFont_menu_regular")
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
@@ -244,12 +249,13 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/focus = SubResource("StyleBoxFlat_button")
 text = "设置"
 script = ExtResource("12_tech_button")
+draw_frame = false
 
 [node name="RoadmapButton" type="Button" parent="Interface/Menu/Content"]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
-theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_fonts/font = SubResource("SystemFont_menu_regular")
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
@@ -258,12 +264,13 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/focus = SubResource("StyleBoxFlat_button")
 text = "EA 开发规划"
 script = ExtResource("12_tech_button")
+draw_frame = false
 
 [node name="QuitButton" type="Button" parent="Interface/Menu/Content" unique_id=666523798]
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.82, 0.88, 1)
-theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_fonts/font = SubResource("SystemFont_menu_regular")
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
@@ -272,6 +279,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/focus = SubResource("StyleBoxFlat_button")
 text = "退出游戏"
 script = ExtResource("12_tech_button")
+draw_frame = false
 
 [node name="SocialIcons" type="HBoxContainer" parent="Interface"]
 offset_left = 36.0
