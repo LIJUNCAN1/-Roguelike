@@ -33,42 +33,42 @@ func _run() -> void:
 		"Interface/PlayerVitals/Frame/LevelText"
 	) as Label
 	var full_health_color := (
-		vitals.health_bar.get_theme_stylebox("fill") as StyleBoxFlat
-	).bg_color
+		vitals.health_bar as FramedVitalBar
+	).fill_color
 	var empty_experience_color := (
-		vitals.experience_bar.get_theme_stylebox("fill") as StyleBoxFlat
-	).bg_color
+		vitals.experience_bar as FramedVitalBar
+	).fill_color
 	health.invulnerability_remaining = 0.0
 	health.take_damage(37.0)
 	progression.add_experience(9)
 	await process_frame
 	var damaged_health_color := (
-		vitals.health_bar.get_theme_stylebox("fill") as StyleBoxFlat
-	).bg_color
+		vitals.health_bar as FramedVitalBar
+	).fill_color
 	var gained_experience_color := (
-		vitals.experience_bar.get_theme_stylebox("fill") as StyleBoxFlat
-	).bg_color
+		vitals.experience_bar as FramedVitalBar
+	).fill_color
 	if (
 		vitals.health_text.text != "63/100"
 		or not is_equal_approx(vitals.health_bar.value, 63.0)
-		or vitals.experience_text.text != ""
-		or vitals.experience_text.visible
+		or vitals.experience_text.text != "9/20"
+		or not vitals.experience_text.visible
 		or not is_equal_approx(vitals.experience_bar.value, 9.0)
-		or vitals.size != Vector2(256.0, 112.0)
-		or vitals.position != Vector2(16.0, 16.0)
+		or vitals.size != Vector2(304.0, 112.0)
+		or vitals.position != Vector2(24.0, 14.0)
 		or portrait.texture == null
 		or portrait_fade.texture == null
 		or portrait_component.portrait_texture == null
-		or not vitals.health_bar is AngularVitalBar
-		or not vitals.experience_bar is AngularVitalBar
+		or not vitals.health_bar is FramedVitalBar
+		or not vitals.experience_bar is FramedVitalBar
 		or (
-			vitals.health_bar as AngularVitalBar
+			vitals.health_bar as FramedVitalBar
 		).frame_texture == null
 		or (
-			vitals.experience_bar as AngularVitalBar
+			vitals.experience_bar as FramedVitalBar
 		).frame_texture == null
 		or (
-			vitals.health_bar as AngularVitalBar
+			vitals.health_bar as FramedVitalBar
 		).pattern_texture == null
 		or vitals.experience_bar.position.x <= level_text.position.x
 		or vitals.get_node("EssenceRow").position.y < 80.0

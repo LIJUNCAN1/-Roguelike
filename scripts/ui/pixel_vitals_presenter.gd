@@ -21,12 +21,12 @@ extends Control
 @onready var progression: RunProgression = get_node(
 	progression_path
 ) as RunProgression
-@onready var health_bar: ProgressBar = get_node(
+@onready var health_bar: FramedVitalBar = get_node(
 	health_bar_path
-) as ProgressBar
-@onready var experience_bar: ProgressBar = get_node(
+) as FramedVitalBar
+@onready var experience_bar: FramedVitalBar = get_node(
 	experience_bar_path
-) as ProgressBar
+) as FramedVitalBar
 @onready var health_text: Label = get_node(
 	health_text_path
 ) as Label
@@ -35,24 +35,7 @@ extends Control
 ) as Label
 @onready var level_text: Label = get_node(level_text_path) as Label
 
-var health_fill_style: StyleBoxFlat
-var experience_fill_style: StyleBoxFlat
-
-
 func _ready() -> void:
-	health_fill_style = (
-		health_bar.get_theme_stylebox("fill").duplicate()
-		as StyleBoxFlat
-	)
-	experience_fill_style = (
-		experience_bar.get_theme_stylebox("fill").duplicate()
-		as StyleBoxFlat
-	)
-	health_bar.add_theme_stylebox_override("fill", health_fill_style)
-	experience_bar.add_theme_stylebox_override(
-		"fill",
-		experience_fill_style
-	)
 	health_component.health_changed.connect(_update_health)
 	progression.experience_changed.connect(_update_experience)
 	_update_health(
@@ -70,11 +53,10 @@ func _update_health(current: float, maximum: float) -> void:
 	health_bar.max_value = maxf(maximum, 1.0)
 	health_bar.value = clampf(current, 0.0, maximum)
 	var health_ratio := clampf(current / maxf(maximum, 1.0), 0.0, 1.0)
-	health_fill_style.bg_color = health_low_color.lerp(
+	health_bar.fill_color = health_low_color.lerp(
 		health_full_color,
 		health_ratio
 	)
-	health_bar.queue_redraw()
 	health_text.text = "%d/%d" % [
 		roundi(current),
 		roundi(maximum),
@@ -93,10 +75,9 @@ func _update_experience(
 		0.0,
 		1.0
 	)
-	experience_fill_style.bg_color = experience_low_color.lerp(
+	experience_bar.fill_color = experience_low_color.lerp(
 		experience_full_color,
 		experience_ratio
 	)
-	experience_bar.queue_redraw()
 	level_text.text = "Lv.%d" % level
-	experience_text.text = ""
+	experience_text.text = "%d/%d" % [current, required]
