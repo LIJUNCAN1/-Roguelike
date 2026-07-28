@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3]
+[gd_scene load_steps=48 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Script" path="res://scripts/genes/gene_test_harness.gd" id="2_gene_test"]
@@ -32,7 +32,6 @@
 [ext_resource type="Resource" path="res://data/audio/prototype_audio_library.tres" id="30_audio_library"]
 [ext_resource type="Script" path="res://scripts/evolutions/evolution_presentation_controller.gd" id="31_evolution_presentation"]
 [ext_resource type="Script" path="res://scripts/ui/pixel_vitals_presenter.gd" id="32_pixel_vitals"]
-[ext_resource type="Texture2D" path="res://assets/ui/heart_icon.png" id="33_pixel_heart"]
 [ext_resource type="Script" path="res://scripts/ui/run_minimap_presenter.gd" id="34_minimap"]
 [ext_resource type="Script" path="res://scripts/ui/weapon_slots_hud.gd" id="35_weapon_slots"]
 [ext_resource type="Script" path="res://scripts/ui/area_intro_presenter.gd" id="36_area_intro"]
@@ -40,6 +39,9 @@
 [ext_resource type="Texture2D" path="res://assets/ui/player_portrait.png" id="38_player_portrait"]
 [ext_resource type="PackedScene" path="res://scenes/ui/vitals_portrait.tscn" id="39_vitals_portrait"]
 [ext_resource type="Script" path="res://scripts/ui/angular_vital_bar.gd" id="40_angular_bar"]
+[ext_resource type="Texture2D" path="res://assets/ui/vital_health_frame.png" id="41_health_frame"]
+[ext_resource type="Texture2D" path="res://assets/ui/vital_experience_frame.png" id="42_experience_frame"]
+[ext_resource type="Texture2D" path="res://assets/ui/vital_pattern.png" id="43_vital_pattern"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.035, 0.055, 0.075, 0.92)
@@ -236,23 +238,25 @@ portrait_texture = ExtResource("38_player_portrait")
 
 [node name="HealthBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
-offset_left = 80.0
+offset_left = 62.0
 offset_top = 8.0
 offset_right = 256.0
-offset_bottom = 40.0
+offset_bottom = 32.0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vital_empty")
 theme_override_styles/fill = SubResource("StyleBoxFlat_health_fill")
 value = 100.0
 show_percentage = false
 script = ExtResource("40_angular_bar")
+frame_texture = ExtResource("41_health_frame")
+pattern_texture = ExtResource("43_vital_pattern")
 
 [node name="ExperienceBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
 offset_left = 106.0
-offset_top = 49.0
+offset_top = 51.0
 offset_right = 252.0
-offset_bottom = 72.0
+offset_bottom = 69.0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vital_empty")
 theme_override_styles/fill = SubResource("StyleBoxFlat_experience_fill")
@@ -261,13 +265,15 @@ script = ExtResource("40_angular_bar")
 frame_color = Color(0.3, 0.38, 0.42, 1)
 frame_highlight = Color(0.55, 0.66, 0.7, 0.9)
 pattern_alpha = 0.18
+frame_texture = ExtResource("42_experience_frame")
+pattern_texture = ExtResource("43_vital_pattern")
 
 [node name="HealthText" type="Label" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0
-offset_left = 94.0
+offset_left = 76.0
 offset_top = 8.0
 offset_right = 250.0
-offset_bottom = 40.0
+offset_bottom = 32.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.02, 0.02, 0.03, 1)
 theme_override_constants/outline_size = 4
@@ -275,18 +281,6 @@ theme_override_font_sizes/font_size = 14
 text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="HeartIcon" type="TextureRect" parent="Interface/PlayerVitals/Frame"]
-layout_mode = 0
-offset_left = 52.0
-offset_top = 4.0
-offset_right = 92.0
-offset_bottom = 44.0
-mouse_filter = 2
-texture_filter = 1
-texture = ExtResource("33_pixel_heart")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="Divider" type="ColorRect" parent="Interface/PlayerVitals/Frame"]
 visible = false
@@ -303,7 +297,7 @@ layout_mode = 0
 offset_left = 62.0
 offset_top = 45.0
 offset_right = 104.0
-offset_bottom = 74.0
+offset_bottom = 72.0
 theme_override_colors/font_color = Color(0.45, 0.9, 1, 1)
 theme_override_colors/font_outline_color = Color(0.01, 0.035, 0.045, 1)
 theme_override_constants/outline_size = 4
@@ -315,9 +309,9 @@ vertical_alignment = 1
 visible = false
 layout_mode = 0
 offset_left = 106.0
-offset_top = 49.0
+offset_top = 51.0
 offset_right = 252.0
-offset_bottom = 72.0
+offset_bottom = 69.0
 theme_override_colors/font_color = Color(0.84, 1, 1, 0.9)
 theme_override_colors/font_outline_color = Color(0.02, 0.02, 0.03, 1)
 theme_override_constants/outline_size = 2

@@ -20,9 +20,6 @@ func _run() -> void:
 	var progression := main.get_node(
 		"World/Player/RunProgression"
 	) as RunProgression
-	var heart_icon := main.get_node(
-		"Interface/PlayerVitals/Frame/HeartIcon"
-	) as TextureRect
 	var portrait := main.get_node(
 		"Interface/PlayerVitals/Frame/PortraitComponent/Portrait"
 	) as TextureRect
@@ -59,17 +56,20 @@ func _run() -> void:
 		or not is_equal_approx(vitals.experience_bar.value, 9.0)
 		or vitals.size != Vector2(256.0, 112.0)
 		or vitals.position != Vector2(16.0, 16.0)
-		or heart_icon.texture == null
 		or portrait.texture == null
 		or portrait_fade.texture == null
 		or portrait_component.portrait_texture == null
 		or not vitals.health_bar is AngularVitalBar
 		or not vitals.experience_bar is AngularVitalBar
-		or vitals.health_bar.position.x < heart_icon.position.x
-		or vitals.health_bar.position.x > (
-			heart_icon.position.x + heart_icon.size.x
-		)
-		or vitals.health_bar.size.y > heart_icon.size.y
+		or (
+			vitals.health_bar as AngularVitalBar
+		).frame_texture == null
+		or (
+			vitals.experience_bar as AngularVitalBar
+		).frame_texture == null
+		or (
+			vitals.health_bar as AngularVitalBar
+		).pattern_texture == null
 		or vitals.experience_bar.position.x <= level_text.position.x
 		or vitals.get_node("EssenceRow").position.y < 80.0
 		or level_text.text != "Lv.1"

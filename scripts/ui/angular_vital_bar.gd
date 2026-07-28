@@ -6,6 +6,8 @@ extends ProgressBar
 @export var inner_background_color := Color(0.01, 0.025, 0.028, 0.98)
 @export var pattern_alpha := 0.22
 @export var right_cut := 9.0
+@export var frame_texture: Texture2D
+@export var pattern_texture: Texture2D
 
 
 func _ready() -> void:
@@ -67,6 +69,7 @@ func _draw() -> void:
 		1.0
 	)
 	if ratio <= 0.0001:
+		_draw_frame_texture()
 		return
 
 	var fill_style := get_theme_stylebox("fill") as StyleBoxFlat
@@ -95,6 +98,7 @@ func _draw() -> void:
 		1.0,
 		true
 	)
+	_draw_frame_texture()
 
 
 func _draw_pattern(
@@ -104,6 +108,20 @@ func _draw_pattern(
 ) -> void:
 	var top := 6.0
 	var bottom := height - 6.0
+	if pattern_texture != null:
+		draw_texture_rect(
+			pattern_texture,
+			Rect2(
+				Vector2(4.0, 5.0),
+				Vector2(
+					maxf(0.0, fill_end - 4.0),
+					maxf(1.0, height - 10.0)
+				)
+			),
+			false,
+			Color(fill_color.lightened(0.42), 0.72)
+		)
+		return
 	var pattern_color := Color(
 		fill_color.darkened(0.35),
 		pattern_alpha
@@ -123,3 +141,13 @@ func _draw_pattern(
 
 func _on_value_changed(_new_value: float) -> void:
 	queue_redraw()
+
+
+func _draw_frame_texture() -> void:
+	if frame_texture == null:
+		return
+	draw_texture_rect(
+		frame_texture,
+		Rect2(Vector2.ZERO, size),
+		false
+	)
