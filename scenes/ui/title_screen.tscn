@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/ui/tech_menu_button.gd" id="12_tech_button"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="13_settings_panel"]
 [ext_resource type="Script" path="res://scripts/ui/tech_settings_panel.gd" id="14_tech_panel"]
+[ext_resource type="VideoStream" path="res://assets/ui/title_background_video.ogv" id="15_background_video"]
 
 [sub_resource type="SystemFont" id="SystemFont_bold"]
 font_names = PackedStringArray("Microsoft YaHei UI", "Noto Sans CJK SC", "Arial")
@@ -151,6 +152,15 @@ mouse_filter = 2
 texture = ExtResource("6_title_background")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="BackgroundVideo" type="VideoStreamPlayer" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+stream = ExtResource("15_background_video")
+autoplay = true
+expand = true
+loop = true
 
 [node name="Interface" type="CanvasLayer" parent="." unique_id=24458870]
 
