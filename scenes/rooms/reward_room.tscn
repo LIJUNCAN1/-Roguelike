@@ -7,27 +7,27 @@
 
 [sub_resource type="StyleBoxFlat" id="Panel"]
 bg_color = Color(0.025, 0.012, 0.015, 0.98)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color(0.31, 0.12, 0.12, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="TitleBand"]
 bg_color = Color(0.19, 0.04, 0.055, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 border_color = Color(0.46, 0.19, 0.16, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="RewardRoom" type="Node2D"]
 script = ExtResource("2_reward")
@@ -51,34 +51,33 @@ color = Color(0.45, 1, 0.72, 1)
 
 [node name="RewardInterface" type="CanvasLayer" parent="."]
 layer = 20
-transform = Transform2D(2, 0, 0, 2, 0, 0)
 
 [node name="Dimmer" type="ColorRect" parent="RewardInterface"]
-offset_right = 640.0
-offset_bottom = 360.0
+offset_right = 1280.0
+offset_bottom = 720.0
 mouse_filter = 2
 color = Color(0.005, 0.003, 0.004, 0.9)
 
 [node name="RewardPanel" type="PanelContainer" parent="RewardInterface"]
-offset_left = 13.0
-offset_top = 8.0
-offset_right = 627.0
-offset_bottom = 352.0
+offset_left = 26.0
+offset_top = 16.0
+offset_right = 1254.0
+offset_bottom = 704.0
 theme_override_styles/panel = SubResource("Panel")
 
 [node name="Margin" type="MarginContainer" parent="RewardInterface/RewardPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 11
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 11
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 22
+theme_override_constants/margin_bottom = 16
 
 [node name="Content" type="VBoxContainer" parent="RewardInterface/RewardPanel/Margin"]
 layout_mode = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 10
 
 [node name="TitleBand" type="PanelContainer" parent="RewardInterface/RewardPanel/Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 84)
 layout_mode = 2
 theme_override_styles/panel = SubResource("TitleBand")
 
@@ -86,8 +85,8 @@ theme_override_styles/panel = SubResource("TitleBand")
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.47, 1)
 theme_override_colors/font_outline_color = Color(0.16, 0.025, 0.02, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 36
 text = "◆  基 因 进 化  ◆"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -95,14 +94,14 @@ vertical_alignment = 1
 [node name="Instruction" type="Label" parent="RewardInterface/RewardPanel/Margin/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.68, 0.57, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 18
 text = "选择一段基因，让本次进化产生新的方向 · 按 1 / 2 / 3"
 horizontal_alignment = 1
 
 [node name="Cards" type="HBoxContainer" parent="RewardInterface/RewardPanel/Margin/Content"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 9
+theme_override_constants/separation = 18
 alignment = 1
 
 [node name="Choice1" parent="RewardInterface/RewardPanel/Margin/Content/Cards" instance=ExtResource("4_card")]

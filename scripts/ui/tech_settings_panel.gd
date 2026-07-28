@@ -13,22 +13,22 @@ func _ready() -> void:
 func _draw() -> void:
 	var width := size.x
 	var height := size.y
-	var cut := 9.0
+	var cut := 18.0
 	var outer := PackedVector2Array([
-		Vector2(cut, 0.75),
-		Vector2(width - cut, 0.75),
-		Vector2(width - 0.75, cut),
-		Vector2(width - 0.75, height - cut),
-		Vector2(width - cut, height - 0.75),
-		Vector2(cut, height - 0.75),
-		Vector2(0.75, height - cut),
-		Vector2(0.75, cut),
-		Vector2(cut, 0.75),
+		Vector2(cut, 1.5),
+		Vector2(width - cut, 1.5),
+		Vector2(width - 1.5, cut),
+		Vector2(width - 1.5, height - cut),
+		Vector2(width - cut, height - 1.5),
+		Vector2(cut, height - 1.5),
+		Vector2(1.5, height - cut),
+		Vector2(1.5, cut),
+		Vector2(cut, 1.5),
 	])
-	draw_polyline(outer, frame_color, 1.05, true)
+	draw_polyline(outer, frame_color, 2.1, true)
 
-	var inner_cut := 6.0
-	var inner_margin := 5.0
+	var inner_cut := 12.0
+	var inner_margin := 10.0
 	var inner := PackedVector2Array([
 		Vector2(inner_margin + inner_cut, inner_margin),
 		Vector2(width - inner_margin - inner_cut, inner_margin),
@@ -39,20 +39,20 @@ func _draw() -> void:
 		Vector2(inner_margin, height - inner_margin - inner_cut),
 		Vector2(inner_margin, inner_margin + inner_cut),
 	])
-	draw_polyline(inner, faint_color, 0.65, true)
+	draw_polyline(inner, faint_color, 1.3, true)
 
-	var title_y := 29.0
+	var title_y := 58.0
 	draw_line(
-		Vector2(13.0, title_y),
+		Vector2(26.0, title_y),
 		Vector2(width * 0.36, title_y),
 		faint_color,
-		0.65,
+		1.3,
 		true
 	)
 	draw_line(
 		Vector2(width * 0.64, title_y),
-		Vector2(width - 13.0, title_y),
+		Vector2(width - 26.0, title_y),
 		faint_color,
-		0.65,
+		1.3,
 		true
 	)

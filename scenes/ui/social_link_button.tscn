@@ -4,27 +4,27 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_normal"]
 bg_color = Color(0.01, 0.008, 0.02, 0.62)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
 bg_color = Color(0.06, 0.08, 0.13, 0.88)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0.2, 0.9, 1, 0.95)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 shadow_color = Color(0.08, 0.78, 1, 0.75)
-shadow_size = 4
+shadow_size = 8
 
 [node name="SocialLinkButton" type="Button" groups=["social_icon_buttons"]]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(60, 60)
 theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_hover")

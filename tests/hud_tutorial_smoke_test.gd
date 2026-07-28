@@ -57,7 +57,7 @@ func _run() -> void:
 		or health_text.text != "100/100"
 		or experience_text.text != ""
 		or experience_text.visible
-		or minimap.size != Vector2(68.0, 64.0)
+		or minimap.size != Vector2(136.0, 128.0)
 		or minimap.room_manager.current_room_index != 0
 		or weapon_slots.active_slot != 0
 		or weapon_slots.get_slot_organ(0) == null
@@ -83,8 +83,8 @@ func _run() -> void:
 		+ tutorial.panel.size.y * tutorial.panel.scale.y
 	)
 	if (
-		not is_equal_approx(hint_bottom, 360.0)
-		or hint_content.get_theme_constant("separation") < 28
+		not is_equal_approx(hint_bottom, 720.0)
+		or hint_content.get_theme_constant("separation") < 56
 	):
 		push_error("Control hints were not spaced or bottom-aligned.")
 		quit(1)

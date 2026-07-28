@@ -36,14 +36,14 @@ func _run() -> void:
 			push_error("A title menu button is missing its tech frame.")
 			quit(1)
 			return
-		if button.custom_minimum_size.y > 28.0:
+		if button.custom_minimum_size.y > 56.0:
 			push_error("Title menu buttons were not compacted.")
 			quit(1)
 			return
 	if (
-		title.menu.size.x > 220.0
-		or title.menu_backdrop.size.y != 360.0
-		or title.get_node("Interface").transform.x != Vector2(2, 0)
+		title.menu.size.x > 440.0
+		or title.menu_backdrop.size.y != 720.0
+		or title.get_node("Interface").transform.x != Vector2(1, 0)
 		or int(ProjectSettings.get_setting(
 			"display/window/size/viewport_width"
 		)) != 1280
@@ -128,7 +128,7 @@ func _run() -> void:
 		not title.info_panel.visible
 		or title.menu.visible
 		or not title.info_panel is TechSettingsPanel
-		or title.info_panel.size != Vector2(262.0, 167.0)
+		or title.info_panel.size != Vector2(524.0, 334.0)
 	):
 		push_error("EA roadmap panel did not use the compact tech style.")
 		quit(1)
@@ -172,7 +172,7 @@ func _run() -> void:
 		not title.settings_panel.visible
 		or title.menu.visible
 		or not title.settings_panel is TechSettingsPanel
-		or title.settings_panel.size != Vector2(378.0, 238.0)
+		or title.settings_panel.size != Vector2(756.0, 476.0)
 		or title.resolution_option.item_count != 4
 		or title.display_mode_option.item_count != 3
 		or title.control_hints_toggle == null
@@ -183,7 +183,7 @@ func _run() -> void:
 		or not is_equal_approx(music_value_x, sfx_value_x)
 		or not is_equal_approx(music_slider_center_y, music_label_center_y)
 		or not is_equal_approx(sfx_slider_center_y, sfx_label_center_y)
-		or slider_track_height < 4.0
+		or slider_track_height < 8.0
 		or apply_idle_style == null
 		or apply_idle_style.shadow_size > 0
 	):

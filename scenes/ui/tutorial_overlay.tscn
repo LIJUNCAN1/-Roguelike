@@ -15,21 +15,20 @@ colors = PackedColorArray(0, 0, 0, 0.86, 0, 0, 0, 0.58, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture_backdrop"]
 gradient = SubResource("Gradient_backdrop")
-width = 512
-height = 64
+width = 1024
+height = 128
 fill_from = Vector2(0, 0.5)
 fill_to = Vector2(1, 0.5)
 
 [node name="TutorialOverlay" type="CanvasLayer"]
 layer = 10
-transform = Transform2D(2, 0, 0, 2, 0, 0)
 script = ExtResource("1_script")
 
 [node name="ControlHints" type="Control" parent="."]
-offset_left = 8.0
-offset_top = 335.0
-offset_right = 388.0
-offset_bottom = 385.0
+offset_left = 16.0
+offset_top = 670.0
+offset_right = 776.0
+offset_bottom = 770.0
 scale = Vector2(0.5, 0.5)
 mouse_filter = 2
 
@@ -46,19 +45,19 @@ expand_mode = 1
 
 [node name="Content" type="HBoxContainer" parent="ControlHints"]
 layout_mode = 0
-offset_left = 7.0
-offset_top = 5.0
-offset_right = 355.0
-offset_bottom = 45.0
-theme_override_constants/separation = 28
+offset_left = 14.0
+offset_top = 10.0
+offset_right = 710.0
+offset_bottom = 90.0
+theme_override_constants/separation = 56
 alignment = 0
 
 [node name="Movement" type="HBoxContainer" parent="ControlHints/Content"]
 layout_mode = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 6
 
 [node name="Icon" type="TextureRect" parent="ControlHints/Content/Movement"]
-custom_minimum_size = Vector2(48, 36)
+custom_minimum_size = Vector2(96, 72)
 layout_mode = 2
 mouse_filter = 2
 texture_filter = 1
@@ -70,18 +69,18 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.95, 0.94, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 18
 text = "移动"
 vertical_alignment = 1
 
 [node name="Aim" type="HBoxContainer" parent="ControlHints/Content"]
 layout_mode = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 6
 
 [node name="Icon" type="TextureRect" parent="ControlHints/Content/Aim"]
-custom_minimum_size = Vector2(28, 36)
+custom_minimum_size = Vector2(56, 72)
 layout_mode = 2
 mouse_filter = 2
 texture_filter = 1
@@ -93,18 +92,18 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.95, 0.94, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 18
 text = "瞄准"
 vertical_alignment = 1
 
 [node name="Dash" type="HBoxContainer" parent="ControlHints/Content"]
 layout_mode = 2
-theme_override_constants/separation = 3
+theme_override_constants/separation = 6
 
 [node name="Icon" type="TextureRect" parent="ControlHints/Content/Dash"]
-custom_minimum_size = Vector2(56, 36)
+custom_minimum_size = Vector2(112, 72)
 layout_mode = 2
 mouse_filter = 2
 texture_filter = 1
@@ -116,8 +115,8 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.95, 0.94, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = SubResource("Font_bold")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 18
 text = "冲刺"
 vertical_alignment = 1

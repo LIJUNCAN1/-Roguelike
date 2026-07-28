@@ -5,52 +5,52 @@
 
 [sub_resource type="StyleBoxFlat" id="CardNormal"]
 bg_color = Color(0.008, 0.012, 0.016, 0.985)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 border_color = Color(0.22, 0.28, 0.31, 0.9)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="CardHover"]
 bg_color = Color(0.035, 0.02, 0.025, 0.99)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 border_color = Color(0.85, 0.9, 0.92, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 shadow_color = Color(0.7, 0.9, 1, 0.28)
-shadow_size = 5
+shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="CardPressed"]
 bg_color = Color(0.08, 0.035, 0.04, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="IconFrame"]
 bg_color = Color(0.018, 0.028, 0.035, 0.96)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0.24, 0.34, 0.38, 0.8)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="GeneRewardCard" type="Button"]
-custom_minimum_size = Vector2(184, 248)
+custom_minimum_size = Vector2(368, 496)
 mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0, 0, 0, 0)
 theme_override_styles/normal = SubResource("CardNormal")
@@ -67,18 +67,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 9
-theme_override_constants/margin_top = 7
-theme_override_constants/margin_right = 9
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 16
 
 [node name="Content" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 4
 
 [node name="Header" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 15)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 mouse_filter = 2
 
@@ -86,18 +86,18 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.52, 0.62, 0.64, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "1"
 
 [node name="Rarity" type="Label" parent="Margin/Content/Header"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.94, 0.93, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 18
 text = "普通"
 horizontal_alignment = 2
 
 [node name="IconStage" type="Panel" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 70)
+custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("IconFrame")
@@ -105,7 +105,7 @@ theme_override_styles/panel = SubResource("IconFrame")
 [node name="Diamond" type="Label" parent="Margin/Content/IconStage"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.28, 0.38, 0.42, 0.9)
-theme_override_font_sizes/font_size = 54
+theme_override_font_sizes/font_size = 108
 text = "◇"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -114,8 +114,8 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.94, 0.96, 0.95, 1)
 theme_override_colors/font_outline_color = Color(0.01, 0.02, 0.025, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 27
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 54
 text = "基"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -127,20 +127,20 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -11.0
-offset_top = -20.0
-offset_right = 11.0
-offset_bottom = -2.0
+offset_left = -22.0
+offset_top = -40.0
+offset_right = 22.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 script = ExtResource("2_gem")
 
 [node name="Name" type="Label" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 21)
+custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.9, 0.74, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 28
 text = "基因名称"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -148,14 +148,14 @@ vertical_alignment = 1
 [node name="Category" type="Label" parent="Margin/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.48, 0.72, 0.7, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "适应系"
 horizontal_alignment = 1
 
 [node name="Level" type="Label" parent="Margin/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 1, 0.62, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 18
 text = "未拥有  ▶  获得"
 horizontal_alignment = 1
 
@@ -164,11 +164,11 @@ layout_mode = 2
 modulate = Color(0.3, 0.4, 0.42, 0.8)
 
 [node name="Description" type="Label" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 43)
+custom_minimum_size = Vector2(0, 86)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.82, 0.84, 0.79, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 18
 text = "基因描述"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -177,16 +177,16 @@ autowrap_mode = 2
 [node name="Effect" type="Label" parent="Margin/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.72, 0.38, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "#标签"
 horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Relation" type="Label" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 25)
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.47, 0.78, 0.72, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "新系列"
 horizontal_alignment = 1
 vertical_alignment = 2

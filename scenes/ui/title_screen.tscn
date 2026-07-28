@@ -26,8 +26,8 @@ colors = PackedColorArray(0.0, 0.0, 0.0, 0.0, 0.005, 0.004, 0.012, 0.82, 0.005, 
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_menu_backdrop"]
 gradient = SubResource("Gradient_menu_backdrop")
-width = 512
-height = 64
+width = 1024
+height = 128
 fill_from = Vector2(0, 0.5)
 fill_to = Vector2(1, 0.5)
 
@@ -36,119 +36,118 @@ bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
 bg_color = Color(0.002, 0.012, 0.016, 0.24)
-content_margin_left = 20.0
-content_margin_right = 10.0
+content_margin_left = 40.0
+content_margin_right = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
 bg_color = Color(0.01, 0.22, 0.145, 0.18)
-content_margin_left = 20.0
-content_margin_right = 10.0
+content_margin_left = 40.0
+content_margin_right = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
 bg_color = Color(0.008, 0.18, 0.12, 0.12)
-content_margin_left = 20.0
-content_margin_right = 10.0
+content_margin_left = 40.0
+content_margin_right = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_info_panel"]
 bg_color = Color(0.012, 0.01, 0.025, 0.94)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(1, 1, 1, 0.14)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 shadow_color = Color(0, 0, 0, 0.65)
-shadow_size = 12
+shadow_size = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_roadmap_panel"]
 bg_color = Color(0.005, 0.025, 0.032, 0.94)
 shadow_color = Color(0, 0, 0, 0.72)
-shadow_size = 8
+shadow_size = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_roadmap_button"]
 bg_color = Color(0.015, 0.055, 0.075, 0.94)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0.3, 0.58, 0.68, 0.85)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_roadmap_button_hover"]
 bg_color = Color(0.008, 0.09, 0.1, 0.94)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 border_color = Color(0.12, 0.9, 0.86, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="TitleScreen" type="Node2D" unique_id=1701984781]
-scale = Vector2(2, 2)
 script = ExtResource("1_script")
 
 [node name="Background" type="Polygon2D" parent="." unique_id=1989592593]
 color = Color(0.012, 0.003, 0.028, 1)
-polygon = PackedVector2Array(0, 0, 640, 0, 640, 360, 0, 360)
+polygon = PackedVector2Array(0, 0, 1280, 0, 1280, 720, 0, 720)
 
 [node name="CulturePool" type="Polygon2D" parent="." unique_id=354614366]
 color = Color(0.055, 0.008, 0.09, 1)
-polygon = PackedVector2Array(0, 250, 80, 220, 155, 240, 245, 205, 330, 240, 430, 215, 530, 245, 640, 220, 640, 360, 0, 360)
+polygon = PackedVector2Array(0, 500, 160, 440, 310, 480, 490, 410, 660, 480, 860, 430, 1060, 490, 1280, 440, 1280, 720, 0, 720)
 
 [node name="CellLeft" type="Polygon2D" parent="." unique_id=1074985831]
 color = Color(0.28, 0.04, 0.48, 0.3)
-polygon = PackedVector2Array(60, 90, 78, 63, 112, 58, 137, 82, 135, 116, 110, 139, 76, 132, 53, 113)
+polygon = PackedVector2Array(120, 180, 156, 126, 224, 116, 274, 164, 270, 232, 220, 278, 152, 264, 106, 226)
 
 [node name="CellLeftCore" type="Polygon2D" parent="." unique_id=262399789]
 color = Color(0.75, 0.32, 1, 0.24)
-polygon = PackedVector2Array(83, 91, 97, 75, 116, 87, 113, 108, 93, 114, 78, 103)
+polygon = PackedVector2Array(166, 182, 194, 150, 232, 174, 226, 216, 186, 228, 156, 206)
 
 [node name="CellRight" type="Polygon2D" parent="." unique_id=1699385893]
 visible = false
 color = Color(0.22, 0.18, 0.58, 0.42)
-polygon = PackedVector2Array(500, 65, 525, 48, 558, 56, 577, 83, 568, 115, 541, 130, 510, 117, 493, 94)
+polygon = PackedVector2Array(1000, 130, 1050, 96, 1116, 112, 1154, 166, 1136, 230, 1082, 260, 1020, 234, 986, 188)
 
 [node name="CellRightCore" type="Polygon2D" parent="." unique_id=957597285]
 visible = false
 color = Color(0.66, 0.42, 1, 0.42)
-polygon = PackedVector2Array(520, 84, 540, 68, 559, 82, 556, 104, 535, 112, 516, 100)
+polygon = PackedVector2Array(1040, 168, 1080, 136, 1118, 164, 1112, 208, 1070, 224, 1032, 200)
 
 [node name="MoonGlow" type="Polygon2D" parent="." unique_id=1056441986]
 color = Color(0.48, 0.12, 0.78, 0.2)
-polygon = PackedVector2Array(111, 11, 132, 15, 151, 25, 166, 42, 175, 62, 178, 84, 173, 106, 162, 125, 145, 140, 124, 149, 102, 151, 80, 146, 61, 135, 46, 118, 37, 98, 34, 76, 39, 54, 50, 35, 67, 20, 88, 12)
+polygon = PackedVector2Array(222, 22, 264, 30, 302, 50, 332, 84, 350, 124, 356, 168, 346, 212, 324, 250, 290, 280, 248, 298, 204, 302, 160, 292, 122, 270, 92, 236, 74, 196, 68, 152, 78, 108, 100, 70, 134, 40, 176, 24)
 
 [node name="Moon" type="Polygon2D" parent="." unique_id=530065099]
 color = Color(0.82, 0.52, 1, 0.96)
-polygon = PackedVector2Array(108, 20, 127, 24, 144, 33, 157, 48, 165, 66, 167, 85, 163, 103, 153, 120, 138, 133, 120, 141, 101, 142, 83, 138, 66, 128, 53, 113, 45, 95, 43, 76, 47, 58, 57, 41, 72, 29, 90, 21)
+polygon = PackedVector2Array(216, 40, 254, 48, 288, 66, 314, 96, 330, 132, 334, 170, 326, 206, 306, 240, 276, 266, 240, 282, 202, 284, 166, 276, 132, 256, 106, 226, 90, 190, 86, 152, 94, 116, 114, 82, 144, 58, 180, 42)
 
 [node name="MoonShade" type="Polygon2D" parent="." unique_id=87161081]
 color = Color(0.2, 0.025, 0.36, 0.42)
-polygon = PackedVector2Array(103, 21, 86, 31, 74, 47, 68, 65, 70, 84, 78, 101, 92, 114, 109, 122, 126, 123, 143, 117, 153, 107, 145, 126, 130, 138, 111, 144, 91, 142, 73, 134, 58, 120, 48, 103, 43, 84, 44, 64, 51, 47, 64, 33, 82, 24)
+polygon = PackedVector2Array(206, 42, 172, 62, 148, 94, 136, 130, 140, 168, 156, 202, 184, 228, 218, 244, 252, 246, 286, 234, 306, 214, 290, 252, 260, 276, 222, 288, 182, 284, 146, 268, 116, 240, 96, 206, 86, 168, 88, 128, 102, 94, 128, 66, 164, 48)
 
 [node name="DistantSpire" type="Polygon2D" parent="." unique_id=717106645]
 color = Color(0.015, 0.004, 0.027, 1)
-polygon = PackedVector2Array(12, 284, 20, 243, 29, 245, 35, 206, 43, 214, 48, 170, 56, 191, 63, 149, 70, 178, 80, 163, 87, 208, 98, 181, 107, 230, 119, 218, 132, 281)
+polygon = PackedVector2Array(24, 568, 40, 486, 58, 490, 70, 412, 86, 428, 96, 340, 112, 382, 126, 298, 140, 356, 160, 326, 174, 416, 196, 362, 214, 460, 238, 436, 264, 562)
 
 [node name="TowerWindows" type="Polygon2D" parent="." unique_id=1130320234]
 color = Color(0.63, 0.16, 0.92, 0.75)
-polygon = PackedVector2Array(49, 215, 53, 201, 57, 215, 57, 251, 49, 251)
+polygon = PackedVector2Array(98, 430, 106, 402, 114, 430, 114, 502, 98, 502)
 
 [node name="Foreground" type="Polygon2D" parent="." unique_id=827654630]
 color = Color(0.008, 0.002, 0.016, 1)
-polygon = PackedVector2Array(0, 286, 46, 269, 89, 278, 133, 255, 177, 273, 222, 252, 269, 276, 318, 260, 360, 284, 404, 269, 449, 287, 496, 270, 543, 282, 588, 266, 640, 278, 640, 360, 0, 360)
+polygon = PackedVector2Array(0, 572, 92, 538, 178, 556, 266, 510, 354, 546, 444, 504, 538, 552, 636, 520, 720, 568, 808, 538, 898, 574, 992, 540, 1086, 564, 1176, 532, 1280, 556, 1280, 720, 0, 720)
 
 [node name="BackgroundImage" type="TextureRect" parent="."]
-offset_right = 640.0
-offset_bottom = 360.0
+offset_right = 1280.0
+offset_bottom = 720.0
 mouse_filter = 2
 texture = ExtResource("6_title_background")
 expand_mode = 1
@@ -156,29 +155,28 @@ stretch_mode = 6
 
 [node name="BackgroundVideo" type="VideoStreamPlayer" parent="."]
 visible = false
-offset_right = 640.0
-offset_bottom = 360.0
+offset_right = 1280.0
+offset_bottom = 720.0
 mouse_filter = 2
 stream = ExtResource("15_background_video")
 expand = true
 loop = true
 
 [node name="Interface" type="CanvasLayer" parent="." unique_id=24458870]
-transform = Transform2D(2, 0, 0, 2, 0, 0)
 
 [node name="MenuBackdrop" type="TextureRect" parent="Interface"]
-offset_left = 352.0
-offset_right = 640.0
-offset_bottom = 360.0
+offset_left = 704.0
+offset_right = 1280.0
+offset_bottom = 720.0
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_menu_backdrop")
 expand_mode = 1
 
 [node name="TitleImage" type="TextureRect" parent="Interface" unique_id=1299536591]
-offset_left = 332.0
-offset_top = 54.0
-offset_right = 622.0
-offset_bottom = 160.0
+offset_left = 664.0
+offset_top = 108.0
+offset_right = 1244.0
+offset_bottom = 320.0
 mouse_filter = 2
 texture = ExtResource("5_title_logo")
 expand_mode = 1
@@ -186,45 +184,45 @@ stretch_mode = 5
 
 [node name="GameTitle" type="Label" parent="Interface" unique_id=337158461]
 visible = false
-offset_left = 100.0
-offset_top = 34.0
-offset_right = 540.0
-offset_bottom = 76.0
+offset_left = 200.0
+offset_top = 68.0
+offset_right = 1080.0
+offset_bottom = 152.0
 theme_override_colors/font_color = Color(0.5, 1, 0.72, 1)
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 56
 text = "生物进化 ROGUELIKE"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="Interface" unique_id=1162232873]
 visible = false
-offset_left = 372.0
-offset_top = 112.0
-offset_right = 620.0
-offset_bottom = 128.0
+offset_left = 744.0
+offset_top = 224.0
+offset_right = 1240.0
+offset_bottom = 256.0
 theme_override_colors/font_color = Color(0.74, 0.48, 0.92, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "吞噬基因 · 构筑生命 · 完成进化"
 horizontal_alignment = 1
 
 [node name="Menu" type="PanelContainer" parent="Interface" unique_id=1233610578]
-offset_left = 397.0
-offset_top = 162.0
-offset_right = 617.0
-offset_bottom = 305.0
+offset_left = 794.0
+offset_top = 324.0
+offset_right = 1234.0
+offset_bottom = 610.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
 
 [node name="Content" type="VBoxContainer" parent="Interface/Menu" unique_id=1850334910]
 layout_mode = 2
-theme_override_constants/separation = 7
+theme_override_constants/separation = 14
 alignment = 1
 
 [node name="StartButton" type="Button" parent="Interface/Menu/Content" unique_id=1447712269]
-custom_minimum_size = Vector2(0, 28)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.98, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
@@ -234,12 +232,12 @@ script = ExtResource("12_tech_button")
 active_color = Color(0.28, 1, 0.75, 1)
 
 [node name="SettingsButton" type="Button" parent="Interface/Menu/Content" unique_id=1389030782]
-custom_minimum_size = Vector2(0, 28)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
@@ -248,12 +246,12 @@ text = "设置"
 script = ExtResource("12_tech_button")
 
 [node name="RoadmapButton" type="Button" parent="Interface/Menu/Content"]
-custom_minimum_size = Vector2(0, 28)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
@@ -262,12 +260,12 @@ text = "EA 开发规划"
 script = ExtResource("12_tech_button")
 
 [node name="QuitButton" type="Button" parent="Interface/Menu/Content" unique_id=666523798]
-custom_minimum_size = Vector2(0, 28)
+custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.82, 0.88, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
@@ -276,11 +274,11 @@ text = "退出游戏"
 script = ExtResource("12_tech_button")
 
 [node name="SocialIcons" type="HBoxContainer" parent="Interface"]
-offset_left = 18.0
-offset_top = 318.0
-offset_right = 166.0
-offset_bottom = 350.0
-theme_override_constants/separation = 6
+offset_left = 36.0
+offset_top = 636.0
+offset_right = 332.0
+offset_bottom = 700.0
+theme_override_constants/separation = 12
 
 [node name="GitHubButton" parent="Interface/SocialIcons" instance=ExtResource("11_social_button")]
 layout_mode = 2
@@ -303,71 +301,71 @@ social_name = "微博"
 icon_texture = ExtResource("10_social_weibo")
 
 [node name="VersionLabel" type="Label" parent="Interface"]
-offset_left = 510.0
-offset_top = 336.0
-offset_right = 630.0
-offset_bottom = 354.0
+offset_left = 1020.0
+offset_top = 672.0
+offset_right = 1260.0
+offset_bottom = 708.0
 mouse_filter = 2
 theme_override_colors/font_color = Color(0.5, 0.53, 0.56, 0.72)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 18
 text = "EA v0.1.0"
 horizontal_alignment = 2
 
 [node name="SettingsPanel" parent="Interface" instance=ExtResource("13_settings_panel")]
 visible = false
-offset_left = 131.0
-offset_top = 61.0
-offset_right = 509.0
-offset_bottom = 299.0
+offset_left = 262.0
+offset_top = 122.0
+offset_right = 1018.0
+offset_bottom = 598.0
 
 [node name="GeneralInfoPanel" type="PanelContainer" parent="Interface"]
 visible = false
-offset_left = 189.0
-offset_top = 96.0
-offset_right = 451.0
-offset_bottom = 263.0
+offset_left = 378.0
+offset_top = 192.0
+offset_right = 902.0
+offset_bottom = 526.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_roadmap_panel")
 script = ExtResource("14_tech_panel")
 
 [node name="Margin" type="MarginContainer" parent="Interface/GeneralInfoPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 16
 
 [node name="Content" type="VBoxContainer" parent="Interface/GeneralInfoPanel/Margin"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 
 [node name="Title" type="Label" parent="Interface/GeneralInfoPanel/Margin/Content"]
-custom_minimum_size = Vector2(0, 18)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.03, 0.45, 0.48, 0.65)
-theme_override_constants/outline_size = 2
+theme_override_constants/outline_size = 4
 theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 26
 text = "信息"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Body" type="Label" parent="Interface/GeneralInfoPanel/Margin/Content"]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.72, 0.88, 0.9, 1)
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "内容准备中……"
 vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="BackButton" type="Button" parent="Interface/GeneralInfoPanel/Margin/Content"]
-custom_minimum_size = Vector2(0, 21)
+custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.94, 0.94, 0.98, 1)
 theme_override_fonts/font = SubResource("SystemFont_bold")
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_roadmap_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_roadmap_button_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_roadmap_button_hover")
@@ -376,10 +374,10 @@ text = "返回"
 
 [node name="MetaUpgradePanel" type="PanelContainer" parent="Interface" unique_id=283189137]
 visible = false
-offset_left = 125.0
-offset_top = 102.0
-offset_right = 515.0
-offset_bottom = 348.0
+offset_left = 250.0
+offset_top = 204.0
+offset_right = 1030.0
+offset_bottom = 696.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_info_panel")
 script = ExtResource("2_meta_panel")
 currency_label_path = NodePath("Content/Currency")
@@ -387,11 +385,11 @@ upgrade_list_path = NodePath("Content/Scroll/UpgradeList")
 
 [node name="Content" type="VBoxContainer" parent="Interface/MetaUpgradePanel" unique_id=953605705]
 layout_mode = 2
-theme_override_constants/separation = 6
+theme_override_constants/separation = 12
 
 [node name="Title" type="Label" parent="Interface/MetaUpgradePanel/Content" unique_id=777274475]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "局外进化"
 horizontal_alignment = 1
 
@@ -402,14 +400,14 @@ text = "进化质：0"
 horizontal_alignment = 1
 
 [node name="Scroll" type="ScrollContainer" parent="Interface/MetaUpgradePanel/Content" unique_id=1102834512]
-custom_minimum_size = Vector2(0, 160)
+custom_minimum_size = Vector2(0, 320)
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="UpgradeList" type="VBoxContainer" parent="Interface/MetaUpgradePanel/Content/Scroll" unique_id=533099051]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 5
+theme_override_constants/separation = 10
 
 [node name="BackButton" type="Button" parent="Interface/MetaUpgradePanel/Content" unique_id=1714570736]
 layout_mode = 2
@@ -417,10 +415,10 @@ text = "返回主菜单"
 
 [node name="GeneCodexPanel" type="PanelContainer" parent="Interface" unique_id=1372072785]
 visible = false
-offset_left = 105.0
-offset_top = 92.0
-offset_right = 535.0
-offset_bottom = 350.0
+offset_left = 210.0
+offset_top = 184.0
+offset_right = 1070.0
+offset_bottom = 700.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_info_panel")
 script = ExtResource("3_codex")
 gene_pool = ExtResource("4_gene_pool")
@@ -428,21 +426,21 @@ text_path = NodePath("Content/Scroll/Text")
 
 [node name="Content" type="VBoxContainer" parent="Interface/GeneCodexPanel" unique_id=1335386615]
 layout_mode = 2
-theme_override_constants/separation = 6
+theme_override_constants/separation = 12
 
 [node name="Title" type="Label" parent="Interface/GeneCodexPanel/Content" unique_id=1095258584]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "基因图鉴 · 30"
 horizontal_alignment = 1
 
 [node name="Scroll" type="ScrollContainer" parent="Interface/GeneCodexPanel/Content" unique_id=1901918084]
-custom_minimum_size = Vector2(0, 190)
+custom_minimum_size = Vector2(0, 380)
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Text" type="RichTextLabel" parent="Interface/GeneCodexPanel/Content/Scroll" unique_id=1934877034]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true

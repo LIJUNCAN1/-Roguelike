@@ -48,11 +48,11 @@ func _run() -> void:
 		or vitals.experience_text.text != ""
 		or vitals.experience_text.visible
 		or not is_equal_approx(vitals.experience_bar.value, 9.0)
-		or vitals.size != Vector2(164.0, 68.0)
-		or vitals.position != Vector2(24.0, 8.0)
+		or vitals.size != Vector2(328.0, 136.0)
+		or vitals.position != Vector2(48.0, 16.0)
 		or heart_icon.texture == null
 		or heart_icon.position.x >= vitals.health_text.position.x
-		or vitals.get_node("EssenceRow").position.y < 54.0
+		or vitals.get_node("EssenceRow").position.y < 108.0
 		or level_text.text != "Lv.1"
 		or damaged_health_color.get_luminance()
 		<= full_health_color.get_luminance()

@@ -30,8 +30,8 @@ func _run() -> void:
 	) as Control
 	if (
 		not reward_room.reward_interface.visible
-		or panel.size.x > 640.0
-		or panel.size.y > 360.0
+		or panel.size.x > 1280.0
+		or panel.size.y > 720.0
 		or reward_room.choice_buttons.size() != 3
 	):
 		push_error(
@@ -54,8 +54,8 @@ func _run() -> void:
 			card.gene_data != offered_gene
 			or card.name_label.text != offered_gene.display_name
 			or card.description_label.text != offered_gene.description
-			or card.size.x < 180.0
-			or card.size.y < 240.0
+			or card.size.x < 360.0
+			or card.size.y < 480.0
 			or card.rarity_gem.gem_color != Color.from_string(
 				offered_gene.get_rarity_color_hex(),
 				Color.WHITE

@@ -35,52 +35,52 @@ func _draw() -> void:
 	var width := size.x
 	var height := size.y
 	draw_line(
-		Vector2(0.0, height - 0.5),
-		Vector2(width, height - 0.5),
+		Vector2(0.0, height - 1.0),
+		Vector2(width, height - 1.0),
 		idle_color,
-		0.45,
+		0.9,
 		true
 	)
 	if intensity <= 0.001:
 		return
 
-	for offset_value in [2.0, 1.0]:
+	for offset_value in [4.0, 2.0]:
 		var offset := float(offset_value)
 		_draw_fading_line(
 			offset,
 			Color(active_color, 0.13 * intensity),
-			0.45
+			0.9
 		)
 		_draw_fading_line(
 			height - offset,
 			Color(active_color, 0.13 * intensity),
-			0.45
+			0.9
 		)
 
 	_draw_fading_line(
-		0.5,
+		1.0,
 		Color(active_color, active_color.a * intensity),
-		0.65
+		1.3
 	)
 	_draw_fading_line(
-		height - 0.5,
+		height - 1.0,
 		Color(active_color, active_color.a * intensity),
-		0.65
+		1.3
 	)
 	draw_line(
-		Vector2(0.5, 0),
-		Vector2(0.5, height),
+		Vector2(1.0, 0),
+		Vector2(1.0, height),
 		Color(active_color, active_color.a * intensity),
-		0.65,
+		1.3,
 		true
 	)
 
 	var center_y := height * 0.5
 	var diamond := PackedVector2Array([
-		Vector2(-3.0, center_y),
-		Vector2(0.5, center_y - 5.0),
-		Vector2(4.0, center_y),
-		Vector2(0.5, center_y + 5.0),
+		Vector2(-6.0, center_y),
+		Vector2(1.0, center_y - 10.0),
+		Vector2(8.0, center_y),
+		Vector2(1.0, center_y + 10.0),
 	])
 	draw_colored_polygon(
 		diamond,
