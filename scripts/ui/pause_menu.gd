@@ -9,10 +9,10 @@ signal pause_changed(is_paused: bool)
 
 @onready var dimmer: Control = $Dimmer
 @onready var continue_button: Button = (
-	$Dimmer/Panel/Margin/Content/ContinueButton
+	$Dimmer/Panel/Margin/Content/Actions/ContinueButton
 )
 @onready var title_button: Button = (
-	$Dimmer/Panel/Margin/Content/TitleButton
+	$Dimmer/Panel/Margin/Content/Actions/TitleButton
 )
 
 
