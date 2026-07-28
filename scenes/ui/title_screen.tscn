@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b4l5iecbr4qes" path="res://scripts/meta/meta_upgrade_panel.gd" id="2_meta_panel"]
 [ext_resource type="Script" uid="uid://bhblbgthwxtr5" path="res://scripts/meta/menu_gene_codex.gd" id="3_codex"]
 [ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="4_gene_pool"]
-[ext_resource type="Texture2D" path="res://assets/ui/title_logo-v2.png" id="5_title_logo"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_logo-v3.png" id="5_title_logo"]
 [ext_resource type="Texture2D" path="res://assets/ui/title_background.png" id="6_title_background"]
 [ext_resource type="Texture2D" path="res://assets/ui/social_github.png" id="7_social_github"]
 [ext_resource type="Texture2D" path="res://assets/ui/social_bilibili.png" id="8_social_bilibili"]
