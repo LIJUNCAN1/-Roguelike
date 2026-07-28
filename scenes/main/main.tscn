@@ -189,7 +189,6 @@ offset_left = 24.0
 offset_top = 14.0
 offset_right = 328.0
 offset_bottom = 126.0
-scale = Vector2(0.5, 0.5)
 mouse_filter = 2
 texture_filter = 1
 script = ExtResource("32_pixel_vitals")
@@ -229,6 +228,8 @@ frame_texture = ExtResource("41_health_frame")
 fill_texture = ExtResource("44_health_fill")
 empty_texture = ExtResource("45_health_empty")
 right_cut = 17.0
+content_offset_y = -4.0
+content_height_adjust = 4.0
 
 [node name="ExperienceBar" type="ProgressBar" parent="Interface/PlayerVitals/Frame"]
 layout_mode = 0

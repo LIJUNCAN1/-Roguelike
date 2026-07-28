@@ -56,7 +56,7 @@ func _run() -> void:
 		or not is_equal_approx(vitals.experience_bar.value, 9.0)
 		or vitals.size != Vector2(304.0, 112.0)
 		or vitals.position != Vector2(24.0, 14.0)
-		or vitals.scale != Vector2(0.5, 0.5)
+		or vitals.scale != Vector2.ONE
 		or portrait.texture == null
 		or portrait_fade.texture == null
 		or portrait_component.portrait_texture == null
@@ -74,6 +74,9 @@ func _run() -> void:
 		or (
 			vitals.health_bar as FramedVitalBar
 		).empty_texture == null
+		or (
+			vitals.health_bar as FramedVitalBar
+		).content_offset_y >= 0.0
 		or (
 			vitals.experience_bar as FramedVitalBar
 		).fill_texture == null

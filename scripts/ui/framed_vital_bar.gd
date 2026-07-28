@@ -12,6 +12,8 @@ extends ProgressBar
 
 @export_group("Bar Shape")
 @export var right_cut := 16.0
+@export var content_offset_y := 0.0
+@export var content_height_adjust := 0.0
 
 
 func _ready() -> void:
@@ -21,10 +23,17 @@ func _ready() -> void:
 
 
 func _draw() -> void:
+	var content_rect := Rect2(
+		Vector2(0.0, content_offset_y),
+		Vector2(
+			size.x,
+			maxf(1.0, size.y + content_height_adjust)
+		)
+	)
 	if empty_texture != null:
 		draw_texture_rect(
 			empty_texture,
-			Rect2(Vector2.ZERO, size),
+			content_rect,
 			false
 		)
 	else:
@@ -45,8 +54,8 @@ func _draw() -> void:
 			draw_texture_rect_region(
 				fill_texture,
 				Rect2(
-					Vector2.ZERO,
-					Vector2(fill_width, size.y)
+					Vector2(0.0, content_offset_y),
+					Vector2(fill_width, content_rect.size.y)
 				),
 				Rect2(
 					Vector2.ZERO,
