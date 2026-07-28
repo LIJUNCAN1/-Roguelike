@@ -362,9 +362,9 @@ weapon_manager_path = NodePath("../../World/Player/WeaponOrganManager")
 
 [node name="AreaIntro" type="Control" parent="Interface"]
 offset_left = 175.0
-offset_top = 125.0
+offset_top = 72.0
 offset_right = 465.0
-offset_bottom = 210.0
+offset_bottom = 157.0
 mouse_filter = 2
 script = ExtResource("36_area_intro")
 room_manager_path = NodePath("../../RoomManager")
