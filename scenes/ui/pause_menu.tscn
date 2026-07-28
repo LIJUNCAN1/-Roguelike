@@ -145,7 +145,7 @@ theme_override_styles/normal = SubResource("ButtonNormal")
 theme_override_styles/hover = SubResource("ButtonHover")
 theme_override_styles/pressed = SubResource("ButtonHover")
 theme_override_styles/focus = SubResource("ButtonNormal")
-text = "返回标题"
+text = "返回主大厅"
 
 [node name="SettingsPanel" parent="Dimmer" instance=ExtResource("3_settings_panel")]
 visible = false

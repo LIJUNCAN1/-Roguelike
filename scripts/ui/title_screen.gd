@@ -2,7 +2,7 @@ class_name TitleScreen
 extends Node2D
 
 @export_file("*.tscn") var game_scene_path: String = (
-	"res://scenes/main/main.tscn"
+	"res://scenes/hub/hub_world.tscn"
 )
 
 const SETTINGS_PATH := "user://display_settings.cfg"

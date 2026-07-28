@@ -63,3 +63,8 @@ theme_override_colors/font_color = Color(1, 0.78, 0.35, 1)
 theme_override_font_sizes/font_size = 26
 text = "按 R 开始新的进化"
 horizontal_alignment = 1
+
+[node name="ReturnHubButton" type="Button" parent="Dimmer/Panel/Margin/Content"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "返回原初之种主大厅"

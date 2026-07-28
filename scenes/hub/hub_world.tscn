@@ -1,0 +1,654 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://scripts/hub/hub_world.gd" id="1_hub"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/common/interactable.tscn" id="3_interactable"]
+[ext_resource type="PackedScene" path="res://scenes/ui/interaction_prompt.tscn" id="4_prompt"]
+[ext_resource type="Script" path="res://scripts/meta/meta_upgrade_panel.gd" id="5_meta_panel"]
+[ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="6_gene_pool"]
+[ext_resource type="Script" path="res://scripts/hub/hub_codex_panel.gd" id="7_hub_codex"]
+[ext_resource type="Texture2D" path="res://reference/hub_map_reference.png" id="8_reference"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal_bound"]
+size = Vector2(1600, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vertical_bound"]
+size = Vector2(40, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_shop"]
+size = Vector2(210, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_core"]
+size = Vector2(170, 94)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_forge"]
+size = Vector2(190, 82)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_archive"]
+size = Vector2(220, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_campfire"]
+size = Vector2(76, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_companion"]
+size = Vector2(190, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_crate"]
+size = Vector2(60, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pillar"]
+size = Vector2(56, 112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tent"]
+size = Vector2(104, 66)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_facility_panel"]
+bg_color = Color(0.02, 0.025, 0.055, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.32, 0.92, 0.72, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HubWorld" type="Node2D"]
+script = ExtResource("1_hub")
+
+[node name="ReferenceLayer" type="Node2D" parent="."]
+visible = false
+z_index = -20
+
+[node name="ReferenceImage" type="Sprite2D" parent="ReferenceLayer"]
+position = Vector2(800, 500)
+scale = Vector2(1.0204082, 0.997009)
+modulate = Color(1, 1, 1, 0.22)
+texture = ExtResource("8_reference")
+
+[node name="Ground" type="Node2D" parent="."]
+z_index = -10
+
+[node name="GroundBackdrop" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(0, 0, 1600, 0, 1600, 1000, 0, 1000)
+color = Color(0.035, 0.027, 0.075, 1)
+
+[node name="GroundBase" type="TileMapLayer" parent="Ground"]
+
+[node name="GroundField" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(42, 42, 1558, 42, 1558, 958, 42, 958)
+color = Color(0.16, 0.115, 0.08, 1)
+
+[node name="CentralClearing" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(430, 330, 1160, 330, 1270, 470, 1190, 820, 1010, 910, 550, 900, 400, 780, 350, 490)
+color = Color(0.235, 0.17, 0.105, 1)
+
+[node name="GroundDetails" type="TileMapLayer" parent="Ground"]
+
+[node name="PathToCore" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(720, 250, 880, 250, 930, 680, 680, 680)
+color = Color(0.29, 0.215, 0.13, 0.72)
+
+[node name="BackgroundDecorations" type="Node2D" parent="."]
+z_index = -5
+
+[node name="NorthForest" type="Polygon2D" parent="BackgroundDecorations"]
+polygon = PackedVector2Array(40, 40, 1560, 40, 1560, 126, 1480, 102, 1400, 138, 1300, 96, 1200, 132, 1080, 92, 980, 130, 860, 88, 740, 134, 620, 92, 500, 130, 390, 88, 270, 136, 160, 96, 40, 130)
+color = Color(0.035, 0.13, 0.09, 1)
+
+[node name="WestForest" type="Polygon2D" parent="BackgroundDecorations"]
+polygon = PackedVector2Array(40, 40, 150, 120, 118, 220, 166, 330, 118, 450, 154, 570, 112, 700, 160, 830, 118, 958, 40, 958)
+color = Color(0.025, 0.105, 0.075, 1)
+
+[node name="EastRuins" type="Polygon2D" parent="BackgroundDecorations"]
+polygon = PackedVector2Array(1450, 105, 1560, 40, 1560, 958, 1450, 905, 1482, 780, 1438, 650, 1480, 520, 1440, 390, 1484, 250)
+color = Color(0.075, 0.07, 0.135, 1)
+
+[node name="SouthRocks" type="Polygon2D" parent="BackgroundDecorations"]
+polygon = PackedVector2Array(40, 900, 180, 858, 300, 915, 430, 870, 560, 920, 710, 875, 850, 922, 1000, 872, 1140, 918, 1280, 865, 1420, 916, 1560, 885, 1560, 958, 40, 958)
+color = Color(0.08, 0.075, 0.105, 1)
+
+[node name="StaticEnvironment" type="Node2D" parent="."]
+
+[node name="WorldBounds" type="StaticBody2D" parent="StaticEnvironment"]
+collision_layer = 4
+collision_mask = 1
+
+[node name="Top" type="CollisionShape2D" parent="StaticEnvironment/WorldBounds"]
+position = Vector2(800, 20)
+shape = SubResource("RectangleShape2D_horizontal_bound")
+
+[node name="Bottom" type="CollisionShape2D" parent="StaticEnvironment/WorldBounds"]
+position = Vector2(800, 980)
+shape = SubResource("RectangleShape2D_horizontal_bound")
+
+[node name="Left" type="CollisionShape2D" parent="StaticEnvironment/WorldBounds"]
+position = Vector2(20, 500)
+shape = SubResource("RectangleShape2D_vertical_bound")
+
+[node name="Right" type="CollisionShape2D" parent="StaticEnvironment/WorldBounds"]
+position = Vector2(1580, 500)
+shape = SubResource("RectangleShape2D_vertical_bound")
+
+[node name="StaticCollisions" type="Node2D" parent="StaticEnvironment"]
+
+[node name="BloodlineShopCollision" type="StaticBody2D" parent="StaticEnvironment/StaticCollisions"]
+position = Vector2(320, 240)
+collision_layer = 4
+collision_mask = 1
+
+[node name="Shape" type="CollisionShape2D" parent="StaticEnvironment/StaticCollisions/BloodlineShopCollision"]
+position = Vector2(0, -42)
+shape = SubResource("RectangleShape2D_shop")
+
+[node name="CoreAltarCollision" type="StaticBody2D" parent="StaticEnvironment/StaticCollisions"]
+position = Vector2(800, 250)
+collision_layer = 4
+collision_mask = 1
+
+[node name="Shape" type="CollisionShape2D" parent="StaticEnvironment/StaticCollisions/CoreAltarCollision"]
+position = Vector2(0, -34)
+shape = SubResource("RectangleShape2D_core")
+
+[node name="ForgeCollision" type="StaticBody2D" parent="StaticEnvironment/StaticCollisions"]
+position = Vector2(260, 520)
+collision_layer = 4
+collision_mask = 1
+
+[node name="Shape" type="CollisionShape2D" parent="StaticEnvironment/StaticCollisions/ForgeCollision"]
+position = Vector2(0, -28)
+shape = SubResource("RectangleShape2D_forge")
+
+[node name="ArchiveCollision" type="StaticBody2D" parent="StaticEnvironment/StaticCollisions"]
+position = Vector2(1280, 250)
+collision_layer = 4
+collision_mask = 1
+
+[node name="Shape" type="CollisionShape2D" parent="StaticEnvironment/StaticCollisions/ArchiveCollision"]
+position = Vector2(0, -38)
+shape = SubResource("RectangleShape2D_archive")
+
+[node name="CampfireCollision" type="StaticBody2D" parent="StaticEnvironment/StaticCollisions"]
+position = Vector2(1320, 580)
+collision_layer = 4
+collision_mask = 1
+
+[node name="Shape" type="CollisionShape2D" parent="StaticEnvironment/StaticCollisions/CampfireCollision"]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_campfire")
+
+[node name="CompanionCollision" type="StaticBody2D" parent="StaticEnvironment/StaticCollisions"]
+position = Vector2(380, 800)
+collision_layer = 4
+collision_mask = 1
+
+[node name="Shape" type="CollisionShape2D" parent="StaticEnvironment/StaticCollisions/CompanionCollision"]
+position = Vector2(0, -32)
+shape = SubResource("RectangleShape2D_companion")
+
+[node name="CrateCollision" type="StaticBody2D" parent="StaticEnvironment/StaticCollisions"]
+position = Vector2(180, 380)
+collision_layer = 4
+collision_mask = 1
+
+[node name="Shape" type="CollisionShape2D" parent="StaticEnvironment/StaticCollisions/CrateCollision"]
+position = Vector2(0, -25)
+shape = SubResource("RectangleShape2D_crate")
+
+[node name="PillarCollision" type="StaticBody2D" parent="StaticEnvironment/StaticCollisions"]
+position = Vector2(1450, 820)
+collision_layer = 4
+collision_mask = 1
+
+[node name="Shape" type="CollisionShape2D" parent="StaticEnvironment/StaticCollisions/PillarCollision"]
+position = Vector2(0, -56)
+shape = SubResource("RectangleShape2D_pillar")
+
+[node name="RestTentCollision" type="StaticBody2D" parent="StaticEnvironment/StaticCollisions"]
+position = Vector2(1412, 580)
+collision_layer = 4
+collision_mask = 1
+
+[node name="Shape" type="CollisionShape2D" parent="StaticEnvironment/StaticCollisions/RestTentCollision"]
+position = Vector2(0, -33)
+shape = SubResource("RectangleShape2D_tent")
+
+[node name="YSortRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Stations" type="Node2D" parent="YSortRoot"]
+y_sort_enabled = true
+
+[node name="CoreAltar" type="Node2D" parent="YSortRoot/Stations"]
+position = Vector2(800, 250)
+
+[node name="CoreOutline" type="Polygon2D" parent="YSortRoot/Stations/CoreAltar"]
+polygon = PackedVector2Array(-92, 0, -82, -80, -50, -126, 0, -158, 50, -126, 82, -80, 92, 0)
+color = Color(0.025, 0.035, 0.035, 1)
+
+[node name="AltarStone" type="Polygon2D" parent="YSortRoot/Stations/CoreAltar"]
+polygon = PackedVector2Array(-82, -6, -72, -74, -44, -112, 0, -140, 44, -112, 72, -74, 82, -6)
+color = Color(0.16, 0.21, 0.18, 1)
+
+[node name="CoreVisual" type="Node2D" parent="YSortRoot/Stations/CoreAltar"]
+position = Vector2(0, -79)
+
+[node name="CoreGlow" type="Polygon2D" parent="YSortRoot/Stations/CoreAltar/CoreVisual"]
+polygon = PackedVector2Array(0, -49, 34, -22, 27, 27, 0, 50, -27, 27, -34, -22)
+color = Color(0.56, 0.95, 0.18, 0.35)
+
+[node name="LifeCocoon" type="Polygon2D" parent="YSortRoot/Stations/CoreAltar/CoreVisual"]
+polygon = PackedVector2Array(0, -38, 24, -18, 19, 24, 0, 40, -19, 24, -24, -18)
+color = Color(0.62, 0.98, 0.22, 1)
+
+[node name="CoreParticles" type="CPUParticles2D" parent="YSortRoot/Stations/CoreAltar/CoreVisual"]
+amount = 8
+lifetime = 2.2
+randomness = 0.45
+emission_shape = 3
+emission_rect_extents = Vector2(25, 10)
+direction = Vector2(0, -1)
+spread = 18.0
+gravity = Vector2(0, -3)
+initial_velocity_min = 10.0
+initial_velocity_max = 18.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(0.64, 1, 0.28, 0.78)
+
+[node name="Title" type="Label" parent="YSortRoot/Stations/CoreAltar"]
+offset_left = -120.0
+offset_top = -192.0
+offset_right = 120.0
+offset_bottom = -158.0
+theme_override_colors/font_color = Color(0.72, 1, 0.38, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.03, 0.025, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 23
+text = "原初核心祭坛"
+horizontal_alignment = 1
+
+[node name="Interactable" parent="YSortRoot/Stations/CoreAltar" groups=["hub_interactables"] instance=ExtResource("3_interactable")]
+position = Vector2(0, 44)
+interaction_id = &"core_altar"
+display_name = "原初核心祭坛"
+
+[node name="BloodlineShop" type="Node2D" parent="YSortRoot/Stations"]
+position = Vector2(320, 240)
+
+[node name="HutOutline" type="Polygon2D" parent="YSortRoot/Stations/BloodlineShop"]
+polygon = PackedVector2Array(-116, 0, -116, -92, -78, -132, 76, -132, 116, -92, 116, 0)
+color = Color(0.025, 0.025, 0.035, 1)
+
+[node name="Hut" type="Polygon2D" parent="YSortRoot/Stations/BloodlineShop"]
+polygon = PackedVector2Array(-104, -8, -104, -84, -70, -118, 68, -118, 104, -84, 104, -8)
+color = Color(0.22, 0.12, 0.09, 1)
+
+[node name="Canopy" type="Polygon2D" parent="YSortRoot/Stations/BloodlineShop"]
+polygon = PackedVector2Array(-110, -72, -70, -112, 70, -112, 110, -72)
+color = Color(0.36, 0.08, 0.13, 1)
+
+[node name="PotionLeft" type="Polygon2D" parent="YSortRoot/Stations/BloodlineShop"]
+polygon = PackedVector2Array(-55, -52, -42, -52, -37, -18, -60, -18)
+color = Color(0.75, 0.2, 0.45, 1)
+
+[node name="PotionRight" type="Polygon2D" parent="YSortRoot/Stations/BloodlineShop"]
+polygon = PackedVector2Array(38, -56, 52, -56, 60, -18, 32, -18)
+color = Color(0.42, 0.75, 0.9, 1)
+
+[node name="Title" type="Label" parent="YSortRoot/Stations/BloodlineShop"]
+offset_left = -110.0
+offset_top = -164.0
+offset_right = 110.0
+offset_bottom = -134.0
+theme_override_colors/font_color = Color(1, 0.66, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.025, 0.015, 0.025, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 21
+text = "血脉商店"
+horizontal_alignment = 1
+
+[node name="Interactable" parent="YSortRoot/Stations/BloodlineShop" groups=["hub_interactables"] instance=ExtResource("3_interactable")]
+position = Vector2(0, 42)
+interaction_id = &"bloodline_shop"
+display_name = "血脉商店"
+
+[node name="ForgeStation" type="Node2D" parent="YSortRoot/Stations"]
+position = Vector2(260, 520)
+
+[node name="BenchOutline" type="Polygon2D" parent="YSortRoot/Stations/ForgeStation"]
+polygon = PackedVector2Array(-108, 0, -108, -76, 108, -76, 108, 0)
+color = Color(0.025, 0.025, 0.03, 1)
+
+[node name="Bench" type="Polygon2D" parent="YSortRoot/Stations/ForgeStation"]
+polygon = PackedVector2Array(-96, -9, -96, -65, 96, -65, 96, -9)
+color = Color(0.23, 0.14, 0.08, 1)
+
+[node name="Anvil" type="Polygon2D" parent="YSortRoot/Stations/ForgeStation"]
+polygon = PackedVector2Array(-43, -64, 42, -64, 28, -43, 12, -38, 20, -10, -23, -10, -14, -38, -32, -43)
+color = Color(0.33, 0.37, 0.41, 1)
+
+[node name="Furnace" type="Polygon2D" parent="YSortRoot/Stations/ForgeStation"]
+polygon = PackedVector2Array(54, -96, 94, -96, 100, -14, 48, -14)
+color = Color(0.14, 0.13, 0.16, 1)
+
+[node name="FurnaceGlow" type="Polygon2D" parent="YSortRoot/Stations/ForgeStation"]
+polygon = PackedVector2Array(62, -56, 87, -56, 91, -24, 58, -24)
+color = Color(1, 0.38, 0.08, 0.9)
+
+[node name="Title" type="Label" parent="YSortRoot/Stations/ForgeStation"]
+offset_left = -112.0
+offset_top = -130.0
+offset_right = 112.0
+offset_bottom = -100.0
+theme_override_colors/font_color = Color(1, 0.62, 0.3, 1)
+theme_override_colors/font_outline_color = Color(0.03, 0.02, 0.02, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 21
+text = "武器锻造台"
+horizontal_alignment = 1
+
+[node name="Interactable" parent="YSortRoot/Stations/ForgeStation" groups=["hub_interactables"] instance=ExtResource("3_interactable")]
+position = Vector2(0, 42)
+interaction_id = &"forge_station"
+display_name = "武器锻造台"
+
+[node name="ArchiveStation" type="Node2D" parent="YSortRoot/Stations"]
+position = Vector2(1280, 250)
+
+[node name="RuinOutline" type="Polygon2D" parent="YSortRoot/Stations/ArchiveStation"]
+polygon = PackedVector2Array(-118, 0, -118, -110, -88, -140, -50, -118, 0, -154, 50, -118, 88, -140, 118, -110, 118, 0)
+color = Color(0.025, 0.025, 0.045, 1)
+
+[node name="RuinWall" type="Polygon2D" parent="YSortRoot/Stations/ArchiveStation"]
+polygon = PackedVector2Array(-106, -8, -106, -102, -82, -126, -48, -104, 0, -140, 48, -104, 82, -126, 106, -102, 106, -8)
+color = Color(0.14, 0.15, 0.24, 1)
+
+[node name="Rune" type="Polygon2D" parent="YSortRoot/Stations/ArchiveStation"]
+polygon = PackedVector2Array(0, -112, 26, -82, 0, -50, -26, -82)
+color = Color(0.55, 0.34, 0.95, 0.9)
+
+[node name="BookDesk" type="Polygon2D" parent="YSortRoot/Stations/ArchiveStation"]
+polygon = PackedVector2Array(-64, -44, 64, -44, 76, -10, -76, -10)
+color = Color(0.28, 0.14, 0.09, 1)
+
+[node name="Book" type="Polygon2D" parent="YSortRoot/Stations/ArchiveStation"]
+polygon = PackedVector2Array(-34, -54, -2, -46, 0, -24, -38, -34, 2, -46, 36, -54, 40, -34, 0, -24)
+color = Color(0.65, 0.5, 0.24, 1)
+
+[node name="Title" type="Label" parent="YSortRoot/Stations/ArchiveStation"]
+offset_left = -120.0
+offset_top = -188.0
+offset_right = 120.0
+offset_bottom = -156.0
+theme_override_colors/font_color = Color(0.72, 0.58, 1, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.015, 0.04, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 21
+text = "生命图鉴区域"
+horizontal_alignment = 1
+
+[node name="Interactable" parent="YSortRoot/Stations/ArchiveStation" groups=["hub_interactables"] instance=ExtResource("3_interactable")]
+position = Vector2(0, 44)
+interaction_id = &"archive_station"
+display_name = "生命图鉴"
+
+[node name="RestCampfire" type="Node2D" parent="YSortRoot/Stations"]
+position = Vector2(1320, 580)
+
+[node name="StoneRing" type="Polygon2D" parent="YSortRoot/Stations/RestCampfire"]
+polygon = PackedVector2Array(-48, -5, -36, -28, 0, -38, 36, -28, 48, -5, 28, 14, -28, 14)
+color = Color(0.08, 0.075, 0.08, 1)
+
+[node name="FlameOutline" type="Polygon2D" parent="YSortRoot/Stations/RestCampfire"]
+polygon = PackedVector2Array(0, -96, 28, -60, 19, -20, 0, -4, -25, -22, -31, -58)
+color = Color(0.04, 0.025, 0.02, 1)
+
+[node name="Flame" type="Polygon2D" parent="YSortRoot/Stations/RestCampfire"]
+polygon = PackedVector2Array(0, -84, 19, -56, 13, -25, 0, -12, -16, -26, -21, -53)
+color = Color(1, 0.53, 0.1, 1)
+
+[node name="FireParticles" type="CPUParticles2D" parent="YSortRoot/Stations/RestCampfire"]
+position = Vector2(0, -42)
+amount = 6
+lifetime = 1.1
+randomness = 0.55
+emission_shape = 3
+emission_rect_extents = Vector2(16, 5)
+direction = Vector2(0, -1)
+spread = 24.0
+gravity = Vector2(0, -6)
+initial_velocity_min = 16.0
+initial_velocity_max = 28.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(1, 0.55, 0.12, 0.82)
+
+[node name="Tent" type="Polygon2D" parent="YSortRoot/Stations/RestCampfire"]
+position = Vector2(92, 4)
+polygon = PackedVector2Array(-54, 0, 0, -82, 56, 0)
+color = Color(0.18, 0.16, 0.1, 1)
+
+[node name="Title" type="Label" parent="YSortRoot/Stations/RestCampfire"]
+offset_left = -110.0
+offset_top = -132.0
+offset_right = 110.0
+offset_bottom = -102.0
+theme_override_colors/font_color = Color(1, 0.72, 0.32, 1)
+theme_override_colors/font_outline_color = Color(0.04, 0.02, 0.01, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 21
+text = "休息篝火"
+horizontal_alignment = 1
+
+[node name="Interactable" parent="YSortRoot/Stations/RestCampfire" groups=["hub_interactables"] instance=ExtResource("3_interactable")]
+position = Vector2(0, 48)
+interaction_id = &"rest_campfire"
+display_name = "休息篝火"
+
+[node name="CompanionStation" type="Node2D" parent="YSortRoot/Stations"]
+position = Vector2(380, 800)
+
+[node name="TentOutline" type="Polygon2D" parent="YSortRoot/Stations/CompanionStation"]
+polygon = PackedVector2Array(-110, 0, 0, -126, 110, 0)
+color = Color(0.025, 0.03, 0.035, 1)
+
+[node name="Tent" type="Polygon2D" parent="YSortRoot/Stations/CompanionStation"]
+polygon = PackedVector2Array(-96, -8, 0, -110, 96, -8)
+color = Color(0.12, 0.25, 0.21, 1)
+
+[node name="CocoonOutline" type="Polygon2D" parent="YSortRoot/Stations/CompanionStation"]
+position = Vector2(-62, -38)
+polygon = PackedVector2Array(0, -38, 24, -16, 18, 28, 0, 40, -18, 28, -24, -16)
+color = Color(0.02, 0.035, 0.03, 1)
+
+[node name="Cocoon" type="Polygon2D" parent="YSortRoot/Stations/CompanionStation"]
+position = Vector2(-62, -38)
+polygon = PackedVector2Array(0, -30, 17, -13, 13, 22, 0, 32, -13, 22, -17, -13)
+color = Color(0.32, 0.72, 0.5, 1)
+
+[node name="Title" type="Label" parent="YSortRoot/Stations/CompanionStation"]
+offset_left = -126.0
+offset_top = -156.0
+offset_right = 126.0
+offset_bottom = -126.0
+theme_override_colors/font_color = Color(0.5, 1, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.015, 0.035, 0.025, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 21
+text = "共生伙伴区域"
+horizontal_alignment = 1
+
+[node name="Interactable" parent="YSortRoot/Stations/CompanionStation" groups=["hub_interactables"] instance=ExtResource("3_interactable")]
+position = Vector2(0, 46)
+interaction_id = &"companion_station"
+display_name = "共生伙伴区域"
+
+[node name="NPCs" type="Node2D" parent="YSortRoot"]
+y_sort_enabled = true
+
+[node name="SortableProps" type="Node2D" parent="YSortRoot"]
+y_sort_enabled = true
+
+[node name="NorthWestCrate" type="Node2D" parent="YSortRoot/SortableProps"]
+position = Vector2(180, 380)
+
+[node name="Outline" type="Polygon2D" parent="YSortRoot/SortableProps/NorthWestCrate"]
+polygon = PackedVector2Array(-30, 0, -30, -50, 30, -50, 30, 0)
+color = Color(0.025, 0.02, 0.02, 1)
+
+[node name="Fill" type="Polygon2D" parent="YSortRoot/SortableProps/NorthWestCrate"]
+polygon = PackedVector2Array(-24, -6, -24, -44, 24, -44, 24, -6)
+color = Color(0.29, 0.17, 0.08, 1)
+
+[node name="SouthEastPillar" type="Node2D" parent="YSortRoot/SortableProps"]
+position = Vector2(1450, 820)
+
+[node name="Outline" type="Polygon2D" parent="YSortRoot/SortableProps/SouthEastPillar"]
+polygon = PackedVector2Array(-28, 0, -22, -112, 22, -112, 28, 0)
+color = Color(0.025, 0.025, 0.04, 1)
+
+[node name="Fill" type="Polygon2D" parent="YSortRoot/SortableProps/SouthEastPillar"]
+polygon = PackedVector2Array(-19, -7, -15, -102, 15, -102, 19, -7)
+color = Color(0.17, 0.16, 0.25, 1)
+
+[node name="Player" parent="YSortRoot" instance=ExtResource("2_player")]
+
+[node name="Camera2D" type="Camera2D" parent="YSortRoot/Player"]
+position = Vector2(0, 0)
+zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 1600
+limit_bottom = 1000
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+
+[node name="ForegroundDecorations" type="Node2D" parent="."]
+z_index = 30
+
+[node name="SouthGrass" type="Polygon2D" parent="ForegroundDecorations"]
+polygon = PackedVector2Array(0, 966, 1600, 966, 1600, 1000, 0, 1000)
+color = Color(0.018, 0.075, 0.055, 0.92)
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="PlayerSpawn" type="Marker2D" parent="Markers"]
+position = Vector2(800, 650)
+
+[node name="CameraTopLeft" type="Marker2D" parent="Markers"]
+position = Vector2(0, 0)
+
+[node name="CameraBottomRight" type="Marker2D" parent="Markers"]
+position = Vector2(1600, 1000)
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+layer = 10
+process_mode = 3
+
+[node name="InteractionPrompt" parent="HUDLayer" instance=ExtResource("4_prompt")]
+
+[node name="MetaUpgradeDimmer" type="ColorRect" parent="HUDLayer"]
+visible = false
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 0
+color = Color(0.005, 0.008, 0.018, 0.82)
+
+[node name="MetaUpgradePanel" type="PanelContainer" parent="HUDLayer/MetaUpgradeDimmer"]
+offset_left = 250.0
+offset_top = 92.0
+offset_right = 1030.0
+offset_bottom = 660.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_facility_panel")
+script = ExtResource("5_meta_panel")
+currency_label_path = NodePath("Content/Currency")
+upgrade_list_path = NodePath("Content/Scroll/UpgradeList")
+
+[node name="Content" type="VBoxContainer" parent="HUDLayer/MetaUpgradeDimmer/MetaUpgradePanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="HUDLayer/MetaUpgradeDimmer/MetaUpgradePanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 1, 0.72, 1)
+theme_override_font_sizes/font_size = 34
+text = "血脉进化"
+horizontal_alignment = 1
+
+[node name="Currency" type="Label" parent="HUDLayer/MetaUpgradeDimmer/MetaUpgradePanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.88, 0.82, 1)
+theme_override_font_sizes/font_size = 18
+text = "进化质：0"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="HUDLayer/MetaUpgradeDimmer/MetaUpgradePanel/Content"]
+custom_minimum_size = Vector2(0, 390)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UpgradeList" type="VBoxContainer" parent="HUDLayer/MetaUpgradeDimmer/MetaUpgradePanel/Content/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="BackButton" type="Button" parent="HUDLayer/MetaUpgradeDimmer/MetaUpgradePanel/Content"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "返回大厅"
+
+[node name="CodexDimmer" type="ColorRect" parent="HUDLayer"]
+visible = false
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 0
+color = Color(0.005, 0.008, 0.018, 0.82)
+
+[node name="CodexPanel" type="PanelContainer" parent="HUDLayer/CodexDimmer"]
+offset_left = 220.0
+offset_top = 80.0
+offset_right = 1060.0
+offset_bottom = 670.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_facility_panel")
+script = ExtResource("7_hub_codex")
+gene_pool = ExtResource("6_gene_pool")
+count_label_path = NodePath("Content/Count")
+entries_path = NodePath("Content/Scroll/Entries")
+
+[node name="Content" type="VBoxContainer" parent="HUDLayer/CodexDimmer/CodexPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="HUDLayer/CodexDimmer/CodexPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.58, 1, 1)
+theme_override_font_sizes/font_size = 34
+text = "生命图鉴"
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="HUDLayer/CodexDimmer/CodexPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.82, 0.88, 1)
+theme_override_font_sizes/font_size = 18
+text = "已见 0 / 0"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="HUDLayer/CodexDimmer/CodexPanel/Content"]
+custom_minimum_size = Vector2(0, 420)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Entries" type="RichTextLabel" parent="HUDLayer/CodexDimmer/CodexPanel/Content/Scroll"]
+custom_minimum_size = Vector2(780, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="BackButton" type="Button" parent="HUDLayer/CodexDimmer/CodexPanel/Content"]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "返回大厅"

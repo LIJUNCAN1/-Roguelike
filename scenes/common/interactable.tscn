@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/common/interactable.gd" id="1_script"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_interaction"]
+radius = 58.0
+
+[node name="Interactable" type="Area2D"]
+collision_layer = 0
+collision_mask = 1
+monitorable = false
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_interaction")
+
+[node name="PromptAnchor" type="Marker2D" parent="."]
+position = Vector2(0, -72)
+
+[node name="Highlight" type="Node2D" parent="."]
+
+[node name="Outer" type="Polygon2D" parent="Highlight"]
+polygon = PackedVector2Array(-12, 0, 0, -10, 12, 0, 0, 10)
+color = Color(0.08, 0.025, 0.13, 0.94)
+
+[node name="Inner" type="Polygon2D" parent="Highlight"]
+polygon = PackedVector2Array(-8, 0, 0, -7, 8, 0, 0, 7)
+color = Color(0.35, 1, 0.75, 0.95)

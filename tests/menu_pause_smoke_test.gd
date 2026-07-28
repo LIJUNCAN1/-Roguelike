@@ -19,7 +19,7 @@ func _run() -> void:
 		title.start_button == null
 		or title.meta_button == null
 		or title.quit_button == null
-		or title.game_scene_path != "res://scenes/main/main.tscn"
+		or title.game_scene_path != "res://scenes/hub/hub_world.tscn"
 	):
 		push_error("Title screen was not configured.")
 		quit(1)
@@ -261,11 +261,21 @@ func _run() -> void:
 	title.start_game()
 	await process_frame
 	await process_frame
-	var main := current_scene
-	if main == null or main.name != &"Main":
-		push_error("Title screen did not enter the game.")
+	var hub := current_scene
+	if hub == null or hub.name != &"HubWorld":
+		push_error("Title screen did not enter the hub.")
 		quit(1)
 		return
+
+	hub.queue_free()
+	await process_frame
+	var main_scene := load(
+		"res://scenes/main/main.tscn"
+	) as PackedScene
+	var main := main_scene.instantiate()
+	root.add_child(main)
+	current_scene = main
+	await process_frame
 
 	var pause_menu := main.get_node("PauseMenu") as PauseMenu
 	var pause_panel := pause_menu.get_node("Dimmer/Panel")
@@ -321,9 +331,9 @@ func _run() -> void:
 	if (
 		paused
 		or current_scene == null
-		or not current_scene is TitleScreen
+		or not current_scene is HubWorld
 	):
-		push_error("Pause menu did not return to the title screen.")
+		push_error("Pause menu did not return to the hub.")
 		paused = false
 		quit(1)
 		return

@@ -4,7 +4,7 @@ extends CanvasLayer
 signal pause_changed(is_paused: bool)
 
 @export_file("*.tscn") var title_scene_path: String = (
-	"res://scenes/ui/title_screen.tscn"
+	"res://scenes/hub/hub_world.tscn"
 )
 
 @onready var dimmer: Control = $Dimmer

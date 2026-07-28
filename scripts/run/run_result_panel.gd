@@ -1,11 +1,19 @@
 class_name RunResultPanel
 extends CanvasLayer
 
+@export_file("*.tscn") var hub_scene_path := (
+	"res://scenes/hub/hub_world.tscn"
+)
+
 @onready var title_label: Label = $Dimmer/Panel/Margin/Content/Title
 @onready var summary_label: Label = $Dimmer/Panel/Margin/Content/Summary
+@onready var return_hub_button: Button = (
+	$Dimmer/Panel/Margin/Content/ReturnHubButton
+)
 
 
 func _ready() -> void:
+	return_hub_button.pressed.connect(return_to_hub)
 	hide_result()
 
 
@@ -39,3 +47,8 @@ func show_result(
 
 func hide_result() -> void:
 	visible = false
+
+
+func return_to_hub() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file(hub_scene_path)
