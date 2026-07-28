@@ -269,15 +269,40 @@ func _run() -> void:
 
 	var pause_menu := main.get_node("PauseMenu") as PauseMenu
 	var pause_panel := pause_menu.get_node("Dimmer/Panel")
+	var pause_settings_panel := pause_menu.get_node(
+		"Dimmer/SettingsPanel"
+	)
 	if (
 		pause_menu.is_pause_visible()
 		or paused
 		or not pause_panel is TechSettingsPanel
+		or not pause_settings_panel is TechSettingsPanel
 		or not pause_menu.pause_game()
 		or not paused
 		or not pause_menu.is_pause_visible()
 	):
 		push_error("Pause menu did not pause the active run.")
+		paused = false
+		quit(1)
+		return
+
+	pause_menu.open_settings()
+	if (
+		not paused
+		or pause_panel.visible
+		or not pause_settings_panel.visible
+	):
+		push_error("In-run settings did not replace the pause panel.")
+		paused = false
+		quit(1)
+		return
+	pause_menu.apply_settings()
+	if (
+		not paused
+		or not pause_panel.visible
+		or pause_settings_panel.visible
+	):
+		push_error("In-run settings did not return to pause menu.")
 		paused = false
 		quit(1)
 		return

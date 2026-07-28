@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_script"]
 [ext_resource type="Script" path="res://scripts/ui/tech_settings_panel.gd" id="2_tech_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="3_settings_panel"]
 
 [sub_resource type="SystemFont" id="Font_bold"]
 font_names = PackedStringArray("Microsoft YaHei UI", "Noto Sans CJK SC", "Arial")
@@ -107,11 +108,11 @@ vertical_alignment = 1
 [node name="Actions" type="HBoxContainer" parent="Dimmer/Panel/Margin/Content"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-theme_override_constants/separation = 36
+theme_override_constants/separation = 18
 alignment = 1
 
 [node name="ContinueButton" type="Button" parent="Dimmer/Panel/Margin/Content/Actions"]
-custom_minimum_size = Vector2(252, 56)
+custom_minimum_size = Vector2(170, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 1, 1, 1)
 theme_override_fonts/font = SubResource("Font_bold")
@@ -122,8 +123,20 @@ theme_override_styles/pressed = SubResource("ContinueHover")
 theme_override_styles/focus = SubResource("ButtonNormal")
 text = "继续进化"
 
+[node name="SettingsButton" type="Button" parent="Dimmer/Panel/Margin/Content/Actions"]
+custom_minimum_size = Vector2(170, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.93, 0.96, 1)
+theme_override_fonts/font = SubResource("Font_bold")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("ButtonNormal")
+theme_override_styles/hover = SubResource("ButtonHover")
+theme_override_styles/pressed = SubResource("ButtonHover")
+theme_override_styles/focus = SubResource("ButtonNormal")
+text = "设置"
+
 [node name="TitleButton" type="Button" parent="Dimmer/Panel/Margin/Content/Actions"]
-custom_minimum_size = Vector2(252, 56)
+custom_minimum_size = Vector2(170, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.93, 0.96, 1)
 theme_override_fonts/font = SubResource("Font_bold")
@@ -133,3 +146,11 @@ theme_override_styles/hover = SubResource("ButtonHover")
 theme_override_styles/pressed = SubResource("ButtonHover")
 theme_override_styles/focus = SubResource("ButtonNormal")
 text = "返回标题"
+
+[node name="SettingsPanel" parent="Dimmer" instance=ExtResource("3_settings_panel")]
+visible = false
+layout_mode = 0
+offset_left = 262.0
+offset_top = 122.0
+offset_right = 1018.0
+offset_bottom = 598.0
