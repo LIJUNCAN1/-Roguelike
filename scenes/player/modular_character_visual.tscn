@@ -23,156 +23,145 @@
 [node name="ModularCharacterVisual" type="Node2D"]
 script = ExtResource("1_script")
 
-[node name="PoseSprite" type="Sprite2D" parent="."]
-z_index = 20
-
 [node name="Rig" type="Node2D" parent="."]
-position = Vector2(0, -5)
+z_index = 10
 
 [node name="Skeleton2D" type="Node2D" parent="Rig"]
 
 [node name="RootBone" type="Node2D" parent="Rig/Skeleton2D"]
 
 [node name="TailBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(42, -4)
-rotation = -0.28
+position = Vector2(85, -108)
+rotation = -0.08
 
 [node name="Tail" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/TailBone"]
 z_index = -6
-position = Vector2(29, -1)
 texture = ExtResource("2_tail")
 
 [node name="HairBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(4, -84)
+position = Vector2(25, -226)
 
 [node name="HairBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/HairBackBone"]
 z_index = -5
-position = Vector2(15, 7)
 texture = ExtResource("3_hair_back")
 
 [node name="ArmBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(31, -22)
-rotation = -0.15
+position = Vector2(25, -129)
+rotation = -0.04
 
 [node name="ArmBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmBackBone"]
 z_index = -4
-position = Vector2(23, 35)
+position = Vector2(51, 61)
 texture = ExtResource("4_arm_back")
 
 [node name="WeaponBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmBackBone"]
 z_index = -5
-position = Vector2(61, 63)
-rotation = 0.48
+position = Vector2(86, 85)
+scale = Vector2(0.62, 0.62)
 texture = ExtResource("5_weapon_back")
 
 [node name="LegBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(17, 34)
-rotation = -0.12
+position = Vector2(15, -84)
+rotation = -0.04
 
 [node name="LegBackUpper" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegBackBone"]
 z_index = -3
-position = Vector2(12, 23)
+position = Vector2(15, 34)
 texture = ExtResource("6_leg_back_upper")
 
 [node name="LegBackLowerBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/LegBackBone"]
-position = Vector2(13, 43)
+position = Vector2(13, 45)
 
 [node name="LegBackLower" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegBackBone/LegBackLowerBone"]
-position = Vector2(2, 18)
+position = Vector2(-1, -23)
 texture = ExtResource("7_leg_back_lower")
 
 [node name="FootBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/LegBackBone/LegBackLowerBone"]
-position = Vector2(1, 31)
+position = Vector2(-5, 15)
 
 [node name="FootBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegBackBone/LegBackLowerBone/FootBackBone"]
-position = Vector2(-11, 8)
+position = Vector2(0, 0)
 texture = ExtResource("8_foot_back")
 
 [node name="BodyBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(0, 0)
+position = Vector2(-8, -83)
 
 [node name="Torso" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/BodyBone"]
 z_index = 0
-position = Vector2(0, 0)
 texture = ExtResource("9_torso")
 
 [node name="LegFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(-17, 35)
-rotation = 0.12
+position = Vector2(-38, -84)
+rotation = 0.04
 
 [node name="LegFrontUpper" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegFrontBone"]
 z_index = 1
-position = Vector2(-5, 30)
+position = Vector2(-12, 67)
 texture = ExtResource("10_leg_front_upper")
 
 [node name="LegFrontLowerBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/LegFrontBone"]
-position = Vector2(-4, 46)
+position = Vector2(-7, 39)
 
 [node name="LegFrontLower" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegFrontBone/LegFrontLowerBone"]
-position = Vector2(-1, 15)
+position = Vector2(4, -15)
 texture = ExtResource("11_leg_front_lower")
 
 [node name="FootFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/LegFrontBone/LegFrontLowerBone"]
-position = Vector2(-1, 29)
+position = Vector2(-3, 16)
 
 [node name="FootFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegFrontBone/LegFrontLowerBone/FootFrontBone"]
-position = Vector2(-14, 8)
+position = Vector2(0, 0)
 texture = ExtResource("12_foot_front")
 
 [node name="HeadBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(-5, -82)
+position = Vector2(-38, -206)
 
 [node name="Face" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/HeadBone"]
 z_index = 2
-position = Vector2(-8, 0)
 texture = ExtResource("13_face")
 
 [node name="EarBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(26, -135)
-rotation = 0.05
+position = Vector2(27, -267)
+rotation = 0.02
 
 [node name="EarBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/EarBackBone"]
 z_index = -2
 texture = ExtResource("14_ear_back")
 
 [node name="EarFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(-32, -134)
-rotation = -0.05
+position = Vector2(-89, -263)
+rotation = -0.02
 
 [node name="EarFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/EarFrontBone"]
 z_index = 3
 texture = ExtResource("15_ear_front")
 
 [node name="HairFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(-2, -93)
+position = Vector2(-22, -226)
 
 [node name="HairSide" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/HairFrontBone"]
 z_index = 4
-position = Vector2(-1, -4)
-scale = Vector2(0.92, 0.92)
 texture = ExtResource("16_hair_side")
 
 [node name="ScarfBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(2, -47)
-rotation = -0.06
+position = Vector2(14, -129)
+rotation = -0.02
 
 [node name="Scarf" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ScarfBone"]
 z_index = 5
-position = Vector2(18, 22)
-scale = Vector2(0.66, 0.66)
 texture = ExtResource("17_scarf")
 
 [node name="ArmFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
-position = Vector2(-35, -20)
-rotation = 0.16
+position = Vector2(-54, -128)
+rotation = 0.04
 
 [node name="ArmFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmFrontBone"]
 z_index = 6
-position = Vector2(-24, 35)
+position = Vector2(-28, 64)
 texture = ExtResource("18_arm_front")
 
 [node name="WeaponFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmFrontBone"]
 z_index = 7
-position = Vector2(-67, 62)
-rotation = -0.42
+position = Vector2(-38, 94)
+scale = Vector2(0.62, 0.62)
 texture = ExtResource("19_weapon_front")

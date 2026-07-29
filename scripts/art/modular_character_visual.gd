@@ -1,13 +1,52 @@
 class_name ModularCharacterVisual
 extends Node2D
 
+const REFERENCE_PART_SIZES := {
+	&"tail": Vector2(106.0, 122.0),
+	&"hair_back": Vector2(180.0, 169.0),
+	&"arm_back": Vector2(128.0, 145.0),
+	&"weapon_back": Vector2(117.0, 85.0),
+	&"leg_back_upper": Vector2(83.0, 77.0),
+	&"leg_back_lower": Vector2(53.0, 55.0),
+	&"foot_back": Vector2(44.0, 47.0),
+	&"torso": Vector2(132.0, 127.0),
+	&"leg_front_upper": Vector2(89.0, 144.0),
+	&"leg_front_lower": Vector2(59.0, 62.0),
+	&"foot_front": Vector2(71.0, 54.0),
+	&"face": Vector2(132.0, 128.0),
+	&"ear_back": Vector2(64.0, 87.0),
+	&"ear_front": Vector2(67.0, 97.0),
+	&"hair_side": Vector2(216.0, 178.0),
+	&"scarf": Vector2(184.0, 79.0),
+	&"arm_front": Vector2(149.0, 146.0),
+	&"weapon_front": Vector2(115.0, 79.0),
+}
+const REFERENCE_DRAW_LAYERS := {
+	&"tail": -9,
+	&"weapon_back": -8,
+	&"arm_back": -7,
+	&"ear_back": -6,
+	&"hair_back": -5,
+	&"leg_back_upper": -4,
+	&"leg_back_lower": -4,
+	&"foot_back": -4,
+	&"leg_front_upper": -3,
+	&"leg_front_lower": -3,
+	&"foot_front": -3,
+	&"torso": -2,
+	&"face": 0,
+	&"ear_front": 1,
+	&"hair_side": 2,
+	&"scarf": 3,
+	&"arm_front": 4,
+	&"weapon_front": 5,
+}
+
 @export var base_evolution_id: StringName = &"base_life"
 @export_range(0.05, 1.0, 0.01) var visual_scale: float = 0.16
-@export var use_complete_pose_sprites: bool = true
 
 @onready var actor := get_parent().get_parent() as CharacterBody2D
 @onready var visual_root := get_parent() as Node2D
-@onready var pose_sprite: Sprite2D = $PoseSprite
 @onready var rig: Node2D = $Rig
 @onready var root_bone: Node2D = $Rig/Skeleton2D/RootBone
 @onready var body_bone: Node2D = $Rig/Skeleton2D/RootBone/BodyBone
@@ -68,17 +107,13 @@ var idle_face: Texture2D
 var attack_face: Texture2D
 var hurt_face: Texture2D
 var death_face: Texture2D
-var idle_pose: Texture2D
-var run_pose: Texture2D
-var attack_pose: Texture2D
-var dash_pose: Texture2D
-var hurt_pose: Texture2D
-var death_pose: Texture2D
 
 
 func _ready() -> void:
 	_cache_rest_pose()
 	_cache_parts()
+	_apply_reference_part_scales()
+	_apply_reference_draw_layers()
 	idle_face = preload(
 		"res://assets/sprites/player/shadow_blade_parts/"
 		+ "face_idle_left.png"
@@ -95,26 +130,7 @@ func _ready() -> void:
 		"res://assets/sprites/player/shadow_blade_parts/"
 		+ "face_death_left.png"
 	)
-	idle_pose = preload(
-		"res://assets/sprites/player/shadow_blade_poses/idle_left.png"
-	)
-	run_pose = preload(
-		"res://assets/sprites/player/shadow_blade_poses/run_left.png"
-	)
-	attack_pose = preload(
-		"res://assets/sprites/player/shadow_blade_poses/attack_left.png"
-	)
-	dash_pose = preload(
-		"res://assets/sprites/player/shadow_blade_poses/dash_left.png"
-	)
-	hurt_pose = preload(
-		"res://assets/sprites/player/shadow_blade_poses/hurt_left.png"
-	)
-	death_pose = preload(
-		"res://assets/sprites/player/shadow_blade_poses/death_left.png"
-	)
-	rig.visible = not use_complete_pose_sprites
-	pose_sprite.visible = use_complete_pose_sprites
+	rig.visible = true
 	_connect_actor_signals()
 	if facing_marker != null:
 		facing_marker.visible = false
@@ -144,6 +160,7 @@ func set_part_texture(part_id: StringName, texture: Texture2D) -> bool:
 	if sprite == null:
 		return false
 	sprite.texture = texture
+	_fit_part_to_reference(part_id, sprite)
 	return true
 
 
@@ -199,28 +216,59 @@ func _cache_parts() -> void:
 		part_sprites[StringName(part.name.to_snake_case())] = part
 
 
-func _apply_pose(moving: bool) -> void:
-	if use_complete_pose_sprites:
-		_apply_complete_pose(moving)
+func _apply_reference_part_scales() -> void:
+	for part_id in part_sprites:
+		_fit_part_to_reference(
+			part_id,
+			part_sprites[part_id] as Sprite2D
+		)
+
+
+func _apply_reference_draw_layers() -> void:
+	for part_id in REFERENCE_DRAW_LAYERS:
+		var sprite := part_sprites.get(part_id) as Sprite2D
+		if sprite != null:
+			sprite.z_index = int(REFERENCE_DRAW_LAYERS[part_id])
+
+
+func _fit_part_to_reference(
+	part_id: StringName,
+	sprite: Sprite2D
+) -> void:
+	if (
+		sprite == null
+		or sprite.texture == null
+		or not REFERENCE_PART_SIZES.has(part_id)
+	):
 		return
+	var texture_size := sprite.texture.get_size()
+	if texture_size.x <= 0.0 or texture_size.y <= 0.0:
+		return
+	var target_size := REFERENCE_PART_SIZES[part_id] as Vector2
+	var fit_scale := minf(
+		target_size.x / texture_size.x,
+		target_size.y / texture_size.y
+	)
+	sprite.scale = Vector2.ONE * fit_scale
+
+
+func _apply_pose(moving: bool) -> void:
 	_reset_pose()
 	var step := sin(locomotion_phase)
-	var bounce := absf(step)
 	if moving:
-		root_bone.position.y -= bounce * 5.0
-		body_bone.rotation = step * 0.035
-		head_bone.position.y -= bounce * 1.8
-		head_bone.rotation = -step * 0.025
-		leg_front_bone.rotation = step * 0.24
-		leg_back_bone.rotation = -step * 0.24
-		arm_front_bone.rotation = -step * 0.16
-		arm_back_bone.rotation = step * 0.16
-		tail_bone.rotation += sin(locomotion_phase * 0.72) * 0.12
-		scarf_bone.rotation += -0.08 - bounce * 0.04
+		# Keep the root and head on the same pixel while walking. Moving the
+		# whole high-resolution cutout by fractional pixels caused visible
+		# shaking after the project pixel-snap pass.
+		root_bone.rotation = -0.06 * facing_sign
+		body_bone.rotation = step * 0.012
+		leg_front_bone.rotation = step * 0.32
+		leg_back_bone.rotation = -step * 0.32
+		arm_front_bone.rotation = -step * 0.19
+		arm_back_bone.rotation = step * 0.19
+		tail_bone.rotation += sin(locomotion_phase * 0.72) * 0.08
+		scarf_bone.rotation -= 0.06
 	else:
 		var breath := sin(locomotion_phase)
-		root_bone.position.y -= breath * 1.5
-		body_bone.scale = Vector2(1.0 + breath * 0.012, 1.0)
 		head_bone.rotation = breath * 0.012
 		tail_bone.rotation += breath * 0.09
 		ear_back_bone.rotation -= breath * 0.025
@@ -239,56 +287,6 @@ func _apply_pose(moving: bool) -> void:
 		&"death":
 			_apply_death_pose()
 
-
-func _apply_complete_pose(moving: bool) -> void:
-	var texture := run_pose if moving else idle_pose
-	var x_offset := 0.0
-	var extra_y := -absf(sin(locomotion_phase)) * 1.2 if moving else (
-		-sin(locomotion_phase) * 0.35
-	)
-	match current_action:
-		&"attack":
-			var progress := clampf(
-				action_elapsed / action_duration,
-				0.0,
-				1.0
-			)
-			texture = attack_pose if progress < 0.78 else idle_pose
-			x_offset = -40.0 if progress < 0.78 else 0.0
-			x_offset -= sin(progress * PI) * 9.0
-		&"dash":
-			texture = dash_pose
-			x_offset = 60.0
-			extra_y -= 1.5
-		&"hurt":
-			texture = hurt_pose
-			x_offset = sin(
-				action_elapsed / action_duration * PI * 6.0
-			) * 4.0
-		&"death":
-			texture = death_pose
-			extra_y = 0.0
-	_set_complete_pose_texture(texture, x_offset, extra_y)
-
-
-func _set_complete_pose_texture(
-	texture: Texture2D,
-	source_x_offset: float,
-	extra_y: float
-) -> void:
-	if texture == null:
-		return
-	pose_sprite.texture = texture
-	pose_sprite.scale = Vector2(
-		visual_scale * facing_sign,
-		visual_scale
-	)
-	pose_sprite.position = Vector2(
-		source_x_offset * visual_scale * facing_sign,
-		-texture.get_height() * visual_scale * 0.5 + 1.0 + extra_y
-	)
-
-
 func _reset_pose() -> void:
 	rig.scale = Vector2(visual_scale * facing_sign, visual_scale)
 	rig.position = Vector2.ZERO
@@ -305,7 +303,6 @@ func _apply_attack_pose() -> void:
 	var strike := sin(progress * PI)
 	_set_face(attack_face)
 	root_bone.rotation = -0.08 * strike
-	root_bone.position.x -= 7.0 * strike
 	arm_front_bone.rotation += 1.2 * strike
 	arm_back_bone.rotation -= 0.42 * strike
 	head_bone.rotation += 0.08 * strike
@@ -316,20 +313,18 @@ func _apply_dash_pose() -> void:
 	var progress := clampf(action_elapsed / action_duration, 0.0, 1.0)
 	var pulse := sin(progress * PI)
 	root_bone.rotation = -0.17
-	root_bone.position.x -= 10.0 * pulse
-	root_bone.position.y += 3.0
-	arm_front_bone.rotation += 0.48
-	arm_back_bone.rotation += 0.36
-	leg_front_bone.rotation -= 0.42
-	leg_back_bone.rotation += 0.48
-	tail_bone.rotation += 0.34
-	scarf_bone.rotation -= 0.35
+	body_bone.rotation -= 0.05 * pulse
+	arm_front_bone.rotation += 0.48 * pulse
+	arm_back_bone.rotation += 0.36 * pulse
+	leg_front_bone.rotation -= 0.42 * pulse
+	leg_back_bone.rotation += 0.48 * pulse
+	tail_bone.rotation += 0.34 * pulse
+	scarf_bone.rotation -= 0.35 * pulse
 
 
 func _apply_hurt_pose() -> void:
 	var progress := clampf(action_elapsed / action_duration, 0.0, 1.0)
 	_set_face(hurt_face)
-	root_bone.position.x += sin(progress * PI * 6.0) * 5.0
 	root_bone.rotation = 0.12 * sin(progress * PI)
 	arm_front_bone.rotation += 0.4
 	arm_back_bone.rotation -= 0.32
