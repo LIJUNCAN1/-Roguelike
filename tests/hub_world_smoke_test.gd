@@ -55,12 +55,21 @@ func _run() -> void:
 
 	var y_sort_root := hub.get_node("YSortRoot") as Node2D
 	var stations := hub.get_node("YSortRoot/Stations") as Node2D
+	var minimap := hub.get_node(
+		"HUDLayer/HubMinimap"
+	) as HubMinimapPresenter
 	if (
 		not y_sort_root.y_sort_enabled
 		or not stations.y_sort_enabled
 		or player.get_parent() != y_sort_root
+		or minimap == null
+		or minimap.size != Vector2(176, 132)
+		or minimap.get_facility_count() != 6
+		or not Rect2(Vector2.ZERO, minimap.size).has_point(
+			minimap.get_player_marker_position()
+		)
 	):
-		_fail("Hub Y sorting hierarchy is invalid.")
+		_fail("Hub Y sorting hierarchy or minimap is invalid.")
 		return
 
 	if (
@@ -139,6 +148,22 @@ func _run() -> void:
 		await process_frame
 		if (
 			not hub.interaction_prompt.visible
+			or interactable.highlight.visible
+			or not (
+				interactable.get_node(
+					"CollisionShape2D"
+				) as CollisionShape2D
+			).shape is CircleShape2D
+			or not is_equal_approx(
+				(
+					(
+						interactable.get_node(
+							"CollisionShape2D"
+						) as CollisionShape2D
+					).shape as CircleShape2D
+				).radius,
+				90.0
+			)
 			or not hub.interaction_prompt.prompt_label.text.contains(
 				interactable.display_name
 			)
@@ -175,6 +200,25 @@ func _run() -> void:
 		_fail("Hub codex facility did not open.")
 		return
 	hub._close_facility_panels()
+
+	var pause_menu := hub.get_node("PauseMenu") as PauseMenu
+	var pause_event := InputEventAction.new()
+	pause_event.action = &"pause_game"
+	pause_event.pressed = true
+	pause_menu._unhandled_input(pause_event)
+	if (
+		not paused
+		or not pause_menu.is_pause_visible()
+		or pause_menu.title_scene_path
+		!= "res://scenes/ui/title_screen.tscn"
+		or pause_menu.title_button.text != "返回标题"
+	):
+		_fail("Hub pause menu could not be opened.")
+		return
+	pause_menu._unhandled_input(pause_event)
+	if paused or pause_menu.is_pause_visible():
+		_fail("Hub pause menu could not be closed.")
+		return
 
 	var health_bar := player.get_node(
 		"HealthComponent"

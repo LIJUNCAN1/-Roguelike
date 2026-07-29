@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=23 format=3]
 
 [ext_resource type="Script" path="res://scripts/hub/hub_world.gd" id="1_hub"]
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="2_player"]
@@ -8,6 +8,8 @@
 [ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="6_gene_pool"]
 [ext_resource type="Script" path="res://scripts/hub/hub_codex_panel.gd" id="7_hub_codex"]
 [ext_resource type="Texture2D" path="res://reference/hub_map_reference.png" id="8_reference"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hub_minimap.tscn" id="9_minimap"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="10_pause"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal_bound"]
 size = Vector2(1600, 40)
@@ -549,6 +551,9 @@ process_mode = 3
 
 [node name="InteractionPrompt" parent="HUDLayer" instance=ExtResource("4_prompt")]
 
+[node name="HubMinimap" parent="HUDLayer" instance=ExtResource("9_minimap")]
+player_path = NodePath("../../YSortRoot/Player")
+
 [node name="MetaUpgradeDimmer" type="ColorRect" parent="HUDLayer"]
 visible = false
 offset_right = 1280.0
@@ -652,3 +657,7 @@ scroll_active = false
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 text = "返回大厅"
+
+[node name="PauseMenu" parent="." instance=ExtResource("10_pause")]
+title_scene_path = "res://scenes/ui/title_screen.tscn"
+return_button_text = "返回标题"

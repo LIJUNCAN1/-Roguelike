@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/common/interactable.gd" id="1_script"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_interaction"]
-radius = 58.0
+radius = 90.0
 
 [node name="Interactable" type="Area2D"]
 collision_layer = 0

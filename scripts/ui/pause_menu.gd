@@ -6,6 +6,7 @@ signal pause_changed(is_paused: bool)
 @export_file("*.tscn") var title_scene_path: String = (
 	"res://scenes/hub/hub_world.tscn"
 )
+@export var return_button_text := "返回主大厅"
 
 @onready var dimmer: Control = $Dimmer
 @onready var pause_panel: Control = $Dimmer/Panel
@@ -55,6 +56,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	dimmer.visible = false
 	settings_panel.visible = false
+	title_button.text = return_button_text
 	continue_button.pressed.connect(resume_game)
 	settings_button.pressed.connect(open_settings)
 	title_button.pressed.connect(return_to_title)

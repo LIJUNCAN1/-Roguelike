@@ -17,7 +17,6 @@ signal focus_exited(interactable: Interactable, actor: Node)
 @onready var highlight: Node2D = $Highlight
 
 var current_actor: Node
-var _highlight_tween: Tween
 
 
 func _ready() -> void:
@@ -27,7 +26,6 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	highlight.visible = false
-	_start_highlight_animation()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -55,7 +53,6 @@ func _on_body_entered(body: Node) -> void:
 	if not enabled or not _is_player(body):
 		return
 	current_actor = body
-	highlight.visible = true
 	focus_entered.emit(self, body)
 
 
@@ -77,21 +74,3 @@ func _is_player(body: Node) -> bool:
 		body is CharacterBody2D
 		and body.get_node_or_null("MovementComponent") != null
 	)
-
-
-func _start_highlight_animation() -> void:
-	if _highlight_tween != null:
-		_highlight_tween.kill()
-	_highlight_tween = create_tween().set_loops()
-	_highlight_tween.tween_property(
-		highlight,
-		"position:y",
-		-6.0,
-		0.8
-	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	_highlight_tween.tween_property(
-		highlight,
-		"position:y",
-		2.0,
-		0.8
-	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
