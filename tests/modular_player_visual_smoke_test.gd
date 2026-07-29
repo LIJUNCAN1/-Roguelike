@@ -32,7 +32,10 @@ func _run() -> void:
 
 	player.velocity = Vector2.LEFT * 100.0
 	modular._process(0.1)
-	if modular.facing_sign != 1.0:
+	if (
+		modular.facing_sign != 1.0
+		or modular.pose_sprite.texture != modular.run_pose
+	):
 		push_error("Left-facing modular animation is invalid.")
 		quit(1)
 		return
@@ -61,7 +64,10 @@ func _run() -> void:
 
 	modular.play_action(&"attack", 0.28)
 	modular._process(0.05)
-	if modular.current_action != &"attack":
+	if (
+		modular.current_action != &"attack"
+		or modular.pose_sprite.texture != modular.attack_pose
+	):
 		push_error("Modular attack animation did not start.")
 		quit(1)
 		return
@@ -81,7 +87,7 @@ func _run() -> void:
 		quit(1)
 		return
 	modular._process(0.6)
-	if absf(modular.root_bone.rotation) < 1.0:
+	if modular.pose_sprite.texture != modular.death_pose:
 		push_error("Modular death pose did not progress.")
 		quit(1)
 		return

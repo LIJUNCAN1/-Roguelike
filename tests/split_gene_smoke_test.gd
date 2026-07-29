@@ -19,6 +19,12 @@ func _run() -> void:
 
 	var player := main.get_node("World/Player") as CharacterBody2D
 	var gene_manager := player.get_node("GeneManager") as GeneManager
+	var weapon_component := player.get_node(
+		"WeaponComponent"
+	) as WeaponComponent
+	var base_damage := (
+		weapon_component.weapon_data.projectile_data.damage
+	)
 	var projectiles := main.get_node("World/Projectiles") as Node2D
 	var gene_status := main.get_node(
 		"Interface/StagePanel/MarginContainer/Labels/GeneStatus"
@@ -59,7 +65,7 @@ func _run() -> void:
 		quit(1)
 		return
 
-	for _frame_index in 15:
+	for _frame_index in 30:
 		await physics_frame
 
 	if not gene_manager.add_gene(fire_gene):
@@ -73,12 +79,12 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if projectiles.get_child_count() != 6:
-		push_error("Combined attack did not add three projectiles.")
+	if projectiles.get_child_count() != 3:
+		push_error("Combined melee attack did not create three slashes.")
 		quit(1)
 		return
 
-	for child_index in range(3, 6):
+	for child_index in range(3):
 		var projectile := (
 			projectiles.get_child(child_index) as Projectile
 		)
@@ -90,7 +96,10 @@ func _run() -> void:
 			quit(1)
 			return
 
-		if not is_equal_approx(projectile.projectile_data.damage, 15.0):
+		if not is_equal_approx(
+			projectile.projectile_data.damage,
+			base_damage * 1.5
+		):
 			push_error("Fire damage was not inherited by split shots.")
 			quit(1)
 			return

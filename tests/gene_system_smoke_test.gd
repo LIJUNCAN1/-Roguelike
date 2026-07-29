@@ -30,12 +30,18 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if not is_equal_approx(base_projectile.projectile_data.damage, 10.0):
+	var base_damage := (
+		weapon_component.weapon_data.projectile_data.damage
+	)
+	if not is_equal_approx(
+		base_projectile.projectile_data.damage,
+		base_damage
+	):
 		push_error("Base projectile damage changed before adding a gene.")
 		quit(1)
 		return
 
-	for _frame_index in 15:
+	for _frame_index in 30:
 		await physics_frame
 
 	if not gene_manager.add_gene(fire_gene):
@@ -50,7 +56,10 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if not is_equal_approx(fire_projectile.projectile_data.damage, 15.0):
+	if not is_equal_approx(
+		fire_projectile.projectile_data.damage,
+		base_damage * 1.5
+	):
 		push_error("Fire gene did not modify projectile damage.")
 		quit(1)
 		return
@@ -72,7 +81,7 @@ func _run() -> void:
 
 	if not is_equal_approx(
 		weapon_component.weapon_data.projectile_data.damage,
-		10.0
+		base_damage
 	):
 		push_error("Gene effect mutated the base weapon data.")
 		quit(1)

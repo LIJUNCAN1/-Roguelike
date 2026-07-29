@@ -59,7 +59,7 @@ func _run() -> void:
 		or not status_label.text.contains("重孢炮")
 		or weapon_slots.active_slot != 1
 		or weapon_slots.get_slot_organ(0) == null
-		or weapon_slots.get_slot_organ(0).id != &"needle_organ"
+		or weapon_slots.get_slot_organ(0).id != &"twin_blade_organ"
 		or weapon_slots.get_slot_organ(1) == null
 		or weapon_slots.get_slot_organ(1).id != &"heavy_spore_organ"
 	):
@@ -101,7 +101,7 @@ func _run() -> void:
 		push_error("Weapon organ could not reset to default.")
 		quit(1)
 		return
-	if not weapon_manager.is_organ(&"needle_organ"):
+	if not weapon_manager.is_organ(&"twin_blade_organ"):
 		push_error("Default weapon organ was not restored.")
 		quit(1)
 		return

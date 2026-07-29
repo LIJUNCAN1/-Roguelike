@@ -65,7 +65,7 @@ func _run() -> void:
 	if (
 		weapon_room.is_completed
 		or weapon_room.selected_organ == null
-		or weapon_room.selected_organ.id != &"needle_organ"
+		or weapon_room.selected_organ.id != &"twin_blade_organ"
 	):
 		push_error("Physical weapon chamber did not select an organ.")
 		quit(1)

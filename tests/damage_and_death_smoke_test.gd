@@ -15,8 +15,15 @@ func _run() -> void:
 	var player := main.get_node("World/Player") as CharacterBody2D
 	var enemy := combat_room.get_node("TestChaser") as CharacterBody2D
 	var health := enemy.get_node("HealthComponent") as HealthComponent
+	var weapon_component := player.get_node(
+		"WeaponComponent"
+	) as WeaponComponent
+	var base_damage := (
+		weapon_component.weapon_data.projectile_data.damage
+	)
 	enemy.set_target(null)
-	health.configure(20.0)
+	enemy.global_position = player.global_position + Vector2(28, 0)
+	health.configure(base_damage * 2.0)
 
 	player.aim_at(enemy.global_position)
 	if player.fire() == null:
@@ -24,11 +31,13 @@ func _run() -> void:
 		quit(1)
 		return
 
-	if not await _wait_for_health(health, 10.0):
+	if not await _wait_for_health(health, base_damage):
 		push_error("Projectile did not apply data-driven damage.")
 		quit(1)
 		return
 
+	for _frame_index in 30:
+		await physics_frame
 	player.aim_at(enemy.global_position)
 	if player.fire() == null:
 		push_error("Second damage test projectile was not created.")

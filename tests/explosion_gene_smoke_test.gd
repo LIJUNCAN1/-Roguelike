@@ -29,9 +29,9 @@ func _run() -> void:
 	primary.set_target(null)
 	nearby.set_target(null)
 	distant.set_target(null)
-	primary.global_position = Vector2(440, 180)
-	nearby.global_position = Vector2(460, 200)
-	distant.global_position = Vector2(550, 260)
+	primary.global_position = player.global_position + Vector2(28, 0)
+	nearby.global_position = player.global_position + Vector2(48, 20)
+	distant.global_position = player.global_position + Vector2(130, 80)
 
 	if not gene_manager.add_gene(explosion_gene):
 		push_error("Explosion gene could not be added.")
@@ -55,7 +55,10 @@ func _run() -> void:
 		var nearby_health := _get_health(nearby)
 		var distant_health := _get_health(distant)
 		if (
-			is_equal_approx(primary_health, initial_health - 18.0)
+			is_equal_approx(
+				primary_health,
+				initial_health - projectile.projectile_data.damage - 8.0
+			)
 			and is_equal_approx(nearby_health, initial_health - 8.0)
 			and is_equal_approx(distant_health, initial_health)
 		):

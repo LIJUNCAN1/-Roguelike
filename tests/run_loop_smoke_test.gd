@@ -79,7 +79,7 @@ func _run() -> void:
 		or not is_equal_approx(health.current_health, health.max_health)
 		or not gene_manager.get_active_genes().is_empty()
 		or not relic_manager.get_active_relics().is_empty()
-		or not weapon_manager.is_organ(&"needle_organ")
+		or not weapon_manager.is_organ(&"twin_blade_organ")
 		or not character_manager.is_character(&"original_life")
 		or not companion_manager.is_companion(&"solo_evolution")
 		or companion_manager.active_companion != null

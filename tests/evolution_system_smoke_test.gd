@@ -13,6 +13,12 @@ func _run() -> void:
 
 	var player := main.get_node("World/Player") as CharacterBody2D
 	var gene_manager := player.get_node("GeneManager") as GeneManager
+	var weapon_component := player.get_node(
+		"WeaponComponent"
+	) as WeaponComponent
+	var base_damage := (
+		weapon_component.weapon_data.projectile_data.damage
+	)
 	var evolution_system := player.get_node(
 		"EvolutionSystem"
 	) as EvolutionSystem
@@ -61,7 +67,7 @@ func _run() -> void:
 		quit(1)
 		return
 
-	for _frame_index in 15:
+	for _frame_index in 30:
 		await physics_frame
 
 	gene_manager.add_gene(
@@ -93,7 +99,7 @@ func _run() -> void:
 		)
 		or not is_equal_approx(
 			dragon_projectile.projectile_data.damage,
-			22.5
+			base_damage * 2.25
 		)
 	):
 		push_error("Fire dragon attack upgrade was not applied.")

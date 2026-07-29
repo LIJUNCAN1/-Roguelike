@@ -3,9 +3,11 @@ extends Node2D
 
 @export var base_evolution_id: StringName = &"base_life"
 @export_range(0.05, 1.0, 0.01) var visual_scale: float = 0.16
+@export var use_complete_pose_sprites: bool = true
 
 @onready var actor := get_parent().get_parent() as CharacterBody2D
 @onready var visual_root := get_parent() as Node2D
+@onready var pose_sprite: Sprite2D = $PoseSprite
 @onready var rig: Node2D = $Rig
 @onready var root_bone: Node2D = $Rig/Skeleton2D/RootBone
 @onready var body_bone: Node2D = $Rig/Skeleton2D/RootBone/BodyBone
@@ -66,6 +68,12 @@ var idle_face: Texture2D
 var attack_face: Texture2D
 var hurt_face: Texture2D
 var death_face: Texture2D
+var idle_pose: Texture2D
+var run_pose: Texture2D
+var attack_pose: Texture2D
+var dash_pose: Texture2D
+var hurt_pose: Texture2D
+var death_pose: Texture2D
 
 
 func _ready() -> void:
@@ -87,6 +95,26 @@ func _ready() -> void:
 		"res://assets/sprites/player/shadow_blade_parts/"
 		+ "face_death_left.png"
 	)
+	idle_pose = preload(
+		"res://assets/sprites/player/shadow_blade_poses/idle_left.png"
+	)
+	run_pose = preload(
+		"res://assets/sprites/player/shadow_blade_poses/run_left.png"
+	)
+	attack_pose = preload(
+		"res://assets/sprites/player/shadow_blade_poses/attack_left.png"
+	)
+	dash_pose = preload(
+		"res://assets/sprites/player/shadow_blade_poses/dash_left.png"
+	)
+	hurt_pose = preload(
+		"res://assets/sprites/player/shadow_blade_poses/hurt_left.png"
+	)
+	death_pose = preload(
+		"res://assets/sprites/player/shadow_blade_poses/death_left.png"
+	)
+	rig.visible = not use_complete_pose_sprites
+	pose_sprite.visible = use_complete_pose_sprites
 	_connect_actor_signals()
 	if facing_marker != null:
 		facing_marker.visible = false
@@ -172,6 +200,9 @@ func _cache_parts() -> void:
 
 
 func _apply_pose(moving: bool) -> void:
+	if use_complete_pose_sprites:
+		_apply_complete_pose(moving)
+		return
 	_reset_pose()
 	var step := sin(locomotion_phase)
 	var bounce := absf(step)
@@ -207,6 +238,55 @@ func _apply_pose(moving: bool) -> void:
 			_apply_hurt_pose()
 		&"death":
 			_apply_death_pose()
+
+
+func _apply_complete_pose(moving: bool) -> void:
+	var texture := run_pose if moving else idle_pose
+	var x_offset := 0.0
+	var extra_y := -absf(sin(locomotion_phase)) * 1.2 if moving else (
+		-sin(locomotion_phase) * 0.35
+	)
+	match current_action:
+		&"attack":
+			var progress := clampf(
+				action_elapsed / action_duration,
+				0.0,
+				1.0
+			)
+			texture = attack_pose if progress < 0.78 else idle_pose
+			x_offset = -40.0 if progress < 0.78 else 0.0
+			x_offset -= sin(progress * PI) * 9.0
+		&"dash":
+			texture = dash_pose
+			x_offset = 60.0
+			extra_y -= 1.5
+		&"hurt":
+			texture = hurt_pose
+			x_offset = sin(
+				action_elapsed / action_duration * PI * 6.0
+			) * 4.0
+		&"death":
+			texture = death_pose
+			extra_y = 0.0
+	_set_complete_pose_texture(texture, x_offset, extra_y)
+
+
+func _set_complete_pose_texture(
+	texture: Texture2D,
+	source_x_offset: float,
+	extra_y: float
+) -> void:
+	if texture == null:
+		return
+	pose_sprite.texture = texture
+	pose_sprite.scale = Vector2(
+		visual_scale * facing_sign,
+		visual_scale
+	)
+	pose_sprite.position = Vector2(
+		source_x_offset * visual_scale * facing_sign,
+		-texture.get_height() * visual_scale * 0.5 + 1.0 + extra_y
+	)
 
 
 func _reset_pose() -> void:

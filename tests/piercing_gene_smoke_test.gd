@@ -17,15 +17,19 @@ func _run() -> void:
 	var combat_room := TestRoomHelpers.enter_combat_room(main)
 	var player := main.get_node("World/Player") as CharacterBody2D
 	var gene_manager := player.get_node("GeneManager") as GeneManager
+	var weapon_component := player.get_node(
+		"WeaponComponent"
+	) as WeaponComponent
+	var base_data := weapon_component.weapon_data.projectile_data
 	var enemies: Array[EnemyController] = [
 		combat_room.get_node("TestChaser") as EnemyController,
 		combat_room.get_node("TestChaserUpper") as EnemyController,
 		combat_room.get_node("TestChaserLower") as EnemyController,
 	]
 	var enemy_positions := [
-		Vector2(390, 180),
-		Vector2(460, 180),
-		Vector2(530, 180),
+		player.global_position + Vector2(18, -8),
+		player.global_position + Vector2(28, 0),
+		player.global_position + Vector2(18, 8),
 	]
 
 	for index in enemies.size():
@@ -45,7 +49,7 @@ func _run() -> void:
 		return
 
 	if (
-		projectile.projectile_data.max_hits != 3
+		projectile.projectile_data.max_hits != base_data.max_hits + 2
 		or not projectile.attack_tags.has(&"piercing")
 	):
 		push_error("Piercing projectile data was not modified.")
@@ -56,7 +60,7 @@ func _run() -> void:
 		await physics_frame
 		if _all_enemies_at_health(
 			enemies,
-			enemies[0].health_component.max_health - 10.0
+			enemies[0].health_component.max_health - base_data.damage
 		):
 			print("Piercing gene smoke test passed.")
 			quit()

@@ -25,6 +25,7 @@ func _run() -> void:
 		"Interface/PlayerVitals/Frame/HealthText"
 	) as Label
 	enemy.set_target(null)
+	enemy.global_position = player.global_position + Vector2(28, 0)
 	player_health.take_damage(50.0)
 
 	if not gene_manager.add_gene(lifesteal_gene):
@@ -42,10 +43,18 @@ func _run() -> void:
 		quit(1)
 		return
 
+	var expected_health := (
+		50.0 + projectile.projectile_data.damage * 0.7
+	)
 	for _frame_index in 120:
 		await physics_frame
-		if is_equal_approx(player_health.current_health, 57.0):
-			if not health_status.text.contains("57"):
+		if is_equal_approx(
+			player_health.current_health,
+			expected_health
+		):
+			if not health_status.text.contains(
+				str(roundi(expected_health))
+			):
 				push_error("Player health UI did not show lifesteal.")
 				quit(1)
 				return
