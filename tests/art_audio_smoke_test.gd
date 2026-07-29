@@ -17,13 +17,22 @@ func _run() -> void:
 	var player_presenter := player.get_node(
 		"PixelActorPresenter"
 	) as PixelActorPresenter
+	var modular_player := player.get_node_or_null(
+		"Visuals/ModularCharacterVisual"
+	) as ModularCharacterVisual
+	var modular_base_active: bool = (
+		modular_player != null
+		and modular_player.visible
+		and modular_player.is_base_form
+		and not player_presenter.sprite.visible
+		and player.get_node("Visuals").visible
+	)
 	if (
-		not player_presenter.sprite.visible
+		not modular_base_active
 		or player_presenter.visual_data == null
 		or player_presenter.sprite.texture == null
-		or player.get_node("Visuals").visible
 	):
-		push_error("Player pixel visual replacement was not active.")
+		push_error("Player modular visual replacement was not active.")
 		quit(1)
 		return
 

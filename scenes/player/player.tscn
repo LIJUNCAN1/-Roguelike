@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3]
+[gd_scene load_steps=57 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/player_controller.gd" id="1_player_controller"]
 [ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2_movement_component"]
@@ -54,6 +54,7 @@
 [ext_resource type="Resource" path="res://data/fusions/mechanical_dragon_fusion.tres" id="52_fusion"]
 [ext_resource type="Resource" path="res://data/fusions/plague_devourer_fusion.tres" id="53_fusion"]
 [ext_resource type="Resource" path="res://data/fusions/adaptive_lancer_fusion.tres" id="54_fusion"]
+[ext_resource type="PackedScene" path="res://scenes/player/modular_character_visual.tscn" id="55_modular_visual"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 7.0
@@ -155,6 +156,8 @@ default_companion = ExtResource("22_solo")
 position = Vector2(0, 7)
 polygon = PackedVector2Array(-7, 0, -4, -3, 4, -3, 7, 0, 4, 3, -4, 3)
 color = Color(0.015, 0.02, 0.03, 0.55)
+
+[node name="ModularCharacterVisual" parent="Visuals" instance=ExtResource("55_modular_visual")]
 
 [node name="FormAnchor" type="Node2D" parent="Visuals"]
 
