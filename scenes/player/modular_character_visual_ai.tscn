@@ -1,0 +1,193 @@
+[gd_scene load_steps=25 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/modular_character_visual.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/tail.png" id="2_tail"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/scarf_back.png" id="3_scarf_back"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/hair_back.png" id="4_hair_back"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/ear_back.png" id="5_ear_back"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/arm_back_upper.png" id="6_arm_back_upper"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/arm_back_lower.png" id="7_arm_back_lower"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/hand_back.png" id="8_hand_back"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/weapon_front.png" id="9_weapon_back"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/leg_back_upper.png" id="10_leg_back_upper"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/leg_back_lower.png" id="11_leg_back_lower"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/foot_back.png" id="12_foot_back"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/torso.png" id="13_torso"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/leg_front_upper.png" id="14_leg_front_upper"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/leg_front_lower.png" id="15_leg_front_lower"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/foot_front.png" id="16_foot_front"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/face.png" id="17_face"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/ear_front.png" id="18_ear_front"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/hair_front.png" id="19_hair_front"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/scarf_front.png" id="20_scarf_front"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/arm_front_upper.png" id="21_arm_front_upper"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/arm_front_lower.png" id="22_arm_front_lower"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/hand_front.png" id="23_hand_front"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/weapon_back.png" id="24_weapon_front"]
+
+[node name="ModularCharacterVisual" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Rig" type="Node2D" parent="."]
+z_index = 20
+
+[node name="Skeleton2D" type="Node2D" parent="Rig"]
+
+[node name="RootBone" type="Node2D" parent="Rig/Skeleton2D"]
+
+[node name="TailBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(105, -205)
+rotation = -0.08
+
+[node name="Tail" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/TailBone"]
+texture = ExtResource("2_tail")
+
+[node name="ScarfBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(25, -304)
+rotation = -0.02
+
+[node name="ScarfBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ScarfBackBone"]
+texture = ExtResource("3_scarf_back")
+
+[node name="HairBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(35, -385)
+
+[node name="HairBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/HairBackBone"]
+texture = ExtResource("4_hair_back")
+
+[node name="EarBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(35, -468)
+rotation = 0.02
+
+[node name="EarBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/EarBackBone"]
+texture = ExtResource("5_ear_back")
+
+[node name="ArmBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(55, -285)
+rotation = -0.04
+
+[node name="ArmBackUpper" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmBackBone"]
+position = Vector2(8, 42)
+texture = ExtResource("6_arm_back_upper")
+
+[node name="ArmBackLowerBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/ArmBackBone"]
+position = Vector2(5, 72)
+
+[node name="ArmBackLower" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmBackBone/ArmBackLowerBone"]
+position = Vector2(2, 38)
+texture = ExtResource("7_arm_back_lower")
+
+[node name="HandBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/ArmBackBone/ArmBackLowerBone"]
+position = Vector2(2, 70)
+
+[node name="HandBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmBackBone/ArmBackLowerBone/HandBackBone"]
+position = Vector2(0, 34)
+texture = ExtResource("8_hand_back")
+
+[node name="WeaponBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmBackBone/ArmBackLowerBone/HandBackBone"]
+position = Vector2(44, 20)
+rotation = -0.04
+texture = ExtResource("9_weapon_back")
+
+[node name="LegBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(-28, -160)
+rotation = -0.03
+
+[node name="LegBackUpper" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegBackBone"]
+position = Vector2(0, 42)
+texture = ExtResource("10_leg_back_upper")
+
+[node name="LegBackLowerBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/LegBackBone"]
+position = Vector2(0, 72)
+
+[node name="LegBackLower" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegBackBone/LegBackLowerBone"]
+position = Vector2(0, 22)
+texture = ExtResource("11_leg_back_lower")
+
+[node name="FootBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/LegBackBone/LegBackLowerBone"]
+position = Vector2(0, 58)
+
+[node name="FootBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegBackBone/LegBackLowerBone/FootBackBone"]
+position = Vector2(2, -4)
+texture = ExtResource("12_foot_back")
+
+[node name="BodyBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(0, -220)
+
+[node name="Torso" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/BodyBone"]
+texture = ExtResource("13_torso")
+
+[node name="LegFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(30, -160)
+rotation = 0.03
+
+[node name="LegFrontUpper" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegFrontBone"]
+position = Vector2(0, 42)
+texture = ExtResource("14_leg_front_upper")
+
+[node name="LegFrontLowerBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/LegFrontBone"]
+position = Vector2(0, 72)
+
+[node name="LegFrontLower" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegFrontBone/LegFrontLowerBone"]
+position = Vector2(0, 22)
+texture = ExtResource("15_leg_front_lower")
+
+[node name="FootFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/LegFrontBone/LegFrontLowerBone"]
+position = Vector2(0, 58)
+
+[node name="FootFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/LegFrontBone/LegFrontLowerBone/FootFrontBone"]
+position = Vector2(-2, -4)
+texture = ExtResource("16_foot_front")
+
+[node name="HeadBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(-35, -365)
+
+[node name="Face" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/HeadBone"]
+texture = ExtResource("17_face")
+
+[node name="EarFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(-60, -465)
+rotation = -0.02
+
+[node name="EarFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/EarFrontBone"]
+texture = ExtResource("18_ear_front")
+
+[node name="HairFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(-28, -390)
+
+[node name="HairFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/HairFrontBone"]
+texture = ExtResource("19_hair_front")
+
+[node name="ScarfBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(15, -300)
+rotation = -0.02
+
+[node name="ScarfFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ScarfBone"]
+texture = ExtResource("20_scarf_front")
+
+[node name="ArmFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
+position = Vector2(-55, -285)
+rotation = 0.04
+
+[node name="ArmFrontUpper" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmFrontBone"]
+position = Vector2(-8, 42)
+texture = ExtResource("21_arm_front_upper")
+
+[node name="ArmFrontLowerBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/ArmFrontBone"]
+position = Vector2(-5, 72)
+
+[node name="ArmFrontLower" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmFrontBone/ArmFrontLowerBone"]
+position = Vector2(-2, 38)
+texture = ExtResource("22_arm_front_lower")
+
+[node name="HandFrontBone" type="Node2D" parent="Rig/Skeleton2D/RootBone/ArmFrontBone/ArmFrontLowerBone"]
+position = Vector2(-2, 70)
+
+[node name="HandFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmFrontBone/ArmFrontLowerBone/HandFrontBone"]
+position = Vector2(0, 34)
+texture = ExtResource("23_hand_front")
+
+[node name="WeaponFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmFrontBone/ArmFrontLowerBone/HandFrontBone"]
+position = Vector2(-44, 20)
+rotation = 0.04
+texture = ExtResource("24_weapon_front")

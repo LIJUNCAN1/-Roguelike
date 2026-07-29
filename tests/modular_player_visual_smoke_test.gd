@@ -24,7 +24,7 @@ func _run() -> void:
 		or not modular.is_base_form
 		or pixel_presenter.sprite.visible
 		or not player.get_node("Visuals").visible
-		or modular.part_sprites.size() < 18
+		or modular.part_sprites.size() < 23
 		or modular.get_node_or_null("PoseSprite") != null
 	):
 		push_error("Modular base-life visual did not activate.")
@@ -32,8 +32,18 @@ func _run() -> void:
 		return
 
 	player.velocity = Vector2.LEFT * 100.0
+	var walk_rotation_min := INF
+	var walk_rotation_max := -INF
 	for frame in 12:
 		modular._process(1.0 / 60.0)
+		walk_rotation_min = minf(
+			walk_rotation_min,
+			modular.leg_front_bone.rotation
+		)
+		walk_rotation_max = maxf(
+			walk_rotation_max,
+			modular.leg_front_bone.rotation
+		)
 		if (
 			modular.root_bone.position != Vector2.ZERO
 			or modular.rig.position != Vector2.ZERO
@@ -44,6 +54,7 @@ func _run() -> void:
 	if (
 		modular.facing_sign != 1.0
 		or not modular.rig.visible
+		or walk_rotation_max - walk_rotation_min < 0.1
 	):
 		push_error("Left-facing modular animation is invalid.")
 		quit(1)

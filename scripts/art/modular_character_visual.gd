@@ -2,45 +2,65 @@ class_name ModularCharacterVisual
 extends Node2D
 
 const REFERENCE_PART_SIZES := {
-	&"tail": Vector2(106.0, 122.0),
-	&"hair_back": Vector2(180.0, 169.0),
-	&"arm_back": Vector2(128.0, 145.0),
-	&"weapon_back": Vector2(117.0, 85.0),
-	&"leg_back_upper": Vector2(83.0, 77.0),
-	&"leg_back_lower": Vector2(53.0, 55.0),
-	&"foot_back": Vector2(44.0, 47.0),
-	&"torso": Vector2(132.0, 127.0),
-	&"leg_front_upper": Vector2(89.0, 144.0),
-	&"leg_front_lower": Vector2(59.0, 62.0),
-	&"foot_front": Vector2(71.0, 54.0),
-	&"face": Vector2(132.0, 128.0),
-	&"ear_back": Vector2(64.0, 87.0),
-	&"ear_front": Vector2(67.0, 97.0),
-	&"hair_side": Vector2(216.0, 178.0),
-	&"scarf": Vector2(184.0, 79.0),
-	&"arm_front": Vector2(149.0, 146.0),
-	&"weapon_front": Vector2(115.0, 79.0),
+	&"tail": Vector2(150.0, 141.0),
+	&"hair_back": Vector2(235.0, 238.0),
+	&"arm_back_upper": Vector2(82.0, 101.0),
+	&"arm_back_lower": Vector2(75.0, 95.0),
+	&"hand_back": Vector2(50.0, 82.0),
+	&"weapon_back": Vector2(155.0, 130.0),
+	&"leg_back_upper": Vector2(94.0, 150.0),
+	&"leg_back_lower": Vector2(70.0, 120.0),
+	&"foot_back": Vector2(65.0, 72.0),
+	&"torso": Vector2(176.0, 191.0),
+	&"leg_front_upper": Vector2(94.0, 150.0),
+	&"leg_front_lower": Vector2(70.0, 120.0),
+	&"foot_front": Vector2(65.0, 72.0),
+	&"face": Vector2(166.0, 176.0),
+	&"ear_back": Vector2(85.0, 105.0),
+	&"ear_front": Vector2(85.0, 105.0),
+	&"hair_front": Vector2(254.0, 250.0),
+	&"scarf_back": Vector2(190.0, 86.0),
+	&"scarf_front": Vector2(190.0, 86.0),
+	&"arm_front_upper": Vector2(82.0, 101.0),
+	&"arm_front_lower": Vector2(75.0, 95.0),
+	&"hand_front": Vector2(50.0, 82.0),
+	&"weapon_front": Vector2(155.0, 130.0),
 }
 const REFERENCE_DRAW_LAYERS := {
-	&"tail": -9,
-	&"weapon_back": -8,
-	&"arm_back": -7,
-	&"ear_back": -6,
-	&"hair_back": -5,
-	&"leg_back_upper": -4,
-	&"leg_back_lower": -4,
-	&"foot_back": -4,
-	&"leg_front_upper": -3,
-	&"leg_front_lower": -3,
-	&"foot_front": -3,
-	&"torso": -2,
+	&"tail": -12,
+	&"scarf_back": -11,
+	&"weapon_back": -10,
+	&"hand_back": -9,
+	&"arm_back_lower": -9,
+	&"arm_back_upper": -9,
+	&"ear_back": -8,
+	&"hair_back": -7,
+	&"leg_back_upper": -6,
+	&"leg_back_lower": -6,
+	&"foot_back": -6,
+	&"leg_front_upper": -5,
+	&"leg_front_lower": -5,
+	&"foot_front": -5,
+	&"torso": -4,
 	&"face": 0,
 	&"ear_front": 1,
-	&"hair_side": 2,
-	&"scarf": 3,
-	&"arm_front": 4,
-	&"weapon_front": 5,
+	&"hair_front": 2,
+	&"scarf_front": 3,
+	&"arm_front_upper": 4,
+	&"arm_front_lower": 4,
+	&"hand_front": 5,
+	&"weapon_front": 6,
 }
+const WALK_POSES := [
+	[0.28, -0.05, -0.22, 0.30, -0.18, 0.16, 0.18, -0.08],
+	[0.18, 0.12, -0.14, 0.38, -0.12, 0.20, 0.12, -0.04],
+	[0.02, 0.28, 0.04, 0.24, 0.00, 0.12, 0.00, 0.04],
+	[-0.18, 0.34, 0.20, 0.08, 0.13, 0.02, -0.13, 0.10],
+	[-0.25, 0.30, 0.28, -0.05, 0.18, -0.08, -0.18, 0.16],
+	[-0.14, 0.38, 0.18, 0.12, 0.12, -0.04, -0.12, 0.20],
+	[0.04, 0.24, 0.02, 0.28, 0.00, 0.04, 0.00, 0.12],
+	[0.20, 0.08, -0.18, 0.34, -0.13, 0.10, 0.13, 0.02],
+]
 
 @export var base_evolution_id: StringName = &"base_life"
 @export_range(0.05, 1.0, 0.01) var visual_scale: float = 0.16
@@ -63,19 +83,48 @@ const REFERENCE_DRAW_LAYERS := {
 @onready var ear_front_bone: Node2D = (
 	$Rig/Skeleton2D/RootBone/EarFrontBone
 )
-@onready var scarf_bone: Node2D = $Rig/Skeleton2D/RootBone/ScarfBone
+@onready var scarf_back_bone: Node2D = (
+	$Rig/Skeleton2D/RootBone/ScarfBackBone
+)
+@onready var scarf_bone: Node2D = (
+	$Rig/Skeleton2D/RootBone/ScarfBone
+)
 @onready var tail_bone: Node2D = $Rig/Skeleton2D/RootBone/TailBone
 @onready var arm_back_bone: Node2D = (
 	$Rig/Skeleton2D/RootBone/ArmBackBone
 )
+@onready var arm_back_lower_bone: Node2D = (
+	$Rig/Skeleton2D/RootBone/ArmBackBone/ArmBackLowerBone
+)
+@onready var hand_back_bone: Node2D = (
+	$Rig/Skeleton2D/RootBone/ArmBackBone/ArmBackLowerBone/HandBackBone
+)
 @onready var arm_front_bone: Node2D = (
 	$Rig/Skeleton2D/RootBone/ArmFrontBone
+)
+@onready var arm_front_lower_bone: Node2D = (
+	$Rig/Skeleton2D/RootBone/ArmFrontBone/ArmFrontLowerBone
+)
+@onready var hand_front_bone: Node2D = (
+	$Rig/Skeleton2D/RootBone/ArmFrontBone/ArmFrontLowerBone/HandFrontBone
 )
 @onready var leg_back_bone: Node2D = (
 	$Rig/Skeleton2D/RootBone/LegBackBone
 )
+@onready var leg_back_lower_bone: Node2D = (
+	$Rig/Skeleton2D/RootBone/LegBackBone/LegBackLowerBone
+)
+@onready var foot_back_bone: Node2D = (
+	$Rig/Skeleton2D/RootBone/LegBackBone/LegBackLowerBone/FootBackBone
+)
 @onready var leg_front_bone: Node2D = (
 	$Rig/Skeleton2D/RootBone/LegFrontBone
+)
+@onready var leg_front_lower_bone: Node2D = (
+	$Rig/Skeleton2D/RootBone/LegFrontBone/LegFrontLowerBone
+)
+@onready var foot_front_bone: Node2D = (
+	$Rig/Skeleton2D/RootBone/LegFrontBone/LegFrontLowerBone/FootFrontBone
 )
 @onready var face_sprite: Sprite2D = (
 	$Rig/Skeleton2D/RootBone/HeadBone/Face
@@ -115,21 +164,12 @@ func _ready() -> void:
 	_apply_reference_part_scales()
 	_apply_reference_draw_layers()
 	idle_face = preload(
-		"res://assets/sprites/player/shadow_blade_parts/"
-		+ "face_idle_left.png"
+		"res://assets/sprites/player/shadow_blade_ai_parts/v1/"
+		+ "face.png"
 	)
-	attack_face = preload(
-		"res://assets/sprites/player/shadow_blade_parts/"
-		+ "face_attack_left.png"
-	)
-	hurt_face = preload(
-		"res://assets/sprites/player/shadow_blade_parts/"
-		+ "face_hurt_left.png"
-	)
-	death_face = preload(
-		"res://assets/sprites/player/shadow_blade_parts/"
-		+ "face_death_left.png"
-	)
+	attack_face = idle_face
+	hurt_face = idle_face
+	death_face = idle_face
 	rig.visible = true
 	_connect_actor_signals()
 	if facing_marker != null:
@@ -199,12 +239,21 @@ func _cache_rest_pose() -> void:
 		hair_front_bone,
 		ear_back_bone,
 		ear_front_bone,
+		scarf_back_bone,
 		scarf_bone,
 		tail_bone,
 		arm_back_bone,
+		arm_back_lower_bone,
+		hand_back_bone,
 		arm_front_bone,
+		arm_front_lower_bone,
+		hand_front_bone,
 		leg_back_bone,
+		leg_back_lower_bone,
+		foot_back_bone,
 		leg_front_bone,
+		leg_front_lower_bone,
+		foot_front_bone,
 	]:
 		rest_positions[bone] = bone.position
 		rest_rotations[bone] = bone.rotation
@@ -254,19 +303,8 @@ func _fit_part_to_reference(
 
 func _apply_pose(moving: bool) -> void:
 	_reset_pose()
-	var step := sin(locomotion_phase)
 	if moving:
-		# Keep the root and head on the same pixel while walking. Moving the
-		# whole high-resolution cutout by fractional pixels caused visible
-		# shaking after the project pixel-snap pass.
-		root_bone.rotation = -0.06 * facing_sign
-		body_bone.rotation = step * 0.012
-		leg_front_bone.rotation = step * 0.32
-		leg_back_bone.rotation = -step * 0.32
-		arm_front_bone.rotation = -step * 0.19
-		arm_back_bone.rotation = step * 0.19
-		tail_bone.rotation += sin(locomotion_phase * 0.72) * 0.08
-		scarf_bone.rotation -= 0.06
+		_apply_walk_pose()
 	else:
 		var breath := sin(locomotion_phase)
 		head_bone.rotation = breath * 0.012
@@ -274,6 +312,7 @@ func _apply_pose(moving: bool) -> void:
 		ear_back_bone.rotation -= breath * 0.025
 		ear_front_bone.rotation += breath * 0.025
 		hair_back_bone.rotation = -breath * 0.012
+		scarf_back_bone.rotation += breath * 0.018
 		scarf_bone.rotation += breath * 0.025
 
 	_set_face(idle_face)
@@ -286,6 +325,50 @@ func _apply_pose(moving: bool) -> void:
 			_apply_hurt_pose()
 		&"death":
 			_apply_death_pose()
+
+
+func _apply_walk_pose() -> void:
+	# Eight authored contact/passing poses are interpolated at 60 FPS. The
+	# actor root never moves vertically, keeping collision and shadow stable.
+	var pose_position := fposmod(
+		locomotion_phase / TAU,
+		1.0
+	) * WALK_POSES.size()
+	var pose_index := int(floorf(pose_position))
+	var next_index := (pose_index + 1) % WALK_POSES.size()
+	var blend := smoothstep(
+		0.0,
+		1.0,
+		pose_position - pose_index
+	)
+	var pose: Array = WALK_POSES[pose_index]
+	var next_pose: Array = WALK_POSES[next_index]
+	var values: Array[float] = []
+	for value_index in pose.size():
+		values.append(
+			lerpf(
+				float(pose[value_index]),
+				float(next_pose[value_index]),
+				blend
+			)
+		)
+
+	root_bone.rotation = -0.055 * facing_sign
+	body_bone.rotation += sin(locomotion_phase * 2.0) * 0.012
+	leg_front_bone.rotation += values[0]
+	leg_front_lower_bone.rotation += values[1]
+	leg_back_bone.rotation += values[2]
+	leg_back_lower_bone.rotation += values[3]
+	foot_front_bone.rotation -= values[0] + values[1] * 0.65
+	foot_back_bone.rotation -= values[2] + values[3] * 0.65
+	arm_front_bone.rotation += values[4]
+	arm_front_lower_bone.rotation += values[5]
+	arm_back_bone.rotation += values[6]
+	arm_back_lower_bone.rotation += values[7]
+	tail_bone.rotation += sin(locomotion_phase * 0.72) * 0.10
+	scarf_back_bone.rotation -= 0.075
+	scarf_bone.rotation -= 0.055
+
 
 func _reset_pose() -> void:
 	rig.scale = Vector2(visual_scale * facing_sign, visual_scale)
@@ -302,11 +385,16 @@ func _apply_attack_pose() -> void:
 	var progress := clampf(action_elapsed / action_duration, 0.0, 1.0)
 	var strike := sin(progress * PI)
 	_set_face(attack_face)
-	root_bone.rotation = -0.08 * strike
-	arm_front_bone.rotation += 1.2 * strike
-	arm_back_bone.rotation -= 0.42 * strike
-	head_bone.rotation += 0.08 * strike
-	scarf_bone.rotation -= 0.14 * strike
+	root_bone.rotation = -0.06 * strike * facing_sign
+	arm_front_bone.rotation += 0.68 * strike
+	arm_front_lower_bone.rotation += 0.42 * strike
+	hand_front_bone.rotation -= 0.12 * strike
+	arm_back_bone.rotation -= 0.34 * strike
+	arm_back_lower_bone.rotation += 0.20 * strike
+	hand_back_bone.rotation += 0.08 * strike
+	head_bone.rotation += 0.05 * strike
+	scarf_back_bone.rotation -= 0.10 * strike
+	scarf_bone.rotation -= 0.12 * strike
 
 
 func _apply_dash_pose() -> void:
@@ -315,10 +403,13 @@ func _apply_dash_pose() -> void:
 	root_bone.rotation = -0.17
 	body_bone.rotation -= 0.05 * pulse
 	arm_front_bone.rotation += 0.48 * pulse
+	arm_front_lower_bone.rotation += 0.18 * pulse
 	arm_back_bone.rotation += 0.36 * pulse
+	arm_back_lower_bone.rotation += 0.14 * pulse
 	leg_front_bone.rotation -= 0.42 * pulse
 	leg_back_bone.rotation += 0.48 * pulse
 	tail_bone.rotation += 0.34 * pulse
+	scarf_back_bone.rotation -= 0.28 * pulse
 	scarf_bone.rotation -= 0.35 * pulse
 
 
@@ -327,7 +418,9 @@ func _apply_hurt_pose() -> void:
 	_set_face(hurt_face)
 	root_bone.rotation = 0.12 * sin(progress * PI)
 	arm_front_bone.rotation += 0.4
+	arm_front_lower_bone.rotation += 0.18
 	arm_back_bone.rotation -= 0.32
+	arm_back_lower_bone.rotation -= 0.12
 	ear_front_bone.rotation += 0.16
 	ear_back_bone.rotation -= 0.12
 
@@ -340,7 +433,9 @@ func _apply_death_pose() -> void:
 	root_bone.position.y = lerpf(0.0, 45.0, eased)
 	root_bone.position.x = lerpf(0.0, -8.0, eased)
 	arm_front_bone.rotation += 0.65 * eased
+	arm_front_lower_bone.rotation += 0.25 * eased
 	arm_back_bone.rotation -= 0.35 * eased
+	arm_back_lower_bone.rotation -= 0.15 * eased
 	tail_bone.rotation += 0.45 * eased
 
 
