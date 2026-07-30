@@ -6,8 +6,7 @@ const REFERENCE_PART_SIZES := {
 	&"hair_back": Vector2(235.0, 238.0),
 	&"arm_back_upper": Vector2(82.0, 101.0),
 	&"arm_back_lower": Vector2(75.0, 95.0),
-	&"hand_back": Vector2(50.0, 82.0),
-	&"weapon_back": Vector2(155.0, 130.0),
+	&"hand_back": Vector2(155.0, 145.0),
 	&"leg_back_upper": Vector2(94.0, 150.0),
 	&"leg_back_lower": Vector2(70.0, 120.0),
 	&"foot_back": Vector2(65.0, 72.0),
@@ -23,13 +22,11 @@ const REFERENCE_PART_SIZES := {
 	&"scarf_front": Vector2(190.0, 86.0),
 	&"arm_front_upper": Vector2(82.0, 101.0),
 	&"arm_front_lower": Vector2(75.0, 95.0),
-	&"hand_front": Vector2(50.0, 82.0),
-	&"weapon_front": Vector2(155.0, 130.0),
+	&"hand_front": Vector2(155.0, 145.0),
 }
 const REFERENCE_DRAW_LAYERS := {
 	&"tail": -12,
 	&"scarf_back": -11,
-	&"weapon_back": -10,
 	&"hand_back": -9,
 	&"arm_back_lower": -9,
 	&"arm_back_upper": -9,
@@ -49,7 +46,6 @@ const REFERENCE_DRAW_LAYERS := {
 	&"arm_front_upper": 4,
 	&"arm_front_lower": 4,
 	&"hand_front": 5,
-	&"weapon_front": 6,
 }
 const WALK_POSES := [
 	[0.28, -0.05, -0.22, 0.30, -0.18, 0.16, 0.18, -0.08],

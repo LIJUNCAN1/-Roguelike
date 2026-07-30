@@ -12,6 +12,10 @@ Runtime-ready cutouts live in:
 
 `res://assets/sprites/player/shadow_blade_ai_parts/v1/`
 
+The two runtime hand textures include their matching dagger and grip. There
+are no separate runtime weapon sprites, preventing duplicate hilts and keeping
+the hand, thumb and blade in one consistent perspective.
+
 The runtime scene fits cutouts to named target bounds and assigns draw order by
 part id. Replacing a PNG with the same filename keeps the rig interface stable.
 

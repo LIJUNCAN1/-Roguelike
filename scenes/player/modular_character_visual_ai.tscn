@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3]
+[gd_scene load_steps=23 format=3]
 
 [ext_resource type="Script" path="res://scripts/art/modular_character_visual.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/tail.png" id="2_tail"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/arm_back_upper.png" id="6_arm_back_upper"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/arm_back_lower.png" id="7_arm_back_lower"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/hand_back.png" id="8_hand_back"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/weapon_front.png" id="9_weapon_back"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/leg_back_upper.png" id="10_leg_back_upper"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/leg_back_lower.png" id="11_leg_back_lower"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/foot_back.png" id="12_foot_back"]
@@ -23,7 +22,6 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/arm_front_upper.png" id="21_arm_front_upper"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/arm_front_lower.png" id="22_arm_front_lower"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/hand_front.png" id="23_hand_front"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/shadow_blade_ai_parts/v1/weapon_back.png" id="24_weapon_front"]
 
 [node name="ModularCharacterVisual" type="Node2D"]
 script = ExtResource("1_script")
@@ -81,13 +79,8 @@ texture = ExtResource("7_arm_back_lower")
 position = Vector2(2, 70)
 
 [node name="HandBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmBackBone/ArmBackLowerBone/HandBackBone"]
-position = Vector2(0, 34)
+position = Vector2(44, 73)
 texture = ExtResource("8_hand_back")
-
-[node name="WeaponBack" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmBackBone/ArmBackLowerBone/HandBackBone"]
-position = Vector2(44, 20)
-rotation = -0.04
-texture = ExtResource("9_weapon_back")
 
 [node name="LegBackBone" type="Node2D" parent="Rig/Skeleton2D/RootBone"]
 position = Vector2(-28, -160)
@@ -184,10 +177,5 @@ texture = ExtResource("22_arm_front_lower")
 position = Vector2(-2, 70)
 
 [node name="HandFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmFrontBone/ArmFrontLowerBone/HandFrontBone"]
-position = Vector2(0, 34)
+position = Vector2(-36, 69)
 texture = ExtResource("23_hand_front")
-
-[node name="WeaponFront" type="Sprite2D" parent="Rig/Skeleton2D/RootBone/ArmFrontBone/ArmFrontLowerBone/HandFrontBone"]
-position = Vector2(-44, 20)
-rotation = 0.04
-texture = ExtResource("24_weapon_front")
