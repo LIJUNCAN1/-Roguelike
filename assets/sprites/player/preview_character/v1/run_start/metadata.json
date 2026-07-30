@@ -1,0 +1,42 @@
+{
+  "id": "run_start",
+  "display_name": "跑动起步",
+  "source_gif": "Lvldg_.gif",
+  "source_frame_range": [
+    60,
+    77
+  ],
+  "canvas_size": [
+    64,
+    64
+  ],
+  "frame_count": 18,
+  "durations_ms": [
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40
+  ],
+  "loop": false,
+  "ground_anchor": [
+    32,
+    58
+  ],
+  "background_removed": true,
+  "watermark_removed_with_background": true,
+  "reflection_removed": true
+}

@@ -11,6 +11,7 @@ const REFERENCE_PATH := "res://reference/hub_map_reference.png"
 @export var camera_intro_enabled := true
 @export var camera_intro_start_zoom := Vector2(2.0, 2.0)
 @export var camera_gameplay_zoom := Vector2(1.45, 1.45)
+@export var camera_pixel_stabilization_enabled := true
 @export_range(0.1, 3.0, 0.05)
 var camera_intro_duration := 1.15
 
@@ -70,6 +71,10 @@ func _ready() -> void:
 	_start_ambient_animation()
 
 
+func _process(_delta: float) -> void:
+	_stabilize_camera_position()
+
+
 func _load_reference_if_available() -> void:
 	if not ResourceLoader.exists(REFERENCE_PATH):
 		return
@@ -86,7 +91,24 @@ func _configure_camera_limits() -> void:
 		camera_bottom_right.global_position.y
 	)
 	camera.position = Vector2.ZERO
+	camera.position_smoothing_enabled = false
 	camera.enabled = true
+
+
+func _stabilize_camera_position() -> void:
+	if (
+		not camera_pixel_stabilization_enabled
+		or camera == null
+		or player == null
+		or camera.zoom.x <= 0.0
+		or camera.zoom.y <= 0.0
+	):
+		return
+	var target := player.global_position
+	camera.global_position = Vector2(
+		roundf(target.x * camera.zoom.x) / camera.zoom.x,
+		roundf(target.y * camera.zoom.y) / camera.zoom.y
+	)
 
 
 func _start_camera_intro() -> void:

@@ -1,11 +1,15 @@
-[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="WeaponData" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/combat/weapon_data.gd" id="1_weapon"]
 [ext_resource type="PackedScene" path="res://scenes/combat/melee_slash.tscn" id="2_scene"]
 [ext_resource type="Resource" path="res://data/projectiles/twin_blade_slash.tres" id="3_data"]
+[ext_resource type="Resource" path="res://data/audio/cues/attack.tres" id="4_attack_cue"]
+[ext_resource type="Resource" path="res://data/audio/cues/attack_impact.tres" id="5_impact_cue"]
 
 [resource]
 script = ExtResource("1_weapon")
+attack_cue = ExtResource("4_attack_cue")
+impact_cue = ExtResource("5_impact_cue")
 projectile_scene = ExtResource("2_scene")
 projectile_data = ExtResource("3_data")
 fire_cooldown = 0.35

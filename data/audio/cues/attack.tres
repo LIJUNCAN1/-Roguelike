@@ -5,8 +5,8 @@
 script = ExtResource("1")
 id = &"attack"
 stream = ExtResource("2")
-volume_db = -10.0
-fallback_frequency = 620.0
-fallback_duration = 0.08
-fallback_waveform = 1
-pitch_randomness = 0.08
+volume_db = -4.0
+fallback_frequency = 280.0
+fallback_duration = 0.16
+fallback_waveform = 3
+pitch_randomness = 0.05

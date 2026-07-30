@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AudioCueData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/audio/audio_cue_data.gd" id="1"]
+[ext_resource type="AudioStream" path="res://assets/audio/generated/attack_impact.res" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"attack_impact"
+stream = ExtResource("2")
+volume_db = -3.0
+fallback_frequency = 150.0
+fallback_duration = 0.11
+fallback_waveform = 3
+pitch_randomness = 0.06

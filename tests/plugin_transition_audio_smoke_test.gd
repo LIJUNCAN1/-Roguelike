@@ -34,6 +34,7 @@ func _run() -> void:
 
 	for cue_path in [
 		"res://data/audio/cues/attack.tres",
+		"res://data/audio/cues/attack_impact.tres",
 		"res://data/audio/cues/dash.tres",
 		"res://data/audio/cues/hurt.tres",
 		"res://data/audio/cues/death.tres",

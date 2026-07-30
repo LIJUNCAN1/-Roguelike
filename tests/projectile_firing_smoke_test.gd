@@ -13,6 +13,15 @@ func _run() -> void:
 
 	var player := main.get_node("World/Player") as CharacterBody2D
 	var projectile_container := main.get_node("World/Projectiles") as Node2D
+	var weapon_component := player.get_node(
+		"WeaponComponent"
+	) as WeaponComponent
+	if not weapon_component.set_weapon_data(
+		load("res://data/weapons/basic_weapon.tres") as WeaponData
+	):
+		push_error("Test ranged weapon could not be equipped.")
+		quit(1)
+		return
 	player.aim_at(player.global_position + Vector2.RIGHT * 100.0)
 
 	var projectile: Node2D = player.fire() as Node2D

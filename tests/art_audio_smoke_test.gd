@@ -17,22 +17,22 @@ func _run() -> void:
 	var player_presenter := player.get_node(
 		"PixelActorPresenter"
 	) as PixelActorPresenter
-	var modular_player := player.get_node_or_null(
+	var frame_player := player.get_node_or_null(
 		"Visuals/ModularCharacterVisual"
-	) as ModularCharacterVisual
-	var modular_base_active: bool = (
-		modular_player != null
-		and modular_player.visible
-		and modular_player.is_base_form
+	) as FrameCharacterVisual
+	var frame_base_active: bool = (
+		frame_player != null
+		and frame_player.visible
+		and frame_player.is_base_form
 		and not player_presenter.sprite.visible
 		and player.get_node("Visuals").visible
 	)
 	if (
-		not modular_base_active
+		not frame_base_active
 		or player_presenter.visual_data == null
 		or player_presenter.sprite.texture == null
 	):
-		push_error("Player modular visual replacement was not active.")
+		push_error("Player frame visual replacement was not active.")
 		quit(1)
 		return
 
@@ -79,12 +79,28 @@ func _run() -> void:
 
 	player.aim_at(enemy.global_position)
 	var projectile: Node2D = player.fire() as Node2D
+	var weapon_component := player.get_node(
+		"WeaponComponent"
+	) as WeaponComponent
+	var weapon_data := weapon_component.weapon_data
 	if (
 		projectile == null
 		or player_presenter.current_state != &"attack"
-		or not _any_sfx_loaded(audio)
+		or weapon_data == null
+		or weapon_data.attack_cue == null
+		or weapon_data.impact_cue == null
+		or not _has_stream(audio, weapon_data.attack_cue.stream)
 	):
 		push_error("Attack animation or attack audio did not trigger.")
+		quit(1)
+		return
+	var enemy_hurtbox := enemy.get_node(
+		"HurtboxComponent"
+	) as Area2D
+	(projectile as Projectile)._on_area_entered(enemy_hurtbox)
+	await process_frame
+	if not _has_stream(audio, weapon_data.impact_cue.stream):
+		push_error("Confirmed weapon hit did not trigger impact audio.")
 		quit(1)
 		return
 
@@ -124,8 +140,11 @@ func _run() -> void:
 	quit()
 
 
-func _any_sfx_loaded(audio: GameAudioDirector) -> bool:
+func _has_stream(
+	audio: GameAudioDirector,
+	expected_stream: AudioStream
+) -> bool:
 	for sfx_player in audio.sfx_players:
-		if sfx_player.stream != null:
+		if sfx_player.stream == expected_stream:
 			return true
 	return false

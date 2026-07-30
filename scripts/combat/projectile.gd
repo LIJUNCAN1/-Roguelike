@@ -1,6 +1,8 @@
 class_name Projectile
 extends Area2D
 
+signal impact_confirmed(damage_dealt: float)
+
 @export var projectile_data: ProjectileData
 
 @onready var body_visual: Polygon2D = $Body
@@ -135,6 +137,7 @@ func _on_area_entered(area: Area2D) -> void:
 		if effect != null:
 			effect.apply(impact_context)
 
+	impact_confirmed.emit(damage_dealt)
 	hit_count += 1
 	if hit_count >= projectile_data.max_hits:
 		queue_free()

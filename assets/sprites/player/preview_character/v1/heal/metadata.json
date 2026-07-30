@@ -1,0 +1,40 @@
+{
+  "id": "heal",
+  "display_name": "回复技能",
+  "source_gif": "LsOtsR.gif",
+  "source_frame_range": [
+    88,
+    103
+  ],
+  "canvas_size": [
+    64,
+    64
+  ],
+  "frame_count": 16,
+  "durations_ms": [
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60
+  ],
+  "loop": false,
+  "ground_anchor": [
+    32,
+    58
+  ],
+  "background_removed": true,
+  "watermark_removed_with_background": true,
+  "reflection_removed": true
+}

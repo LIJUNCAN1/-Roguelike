@@ -141,3 +141,24 @@
   - 没有启用 Phantom Camera，因为当前需求只需要一次简单缩放，
     同时启用两套相机控制会增加冲突风险。
 - 战斗场景继续保持 `2.0×`，避免显示单个战斗房间边界外区域。
+
+### 2026-07-31：大厅镜头稳定与近战音效分层
+
+- 没有启用新插件。
+- 继续复用 gdfxr 2.1：
+  - 重新生成辨识度更高的短促挥刀风声。
+  - 新增独立的近战命中音效 `attack_impact.res`。
+  - 生成脚本仍为 `res://tools/generate_gdfxr_audio.gd`。
+- 继续复用 Sound Manager 1.2.0：
+  - 挥刀时播放武器配置的 `attack_cue`。
+  - 只有投射物实际造成伤害时才播放 `impact_cue`。
+  - 播放器继续使用项目现有 `SFX` 总线。
+- 音效接口：
+  - `WeaponData` 增加可替换的攻击和命中 AudioCueData。
+  - `Projectile` 通过 `impact_confirmed` 信号报告有效命中。
+  - 后续替换正式音频只需修改武器 Data，不需要改音频核心代码。
+- 大厅 Camera2D 停用原生位置平滑，改为按照当前 zoom 对世界坐标
+  做屏幕像素量化，避免 `1.45×` 缩放和像素吸附共同造成角色抖动。
+- 回退方式：
+  - 删除武器 Data 中的 cue 引用即可回到全局默认攻击音效。
+  - 关闭 `camera_pixel_stabilization_enabled` 可停用大厅像素稳定。

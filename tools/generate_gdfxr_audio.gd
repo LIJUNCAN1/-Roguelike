@@ -18,6 +18,7 @@ func _generate_all() -> void:
 		"menu_confirm": _menu_confirm(),
 		"menu_transition": _menu_transition(),
 		"attack": _attack(),
+		"attack_impact": _attack_impact(),
 		"dash": _dash(),
 		"hurt": _hurt(),
 		"death": _death(),
@@ -98,15 +99,34 @@ func _menu_transition() -> RefCounted:
 
 func _attack() -> RefCounted:
 	var config := _new_config()
-	config.wave_type = SFXRConfig.WaveType.SAWTOOTH
-	config.p_base_freq = 0.64
-	config.p_freq_limit = 0.18
-	config.p_freq_ramp = -0.46
+	config.sound_vol = 0.78
+	config.wave_type = SFXRConfig.WaveType.NOISE
+	config.p_base_freq = 0.38
+	config.p_freq_ramp = -0.34
 	config.p_env_attack = 0.0
-	config.p_env_sustain = 0.045
-	config.p_env_decay = 0.1
-	config.p_hpf_freq = 0.12
-	config.p_pha_offset = -0.14
+	config.p_env_sustain = 0.08
+	config.p_env_decay = 0.18
+	config.p_env_punch = 0.16
+	config.p_lpf_freq = 0.62
+	config.p_lpf_ramp = -0.3
+	config.p_hpf_freq = 0.2
+	config.p_pha_offset = 0.08
+	return config
+
+
+func _attack_impact() -> RefCounted:
+	var config := _new_config()
+	config.sound_vol = 0.82
+	config.wave_type = SFXRConfig.WaveType.NOISE
+	config.p_base_freq = 0.2
+	config.p_freq_ramp = -0.2
+	config.p_env_attack = 0.0
+	config.p_env_sustain = 0.04
+	config.p_env_decay = 0.14
+	config.p_env_punch = 0.6
+	config.p_lpf_freq = 0.36
+	config.p_hpf_freq = 0.07
+	config.p_pha_offset = -0.12
 	return config
 
 

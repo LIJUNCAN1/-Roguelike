@@ -33,9 +33,7 @@ func _ready() -> void:
 	):
 		if not sfx_players.has(sfx_player):
 			sfx_players.append(sfx_player)
-	player.attack_fired.connect(
-		func(_projectile: Node2D) -> void: play_cue(library.attack)
-	)
+	player.attack_fired.connect(_on_player_attack_fired)
 	player.dash_started.connect(
 		func(_direction: Vector2) -> void: play_cue(library.dash)
 	)
@@ -139,6 +137,38 @@ func _on_actor_damaged(
 	_source: Node
 ) -> void:
 	play_cue(library.hurt)
+
+
+func _on_player_attack_fired(projectile: Node2D) -> void:
+	var attack_cue := library.attack
+	var impact_cue := library.attack_impact
+	var weapon_component := player.get_node_or_null(
+		"WeaponComponent"
+	) as WeaponComponent
+	if weapon_component != null and weapon_component.weapon_data != null:
+		var weapon := weapon_component.weapon_data
+		if weapon.attack_cue != null:
+			attack_cue = weapon.attack_cue
+		if weapon.impact_cue != null:
+			impact_cue = weapon.impact_cue
+	play_cue(attack_cue)
+	if (
+		projectile != null
+		and impact_cue != null
+		and projectile.has_signal(&"impact_confirmed")
+	):
+		projectile.connect(
+			&"impact_confirmed",
+			_on_player_attack_impact.bind(impact_cue),
+			CONNECT_ONE_SHOT
+		)
+
+
+func _on_player_attack_impact(
+	_damage_dealt: float,
+	impact_cue: AudioCueData
+) -> void:
+	play_cue(impact_cue)
 
 
 func _on_actor_died(_source: Node) -> void:

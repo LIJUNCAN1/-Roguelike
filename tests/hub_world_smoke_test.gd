@@ -78,10 +78,24 @@ func _run() -> void:
 		or hub.camera.limit_right != 1600
 		or hub.camera.limit_bottom != 1000
 		or hub.camera.zoom != hub.camera_gameplay_zoom
+		or hub.camera.position_smoothing_enabled
 		or not hub.camera.enabled
 	):
 		_fail("Hub camera limits are invalid.")
 		return
+	player.global_position = Vector2(800.25, 650.4)
+	hub._stabilize_camera_position()
+	var camera_screen_position := Vector2(
+		hub.camera.global_position.x * hub.camera.zoom.x,
+		hub.camera.global_position.y * hub.camera.zoom.y
+	)
+	if not camera_screen_position.is_equal_approx(
+		camera_screen_position.round()
+	):
+		_fail("Hub camera was not stabilized to screen pixels.")
+		return
+	player.global_position = spawn
+	hub._stabilize_camera_position()
 	var static_collisions := hub.get_node(
 		"StaticEnvironment/StaticCollisions"
 	)

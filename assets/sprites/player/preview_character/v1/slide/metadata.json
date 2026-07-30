@@ -1,0 +1,51 @@
+{
+  "id": "slide",
+  "display_name": "滑铲",
+  "source_gif": "Up1c5H.gif",
+  "source_frame_range": [
+    0,
+    26
+  ],
+  "canvas_size": [
+    64,
+    64
+  ],
+  "frame_count": 27,
+  "durations_ms": [
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40,
+    40
+  ],
+  "loop": false,
+  "ground_anchor": [
+    32,
+    58
+  ],
+  "background_removed": true,
+  "watermark_removed_with_background": true,
+  "reflection_removed": true
+}

@@ -524,8 +524,7 @@ limit_left = 0
 limit_top = 0
 limit_right = 1600
 limit_bottom = 1000
-position_smoothing_enabled = true
-position_smoothing_speed = 7.0
+position_smoothing_enabled = false
 
 [node name="ForegroundDecorations" type="Node2D" parent="."]
 z_index = 30

@@ -1,0 +1,60 @@
+{
+  "id": "jump",
+  "display_name": "跳跃",
+  "source_gif": "C6oVJk.gif",
+  "source_frame_range": [
+    0,
+    35
+  ],
+  "canvas_size": [
+    64,
+    64
+  ],
+  "frame_count": 36,
+  "durations_ms": [
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60,
+    60
+  ],
+  "loop": false,
+  "ground_anchor": [
+    32,
+    58
+  ],
+  "background_removed": true,
+  "watermark_removed_with_background": true,
+  "reflection_removed": true
+}

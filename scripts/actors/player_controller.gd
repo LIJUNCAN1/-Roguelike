@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 signal dash_started(direction: Vector2)
+signal jump_started(direction: Vector2)
+signal slide_started(direction: Vector2)
 signal attack_fired(projectile: Node2D)
 
 @export var character_data: CharacterData
@@ -22,6 +24,12 @@ var movement_direction: Vector2 = Vector2.ZERO
 var dash_direction: Vector2 = Vector2.RIGHT
 var dash_remaining: float = 0.0
 var dash_cooldown_remaining: float = 0.0
+var jump_direction: Vector2 = Vector2.RIGHT
+var jump_remaining: float = 0.0
+var jump_cooldown_remaining: float = 0.0
+var slide_direction: Vector2 = Vector2.RIGHT
+var slide_remaining: float = 0.0
+var slide_cooldown_remaining: float = 0.0
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_remaining: float = 0.0
 
@@ -50,6 +58,30 @@ func _physics_process(delta: float) -> void:
 		dash_cooldown_remaining - delta,
 		0.0
 	)
+	jump_cooldown_remaining = maxf(
+		jump_cooldown_remaining - delta,
+		0.0
+	)
+	slide_cooldown_remaining = maxf(
+		slide_cooldown_remaining - delta,
+		0.0
+	)
+	if jump_remaining > 0.0:
+		jump_remaining -= delta
+		movement_component.move_at_speed(
+			self,
+			jump_direction,
+			action_data.jump_speed
+		)
+		return
+	if slide_remaining > 0.0:
+		slide_remaining -= delta
+		movement_component.move_at_speed(
+			self,
+			slide_direction,
+			action_data.slide_speed
+		)
+		return
 	if dash_remaining > 0.0:
 		dash_remaining -= delta
 		movement_component.move_at_speed(
@@ -78,6 +110,20 @@ func _physics_process(delta: float) -> void:
 
 	if not input_direction.is_zero_approx():
 		movement_direction = input_direction.normalized()
+	if Input.is_action_just_pressed("jump"):
+		start_jump(
+			movement_direction
+			if not movement_direction.is_zero_approx()
+			else facing_direction
+		)
+		return
+	if Input.is_action_just_pressed("slide"):
+		start_slide(
+			movement_direction
+			if not movement_direction.is_zero_approx()
+			else facing_direction
+		)
+		return
 	if Input.is_action_just_pressed("dash"):
 		start_dash(
 			movement_direction
@@ -117,6 +163,7 @@ func start_dash(direction: Vector2) -> bool:
 		action_data == null
 		or dash_cooldown_remaining > 0.0
 		or direction.is_zero_approx()
+		or _has_active_movement_action()
 	):
 		return false
 	dash_direction = direction.normalized()
@@ -127,6 +174,50 @@ func start_dash(direction: Vector2) -> bool:
 	)
 	dash_started.emit(dash_direction)
 	return true
+
+
+func start_jump(direction: Vector2) -> bool:
+	if (
+		action_data == null
+		or jump_cooldown_remaining > 0.0
+		or direction.is_zero_approx()
+		or _has_active_movement_action()
+	):
+		return false
+	jump_direction = direction.normalized()
+	jump_remaining = action_data.jump_duration
+	jump_cooldown_remaining = action_data.jump_cooldown
+	health_component.grant_invulnerability(
+		action_data.jump_invulnerability
+	)
+	jump_started.emit(jump_direction)
+	return true
+
+
+func start_slide(direction: Vector2) -> bool:
+	if (
+		action_data == null
+		or slide_cooldown_remaining > 0.0
+		or direction.is_zero_approx()
+		or _has_active_movement_action()
+	):
+		return false
+	slide_direction = direction.normalized()
+	slide_remaining = action_data.slide_duration
+	slide_cooldown_remaining = action_data.slide_cooldown
+	health_component.grant_invulnerability(
+		action_data.slide_invulnerability
+	)
+	slide_started.emit(slide_direction)
+	return true
+
+
+func _has_active_movement_action() -> bool:
+	return (
+		dash_remaining > 0.0
+		or jump_remaining > 0.0
+		or slide_remaining > 0.0
+	)
 
 
 func apply_knockback(

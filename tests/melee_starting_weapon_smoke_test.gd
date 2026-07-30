@@ -24,8 +24,11 @@ func _run() -> void:
 		organ_manager.current_organ == null
 		or organ_manager.current_organ.id != &"twin_blade_organ"
 		or organ_manager.current_organ.display_name != "原生双刃"
+		or organ_manager.current_organ.weapon_data == null
+		or organ_manager.current_organ.weapon_data.attack_cue == null
+		or organ_manager.current_organ.weapon_data.impact_cue == null
 	):
-		push_error("Player did not start with the melee organ.")
+		push_error("Player melee organ or its audio cues are invalid.")
 		quit(1)
 		return
 

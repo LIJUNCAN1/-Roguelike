@@ -8,6 +8,8 @@
 builds/
 exports/
 *.tmp
+__pycache__/
+*.py[cod]
 
 # Operating system files
 .DS_Store
