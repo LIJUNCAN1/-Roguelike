@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="AudioCueData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="AudioCueData" load_steps=3 format=3]
 [ext_resource type="Script" path="res://scripts/audio/audio_cue_data.gd" id="1"]
+[ext_resource type="AudioStream" path="res://assets/audio/generated/attack.res" id="2"]
 [resource]
 script = ExtResource("1")
 id = &"attack"
+stream = ExtResource("2")
 volume_db = -10.0
 fallback_frequency = 620.0
 fallback_duration = 0.08

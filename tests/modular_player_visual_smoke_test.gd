@@ -24,7 +24,7 @@ func _run() -> void:
 		or not modular.is_base_form
 		or pixel_presenter.sprite.visible
 		or not player.get_node("Visuals").visible
-		or modular.part_sprites.size() < 23
+		or modular.part_sprites.size() < 21
 		or modular.get_node_or_null("PoseSprite") != null
 	):
 		push_error("Modular base-life visual did not activate.")
@@ -85,27 +85,27 @@ func _run() -> void:
 		quit(1)
 		return
 
-	var weapon_front := modular.part_sprites.get(
-		&"weapon_front"
+	var hand_front := modular.part_sprites.get(
+		&"hand_front"
 	) as Sprite2D
-	var weapon_back := modular.part_sprites.get(
-		&"weapon_back"
+	var hand_back := modular.part_sprites.get(
+		&"hand_back"
 	) as Sprite2D
 	if (
-		weapon_front == null
-		or weapon_back == null
-		or weapon_front.texture == null
-		or weapon_back.texture == null
-		or not weapon_front.visible
-		or not weapon_back.visible
-		or weapon_front.z_index
-		!= ModularCharacterVisual.REFERENCE_DRAW_LAYERS[&"weapon_front"]
-		or weapon_back.z_index
-		!= ModularCharacterVisual.REFERENCE_DRAW_LAYERS[&"weapon_back"]
-		or weapon_front.scale.x >= 0.8
-		or weapon_back.scale.x >= 0.8
+		hand_front == null
+		or hand_back == null
+		or hand_front.texture == null
+		or hand_back.texture == null
+		or not hand_front.visible
+		or not hand_back.visible
+		or hand_front.z_index
+		!= ModularCharacterVisual.REFERENCE_DRAW_LAYERS[&"hand_front"]
+		or hand_back.z_index
+		!= ModularCharacterVisual.REFERENCE_DRAW_LAYERS[&"hand_back"]
+		or hand_front.scale.x >= 0.8
+		or hand_back.scale.x >= 0.8
 	):
-		push_error("Modular twin-blade parts are not calibrated.")
+		push_error("Modular weapon-hand parts are not calibrated.")
 		quit(1)
 		return
 

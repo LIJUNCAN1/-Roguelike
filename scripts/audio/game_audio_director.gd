@@ -9,10 +9,10 @@ extends Node
 @onready var room_manager: RoomManager = get_node(
 	room_manager_path
 ) as RoomManager
+@onready var sound_manager: Node = get_node("/root/SoundManager")
 
-var music_player := AudioStreamPlayer.new()
+var music_player: AudioStreamPlayer
 var sfx_players: Array[AudioStreamPlayer] = []
-var next_sfx_player: int = 0
 var current_music_id: StringName
 var rng := RandomNumberGenerator.new()
 var audio_output_enabled: bool = true
@@ -24,15 +24,15 @@ func _ready() -> void:
 		return
 	rng.randomize()
 	audio_output_enabled = DisplayServer.get_name() != "headless"
-	music_player.name = "MusicPlayer"
-	music_player.bus = &"Music"
-	add_child(music_player)
-	for index in 8:
-		var sfx_player := AudioStreamPlayer.new()
-		sfx_player.name = "SfxPlayer%d" % index
-		sfx_player.bus = &"SFX"
-		add_child(sfx_player)
-		sfx_players.append(sfx_player)
+	sound_manager.set_music_bus("Music")
+	sound_manager.set_sound_effects_bus("SFX")
+	sound_manager.set_ui_sounds_bus("SFX")
+	sound_manager.set_ambient_sound_bus("SFX")
+	for sfx_player: AudioStreamPlayer in (
+		sound_manager.sound_effects.available_players
+	):
+		if not sfx_players.has(sfx_player):
+			sfx_players.append(sfx_player)
 	player.attack_fired.connect(
 		func(_projectile: Node2D) -> void: play_cue(library.attack)
 	)
@@ -53,45 +53,50 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
-	music_player.stop()
-	music_player.stream = null
-	for sfx_player in sfx_players:
-		sfx_player.stop()
-		sfx_player.stream = null
+	sound_manager.stop_music(0.15)
 	sfx_players.clear()
 
 
 func play_cue(cue: AudioCueData) -> void:
-	if cue == null or sfx_players.is_empty():
+	if cue == null:
 		return
-	var sfx_player := sfx_players[next_sfx_player]
-	next_sfx_player = (next_sfx_player + 1) % sfx_players.size()
-	sfx_player.stop()
-	sfx_player.stream = (
+	var stream: AudioStream = (
 		cue.stream if cue.stream != null else _synthesize_cue(cue)
 	)
+	var sfx_player: AudioStreamPlayer
+	if audio_output_enabled:
+		sfx_player = sound_manager.play_sound_effect(stream, "SFX")
+	else:
+		sfx_player = sound_manager.sound_effects.prepare(stream, "SFX")
 	sfx_player.volume_db = cue.volume_db
 	sfx_player.pitch_scale = rng.randf_range(
 		1.0 - cue.pitch_randomness,
 		1.0 + cue.pitch_randomness
 	)
-	if audio_output_enabled:
-		sfx_player.play()
+	if not sfx_players.has(sfx_player):
+		sfx_players.append(sfx_player)
 
 
 func play_music(track: MusicTrackData) -> void:
 	if track == null or track.id == current_music_id:
 		return
 	current_music_id = track.id
-	music_player.stop()
-	music_player.stream = (
+	var stream: AudioStream = (
 		track.stream
 		if track.stream != null
 		else _synthesize_music(track)
 	)
-	music_player.volume_db = track.volume_db
 	if audio_output_enabled:
-		music_player.play()
+		music_player = sound_manager.play_music(
+			stream,
+			0.0,
+			db_to_linear(track.volume_db),
+			0.35,
+			"Music"
+		)
+	else:
+		music_player = sound_manager.music.prepare(stream, "Music")
+		music_player.volume_db = track.volume_db
 
 
 func _on_room_changed(_data: RoomData, _index: int) -> void:

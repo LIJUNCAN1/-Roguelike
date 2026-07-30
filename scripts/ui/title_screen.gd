@@ -13,6 +13,24 @@ const CURRENT_VERSION := "EA v0.1.0"
 const DEFAULT_MUSIC_VOLUME := 0.75
 const DEFAULT_SFX_VOLUME := 0.85
 const DEFAULT_SHOW_CONTROL_HINTS := true
+const MENU_HOVER_SFX := preload(
+	"res://assets/audio/generated/menu_hover.res"
+)
+const MENU_CONFIRM_SFX := preload(
+	"res://assets/audio/generated/menu_confirm.res"
+)
+const MENU_TRANSITION_SFX := preload(
+	"res://assets/audio/generated/menu_transition.res"
+)
+const START_TRANSITION_OPTIONS := {
+	"speed": 1.65,
+	"color": Color("#07130f"),
+	"pattern": "circle",
+	"wait_time": 0.12,
+	"ease_enter": 1.35,
+	"ease_leave": 0.8,
+	"background_loading": true,
+}
 const DISPLAY_RESOLUTIONS := [
 	Vector2i(1280, 720),
 	Vector2i(1600, 900),
@@ -78,8 +96,12 @@ const DISPLAY_RESOLUTIONS := [
 @onready var codex_back_button: Button = (
 	$Interface/GeneCodexPanel/Content/BackButton
 )
+@onready var scene_manager: Node = get_node("/root/SceneManager")
+@onready var sound_manager: Node = get_node("/root/SoundManager")
 
 var button_tweens: Dictionary = {}
+var transition_requested := false
+var last_hover_sound_msec := -1000
 
 
 func _ready() -> void:
@@ -122,6 +144,7 @@ func prepare_button_animations() -> void:
 		button.pivot_offset = button.size * 0.5
 		button.mouse_entered.connect(animate_button.bind(button, true))
 		button.mouse_exited.connect(animate_button.bind(button, false))
+		button.pressed.connect(_play_button_sound.bind(button))
 		if button not in [
 			settings_apply_button,
 			settings_back_button,
@@ -132,6 +155,8 @@ func prepare_button_animations() -> void:
 
 
 func animate_button(button: Button, is_active: bool) -> void:
+	if is_active:
+		_play_hover_sound()
 	if button_tweens.has(button):
 		var previous := button_tweens[button] as Tween
 		if previous != null:
@@ -165,8 +190,55 @@ func animate_button(button: Button, is_active: bool) -> void:
 
 
 func start_game() -> void:
+	if transition_requested or scene_manager.is_transitioning:
+		return
+	transition_requested = true
 	get_tree().paused = false
-	get_tree().change_scene_to_file(game_scene_path)
+	_set_menu_interaction_enabled(false)
+	var options := START_TRANSITION_OPTIONS.duplicate()
+	if DisplayServer.get_name() == "headless":
+		options["skip_fade_out"] = true
+		options["skip_fade_in"] = true
+		options["wait_time"] = 0.0
+		options["background_loading"] = false
+	scene_manager.change_scene(game_scene_path, options)
+
+
+func _set_menu_interaction_enabled(enabled: bool) -> void:
+	for button in [
+		start_button,
+		settings_button,
+		roadmap_button,
+		quit_button,
+	]:
+		(button as Button).disabled = not enabled
+
+
+func _play_hover_sound() -> void:
+	var current_msec := Time.get_ticks_msec()
+	if current_msec - last_hover_sound_msec < 70:
+		return
+	last_hover_sound_msec = current_msec
+	_play_ui_sound(MENU_HOVER_SFX, 0.5)
+
+
+func _play_button_sound(button: Button) -> void:
+	var stream: AudioStream = (
+		MENU_TRANSITION_SFX
+		if button == start_button
+		else MENU_CONFIRM_SFX
+	)
+	_play_ui_sound(stream, 0.72)
+
+
+func _play_ui_sound(stream: AudioStream, volume: float) -> void:
+	if DisplayServer.get_name() == "headless":
+		return
+	var player: AudioStreamPlayer = sound_manager.play_ui_sound(
+		stream,
+		"SFX"
+	)
+	player.volume_linear = volume
 
 
 func quit_game() -> void:

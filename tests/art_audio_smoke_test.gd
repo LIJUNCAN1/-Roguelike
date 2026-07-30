@@ -39,17 +39,22 @@ func _run() -> void:
 	var audio := main.get_node(
 		"GameAudioDirector"
 	) as GameAudioDirector
+	var sound_manager := root.get_node("SoundManager")
 	if (
 		audio.library == null
 		or audio.current_music_id != &"organic_region"
 		or not audio.music_player.stream is AudioStreamWAV
 		or audio.music_player.bus != &"Music"
+		or audio.music_player.get_parent() != sound_manager.music
 	):
 		push_error("Region music fallback was not active.")
 		quit(1)
 		return
 	for sfx_player in audio.sfx_players:
-		if sfx_player.bus != &"SFX":
+		if (
+			sfx_player.bus != &"SFX"
+			or sfx_player.get_parent() != sound_manager.sound_effects
+		):
 			push_error("Sound effect player was not routed to SFX.")
 			quit(1)
 			return

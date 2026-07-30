@@ -8,6 +8,19 @@ signal pause_changed(is_paused: bool)
 )
 @export var return_button_text := "返回主大厅"
 
+const RETURN_TRANSITION_SFX := preload(
+	"res://assets/audio/generated/menu_transition.res"
+)
+const RETURN_TRANSITION_OPTIONS := {
+	"speed": 1.75,
+	"color": Color("#07130f"),
+	"pattern": "circle",
+	"wait_time": 0.1,
+	"ease_enter": 0.8,
+	"ease_leave": 1.3,
+	"background_loading": true,
+}
+
 @onready var dimmer: Control = $Dimmer
 @onready var pause_panel: Control = $Dimmer/Panel
 @onready var continue_button: Button = (
@@ -50,6 +63,10 @@ signal pause_changed(is_paused: bool)
 @onready var settings_back_button: Button = (
 	$Dimmer/SettingsPanel/Margin/Content/Actions/BackButton
 )
+@onready var scene_manager: Node = get_node("/root/SceneManager")
+@onready var sound_manager: Node = get_node("/root/SoundManager")
+
+var transition_requested := false
 
 
 func _ready() -> void:
@@ -112,10 +129,26 @@ func resume_game() -> void:
 
 
 func return_to_title() -> void:
+	if transition_requested or scene_manager.is_transitioning:
+		return
+	transition_requested = true
 	settings_panel.visible = false
 	dimmer.visible = false
 	get_tree().paused = false
-	get_tree().change_scene_to_file(title_scene_path)
+	title_button.disabled = true
+	if DisplayServer.get_name() != "headless":
+		var player: AudioStreamPlayer = sound_manager.play_ui_sound(
+			RETURN_TRANSITION_SFX,
+			"SFX"
+		)
+		player.volume_linear = 0.72
+	var options := RETURN_TRANSITION_OPTIONS.duplicate()
+	if DisplayServer.get_name() == "headless":
+		options["skip_fade_out"] = true
+		options["skip_fade_in"] = true
+		options["wait_time"] = 0.0
+		options["background_loading"] = false
+	scene_manager.change_scene(title_scene_path, options)
 
 
 func is_pause_visible() -> bool:

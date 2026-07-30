@@ -8,6 +8,11 @@ const REFERENCE_PATH := "res://reference/hub_map_reference.png"
 )
 @export var scene_transitions_enabled := true
 @export var facility_panels_enabled := true
+@export var camera_intro_enabled := true
+@export var camera_intro_start_zoom := Vector2(2.0, 2.0)
+@export var camera_gameplay_zoom := Vector2(1.45, 1.45)
+@export_range(0.1, 3.0, 0.05)
+var camera_intro_duration := 1.15
 
 @onready var reference_layer: Node2D = $ReferenceLayer
 @onready var reference_image: Sprite2D = $ReferenceLayer/ReferenceImage
@@ -48,6 +53,7 @@ var focused_interactable: Interactable
 var last_interaction_id: StringName
 var _core_tween: Tween
 var _fire_tween: Tween
+var _camera_intro_tween: Tween
 
 
 func _ready() -> void:
@@ -55,6 +61,7 @@ func _ready() -> void:
 	reference_layer.visible = false
 	player.global_position = player_spawn.global_position
 	_configure_camera_limits()
+	_start_camera_intro()
 	_connect_interactables()
 	meta_back_button.pressed.connect(_close_facility_panels)
 	codex_back_button.pressed.connect(_close_facility_panels)
@@ -80,6 +87,21 @@ func _configure_camera_limits() -> void:
 	)
 	camera.position = Vector2.ZERO
 	camera.enabled = true
+
+
+func _start_camera_intro() -> void:
+	if not camera_intro_enabled or DisplayServer.get_name() == "headless":
+		camera.zoom = camera_gameplay_zoom
+		return
+	camera.zoom = camera_intro_start_zoom
+	_camera_intro_tween = create_tween()
+	_camera_intro_tween.tween_interval(0.2)
+	_camera_intro_tween.tween_property(
+		camera,
+		"zoom",
+		camera_gameplay_zoom,
+		camera_intro_duration
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 
 func _connect_interactables() -> void:

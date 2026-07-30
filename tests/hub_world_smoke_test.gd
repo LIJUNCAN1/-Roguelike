@@ -77,7 +77,7 @@ func _run() -> void:
 		or hub.camera.limit_top != 0
 		or hub.camera.limit_right != 1600
 		or hub.camera.limit_bottom != 1000
-		or hub.camera.zoom != Vector2(2, 2)
+		or hub.camera.zoom != hub.camera_gameplay_zoom
 		or not hub.camera.enabled
 	):
 		_fail("Hub camera limits are invalid.")
