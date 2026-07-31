@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponAtlasPageData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/weapons/weapon_atlas_page_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/weapons/weapon_atlas_03_2022.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+id = &"weapon_atlas_03_2022"
+atlas_texture = ExtResource("2")
+

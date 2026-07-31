@@ -18,6 +18,9 @@ signal attack_fired(projectile: Node2D)
 @onready var projectile_container: Node2D = get_node_or_null(
 	projectile_container_path
 ) as Node2D
+@onready var input_bindings: InputBindingManager = get_node_or_null(
+	"/root/InputBindings"
+) as InputBindingManager
 
 var facing_direction: Vector2 = Vector2.RIGHT
 var movement_direction: Vector2 = Vector2.ZERO
@@ -132,10 +135,34 @@ func _physics_process(delta: float) -> void:
 		)
 		return
 
-	aim_at(get_global_mouse_position())
+	_update_aim_input()
 
 	if Input.is_action_pressed("attack"):
 		fire()
+
+
+func _update_aim_input() -> void:
+	if (
+		input_bindings == null
+		or input_bindings.active_device
+		!= InputBindingManager.DEVICE_GAMEPAD
+	):
+		aim_at(get_global_mouse_position())
+		return
+	var joypads := Input.get_connected_joypads()
+	if not joypads.is_empty():
+		var device_id: int = joypads[0]
+		var stick_aim := Vector2(
+			Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_X),
+			Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_Y)
+		)
+		if stick_aim.length_squared() >= 0.16:
+			facing_direction = stick_aim.normalized()
+			_update_facing_visual()
+			return
+	if not movement_direction.is_zero_approx():
+		facing_direction = movement_direction
+		_update_facing_visual()
 
 
 func aim_at(world_position: Vector2) -> void:

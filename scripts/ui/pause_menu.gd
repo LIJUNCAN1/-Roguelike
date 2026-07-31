@@ -88,6 +88,11 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if (
+		settings_panel is InputSettingsPanel
+		and (settings_panel as InputSettingsPanel).is_capturing_input()
+	):
+		return
 	if not event.is_action_pressed("pause_game"):
 		return
 	if get_tree().paused and not dimmer.visible:

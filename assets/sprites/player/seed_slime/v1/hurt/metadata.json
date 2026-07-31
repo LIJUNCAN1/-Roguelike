@@ -1,0 +1,27 @@
+{
+  "frame_count": 16,
+  "frame_size": [
+    48,
+    48
+  ],
+  "durations_ms": [
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100
+  ],
+  "loop": false,
+  "source": "source/seed_slime_hurt.gif"
+}

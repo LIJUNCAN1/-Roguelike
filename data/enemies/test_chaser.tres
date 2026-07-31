@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+[gd_resource type="Resource" script_class="EnemyData" load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/actors/enemy_data.gd" id="1_enemy_data"]
 [ext_resource type="Resource" path="res://data/enemies/attacks/chaser_melee.tres" id="2_attack"]
 [ext_resource type="Resource" path="res://data/art/chaser_visual.tres" id="3_visual"]
+[ext_resource type="Resource" path="res://data/art/bat_animation.tres" id="4_animation"]
 
 [resource]
 script = ExtResource("1_enemy_data")
 id = &"test_chaser"
-display_name = "追踪实验体"
+display_name = "洞穴血蝠"
 visual_data = ExtResource("3_visual")
+animation_set = ExtResource("4_animation")
 max_health = 30.0
 move_speed = 70.0
 stopping_distance = 18.0

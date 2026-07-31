@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/enemies/animated_melee_enemy.tscn" id="1"]
+[ext_resource type="Resource" path="res://data/enemies/rat.tres" id="2"]
+
+[node name="Rat" instance=ExtResource("1")]
+enemy_data = ExtResource("2")
+

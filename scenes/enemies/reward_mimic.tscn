@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/reward_mimic_controller.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/actors/movement_component.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/combat/health_component.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox_component.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/combat/hit_feedback_component.gd" id="5"]
+[ext_resource type="Resource" path="res://data/feedback/test_chaser_feedback.tres" id="6"]
+[ext_resource type="Script" path="res://scripts/art/enemy_animation_presenter.gd" id="7"]
+[ext_resource type="Resource" path="res://data/enemies/reward_mimic.tres" id="8"]
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 14.0
+
+[node name="RewardMimic" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1")
+enemy_data = ExtResource("8")
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("2")
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3")
+[node name="EnemyAnimationPresenter" type="Node2D" parent="."]
+script = ExtResource("7")
+fallback_visual_path = NodePath("../Visuals")
+[node name="HitFeedbackComponent" type="Node" parent="."]
+script = ExtResource("5")
+feedback_data = ExtResource("6")
+health_component_path = NodePath("../HealthComponent")
+visual_root_path = NodePath("../EnemyAnimationPresenter")
+[node name="HurtboxComponent" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("4")
+health_component_path = NodePath("../HealthComponent")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+shape = SubResource("1")
+[node name="Visuals" type="Node2D" parent="."]
+[node name="FacingMarker" type="Polygon2D" parent="Visuals"]
+polygon = PackedVector2Array(3, -2, 9, 0, 3, 2)
+color = Color(1, 0.84, 0.58, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")

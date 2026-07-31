@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponIconCatalogData" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/weapons/weapon_icon_catalog_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/weapons/icons/weapon_atlas_page_01.tres" id="2"]
+[ext_resource type="Resource" path="res://data/weapons/icons/weapon_atlas_page_02.tres" id="3"]
+[ext_resource type="Resource" path="res://data/weapons/icons/weapon_atlas_page_03.tres" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/icons/weapon_atlas_page_04.tres" id="5"]
+[ext_resource type="Resource" path="res://data/weapons/icons/weapon_atlas_page_05.tres" id="6"]
+[ext_resource type="Resource" path="res://data/weapons/icons/weapon_atlas_page_06.tres" id="7"]
+[ext_resource type="Script" path="res://scripts/weapons/weapon_atlas_page_data.gd" id="8_page_script"]
+
+[resource]
+script = ExtResource("1")
+pages = Array[ExtResource("8_page_script")]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5"), ExtResource("6"), ExtResource("7")])

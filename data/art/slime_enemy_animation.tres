@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EnemyAnimationSet" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/enemy_animation_set.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/slime/idle.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/slime/walk.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/slime/attack.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/slime/hurt.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/slime/death.png" id="6"]
+
+[resource]
+script = ExtResource("1")
+visual_scale = Vector2(0.5, 0.5)
+visual_offset = Vector2(0, -7)
+faces_right = true
+idle_texture = ExtResource("2")
+idle_frames = 14
+idle_fps = 9.0
+move_texture = ExtResource("3")
+move_frames = 6
+move_fps = 10.0
+attack_texture = ExtResource("4")
+attack_frames = 19
+attack_fps = 18.0
+hurt_texture = ExtResource("5")
+hurt_frames = 3
+death_texture = ExtResource("6")
+death_frames = 11
+death_fps = 12.0
+

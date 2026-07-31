@@ -20,6 +20,7 @@ var gene_manager: GeneManager
 var offered_genes: Array[GeneData] = []
 var selected_gene: GeneData
 var _rng := RandomNumberGenerator.new()
+var reward_guard: EnemyController
 
 
 func _ready() -> void:
@@ -50,7 +51,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func configure_player(player: Node2D) -> void:
 	gene_manager = player.get_node_or_null("GeneManager") as GeneManager
-	_offer_rewards()
+	reward_guard = get_node_or_null("RewardMimic") as EnemyController
+	if reward_guard == null:
+		_offer_rewards()
+		return
+	var guard_health := reward_guard.get_node_or_null("HealthComponent") as HealthComponent
+	if guard_health == null:
+		_offer_rewards()
+		return
+	guard_health.died.connect(_on_reward_guard_defeated, CONNECT_ONE_SHOT)
 
 
 func choose_gene(choice_index: int) -> bool:
@@ -82,7 +91,13 @@ func get_offered_genes() -> Array[GeneData]:
 
 
 func get_incomplete_hint() -> String:
+	if reward_guard != null and is_instance_valid(reward_guard):
+		return "靠近奖励箱，并击败苏醒的拟态怪"
 	return "选择一张基因卡（按 1 / 2 / 3）"
+
+
+func _on_reward_guard_defeated(_source: Node) -> void:
+	_offer_rewards()
 
 
 func _offer_rewards() -> void:

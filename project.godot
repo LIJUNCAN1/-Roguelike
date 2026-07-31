@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 MetaProgression="*res://scripts/meta/meta_progression_manager.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
+InputBindings="*res://scripts/input/input_binding_manager.gd"
 
 [display]
 

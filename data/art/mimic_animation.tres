@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="EnemyAnimationSet" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/enemy_animation_set.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/mimic/Idle_closed.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/mimic/walk.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/mimic/attack_1.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/mimic/hurt.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/mimic/death.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/mimic/opening.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/mimic/transform.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/mimic/idle_transformed.png" id="9"]
+
+[resource]
+script = ExtResource("1")
+visual_scale = Vector2(0.58, 0.58)
+visual_offset = Vector2(0, -13)
+faces_right = true
+idle_texture = ExtResource("2")
+idle_frames = 1
+move_texture = ExtResource("3")
+move_frames = 6
+move_fps = 10.0
+attack_texture = ExtResource("4")
+attack_frames = 14
+attack_fps = 18.0
+hurt_texture = ExtResource("5")
+hurt_frames = 3
+death_texture = ExtResource("6")
+death_frames = 6
+death_fps = 9.0
+awaken_texture = ExtResource("7")
+awaken_frames = 6
+awaken_fps = 10.0
+transform_texture = ExtResource("8")
+transform_frames = 7
+transform_fps = 11.0
+awakened_idle_texture = ExtResource("9")
+awakened_idle_frames = 9
+awakened_idle_fps = 8.0

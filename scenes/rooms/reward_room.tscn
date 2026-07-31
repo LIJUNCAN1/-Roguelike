@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/rooms/room_shell.tscn" id="1_shell"]
 [ext_resource type="Script" path="res://scripts/rewards/gene_reward_room.gd" id="2_reward"]
 [ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="3_pool"]
 [ext_resource type="PackedScene" path="res://scenes/ui/gene_reward_card.tscn" id="4_card"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/reward_mimic.tscn" id="5_mimic"]
 
 [sub_resource type="StyleBoxFlat" id="Panel"]
 bg_color = Color(0.025, 0.012, 0.015, 0.98)
@@ -38,16 +39,22 @@ reward_pool = ExtResource("3_pool")
 modulate = Color(1, 0.82, 0.42, 1)
 
 [node name="ChestBody" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(296, 169, 344, 169, 344, 198, 296, 198)
 color = Color(0.65, 0.34, 0.08, 1)
 
 [node name="ChestLid" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(294, 168, 300, 157, 340, 157, 346, 168)
 color = Color(1, 0.72, 0.16, 1)
 
 [node name="GeneCore" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(320, 166, 327, 178, 320, 190, 313, 178)
 color = Color(0.45, 1, 0.72, 1)
+
+[node name="RewardMimic" parent="." groups=["room_enemies"] instance=ExtResource("5_mimic")]
+position = Vector2(320, 178)
 
 [node name="RewardInterface" type="CanvasLayer" parent="."]
 layer = 20

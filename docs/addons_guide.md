@@ -79,6 +79,17 @@
 5. 确认没有覆盖现有输入、音频、场景或数据配置。
 6. 再把插件接入正式系统并提交。
 
+## 当前启用状态（2026-08-01 复核）
+
+- 已启用：gdfxr、Scene Manager、Sound Manager。
+- 保持禁用：AS2P、Dialogic、Dialogue Manager、Godot State Charts、
+  Input Helper、Kanban Tasks、Importality、Phantom Camera、YARD。
+- 本次控制设置继续使用项目已有 `InputBindingManager`，没有启用
+  Input Helper。原因是两套重映射系统同时写入 InputMap 会造成绑定覆盖、
+  保存格式冲突和提示文本不同步。
+- 后续明确需要某个插件时，必须在本文件“启用记录”增加日期、版本、
+  使用原因、接入位置、兼容修改和回退方法。
+
 ## 已知风险
 
 - AS2P 没有声明版本，正式使用前必须验证 Godot 4.7.1 兼容性。

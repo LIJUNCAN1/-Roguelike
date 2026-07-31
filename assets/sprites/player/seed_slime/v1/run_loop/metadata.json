@@ -1,0 +1,19 @@
+{
+  "frame_count": 8,
+  "frame_size": [
+    48,
+    48
+  ],
+  "durations_ms": [
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100
+  ],
+  "loop": true,
+  "source": "source/seed_slime_original.gif"
+}

@@ -44,8 +44,8 @@ func _run() -> void:
 		quit(1)
 		return
 	await process_frame
-	if shake.trauma <= 0.0:
-		push_error("Player damage did not trigger screen shake.")
+	if shake.trauma > 0.0:
+		push_error("Player damage unexpectedly triggered screen shake.")
 		quit(1)
 		return
 

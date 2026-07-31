@@ -9,3 +9,9 @@ extends Resource
 @export_group("HUD")
 @export var hud_symbol: String = "◆"
 @export var hud_color: Color = Color(1.0, 0.62, 0.18, 1.0)
+
+
+func get_hud_icon() -> Texture2D:
+	if weapon_data == null:
+		return null
+	return weapon_data.get_icon()

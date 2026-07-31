@@ -140,6 +140,7 @@ status_label_path = NodePath("../Interface/StagePanel/MarginContainer/Labels/Com
 script = ExtResource("22_screen_shake")
 player_health_path = NodePath("../World/Player/HealthComponent")
 camera_path = NodePath("../World/Camera2D")
+hit_strength = 0.0
 
 [node name="EvolutionPresentationController" type="Node" parent="."]
 script = ExtResource("31_evolution_presentation")

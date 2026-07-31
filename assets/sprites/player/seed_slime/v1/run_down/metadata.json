@@ -1,0 +1,20 @@
+{
+  "frame_count": 8,
+  "frame_size": [
+    64,
+    64
+  ],
+  "durations_ms": [
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100
+  ],
+  "loop": true,
+  "ground_anchor_y": 58,
+  "source": "source/job_327d57769a6043bd94c540337c5c2606-transparent.gif"
+}

@@ -19,6 +19,7 @@ var projectile_container: Node2D
 var facing_direction: Vector2 = Vector2.LEFT
 var contact_cooldown_remaining: float = 0.0
 var difficulty_multiplier: float = 1.0
+var is_dying: bool = false
 
 
 func _ready() -> void:
@@ -31,7 +32,14 @@ func _ready() -> void:
 		"PixelActorPresenter"
 	) as PixelActorPresenter
 	if pixel_presenter != null:
-		pixel_presenter.configure(enemy_data.visual_data)
+		pixel_presenter.configure(
+			null if enemy_data.animation_set != null else enemy_data.visual_data
+		)
+	var animation_presenter := get_node_or_null(
+		"EnemyAnimationPresenter"
+	) as EnemyAnimationPresenter
+	if animation_presenter != null:
+		animation_presenter.configure(enemy_data.animation_set)
 	health_component.configure(enemy_data.max_health)
 	health_component.died.connect(_on_died)
 	hit_feedback_component.configure_container(
@@ -42,6 +50,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if is_dying:
+		velocity = Vector2.ZERO
+		return
 	contact_cooldown_remaining = maxf(
 		contact_cooldown_remaining - delta,
 		0.0
@@ -153,6 +164,16 @@ func _play_attack_pulse() -> void:
 
 
 func _on_died(source: Node) -> void:
+	if is_dying:
+		return
+	is_dying = true
+	set_physics_process(false)
+	velocity = Vector2.ZERO
+	collision_layer = 0
+	collision_mask = 0
+	var hurtbox := get_node_or_null("HurtboxComponent") as Area2D
+	if hurtbox != null:
+		hurtbox.set_deferred("monitorable", false)
 	var reward_owner := _resolve_reward_owner(source)
 	if reward_owner != null:
 		var progression := reward_owner.get_node_or_null(
@@ -161,6 +182,14 @@ func _on_died(source: Node) -> void:
 		if progression != null:
 			progression.add_experience(enemy_data.experience_reward)
 			progression.add_essence(enemy_data.essence_reward)
+	var animation_presenter := get_node_or_null(
+		"EnemyAnimationPresenter"
+	) as EnemyAnimationPresenter
+	var delay := 0.0
+	if animation_presenter != null:
+		delay = animation_presenter.get_death_duration()
+	if delay > 0.0:
+		await get_tree().create_timer(delay).timeout
 	queue_free()
 
 

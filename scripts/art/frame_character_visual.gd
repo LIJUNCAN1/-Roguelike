@@ -2,11 +2,12 @@ class_name FrameCharacterVisual
 extends Node2D
 
 const ASSET_ROOT := (
-	"res://assets/sprites/player/preview_character/v1"
+	"res://assets/sprites/player/seed_slime/v1"
 )
-const FRAME_SIZE := Vector2i(64, 64)
-const GROUND_ANCHOR_Y := 58
+const FRAME_SIZE := Vector2i(48, 48)
+const GROUND_ANCHOR_Y := 44
 const ANIMATION_NAMES := [
+	&"idle",
 	&"jump",
 	&"slide",
 	&"dodge",
@@ -16,6 +17,9 @@ const ANIMATION_NAMES := [
 	&"run_start",
 	&"run_loop",
 	&"run_stop",
+	&"run_side",
+	&"run_up",
+	&"run_down",
 ]
 const ACTION_ANIMATIONS := {
 	&"dash": &"dodge",
@@ -27,7 +31,7 @@ const ACTION_ANIMATIONS := {
 }
 
 @export var base_evolution_id: StringName = &"base_life"
-@export_range(0.25, 2.0, 0.01) var visual_scale := 1.0
+@export_range(0.25, 2.0, 0.01) var visual_scale := 1.25
 
 @onready var actor := get_parent().get_parent() as CharacterBody2D
 @onready var visual_root := get_parent() as Node2D
@@ -57,6 +61,8 @@ var is_dead := false
 var is_base_form := true
 var was_moving := false
 var animation_durations: Dictionary[StringName, float] = {}
+var animation_frame_sizes: Dictionary[StringName, Vector2i] = {}
+var animation_ground_anchors: Dictionary[StringName, int] = {}
 var last_health := -1.0
 var last_max_health := -1.0
 
@@ -79,7 +85,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not is_base_form:
 		return
-	_update_facing()
 	var moving := actor.velocity.length_squared() > 4.0
 	if not current_action.is_empty():
 		action_elapsed += delta
@@ -92,6 +97,7 @@ func _process(delta: float) -> void:
 			_resume_locomotion(moving)
 	else:
 		_update_locomotion(moving)
+	_update_facing()
 	_apply_pose()
 	was_moving = moving
 
@@ -106,6 +112,7 @@ func play_action(action: StringName, duration: float) -> void:
 	if not animation.is_empty():
 		sprite.play(animation)
 		_update_action_speed(animation, duration)
+		_align_sprite_to_ground()
 
 
 func play_heal() -> void:
@@ -127,7 +134,7 @@ func _build_sprite_frames() -> void:
 	frames.remove_animation(&"default")
 	for animation: StringName in ANIMATION_NAMES:
 		_add_asset_animation(frames, animation)
-	_add_idle_animation(frames)
+	_add_idle_fallback(frames)
 	sprite.sprite_frames = frames
 
 
@@ -161,9 +168,29 @@ func _add_asset_animation(
 	var texture := load(texture_path) as Texture2D
 	var frame_count := int(metadata.get("frame_count", 0))
 	var durations: Array = metadata.get("durations_ms", []) as Array
-	if texture == null or frame_count <= 0:
+	var frame_size := FRAME_SIZE
+	var frame_size_variant: Variant = metadata.get("frame_size", [])
+	if frame_size_variant is Array:
+		var frame_size_data := frame_size_variant as Array
+		if frame_size_data.size() >= 2:
+			frame_size = Vector2i(
+				int(frame_size_data[0]),
+				int(frame_size_data[1])
+			)
+	if (
+		texture == null
+		or frame_count <= 0
+		or frame_size.x <= 0
+		or frame_size.y <= 0
+		or texture.get_width() < frame_size.x * frame_count
+		or texture.get_height() < frame_size.y
+	):
 		push_error("Invalid frame sheet: %s" % texture_path)
 		return
+	animation_frame_sizes[animation] = frame_size
+	animation_ground_anchors[animation] = int(
+		metadata.get("ground_anchor_y", GROUND_ANCHOR_Y)
+	)
 	frames.add_animation(animation)
 	frames.set_animation_speed(animation, 1000.0)
 	frames.set_animation_loop(
@@ -175,8 +202,8 @@ func _add_asset_animation(
 		var atlas_frame := AtlasTexture.new()
 		atlas_frame.atlas = texture
 		atlas_frame.region = Rect2(
-			Vector2(frame_index * FRAME_SIZE.x, 0),
-			Vector2(FRAME_SIZE)
+			Vector2(frame_index * frame_size.x, 0),
+			Vector2(frame_size)
 		)
 		var duration_ms := (
 			float(durations[frame_index])
@@ -192,7 +219,9 @@ func _add_asset_animation(
 	animation_durations[animation] = total_duration
 
 
-func _add_idle_animation(frames: SpriteFrames) -> void:
+func _add_idle_fallback(frames: SpriteFrames) -> void:
+	if frames.has_animation(&"idle"):
+		return
 	if not frames.has_animation(&"jump"):
 		return
 	frames.add_animation(&"idle")
@@ -203,6 +232,14 @@ func _add_idle_animation(frames: SpriteFrames) -> void:
 		frames.get_frame_texture(&"jump", 0),
 		1.0
 	)
+	animation_frame_sizes[&"idle"] = animation_frame_sizes.get(
+		&"jump",
+		FRAME_SIZE
+	)
+	animation_ground_anchors[&"idle"] = animation_ground_anchors.get(
+		&"jump",
+		GROUND_ANCHOR_Y
+	)
 	animation_durations[&"idle"] = 1.0
 
 
@@ -210,8 +247,9 @@ func _update_locomotion(moving: bool) -> void:
 	if is_dead:
 		return
 	if moving:
-		if not was_moving or sprite.animation == &"idle":
-			sprite.play(&"run_start")
+		var run_animation := _get_directional_run_animation()
+		if sprite.animation != run_animation:
+			sprite.play(run_animation)
 			sprite.speed_scale = 1.0
 	else:
 		if was_moving:
@@ -225,7 +263,7 @@ func _update_locomotion(moving: bool) -> void:
 
 func _resume_locomotion(moving: bool) -> void:
 	if moving:
-		sprite.play(&"run_loop")
+		sprite.play(_get_directional_run_animation())
 	else:
 		sprite.play(&"idle")
 	sprite.speed_scale = 1.0
@@ -246,11 +284,19 @@ func _on_animation_finished() -> void:
 
 
 func _align_sprite_to_ground() -> void:
-	# AnimatedSprite2D is centred on the 64x64 canvas. The authored feet
-	# anchor is y=58, so a centre at -26 places the feet on actor y=0.
+	# AnimatedSprite2D is centred on the authored frame. Moving the frame's
+	# ground anchor to actor y=0 keeps every animation stable while moving.
+	var frame_size: Vector2i = animation_frame_sizes.get(
+		sprite.animation,
+		FRAME_SIZE
+	)
+	var ground_anchor_y: int = animation_ground_anchors.get(
+		sprite.animation,
+		GROUND_ANCHOR_Y
+	)
 	sprite.position = Vector2(
 		0.0,
-		float(FRAME_SIZE.y) * 0.5 - GROUND_ANCHOR_Y
+		float(frame_size.y) * 0.5 - ground_anchor_y
 	)
 
 
@@ -312,9 +358,19 @@ func _update_facing() -> void:
 			direction = actor.call("get_facing_direction") as Vector2
 		if absf(direction.x) > 0.05:
 			facing_sign = 1.0 if direction.x < 0.0 else -1.0
-	# Source artwork faces left; mirroring supplies right-facing playback.
-	sprite.flip_h = facing_sign < 0.0
+	# Only the side animation is mirrored. Up/down have authored frames.
+	if sprite.animation == &"run_up" or sprite.animation == &"run_down":
+		sprite.flip_h = false
+	else:
+		sprite.flip_h = facing_sign < 0.0
 	_align_sprite_to_ground()
+
+
+func _get_directional_run_animation() -> StringName:
+	var direction := actor.velocity
+	if absf(direction.x) >= absf(direction.y):
+		return &"run_side"
+	return &"run_up" if direction.y < 0.0 else &"run_down"
 
 
 func _connect_actor_signals() -> void:

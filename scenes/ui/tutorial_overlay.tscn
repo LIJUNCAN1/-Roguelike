@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/tutorial_overlay.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/ui/control_wasd.png" id="2_wasd"]
 [ext_resource type="Texture2D" path="res://assets/ui/control_mouse.png" id="3_mouse"]
 [ext_resource type="Texture2D" path="res://assets/ui/control_space.png" id="4_space"]
+[ext_resource type="Script" path="res://scripts/ui/keyboard_action_icon.gd" id="5_key_icon"]
 
 [sub_resource type="SystemFont" id="Font_bold"]
 font_names = PackedStringArray("Microsoft YaHei UI", "Noto Sans CJK SC", "Arial")
@@ -56,14 +57,12 @@ alignment = 0
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Icon" type="TextureRect" parent="ControlHints/Content/Movement"]
+[node name="Icon" type="Control" parent="ControlHints/Content/Movement"]
 custom_minimum_size = Vector2(96, 72)
 layout_mode = 2
 mouse_filter = 2
-texture_filter = 1
-texture = ExtResource("2_wasd")
-expand_mode = 1
-stretch_mode = 5
+script = ExtResource("5_key_icon")
+actions = Array[StringName]([&"move_up", &"move_left", &"move_down", &"move_right"])
 
 [node name="Label" type="Label" parent="ControlHints/Content/Movement"]
 layout_mode = 2
@@ -102,14 +101,12 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Icon" type="TextureRect" parent="ControlHints/Content/Dash"]
+[node name="Icon" type="Control" parent="ControlHints/Content/Dash"]
 custom_minimum_size = Vector2(112, 72)
 layout_mode = 2
 mouse_filter = 2
-texture_filter = 1
-texture = ExtResource("4_space")
-expand_mode = 1
-stretch_mode = 5
+script = ExtResource("5_key_icon")
+actions = Array[StringName]([&"dash"])
 
 [node name="Label" type="Label" parent="ControlHints/Content/Dash"]
 layout_mode = 2

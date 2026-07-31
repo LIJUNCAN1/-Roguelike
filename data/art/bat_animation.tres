@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="EnemyAnimationSet" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/enemy_animation_set.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/bat/fly.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/bat/attack.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/bat/hurt.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/bat/death.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/bat/fly-to-fall.png" id="6"]
+
+[resource]
+script = ExtResource("1")
+visual_scale = Vector2(0.72, 0.72)
+visual_offset = Vector2(0, -8)
+faces_right = true
+idle_texture = ExtResource("2")
+idle_frames = 11
+idle_fps = 9.0
+move_texture = ExtResource("2")
+move_frames = 11
+move_fps = 12.0
+attack_texture = ExtResource("3")
+attack_frames = 11
+attack_fps = 16.0
+hurt_texture = ExtResource("4")
+hurt_frames = 3
+hurt_fps = 12.0
+death_texture = ExtResource("5")
+death_frames = 4
+death_fps = 9.0
+awaken_texture = ExtResource("6")
+awaken_frames = 3
+

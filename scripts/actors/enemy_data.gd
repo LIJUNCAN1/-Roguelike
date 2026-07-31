@@ -5,6 +5,7 @@ extends Resource
 @export var id: StringName
 @export var display_name: String
 @export var visual_data: ActorVisualData
+@export var animation_set: EnemyAnimationSet
 
 @export_group("Survival")
 @export_range(1.0, 1000000.0, 1.0, "or_greater")

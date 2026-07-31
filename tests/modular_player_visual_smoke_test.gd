@@ -24,15 +24,19 @@ func _run() -> void:
 		or not visual.is_base_form
 		or pixel_presenter.sprite.visible
 		or not player.get_node("Visuals").visible
-		or visual.get_animation_frame_count(&"idle") != 1
-		or visual.get_animation_frame_count(&"run_start") != 18
-		or visual.get_animation_frame_count(&"run_loop") != 20
-		or visual.get_animation_frame_count(&"run_stop") != 18
-		or visual.get_animation_frame_count(&"jump") != 36
-		or visual.get_animation_frame_count(&"slide") != 27
-		or visual.get_animation_frame_count(&"dodge") != 44
-		or visual.get_animation_frame_count(&"hurt") != 36
-		or visual.get_animation_frame_count(&"heal") != 16
+		or visual.get_animation_frame_count(&"idle") != 8
+		or visual.get_animation_frame_count(&"run_start") != 4
+		or visual.get_animation_frame_count(&"run_loop") != 8
+		or visual.get_animation_frame_count(&"run_stop") != 4
+		or visual.get_animation_frame_count(&"run_side") != 16
+		or visual.get_animation_frame_count(&"run_up") != 8
+		or visual.get_animation_frame_count(&"run_down") != 8
+		or visual.get_animation_frame_count(&"jump") != 16
+		or visual.get_animation_frame_count(&"slide") != 8
+		or visual.get_animation_frame_count(&"dodge") != 8
+		or visual.get_animation_frame_count(&"hurt") != 16
+		or visual.get_animation_frame_count(&"heal") != 8
+		or visual.get_animation_frame_count(&"knockdown") != 16
 		or visual.get_node_or_null("Rig") != null
 	):
 		push_error("Preview-GIF player visual did not activate.")
@@ -54,21 +58,22 @@ func _run() -> void:
 	if (
 		visual.facing_sign != 1.0
 		or visual.sprite.flip_h
-		or visual.sprite.animation != &"run_start"
+		or visual.sprite.animation != &"run_side"
 	):
-		push_error("Left-facing run-start animation is invalid.")
+		push_error("Left-facing side-run animation is invalid.")
 		quit(1)
 		return
-	visual._on_animation_finished()
-	if visual.sprite.animation != &"run_loop":
-		push_error("Run-start did not transition into the run loop.")
+	player.velocity = Vector2.UP * 100.0
+	visual._process(0.1)
+	if visual.sprite.animation != &"run_up" or visual.sprite.flip_h:
+		push_error("Up-facing run animation is invalid.")
 		quit(1)
 		return
 
-	player.velocity = Vector2.UP * 100.0
+	player.velocity = Vector2.DOWN * 100.0
 	visual._process(0.1)
-	if visual.facing_sign != 1.0:
-		push_error("Vertical movement did not preserve facing.")
+	if visual.sprite.animation != &"run_down" or visual.sprite.flip_h:
+		push_error("Down-facing run animation is invalid.")
 		quit(1)
 		return
 	player.velocity = Vector2.RIGHT * 100.0

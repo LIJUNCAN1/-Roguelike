@@ -1,0 +1,28 @@
+{
+  "frame_count": 16,
+  "frame_size": [
+    62,
+    62
+  ],
+  "durations_ms": [
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100,
+    100
+  ],
+  "loop": false,
+  "source": "source/seed_slime_death.gif",
+  "ground_anchor_y": 51
+}

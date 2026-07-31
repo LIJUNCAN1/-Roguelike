@@ -15,6 +15,7 @@ var active_slot: int = -1
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	weapon_manager.weapon_slots_changed.connect(_update_slots)
 	_update_slots(
 		weapon_manager.get_equipped_organs(),
@@ -61,6 +62,10 @@ func _draw() -> void:
 		if organ != null:
 			symbol = organ.hud_symbol
 			symbol_color = organ.hud_color
+			var icon := organ.get_hud_icon()
+			if icon != null:
+				draw_texture_rect(icon, slot_rect.grow(-5.0), false)
+				continue
 		draw_string(
 			ThemeDB.fallback_font,
 			slot_rect.position + Vector2(0.0, 21.0),

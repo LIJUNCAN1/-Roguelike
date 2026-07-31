@@ -46,7 +46,13 @@ func interact(actor: Node) -> void:
 
 
 func get_prompt_text() -> String:
-	return "E 交互\n%s" % display_name
+	var bindings := get_node_or_null(
+		"/root/InputBindings"
+	) as InputBindingManager
+	var input_text := "E"
+	if bindings != null:
+		input_text = bindings.get_binding_text(&"interact")
+	return "%s 交互\n%s" % [input_text, display_name]
 
 
 func _on_body_entered(body: Node) -> void:

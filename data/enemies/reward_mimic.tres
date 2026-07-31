@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/enemy_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/enemies/attacks/chaser_melee.tres" id="2"]
+[ext_resource type="Resource" path="res://data/art/mimic_animation.tres" id="3"]
+
+[resource]
+script = ExtResource("1")
+id = &"reward_mimic"
+display_name = "拟态奖励箱"
+animation_set = ExtResource("3")
+max_health = 85.0
+experience_reward = 20
+essence_reward = 12
+move_speed = 58.0
+stopping_distance = 23.0
+attack_data = ExtResource("2")
