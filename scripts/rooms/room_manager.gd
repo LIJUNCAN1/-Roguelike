@@ -12,6 +12,7 @@ signal run_completed
 @export_node_path("Node2D") var player_path: NodePath
 @export_node_path("Node2D") var projectile_container_path: NodePath
 @export_node_path("Node2D") var effects_container_path: NodePath
+@export_node_path("Camera2D") var camera_path: NodePath
 @export_node_path("Label") var room_status_label_path: NodePath
 @export_node_path("Label") var region_status_label_path: NodePath
 @export_node_path("Label") var room_hint_label_path: NodePath
@@ -27,6 +28,9 @@ signal run_completed
 @onready var effects_container: Node2D = get_node(
 	effects_container_path
 ) as Node2D
+@onready var room_camera: RoomCameraController = get_node_or_null(
+	camera_path
+) as RoomCameraController
 @onready var room_status_label: Label = get_node(
 	room_status_label_path
 ) as Label
@@ -86,6 +90,8 @@ func enter_room(room_index: int) -> bool:
 
 	current_room = room_data.room_scene.instantiate() as RoomController
 	room_container.add_child(current_room)
+	if player.has_method("set_input_enabled"):
+		player.call("set_input_enabled", true)
 	if (
 		current_room is GeneRewardRoom
 		and room_data.gene_reward_pool != null
@@ -97,7 +103,12 @@ func enter_room(room_index: int) -> bool:
 	current_room_index = room_index
 	chosen_route_layers[room_index] = true
 	is_run_complete = false
-	player.global_position = Vector2(320, 180)
+	player.global_position = current_room.get_player_spawn_position()
+	if room_camera != null:
+		room_camera.configure_room(
+			current_room.get_room_bounds(),
+			player
+		)
 	current_room.apply_region(room_data.region)
 	current_room.configure_run(player, current_route_seed)
 	_configure_room_enemies()

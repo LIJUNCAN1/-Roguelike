@@ -11,8 +11,7 @@ display_name = "野生黏液体"
 animation_set = ExtResource("3")
 max_health = 42.0
 experience_reward = 10
-essence_reward = 4
+coin_reward = 4
 move_speed = 52.0
 stopping_distance = 19.0
 attack_data = ExtResource("2")
-

@@ -53,16 +53,16 @@ func purchase_offer(index: int) -> bool:
 		offer == null
 		or offer.gene == null
 		or gene_manager.has_gene(offer.gene.id)
-		or progression.essence < offer.essence_cost
+		or progression.coins < offer.coin_cost
 	):
-		status_label.text = "精华不足，或已经拥有该基因"
+		status_label.text = "金币不足，或已经拥有该基因"
 		status_label.modulate = Color(1, 0.42, 0.28, 1)
 		return false
 
-	if not progression.spend_essence(offer.essence_cost):
+	if not progression.spend_coins(offer.coin_cost):
 		return false
 	if not gene_manager.add_gene(offer.gene):
-		progression.add_essence(offer.essence_cost)
+		progression.add_coins(offer.coin_cost)
 		return false
 
 	status_label.text = "购入：%s" % offer.gene.display_name
@@ -86,7 +86,7 @@ func _refresh_offers() -> void:
 		offer_areas[index].monitoring = true
 		offer_labels[index].text = offers[index].get_display_text()
 	if progression != null:
-		status_label.text = "持有精华：%d" % progression.essence
+		status_label.text = "持有金币：%d" % progression.coins
 
 
 func _on_offer_entered(body: Node2D, index: int) -> void:
@@ -97,5 +97,5 @@ func _on_offer_entered(body: Node2D, index: int) -> void:
 func _on_leave_entered(body: Node2D) -> void:
 	if body.get_node_or_null("GeneManager") != gene_manager:
 		return
-	status_label.text = "保留精华，离开培养商店"
+	status_label.text = "保留金币，离开培养商店"
 	_mark_completed()

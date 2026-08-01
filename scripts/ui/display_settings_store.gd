@@ -8,6 +8,8 @@ const DISPLAY_MODE_BORDERLESS := 2
 const DEFAULT_MUSIC_VOLUME := 0.75
 const DEFAULT_SFX_VOLUME := 0.85
 const DEFAULT_SHOW_CONTROL_HINTS := true
+const DEFAULT_SHOW_ITEM_INVENTORY := true
+const DEFAULT_ITEM_INVENTORY_SCALE := 1.0
 const DISPLAY_RESOLUTIONS := [
 	Vector2i(1280, 720),
 	Vector2i(1600, 900),
@@ -21,7 +23,9 @@ static func load_into(
 	display_mode_option: OptionButton,
 	music_slider: HSlider,
 	sfx_slider: HSlider,
-	control_hints_toggle: CheckButton
+	control_hints_toggle: CheckButton,
+	item_inventory_toggle: CheckButton,
+	item_inventory_scale_slider: HSlider
 ) -> void:
 	resolution_option.clear()
 	for resolution in DISPLAY_RESOLUTIONS:
@@ -89,6 +93,22 @@ static func load_into(
 			DEFAULT_SHOW_CONTROL_HINTS
 		)
 	)
+	item_inventory_toggle.button_pressed = bool(
+		config.get_value(
+			"interface",
+			"show_item_inventory",
+			DEFAULT_SHOW_ITEM_INVENTORY
+		)
+	)
+	item_inventory_scale_slider.value = clampf(
+		float(config.get_value(
+			"interface",
+			"item_inventory_scale",
+			DEFAULT_ITEM_INVENTORY_SCALE
+		)) * 100.0,
+		60.0,
+		160.0
+	)
 	apply_audio(music_slider.value, sfx_slider.value)
 
 
@@ -106,7 +126,9 @@ static func apply_and_save(
 	display_mode_option: OptionButton,
 	music_slider: HSlider,
 	sfx_slider: HSlider,
-	control_hints_toggle: CheckButton
+	control_hints_toggle: CheckButton,
+	item_inventory_toggle: CheckButton,
+	item_inventory_scale_slider: HSlider
 ) -> void:
 	var resolution_index := clampi(
 		resolution_option.selected,
@@ -144,7 +166,41 @@ static func apply_and_save(
 		"show_control_hints",
 		control_hints_toggle.button_pressed
 	)
+	config.set_value(
+		"interface",
+		"show_item_inventory",
+		item_inventory_toggle.button_pressed
+	)
+	config.set_value(
+		"interface",
+		"item_inventory_scale",
+		item_inventory_scale_slider.value / 100.0
+	)
 	config.save(SETTINGS_PATH)
+	_notify_item_inventory_hud()
+
+
+static func load_inventory_preferences() -> Dictionary:
+	var config := ConfigFile.new()
+	config.load(SETTINGS_PATH)
+	return {
+		"visible": bool(config.get_value(
+			"interface",
+			"show_item_inventory",
+			DEFAULT_SHOW_ITEM_INVENTORY
+		)),
+		"scale": clampf(float(config.get_value(
+			"interface",
+			"item_inventory_scale",
+			DEFAULT_ITEM_INVENTORY_SCALE
+		)), 0.6, 1.6),
+	}
+
+
+static func _notify_item_inventory_hud() -> void:
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree != null:
+		tree.call_group("item_inventory_hud", "reload_inventory_settings")
 
 
 static func apply_audio(

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="RelicData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/relics/relic_data.gd" id="1_data"]
+[ext_resource type="Script" path="res://scripts/relics/projectile_stat_relic_effect.gd" id="2_effect"]
+[ext_resource type="Texture2D" path="res://assets/items/power_core.png" id="3_icon"]
+
+[sub_resource type="Resource" id="PowerEffect"]
+script = ExtResource("2_effect")
+damage_multiplier = 1.18
+critical_chance_bonus = 0.05
+effect_tag = &"power_core"
+
+[resource]
+script = ExtResource("1_data")
+id = &"power_core"
+display_name = "力量核心"
+description = "攻击伤害提高 18%，暴击率提高 5%。"
+icon = ExtResource("3_icon")
+effects = Array[RelicEffect]([SubResource("PowerEffect")])

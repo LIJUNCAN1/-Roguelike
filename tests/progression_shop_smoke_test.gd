@@ -25,7 +25,7 @@ func _run() -> void:
 	await process_frame
 
 	var expected_experience := enemy.enemy_data.experience_reward
-	var expected_essence := enemy.enemy_data.essence_reward
+	var expected_coins := enemy.enemy_data.coin_reward
 	var reward_source := Projectile.new()
 	reward_source.source_actor = player
 	enemy.health_component.take_damage(
@@ -36,7 +36,7 @@ func _run() -> void:
 	await process_frame
 	if (
 		progression.current_experience != expected_experience
-		or progression.essence != expected_essence
+		or progression.coins != expected_coins
 	):
 		push_error("Enemy defeat did not award progression currency.")
 		quit(1)
@@ -71,8 +71,8 @@ func _run() -> void:
 		quit(1)
 		return
 
-	progression.add_essence(20)
-	var essence_before := progression.essence
+	progression.add_coins(20)
+	var coins_before := progression.coins
 	var offer := shop.offers[0]
 	if not shop.purchase_offer(0):
 		push_error("Affordable shop offer could not be purchased.")
@@ -80,10 +80,10 @@ func _run() -> void:
 		return
 	if (
 		not gene_manager.has_gene(offer.gene.id)
-		or progression.essence != essence_before - offer.essence_cost
+		or progression.coins != coins_before - offer.coin_cost
 		or not shop.is_completed
 	):
-		push_error("Shop purchase did not update gene and essence state.")
+		push_error("Shop purchase did not update gene and coin state.")
 		quit(1)
 		return
 

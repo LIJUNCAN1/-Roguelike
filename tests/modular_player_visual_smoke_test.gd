@@ -96,13 +96,70 @@ func _run() -> void:
 
 	visual.play_action(&"dash", 0.34)
 	visual._process(0.1)
+	var sprite_anchor := (
+		visual.pose_root.position
+		+ visual.sprite.position * visual.pose_root.scale
+	)
 	if (
 		visual.current_action != &"dash"
 		or visual.sprite.animation != &"dodge"
-		or visual.ghost_near.visible
+		or not visual.ghost_near.visible
+		or not visual.ghost_far.visible
+		or visual.ghost_near.modulate.a <= visual.ghost_far.modulate.a
+		or visual.ghost_near.position.x >= sprite_anchor.x
 		or visual.sprite.speed_scale <= 1.0
 	):
-		push_error("GIF dodge animation did not start.")
+		push_error("GIF dodge animation or its afterimage trail did not start.")
+		quit(1)
+		return
+
+	visual.current_action = &""
+	visual.play_action(&"dash", 0.34, Vector2.UP)
+	visual._process(0.1)
+	sprite_anchor = (
+		visual.pose_root.position
+		+ visual.sprite.position * visual.pose_root.scale
+	)
+	if (
+		visual.sprite.animation != &"run_up"
+		or visual.sprite.flip_h
+		or not visual.ghost_near.visible
+		or visual.ghost_near.position.y <= sprite_anchor.y
+	):
+		push_error("Upward dodge did not lock to the back-facing animation.")
+		quit(1)
+		return
+
+	visual.current_action = &""
+	visual.play_action(&"dash", 0.34, Vector2.DOWN)
+	visual._process(0.1)
+	sprite_anchor = (
+		visual.pose_root.position
+		+ visual.sprite.position * visual.pose_root.scale
+	)
+	if (
+		visual.sprite.animation != &"run_down"
+		or visual.sprite.flip_h
+		or not visual.ghost_near.visible
+		or visual.ghost_near.position.y >= sprite_anchor.y
+	):
+		push_error("Downward dodge did not lock to the front-facing animation.")
+		quit(1)
+		return
+
+	visual.current_action = &""
+	visual.play_action(&"dash", 0.34, Vector2.LEFT)
+	visual._process(0.1)
+	if visual.sprite.animation != &"dodge" or visual.sprite.flip_h:
+		push_error("Left dodge did not use the authored side animation.")
+		quit(1)
+		return
+
+	visual.current_action = &""
+	visual.play_action(&"dash", 0.34, Vector2.RIGHT)
+	visual._process(0.1)
+	if visual.sprite.animation != &"dodge" or not visual.sprite.flip_h:
+		push_error("Right dodge did not mirror the side animation.")
 		quit(1)
 		return
 

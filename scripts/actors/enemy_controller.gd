@@ -181,7 +181,7 @@ func _on_died(source: Node) -> void:
 		) as RunProgression
 		if progression != null:
 			progression.add_experience(enemy_data.experience_reward)
-			progression.add_essence(enemy_data.essence_reward)
+			progression.add_coins(enemy_data.coin_reward)
 	var animation_presenter := get_node_or_null(
 		"EnemyAnimationPresenter"
 	) as EnemyAnimationPresenter

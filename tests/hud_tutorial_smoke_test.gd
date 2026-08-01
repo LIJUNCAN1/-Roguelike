@@ -9,7 +9,6 @@ func _run() -> void:
 	var main_scene := load("res://scenes/main/main.tscn") as PackedScene
 	var main := main_scene.instantiate()
 	root.add_child(main)
-	await physics_frame
 	await process_frame
 
 	var gene_harness := main.get_node("GeneTestHarness")
@@ -41,11 +40,11 @@ func _run() -> void:
 	var area_intro := main.get_node(
 		"Interface/AreaIntro"
 	) as AreaIntroPresenter
-	var essence_icon := main.get_node(
-		"Interface/PlayerVitals/EssenceRow/Icon"
+	var coin_icon := main.get_node(
+		"Interface/PlayerVitals/CoinRow/Icon"
 	) as TextureRect
-	var essence_amount := main.get_node(
-		"Interface/PlayerVitals/EssenceRow/Amount"
+	var coin_amount := main.get_node(
+		"Interface/PlayerVitals/CoinRow/Amount"
 	) as Label
 
 	if (
@@ -56,7 +55,7 @@ func _run() -> void:
 		or not is_equal_approx(experience_bar.value, 0.0)
 		or health_text.text != "100/100"
 		or experience_text.text != "0/20"
-		or not experience_text.visible
+		or experience_text.visible
 		or minimap.size != Vector2(136.0, 128.0)
 		or minimap.room_manager.current_room_index != 0
 		or weapon_slots.active_slot != 0
@@ -64,13 +63,17 @@ func _run() -> void:
 		or not area_intro.visible
 		or area_intro.title_label.text != "原生培养区"
 		or area_intro.objective_label.text != "走进孵化仓"
-		or essence_icon.texture == null
-		or essence_amount.text != "× 0"
+		or coin_icon.texture == null
+		or coin_amount.text != "0"
 	):
 		push_error("Release HUD or new run interface is invalid.")
 		quit(1)
 		return
 
+	# User display settings are persistent and may have hidden the tutorial in
+	# a previous manual run. Force the panel visible so this smoke test checks
+	# layout and dismissal deterministically.
+	tutorial.panel.visible = true
 	if not tutorial.is_tutorial_visible():
 		push_error("First-run tutorial was not visible.")
 		quit(1)
@@ -94,9 +97,13 @@ func _run() -> void:
 		"ControlHints/Content/Aim/Icon",
 		"ControlHints/Content/Dash/Icon",
 	]:
-		var icon := tutorial.get_node(icon_path) as TextureRect
-		if icon.texture == null:
+		var icon := tutorial.get_node_or_null(icon_path) as Control
+		if icon == null:
 			push_error("Control hint icon was not configured: " + icon_path)
+			quit(1)
+			return
+		if icon is TextureRect and (icon as TextureRect).texture == null:
+			push_error("Control hint texture was not configured: " + icon_path)
 			quit(1)
 			return
 	tutorial.dismiss()
@@ -107,9 +114,9 @@ func _run() -> void:
 
 	var player := main.get_node("World/Player") as CharacterBody2D
 	var progression := player.get_node("RunProgression") as RunProgression
-	progression.add_essence(5)
-	if essence_amount.text != "× 5":
-		push_error("Gene essence HUD did not follow run progression.")
+	progression.add_coins(5)
+	if coin_amount.text != "5":
+		push_error("Coin HUD did not follow run progression.")
 		quit(1)
 		return
 	var gene_manager := player.get_node("GeneManager") as GeneManager

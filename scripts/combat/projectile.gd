@@ -4,10 +4,14 @@ extends Area2D
 signal impact_confirmed(damage_dealt: float)
 
 @export var projectile_data: ProjectileData
+@export var impact_scene: PackedScene
 
 @onready var body_visual: Polygon2D = $Body
 @onready var tail_visual: Polygon2D = $Tail
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var projectile_sprite: Sprite2D = get_node_or_null(
+	"ProjectileSprite"
+) as Sprite2D
 
 var travel_direction: Vector2 = Vector2.RIGHT
 var attack_tags: Array[StringName] = []
@@ -66,6 +70,8 @@ func _ready() -> void:
 	var visual_scale := projectile_data.radius / 3.0
 	body_visual.scale = Vector2.ONE * visual_scale
 	tail_visual.scale = Vector2.ONE * visual_scale
+	if projectile_sprite != null:
+		projectile_sprite.scale = Vector2.ONE * visual_scale * 0.52
 
 	var runtime_shape := collision_shape.shape.duplicate() as CircleShape2D
 	runtime_shape.radius = projectile_data.radius
@@ -82,7 +88,7 @@ func _physics_process(delta: float) -> void:
 	alive_time += delta
 
 	if alive_time >= projectile_data.lifetime:
-		queue_free()
+		_finish_projectile(false)
 
 
 func _apply_homing(delta: float) -> void:
@@ -140,4 +146,19 @@ func _on_area_entered(area: Area2D) -> void:
 	impact_confirmed.emit(damage_dealt)
 	hit_count += 1
 	if hit_count >= projectile_data.max_hits:
-		queue_free()
+		_finish_projectile(true)
+
+
+func _finish_projectile(hit_target: bool) -> void:
+	if not is_inside_tree():
+		return
+	if impact_scene != null:
+		var impact := impact_scene.instantiate() as SlimeProjectileImpact
+		if impact != null:
+			get_parent().add_child(impact)
+			impact.global_position = global_position
+			if hit_target:
+				impact.play_hit()
+			else:
+				impact.play_miss()
+	queue_free()

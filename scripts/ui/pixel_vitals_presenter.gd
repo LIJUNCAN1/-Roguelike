@@ -10,10 +10,10 @@ extends Control
 @export_node_path("Label") var level_text_path: NodePath
 
 @export_group("Adaptive Colors")
-@export var health_full_color := Color(0.4, 0.012, 0.025, 1.0)
-@export var health_low_color := Color(1.0, 0.18, 0.1, 1.0)
-@export var experience_full_color := Color(0.08, 0.78, 0.72, 1.0)
-@export var experience_low_color := Color(0.02, 0.3, 0.32, 1.0)
+@export var health_full_color := Color(0.68, 0.68, 0.68, 1.0)
+@export var health_low_color := Color.WHITE
+@export var experience_full_color := Color.WHITE
+@export var experience_low_color := Color.WHITE
 
 @onready var health_component: HealthComponent = get_node(
 	health_component_path

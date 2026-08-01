@@ -111,16 +111,16 @@ script = ExtResource("1_panel")
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 16
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 50
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_bottom = 10
 
 [node name="Content" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
 [node name="Title" type="Label" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.03, 0.45, 0.48, 0.65)
@@ -132,7 +132,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PageTabs" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 34)
+custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
@@ -167,7 +167,7 @@ button_group = SubResource("SettingsTabs")
 text = "控制"
 
 [node name="ResolutionRow" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -189,7 +189,7 @@ text = "分辨率"
 vertical_alignment = 1
 
 [node name="Option" type="OptionButton" parent="Margin/Content/ResolutionRow"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.92, 0.96, 0.98, 1)
@@ -201,7 +201,7 @@ theme_override_styles/pressed = SubResource("FieldHover")
 theme_override_styles/focus = SubResource("FieldHover")
 
 [node name="WindowModeRow" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -223,7 +223,7 @@ text = "显示模式"
 vertical_alignment = 1
 
 [node name="Option" type="OptionButton" parent="Margin/Content/WindowModeRow"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.92, 0.96, 0.98, 1)
@@ -235,7 +235,7 @@ theme_override_styles/pressed = SubResource("FieldHover")
 theme_override_styles/focus = SubResource("FieldHover")
 
 [node name="MusicVolumeRow" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -248,7 +248,7 @@ text = "♫"
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="Margin/Content/MusicVolumeRow"]
-custom_minimum_size = Vector2(128, 42)
+custom_minimum_size = Vector2(128, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.92, 0.94, 1)
 theme_override_fonts/font = SubResource("Font_bold")
@@ -280,7 +280,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="SfxVolumeRow" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -293,7 +293,7 @@ text = "◖"
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="Margin/Content/SfxVolumeRow"]
-custom_minimum_size = Vector2(128, 42)
+custom_minimum_size = Vector2(128, 34)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.92, 0.94, 1)
 theme_override_fonts/font = SubResource("Font_bold")
@@ -325,7 +325,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="ControlHintsRow" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -347,7 +347,7 @@ text = "操作说明"
 vertical_alignment = 1
 
 [node name="Toggle" type="CheckButton" parent="Margin/Content/ControlHintsRow"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.92, 0.96, 0.98, 1)
@@ -359,6 +359,91 @@ theme_override_styles/pressed = SubResource("FieldHover")
 theme_override_styles/focus = SubResource("FieldHover")
 button_pressed = true
 text = "显示"
+
+[node name="InventoryVisibleRow" type="HBoxContainer" parent="Margin/Content"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Icon" type="Label" parent="Margin/Content/InventoryVisibleRow"]
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.08, 0.86, 0.82, 1)
+theme_override_fonts/font = SubResource("Font_bold")
+theme_override_font_sizes/font_size = 22
+text = "▦"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Margin/Content/InventoryVisibleRow"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.92, 0.94, 1)
+theme_override_fonts/font = SubResource("Font_bold")
+theme_override_font_sizes/font_size = 18
+text = "物品栏"
+vertical_alignment = 1
+
+[node name="Toggle" type="CheckButton" parent="Margin/Content/InventoryVisibleRow"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.96, 0.98, 1)
+theme_override_fonts/font = SubResource("Font_bold")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("Field")
+theme_override_styles/hover = SubResource("FieldHover")
+theme_override_styles/pressed = SubResource("FieldHover")
+theme_override_styles/focus = SubResource("FieldHover")
+button_pressed = true
+text = "显示"
+
+[node name="InventorySizeRow" type="HBoxContainer" parent="Margin/Content"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Icon" type="Label" parent="Margin/Content/InventorySizeRow"]
+custom_minimum_size = Vector2(34, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.08, 0.86, 0.82, 1)
+theme_override_fonts/font = SubResource("Font_bold")
+theme_override_font_sizes/font_size = 22
+text = "↔"
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Margin/Content/InventorySizeRow"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.92, 0.94, 1)
+theme_override_fonts/font = SubResource("Font_bold")
+theme_override_font_sizes/font_size = 18
+text = "物品栏大小"
+vertical_alignment = 1
+
+[node name="Slider" type="HSlider" parent="Margin/Content/InventorySizeRow"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 60.0
+max_value = 160.0
+step = 5.0
+value = 100.0
+theme_override_icons/grabber = ExtResource("2_grabber")
+theme_override_icons/grabber_highlight = ExtResource("3_grabber_hover")
+theme_override_styles/slider = SubResource("SliderTrack")
+theme_override_styles/grabber_area = SubResource("SliderFill")
+theme_override_styles/grabber_area_highlight = SubResource("SliderFill")
+
+[node name="Value" type="Label" parent="Margin/Content/InventorySizeRow"]
+custom_minimum_size = Vector2(54, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.94, 0.76, 1)
+theme_override_fonts/font = SubResource("Font_bold")
+theme_override_font_sizes/font_size = 17
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="DeviceTabs" type="HBoxContainer" parent="Margin/Content"]
 visible = false
@@ -507,7 +592,7 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 
 [node name="Actions" type="HBoxContainer" parent="Margin/Content"]
-custom_minimum_size = Vector2(0, 42)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_constants/separation = 40
 alignment = 1

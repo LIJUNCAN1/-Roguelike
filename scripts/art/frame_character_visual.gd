@@ -32,6 +32,10 @@ const ACTION_ANIMATIONS := {
 
 @export var base_evolution_id: StringName = &"base_life"
 @export_range(0.25, 2.0, 0.01) var visual_scale := 1.25
+@export_range(2.0, 24.0, 1.0) var dash_trail_near_distance := 7.0
+@export_range(4.0, 40.0, 1.0) var dash_trail_far_distance := 14.0
+@export_range(0.0, 1.0, 0.01) var dash_trail_near_alpha := 0.42
+@export_range(0.0, 1.0, 0.01) var dash_trail_far_alpha := 0.2
 
 @onready var actor := get_parent().get_parent() as CharacterBody2D
 @onready var visual_root := get_parent() as Node2D
@@ -56,6 +60,7 @@ const ACTION_ANIMATIONS := {
 var current_action: StringName = &""
 var action_elapsed := 0.0
 var action_duration := 0.0
+var locked_action_direction := Vector2.ZERO
 var facing_sign := -1.0
 var is_dead := false
 var is_base_form := true
@@ -92,8 +97,11 @@ func _process(delta: float) -> void:
 			current_action != &"death"
 			and action_elapsed >= action_duration
 		):
+			var completed_action := current_action
 			current_action = &""
 			action_elapsed = 0.0
+			if completed_action == &"dash":
+				locked_action_direction = Vector2.ZERO
 			_resume_locomotion(moving)
 	else:
 		_update_locomotion(moving)
@@ -102,9 +110,15 @@ func _process(delta: float) -> void:
 	was_moving = moving
 
 
-func play_action(action: StringName, duration: float) -> void:
+func play_action(
+	action: StringName,
+	duration: float,
+	direction: Vector2 = Vector2.ZERO
+) -> void:
 	if is_dead or duration <= 0.0:
 		return
+	if action == &"dash" and not direction.is_zero_approx():
+		locked_action_direction = direction.normalized()
 	current_action = action
 	action_elapsed = 0.0
 	action_duration = duration
@@ -117,6 +131,10 @@ func play_action(action: StringName, duration: float) -> void:
 
 func play_heal() -> void:
 	play_action(&"heal", 0.8)
+
+
+func play_use_item_or_skill() -> void:
+	play_heal()
 
 
 func get_animation_frame_count(animation: StringName) -> int:
@@ -310,32 +328,92 @@ func _apply_pose() -> void:
 	ghost_far.visible = false
 	if current_action == &"attack":
 		_apply_attack_pose()
+	elif current_action == &"dash":
+		_apply_dash_trail()
 	elif not current_action.is_empty():
 		var animation := _get_action_animation(current_action)
 		if not animation.is_empty():
 			_update_action_speed(animation, action_duration)
 
 
-func _apply_attack_pose() -> void:
+func _apply_dash_trail() -> void:
+	var direction := _get_dash_direction()
+	if direction.is_zero_approx() or action_duration <= 0.0:
+		return
 	var progress := clampf(action_elapsed / action_duration, 0.0, 1.0)
-	var strike := sin(progress * PI)
-	var direction := -facing_sign
-	pose_root.position.x = direction * 3.5 * strike
-	pose_root.rotation = direction * 0.10 * strike
-	pose_root.scale = Vector2(
-		visual_scale * (1.0 + strike * 0.055),
-		visual_scale * (1.0 - strike * 0.035)
+	var strength := sin(progress * PI)
+	if strength <= 0.01:
+		return
+	var frame_count := sprite.sprite_frames.get_frame_count(sprite.animation)
+	var near_frame := maxi(sprite.frame - 1, 0)
+	var far_frame := maxi(sprite.frame - 2, 0)
+	if frame_count <= 0:
+		return
+	_configure_dash_ghost(
+		ghost_near,
+		near_frame,
+		direction,
+		dash_trail_near_distance,
+		dash_trail_near_alpha * strength
 	)
-	attack_slash.visible = progress > 0.10 and progress < 0.72
-	attack_slash.position = Vector2(direction * 20.0, -29.0)
-	attack_slash.scale.x = direction
-	attack_slash.modulate.a = sin(
-		clampf((progress - 0.10) / 0.62, 0.0, 1.0) * PI
+	_configure_dash_ghost(
+		ghost_far,
+		far_frame,
+		direction,
+		dash_trail_far_distance,
+		dash_trail_far_alpha * strength
 	)
+
+
+func _configure_dash_ghost(
+	ghost: Sprite2D,
+	frame_index: int,
+	direction: Vector2,
+	distance: float,
+	alpha: float
+) -> void:
+	ghost.texture = sprite.sprite_frames.get_frame_texture(
+		sprite.animation,
+		frame_index
+	)
+	ghost.flip_h = sprite.flip_h
+	ghost.scale = pose_root.scale
+	ghost.position = (
+		pose_root.position
+		+ sprite.position * pose_root.scale
+		- direction * distance
+	)
+	ghost.modulate = Color(0.58, 1.0, 0.72, alpha)
+	ghost.visible = true
+
+
+func _apply_attack_pose() -> void:
+	# Ranged firing keeps the slime upright. Impact and projectile sprites are
+	# the only attack feedback; the old lean and blue Line2D are disabled.
+	attack_slash.visible = false
 
 
 func _get_action_animation(action: StringName) -> StringName:
+	if action == &"dash":
+		return _get_directional_dodge_animation()
 	return ACTION_ANIMATIONS.get(action, &"")
+
+
+func _get_directional_dodge_animation() -> StringName:
+	var direction := _get_dash_direction()
+	if absf(direction.y) > absf(direction.x):
+		return &"run_up" if direction.y < 0.0 else &"run_down"
+	return &"dodge"
+
+
+func _get_dash_direction() -> Vector2:
+	if not locked_action_direction.is_zero_approx():
+		return locked_action_direction
+	if not actor.velocity.is_zero_approx():
+		return actor.velocity.normalized()
+	if actor.has_method("get_facing_direction"):
+		return actor.call("get_facing_direction") as Vector2
+	return Vector2.RIGHT
 
 
 func _update_action_speed(
@@ -350,7 +428,12 @@ func _update_action_speed(
 
 
 func _update_facing() -> void:
-	if absf(actor.velocity.x) > 1.0:
+	if current_action == &"dash" and not locked_action_direction.is_zero_approx():
+		if absf(locked_action_direction.x) > 0.05:
+			facing_sign = (
+				1.0 if locked_action_direction.x < 0.0 else -1.0
+			)
+	elif absf(actor.velocity.x) > 1.0:
 		facing_sign = 1.0 if actor.velocity.x < 0.0 else -1.0
 	elif current_action in [&"attack", &"dash", &"jump", &"slide"]:
 		var direction := Vector2.ZERO
@@ -426,11 +509,13 @@ func _on_evolution_changed(
 
 
 func _on_attack_fired(_projectile: Node2D) -> void:
-	play_action(&"attack", 0.28)
+	# Ranged slime attacks keep the authored locomotion pose. Projectile
+	# feedback carries the attack, so there is no lean or blue slash overlay.
+	pass
 
 
-func _on_dash_started(_direction: Vector2) -> void:
-	play_action(&"dash", 0.34)
+func _on_dash_started(direction: Vector2) -> void:
+	play_action(&"dash", 0.34, direction)
 
 
 func _on_jump_started(_direction: Vector2) -> void:

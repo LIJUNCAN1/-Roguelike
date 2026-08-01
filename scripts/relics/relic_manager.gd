@@ -2,6 +2,7 @@ class_name RelicManager
 extends Node
 
 signal relics_changed
+signal relic_added(relic: RelicData)
 
 @export var starting_relics: Array[RelicData] = []
 
@@ -17,6 +18,7 @@ func add_relic(relic: RelicData) -> bool:
 	if relic == null or relic.id.is_empty() or has_relic(relic.id):
 		return false
 	active_relics.append(relic)
+	relic_added.emit(relic)
 	relics_changed.emit()
 	return true
 

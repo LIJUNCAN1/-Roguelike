@@ -39,6 +39,8 @@ extends TechSettingsPanel
 	$Margin/Content/MusicVolumeRow,
 	$Margin/Content/SfxVolumeRow,
 	$Margin/Content/ControlHintsRow,
+	$Margin/Content/InventoryVisibleRow,
+	$Margin/Content/InventorySizeRow,
 	$Margin/Content/Hint,
 ]
 

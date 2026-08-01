@@ -17,10 +17,14 @@ func _run() -> void:
 		&"move_up",
 		InputBindingManager.DEVICE_KEYBOARD
 	) as InputEventKey
-	var attack_button := bindings.get_binding(
-		&"attack",
+	var attack_right_key := bindings.get_binding(
+		&"attack_right",
+		InputBindingManager.DEVICE_KEYBOARD
+	) as InputEventKey
+	var attack_right_axis := bindings.get_binding(
+		&"attack_right",
 		InputBindingManager.DEVICE_GAMEPAD
-	) as InputEventJoypadButton
+	) as InputEventJoypadMotion
 	var move_left_axis := bindings.get_binding(
 		&"move_left",
 		InputBindingManager.DEVICE_GAMEPAD
@@ -28,8 +32,11 @@ func _run() -> void:
 	if (
 		move_up_key == null
 		or move_up_key.physical_keycode != KEY_W
-		or attack_button == null
-		or attack_button.button_index != JOY_BUTTON_X
+		or attack_right_key == null
+		or attack_right_key.physical_keycode != KEY_RIGHT
+		or attack_right_axis == null
+		or attack_right_axis.axis != JOY_AXIS_RIGHT_X
+		or attack_right_axis.axis_value <= 0.0
 		or move_left_axis == null
 		or move_left_axis.axis != JOY_AXIS_LEFT_X
 		or move_left_axis.axis_value >= 0.0
@@ -105,7 +112,7 @@ func _run() -> void:
 	panel.show_input_page(InputBindingManager.DEVICE_GAMEPAD)
 	if (
 		panel.input_subtitle.text != "Xbox 手柄设置"
-		or panel.binding_buttons[&"attack"].text != "X"
+		or panel.binding_buttons[&"attack_right"].text != "右摇杆 →"
 		or panel.binding_buttons[&"interact"].text != "Y"
 	):
 		push_error("Gamepad settings page was not configured.")

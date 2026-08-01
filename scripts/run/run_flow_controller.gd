@@ -98,7 +98,7 @@ func _end_run(victory: bool) -> void:
 	was_victory = victory
 	var base_meta_reward := maxi(
 		room_manager.current_room_index + 1
-		+ run_progression.essence / 2
+		+ run_progression.coins / 2
 		+ (10 if victory else 0),
 		1
 	)

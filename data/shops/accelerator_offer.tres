@@ -7,4 +7,4 @@
 script = ExtResource("1_data")
 id = &"accelerator_offer"
 gene = ExtResource("2_gene")
-essence_cost = 10
+coin_cost = 10

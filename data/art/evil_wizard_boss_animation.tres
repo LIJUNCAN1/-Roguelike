@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EnemyAnimationSet" load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/art/enemy_animation_set.gd" id="1_set"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bosses/evil_wizard/Idle.png" id="2_idle"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bosses/evil_wizard/Run.png" id="3_run"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bosses/evil_wizard/Attack1.png" id="4_attack"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bosses/evil_wizard/Take hit.png" id="5_hurt"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bosses/evil_wizard/Death.png" id="6_death"]
+
+[resource]
+script = ExtResource("1_set")
+visual_scale = Vector2(0.34, 0.34)
+visual_offset = Vector2(0, -24)
+faces_right = true
+idle_texture = ExtResource("2_idle")
+idle_frames = 8
+idle_fps = 8.0
+move_texture = ExtResource("3_run")
+move_frames = 8
+move_fps = 10.0
+attack_texture = ExtResource("4_attack")
+attack_frames = 8
+attack_fps = 12.0
+hurt_texture = ExtResource("5_hurt")
+hurt_frames = 3
+hurt_fps = 12.0
+death_texture = ExtResource("6_death")
+death_frames = 7
+death_fps = 10.0

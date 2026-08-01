@@ -15,12 +15,18 @@ run/main_scene="res://scenes/ui/title_screen.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://doab1jfr30d0q"
+
 [autoload]
 
 MetaProgression="*res://scripts/meta/meta_progression_manager.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 InputBindings="*res://scripts/input/input_binding_manager.gd"
+CursorStyles="*res://scripts/ui/cursor_style_manager.gd"
+_mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 [display]
 
@@ -33,7 +39,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdfxr/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdfxr/plugin.cfg", "res://addons/godot_ai/plugin.cfg", "res://addons/scene_manager/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
 
 [input]
 
@@ -69,71 +75,88 @@ attack={
 }
 toggle_test_gene={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":71)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":71,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 toggle_split_gene={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":72)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":72,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 toggle_piercing_gene={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":74)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":74,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 toggle_lifesteal_gene={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":75)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":75,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 toggle_explosion_gene={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":76)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":76,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 damage_test_player={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":80)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":80,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 next_room={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":78)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":78,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 reward_choice_1={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":49)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":49,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 reward_choice_2={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":50)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":50,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 reward_choice_3={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":51)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":51,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 restart_run={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":82)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 toggle_dragon_heart={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":66)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":66,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 pause_game={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":4194305)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 dash={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":32)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 jump={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":81)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 slide={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":88)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":88,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 toggle_gene_codex={
 "deadzone": 0.2,
-"events": [Object(InputEventKey,"physical_keycode":67)]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
 }
 
 [physics]

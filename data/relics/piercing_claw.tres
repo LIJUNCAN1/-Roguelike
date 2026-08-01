@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="RelicData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/relics/relic_data.gd" id="1_data"]
+[ext_resource type="Script" path="res://scripts/relics/projectile_stat_relic_effect.gd" id="2_effect"]
+[ext_resource type="Texture2D" path="res://assets/items/piercing_claw.png" id="3_icon"]
+
+[sub_resource type="Resource" id="PiercingEffect"]
+script = ExtResource("2_effect")
+damage_multiplier = 0.92
+bonus_hits = 1
+effect_tag = &"piercing_claw"
+
+[resource]
+script = ExtResource("1_data")
+id = &"piercing_claw"
+display_name = "穿刺利爪"
+description = "攻击可额外穿透一个目标，伤害降低 8%。"
+icon = ExtResource("3_icon")
+effects = Array[RelicEffect]([SubResource("PiercingEffect")])

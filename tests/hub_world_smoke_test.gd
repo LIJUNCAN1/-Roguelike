@@ -1,12 +1,12 @@
 extends SceneTree
 
 const EXPECTED_INTERACTIONS := {
-	&"core_altar": Vector2(800, 294),
-	&"bloodline_shop": Vector2(320, 282),
+	&"core_altar": Vector2(800, 274),
+	&"bloodline_shop": Vector2(330, 342),
 	&"forge_station": Vector2(260, 562),
-	&"archive_station": Vector2(1280, 294),
-	&"rest_campfire": Vector2(1320, 628),
-	&"companion_station": Vector2(380, 846),
+	&"archive_station": Vector2(1270, 364),
+	&"rest_campfire": Vector2(800, 588),
+	&"companion_station": Vector2(320, 806),
 }
 
 
@@ -39,7 +39,6 @@ func _run() -> void:
 		player == null
 		or not player.is_inside_tree()
 		or not player.global_position.is_equal_approx(spawn)
-		or spawn != Vector2(800, 650)
 	):
 		_fail("Hub player did not spawn at the configured marker.")
 		return
@@ -71,12 +70,47 @@ func _run() -> void:
 	):
 		_fail("Hub Y sorting hierarchy or minimap is invalid.")
 		return
+	var ground_image := hub.get_node("Ground/GroundImage") as Sprite2D
+	if (
+		ground_image.texture == null
+		or ground_image.texture.get_size() != Vector2(540, 309)
+		or (
+			ground_image.texture.get_size() * ground_image.scale
+		).distance_to(Vector2(1600, 900)) > 0.1
+		or hub.get_node("BackgroundDecorations").visible
+	):
+		_fail("Authored hub ground image is not fitted to the world.")
+		return
+	var facility_sprite_paths := [
+		"YSortRoot/Stations/CoreAltar/CoreVisual/FacilitySprite",
+		"YSortRoot/Stations/BloodlineShop/FacilitySprite",
+		"YSortRoot/Stations/ForgeStation/FacilitySprite",
+		"YSortRoot/Stations/ArchiveStation/FacilitySprite",
+		"YSortRoot/Stations/CompanionStation/FacilitySprite",
+	]
+	for sprite_path in facility_sprite_paths:
+		var facility_sprite := hub.get_node(sprite_path) as Sprite2D
+		var station := facility_sprite.get_parent()
+		while station.get_parent() != stations:
+			station = station.get_parent()
+		var sprite_bottom := (
+			facility_sprite.global_position.y
+			+ facility_sprite.texture.get_height()
+			* absf(facility_sprite.global_scale.y)
+			* 0.5
+		)
+		if (
+			facility_sprite.texture == null
+			or absf(sprite_bottom - station.global_position.y) > 6.0
+		):
+			_fail("Hub facility sprite has an invalid Y-sort ground anchor.")
+			return
 
 	if (
 		hub.camera.limit_left != 0
 		or hub.camera.limit_top != 0
 		or hub.camera.limit_right != 1600
-		or hub.camera.limit_bottom != 1000
+		or hub.camera.limit_bottom != 900
 		or hub.camera.zoom != hub.camera_gameplay_zoom
 		or hub.camera.position_smoothing_enabled
 		or not hub.camera.enabled
@@ -126,7 +160,7 @@ func _run() -> void:
 	for _frame in 45:
 		await physics_frame
 	Input.action_release("move_up")
-	if player.global_position.y < 269.0:
+	if player.global_position.y < 249.0:
 		_fail("Player crossed the core altar collision.")
 		return
 

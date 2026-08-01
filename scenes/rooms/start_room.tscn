@@ -1,66 +1,99 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=18 format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/rooms/room_shell.tscn" id="1_shell"]
-[ext_resource type="Script" path="res://scripts/weapons/weapon_selection_room.gd" id="2_room"]
-[ext_resource type="PackedScene" path="res://scenes/weapons/weapon_choice_selector.tscn" id="3_selector"]
-[ext_resource type="Resource" path="res://data/weapons/organs/twin_blade_organ.tres" id="4_needle"]
-[ext_resource type="Resource" path="res://data/weapons/organs/heavy_spore_organ.tres" id="5_spore"]
-[ext_resource type="PackedScene" path="res://scenes/characters/character_choice_selector.tscn" id="6_character_selector"]
-[ext_resource type="Resource" path="res://data/characters/original_life.tres" id="7_original"]
-[ext_resource type="Resource" path="res://data/characters/abyss_life.tres" id="8_abyss"]
-[ext_resource type="Resource" path="res://data/characters/mechanical_life.tres" id="9_mechanical"]
-[ext_resource type="PackedScene" path="res://scenes/companions/companion_choice_selector.tscn" id="10_companion_selector"]
-[ext_resource type="Resource" path="res://data/companions/spore_companion.tres" id="11_spore_companion"]
-[ext_resource type="Resource" path="res://data/companions/solo_evolution.tres" id="12_solo"]
+[ext_resource type="Script" path="res://scripts/rooms/start_arena_room.gd" id="1_room"]
+[ext_resource type="Script" path="res://scripts/rooms/large_room_tile_builder.gd" id="2_tiles"]
+[ext_resource type="Script" path="res://scripts/rooms/wave_spawner.gd" id="3_spawner"]
+[ext_resource type="Script" path="res://scripts/rooms/wave_data.gd" id="4_wave_data"]
+[ext_resource type="Resource" path="res://data/rewards/prototype_relic_pool.tres" id="5_pool"]
+[ext_resource type="PackedScene" path="res://scenes/relics/relic_choice_selector.tscn" id="6_card"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/rat.tscn" id="7_rat"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/slime.tscn" id="8_slime"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/test_chaser.tscn" id="9_chaser"]
+[ext_resource type="Texture2D" path="res://assets/tiles/maps/natural_room_tiles.png" id="10_natural_tiles"]
 
-[node name="StartRoom" type="Node2D"]
-script = ExtResource("2_room")
+[sub_resource type="RectangleShape2D" id="WallHorizontal"]
+size = Vector2(1952, 24)
+
+[sub_resource type="RectangleShape2D" id="WallVertical"]
+size = Vector2(24, 1080)
+
+[sub_resource type="Resource" id="Wave1"]
+script = ExtResource("4_wave_data")
+enemies = Array[PackedScene]([ExtResource("7_rat"), ExtResource("7_rat"), ExtResource("8_slime")])
+
+[sub_resource type="Resource" id="Wave2"]
+script = ExtResource("4_wave_data")
+enemies = Array[PackedScene]([ExtResource("7_rat"), ExtResource("8_slime"), ExtResource("8_slime"), ExtResource("9_chaser")])
+
+[sub_resource type="Resource" id="Wave3"]
+script = ExtResource("4_wave_data")
+enemies = Array[PackedScene]([ExtResource("7_rat"), ExtResource("7_rat"), ExtResource("8_slime"), ExtResource("8_slime"), ExtResource("9_chaser"), ExtResource("9_chaser")])
+
+[node name="StartArenaRoom" type="Node2D"]
+script = ExtResource("1_room")
 completion_mode = 2
-weapon_choices = Array[ExtResource("4_needle")]([ExtResource("4_needle"), ExtResource("5_spore")])
-character_choices = Array[ExtResource("7_original")]([ExtResource("7_original"), ExtResource("8_abyss"), ExtResource("9_mechanical")])
-companion_choices = Array[ExtResource("11_spore_companion")]([ExtResource("11_spore_companion"), ExtResource("12_solo")])
+room_bounds = Rect2(0, 0, 1920, 1080)
+player_spawn_position = Vector2(960, 540)
+reward_pool = ExtResource("5_pool")
 
-[node name="RoomShell" parent="." instance=ExtResource("1_shell")]
-modulate = Color(0.62, 1, 0.86, 1)
+[node name="Void" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-64, -64, 1984, -64, 1984, 1144, -64, 1144)
+color = Color(0.045, 0.055, 0.09, 1)
 
-[node name="SpawnPad" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(320, 158, 342, 180, 320, 202, 298, 180)
-color = Color(0.22, 0.72, 0.56, 0.45)
+[node name="TileMapBuilder" type="Node2D" parent="."]
+script = ExtResource("2_tiles")
+atlas_texture = ExtResource("10_natural_tiles")
 
-[node name="Title" type="Label" parent="."]
-offset_left = 190.0
-offset_top = 48.0
-offset_right = 450.0
-offset_bottom = 74.0
-theme_override_colors/font_color = Color(0.48, 1, 0.76, 1)
-theme_override_font_sizes/font_size = 18
-text = "构建初始生命"
+[node name="Ground" type="TileMapLayer" parent="TileMapBuilder"]
+
+[node name="Details" type="TileMapLayer" parent="TileMapBuilder"]
+z_index = 1
+
+[node name="WorldBounds" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="Top" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(960, -12)
+shape = SubResource("WallHorizontal")
+
+[node name="Bottom" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(960, 1092)
+shape = SubResource("WallHorizontal")
+
+[node name="Left" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(-12, 540)
+shape = SubResource("WallVertical")
+
+[node name="Right" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(1932, 540)
+shape = SubResource("WallVertical")
+
+[node name="CenterMark" type="Polygon2D" parent="."]
+z_index = 2
+polygon = PackedVector2Array(960, 500, 1000, 540, 960, 580, 920, 540)
+color = Color(0.24, 0.7, 0.42, 0.2)
+
+[node name="RelicChoiceSelector" parent="." instance=ExtResource("6_card")]
+position = Vector2(960, 500)
+
+[node name="WaveSpawner" type="Node2D" parent="."]
+script = ExtResource("3_spawner")
+wave_interval = 6.0
+waves = Array[WaveData]([SubResource("Wave1"), SubResource("Wave2"), SubResource("Wave3")])
+spawn_positions = PackedVector2Array(160, 160, 960, 120, 1760, 160, 1800, 540, 1760, 920, 960, 960, 160, 920, 120, 540)
+
+[node name="WaveInterface" type="CanvasLayer" parent="."]
+layer = 8
+
+[node name="WaveStatus" type="Label" parent="WaveInterface"]
+offset_left = 440.0
+offset_top = 28.0
+offset_right = 840.0
+offset_bottom = 68.0
+theme_override_colors/font_color = Color(0.65, 1, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.05, 0.04, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "波次 1 / 3"
 horizontal_alignment = 1
-
-[node name="Hint" type="Label" parent="."]
-offset_left = 190.0
-offset_top = 78.0
-offset_right = 450.0
-offset_bottom = 100.0
-theme_override_colors/font_color = Color(0.66, 0.8, 0.75, 1)
-theme_override_font_sizes/font_size = 10
-text = "依次选择角色、攻击器官与伙伴"
-horizontal_alignment = 1
-
-[node name="Result" type="Label" parent="."]
-offset_left = 190.0
-offset_top = 142.0
-offset_right = 450.0
-offset_bottom = 166.0
-theme_override_colors/font_color = Color(1, 0.8, 0.36, 1)
-theme_override_font_sizes/font_size = 11
-text = "已装载攻击器官"
-horizontal_alignment = 1
-
-[node name="CharacterChoiceSelector" parent="." instance=ExtResource("6_character_selector")]
-
-[node name="WeaponChoiceSelector" parent="." instance=ExtResource("3_selector")]
-visible = false
-
-[node name="CompanionChoiceSelector" parent="." instance=ExtResource("10_companion_selector")]
-visible = false

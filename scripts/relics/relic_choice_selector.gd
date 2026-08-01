@@ -15,10 +15,15 @@ signal relic_entered(choice_index: int)
 	$LeftPedestal/Description,
 	$RightPedestal/Description,
 ]
+@onready var relic_icons: Array[Sprite2D] = [
+	$LeftPedestal/RelicIcon,
+	$RightPedestal/RelicIcon,
+]
 
 var choices: Array[RelicData] = []
 var player: Node2D
 var is_active: bool = false
+var float_time := 0.0
 
 
 func _ready() -> void:
@@ -26,6 +31,13 @@ func _ready() -> void:
 		pedestals[index].body_entered.connect(
 			_on_pedestal_body_entered.bind(index)
 		)
+
+
+func _process(delta: float) -> void:
+	float_time += delta
+	for index in relic_icons.size():
+		var icon := relic_icons[index]
+		icon.position.y = -40.0 + sin(float_time * 2.4 + index * 0.8) * 4.0
 
 
 func configure(
@@ -45,6 +57,8 @@ func configure(
 		pedestal.monitoring = true
 		name_labels[index].text = choices[index].display_name
 		description_labels[index].text = choices[index].description
+		relic_icons[index].texture = choices[index].icon
+		relic_icons[index].visible = choices[index].icon != null
 
 
 func get_choice_global_position(choice_index: int) -> Vector2:

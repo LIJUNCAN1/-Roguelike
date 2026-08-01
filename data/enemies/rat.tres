@@ -11,8 +11,7 @@ display_name = "疫变鼠"
 animation_set = ExtResource("3")
 max_health = 20.0
 experience_reward = 6
-essence_reward = 2
+coin_reward = 2
 move_speed = 92.0
 stopping_distance = 15.0
 attack_data = ExtResource("2")
-

@@ -35,6 +35,7 @@ var slide_remaining: float = 0.0
 var slide_cooldown_remaining: float = 0.0
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_remaining: float = 0.0
+var input_enabled: bool = true
 
 
 func _ready() -> void:
@@ -57,6 +58,9 @@ func apply_character_data(new_character_data: CharacterData) -> bool:
 
 
 func _physics_process(delta: float) -> void:
+	if not input_enabled:
+		velocity = Vector2.ZERO
+		return
 	dash_cooldown_remaining = maxf(
 		dash_cooldown_remaining - delta,
 		0.0
@@ -135,10 +139,22 @@ func _physics_process(delta: float) -> void:
 		)
 		return
 
-	_update_aim_input()
-
-	if Input.is_action_pressed("attack"):
+	var attack_direction := Input.get_vector(
+		"attack_left",
+		"attack_right",
+		"attack_up",
+		"attack_down"
+	)
+	if not attack_direction.is_zero_approx():
+		facing_direction = attack_direction.normalized()
+		_update_facing_visual()
 		fire()
+
+
+func set_input_enabled(enabled: bool) -> void:
+	input_enabled = enabled
+	if not input_enabled:
+		velocity = Vector2.ZERO
 
 
 func _update_aim_input() -> void:

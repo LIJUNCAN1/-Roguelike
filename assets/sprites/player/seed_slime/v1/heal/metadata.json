@@ -4,6 +4,7 @@
     48,
     48
   ],
+  "ground_anchor_y": 44,
   "durations_ms": [
     100,
     100,
@@ -15,5 +16,5 @@
     100
   ],
   "loop": false,
-  "source": "source/seed_slime_original.gif"
+  "source": "user_item_skill_animation.gif"
 }

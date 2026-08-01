@@ -25,6 +25,8 @@ func _ready() -> void:
 		actor.connect("attack_performed", _on_attack)
 	if actor.has_signal("projectile_fired"):
 		actor.connect("projectile_fired", _on_attack)
+	if actor.has_signal("attack_telegraphed"):
+		actor.connect("attack_telegraphed", _on_attack)
 	configure(animation_set)
 
 

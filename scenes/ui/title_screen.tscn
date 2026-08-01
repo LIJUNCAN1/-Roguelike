@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://b4l5iecbr4qes" path="res://scripts/meta/meta_upgrade_panel.gd" id="2_meta_panel"]
 [ext_resource type="Script" uid="uid://bhblbgthwxtr5" path="res://scripts/meta/menu_gene_codex.gd" id="3_codex"]
 [ext_resource type="Resource" path="res://data/rewards/prototype_gene_pool.tres" id="4_gene_pool"]
-[ext_resource type="Texture2D" path="res://assets/ui/title_logo-v3.png" id="5_title_logo"]
-[ext_resource type="Texture2D" path="res://assets/ui/title_background.png" id="6_title_background"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_logo-slimeborn.png" id="5_title_logo"]
+[ext_resource type="Texture2D" path="res://assets/ui/title_background-ruins.png" id="6_title_background"]
 [ext_resource type="Texture2D" path="res://assets/ui/social_github.png" id="7_social_github"]
 [ext_resource type="Texture2D" path="res://assets/ui/social_bilibili.png" id="8_social_bilibili"]
 [ext_resource type="Texture2D" path="res://assets/ui/social_qq.png" id="9_social_qq"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="13_settings_panel"]
 [ext_resource type="Script" path="res://scripts/ui/tech_settings_panel.gd" id="14_tech_panel"]
 [ext_resource type="VideoStream" path="res://assets/ui/title_background_video.ogv" id="15_background_video"]
+[ext_resource type="FontFile" path="res://assets/fonts/silver/Silver.ttf" id="16_pixel_font"]
+[ext_resource type="Texture2D" path="res://assets/ui/menu_particle.png" id="17_menu_particle"]
 
 [sub_resource type="SystemFont" id="SystemFont_bold"]
 font_names = PackedStringArray("Microsoft YaHei UI", "Noto Sans CJK SC", "Arial")
@@ -23,6 +25,37 @@ font_weight = 700
 [sub_resource type="SystemFont" id="SystemFont_menu_regular"]
 font_names = PackedStringArray("Microsoft YaHei UI", "Noto Sans CJK SC", "Arial")
 font_weight = 400
+
+[sub_resource type="Theme" id="Theme_title_pixel"]
+default_font = ExtResource("16_pixel_font")
+
+[sub_resource type="Shader" id="Shader_dynamic_background"]
+code = "shader_type canvas_item;\n\nuniform vec2 parallax = vec2(0.0);\nuniform float zoom = 1.045;\nuniform float drift_strength = 0.006;\n\nvoid fragment() {\n\tvec2 uv = UV;\n\tuv.x = 1.0 - uv.x;\n\tfloat drift = sin(TIME * 0.14) * drift_strength;\n\tfloat breathe = sin(TIME * 0.32) * 0.004;\n\tuv = (uv - vec2(0.5)) / (zoom + breathe) + vec2(0.5);\n\tuv += vec2(drift, 0.0) + parallax;\n\tvec4 source = texture(TEXTURE, uv);\n\tfloat glow = 0.985 + sin(TIME * 0.55) * 0.015;\n\tCOLOR = vec4(source.rgb * glow, source.a);\n}\n"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dynamic_background"]
+shader = SubResource("Shader_dynamic_background")
+shader_parameter/parallax = Vector2(0, 0)
+shader_parameter/zoom = 1.045
+shader_parameter/drift_strength = 0.006
+
+[sub_resource type="Gradient" id="Gradient_menu_particles"]
+offsets = PackedFloat32Array(0, 0.18, 0.78, 1)
+colors = PackedColorArray(0.45, 0.95, 0.22, 0, 0.45, 0.95, 0.22, 0.45, 0.82, 1, 0.34, 0.55, 0.82, 1, 0.34, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_menu_particles"]
+gradient = SubResource("Gradient_menu_particles")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_menu_particles"]
+emission_shape = 3
+emission_box_extents = Vector3(640, 330, 1)
+direction = Vector3(0, -1, 0)
+spread = 28.0
+gravity = Vector3(0, -1.8, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 10.0
+scale_min = 0.45
+scale_max = 1.15
+color_ramp = SubResource("GradientTexture1D_menu_particles")
 
 [sub_resource type="Gradient" id="Gradient_menu_backdrop"]
 offsets = PackedFloat32Array(0, 0.22, 0.78, 1)
@@ -153,9 +186,22 @@ polygon = PackedVector2Array(0, 572, 92, 538, 178, 556, 266, 510, 354, 546, 444,
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
+texture_filter = 1
+material = SubResource("ShaderMaterial_dynamic_background")
 texture = ExtResource("6_title_background")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="AmbientParticles" type="GPUParticles2D" parent="."]
+position = Vector2(640, 360)
+amount = 48
+lifetime = 8.0
+preprocess = 8.0
+randomness = 0.72
+visibility_rect = Rect2(-700, -420, 1400, 840)
+process_material = SubResource("ParticleProcessMaterial_menu_particles")
+texture = ExtResource("17_menu_particle")
+fixed_fps = 30
 
 [node name="BackgroundVideo" type="VideoStreamPlayer" parent="."]
 visible = false
@@ -177,11 +223,12 @@ texture = SubResource("GradientTexture2D_menu_backdrop")
 expand_mode = 1
 
 [node name="TitleImage" type="TextureRect" parent="Interface" unique_id=1299536591]
-offset_left = 757.0
-offset_top = 125.0
-offset_right = 1163.0
-offset_bottom = 273.0
+offset_left = 678.0
+offset_top = 58.0
+offset_right = 1234.0
+offset_bottom = 286.0
 mouse_filter = 2
+texture_filter = 1
 texture = ExtResource("5_title_logo")
 expand_mode = 1
 stretch_mode = 5
@@ -214,6 +261,7 @@ offset_top = 309.0
 offset_right = 1180.0
 offset_bottom = 595.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_menu")
+theme = SubResource("Theme_title_pixel")
 
 [node name="Content" type="VBoxContainer" parent="Interface/Menu" unique_id=1850334910]
 layout_mode = 2
@@ -225,7 +273,7 @@ custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.98, 0.98, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = SubResource("SystemFont_menu_regular")
+theme_override_fonts/font = ExtResource("16_pixel_font")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
@@ -240,7 +288,7 @@ draw_frame = false
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
-theme_override_fonts/font = SubResource("SystemFont_menu_regular")
+theme_override_fonts/font = ExtResource("16_pixel_font")
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
@@ -255,7 +303,7 @@ draw_frame = false
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.92, 0.97, 1)
-theme_override_fonts/font = SubResource("SystemFont_menu_regular")
+theme_override_fonts/font = ExtResource("16_pixel_font")
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
@@ -270,7 +318,7 @@ draw_frame = false
 custom_minimum_size = Vector2(0, 56)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.82, 0.88, 1)
-theme_override_fonts/font = SubResource("SystemFont_menu_regular")
+theme_override_fonts/font = ExtResource("16_pixel_font")
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
@@ -315,6 +363,7 @@ offset_right = 1260.0
 offset_bottom = 708.0
 mouse_filter = 2
 theme_override_colors/font_color = Color(0.5, 0.53, 0.56, 0.72)
+theme_override_fonts/font = ExtResource("16_pixel_font")
 theme_override_font_sizes/font_size = 18
 text = "EA v0.1.0"
 horizontal_alignment = 2
@@ -333,6 +382,7 @@ offset_top = 192.0
 offset_right = 902.0
 offset_bottom = 526.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_roadmap_panel")
+theme = SubResource("Theme_title_pixel")
 script = ExtResource("14_tech_panel")
 
 [node name="Margin" type="MarginContainer" parent="Interface/GeneralInfoPanel"]
@@ -352,7 +402,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.03, 0.45, 0.48, 0.65)
 theme_override_constants/outline_size = 4
-theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_fonts/font = ExtResource("16_pixel_font")
 theme_override_font_sizes/font_size = 26
 text = "信息"
 horizontal_alignment = 1
@@ -372,7 +422,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.94, 0.94, 0.98, 1)
-theme_override_fonts/font = SubResource("SystemFont_bold")
+theme_override_fonts/font = ExtResource("16_pixel_font")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_roadmap_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_roadmap_button_hover")
@@ -387,6 +437,7 @@ offset_top = 204.0
 offset_right = 1030.0
 offset_bottom = 696.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_info_panel")
+theme = SubResource("Theme_title_pixel")
 script = ExtResource("2_meta_panel")
 currency_label_path = NodePath("Content/Currency")
 upgrade_list_path = NodePath("Content/Scroll/UpgradeList")
@@ -428,6 +479,7 @@ offset_top = 184.0
 offset_right = 1070.0
 offset_bottom = 700.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_info_panel")
+theme = SubResource("Theme_title_pixel")
 script = ExtResource("3_codex")
 gene_pool = ExtResource("4_gene_pool")
 text_path = NodePath("Content/Scroll/Text")

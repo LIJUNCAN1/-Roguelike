@@ -13,6 +13,8 @@ const CURRENT_VERSION := "EA v0.1.0"
 const DEFAULT_MUSIC_VOLUME := 0.75
 const DEFAULT_SFX_VOLUME := 0.85
 const DEFAULT_SHOW_CONTROL_HINTS := true
+const DEFAULT_SHOW_ITEM_INVENTORY := true
+const DEFAULT_ITEM_INVENTORY_SCALE := 1.0
 const MENU_HOVER_SFX := preload(
 	"res://assets/audio/generated/menu_hover.res"
 )
@@ -49,6 +51,7 @@ const DISPLAY_RESOLUTIONS := [
 @onready var menu: Control = $Interface/Menu
 @onready var menu_backdrop: Control = $Interface/MenuBackdrop
 @onready var title_image: Control = $Interface/TitleImage
+@onready var background_image: TextureRect = $BackgroundImage
 @onready var social_icons: Control = $Interface/SocialIcons
 @onready var version_label: Label = $Interface/VersionLabel
 @onready var meta_panel: Control = $Interface/MetaUpgradePanel
@@ -74,6 +77,15 @@ const DISPLAY_RESOLUTIONS := [
 )
 @onready var control_hints_toggle: CheckButton = (
 	$Interface/SettingsPanel/Margin/Content/ControlHintsRow/Toggle
+)
+@onready var item_inventory_toggle: CheckButton = (
+	$Interface/SettingsPanel/Margin/Content/InventoryVisibleRow/Toggle
+)
+@onready var item_inventory_scale_slider: HSlider = (
+	$Interface/SettingsPanel/Margin/Content/InventorySizeRow/Slider
+)
+@onready var item_inventory_scale_value: Label = (
+	$Interface/SettingsPanel/Margin/Content/InventorySizeRow/Value
 )
 @onready var settings_status: Label = (
 	$Interface/SettingsPanel/Margin/Content/Status
@@ -102,6 +114,9 @@ const DISPLAY_RESOLUTIONS := [
 var button_tweens: Dictionary = {}
 var transition_requested := false
 var last_hover_sound_msec := -1000
+var background_parallax := Vector2.ZERO
+var title_base_y := 0.0
+var menu_animation_time := 0.0
 
 
 func _ready() -> void:
@@ -116,13 +131,36 @@ func _ready() -> void:
 	display_mode_option.item_selected.connect(on_display_mode_selected)
 	music_slider.value_changed.connect(_on_audio_volume_changed)
 	sfx_slider.value_changed.connect(_on_audio_volume_changed)
+	item_inventory_scale_slider.value_changed.connect(
+		_on_inventory_scale_changed
+	)
 	info_back_button.pressed.connect(close_submenu)
 	meta_back_button.pressed.connect(close_submenu)
 	codex_back_button.pressed.connect(close_submenu)
 	close_submenu()
 	version_label.text = CURRENT_VERSION
+	title_base_y = title_image.position.y
 	call_deferred("prepare_button_animations")
 	start_button.grab_focus()
+
+
+func _process(delta: float) -> void:
+	menu_animation_time += delta
+	var viewport_size := get_viewport_rect().size
+	if viewport_size.x > 0.0 and viewport_size.y > 0.0:
+		var mouse_ratio := get_viewport().get_mouse_position() / viewport_size
+		var target_parallax := (mouse_ratio - Vector2(0.5, 0.5)) * 0.012
+		background_parallax = background_parallax.lerp(
+			target_parallax,
+			1.0 - exp(-delta * 2.4)
+		)
+		var background_material := background_image.material as ShaderMaterial
+		if background_material != null:
+			background_material.set_shader_parameter(
+				"parallax",
+				-background_parallax
+			)
+	title_image.position.y = title_base_y + sin(menu_animation_time * 0.8) * 2.0
 
 
 func prepare_button_animations() -> void:
@@ -320,8 +358,25 @@ func setup_display_settings() -> void:
 			DEFAULT_SHOW_CONTROL_HINTS
 		)
 	)
+	item_inventory_toggle.button_pressed = bool(
+		config.get_value(
+			"interface",
+			"show_item_inventory",
+			DEFAULT_SHOW_ITEM_INVENTORY
+		)
+	)
+	item_inventory_scale_slider.value = clampf(
+		float(config.get_value(
+			"interface",
+			"item_inventory_scale",
+			DEFAULT_ITEM_INVENTORY_SCALE
+		)) * 100.0,
+		60.0,
+		160.0
+	)
 	_apply_audio_volume()
 	_update_audio_value_labels()
+	_on_inventory_scale_changed(item_inventory_scale_slider.value)
 	if DisplayServer.get_name() != "headless":
 		apply_display_values(
 			DISPLAY_RESOLUTIONS[resolution_index],
@@ -419,7 +474,23 @@ func save_display_settings(resolution: Vector2i, display_mode: int) -> void:
 		"show_control_hints",
 		control_hints_toggle.button_pressed
 	)
+	config.set_value(
+		"interface",
+		"show_item_inventory",
+		item_inventory_toggle.button_pressed
+	)
+	config.set_value(
+		"interface",
+		"item_inventory_scale",
+		item_inventory_scale_slider.value / 100.0
+	)
 	config.save(SETTINGS_PATH)
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree != null:
+		tree.call_group(
+			"item_inventory_hud",
+			"reload_inventory_settings"
+		)
 
 
 func _on_audio_volume_changed(_value: float) -> void:
@@ -450,6 +521,10 @@ func _set_bus_linear_volume(
 func _update_audio_value_labels() -> void:
 	music_value_label.text = "%d%%" % roundi(music_slider.value)
 	sfx_value_label.text = "%d%%" % roundi(sfx_slider.value)
+
+
+func _on_inventory_scale_changed(value: float) -> void:
+	item_inventory_scale_value.text = "%d%%" % roundi(value)
 
 
 func open_roadmap() -> void:

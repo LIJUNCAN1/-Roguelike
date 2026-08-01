@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="RelicData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/relics/relic_data.gd" id="1_data"]
+[ext_resource type="Script" path="res://scripts/relics/projectile_stat_relic_effect.gd" id="2_effect"]
+[ext_resource type="Texture2D" path="res://assets/items/giant_spore.png" id="3_icon"]
+
+[sub_resource type="Resource" id="GiantEffect"]
+script = ExtResource("2_effect")
+radius_multiplier = 1.28
+speed_multiplier = 0.92
+effect_tag = &"giant_spore"
+
+[resource]
+script = ExtResource("1_data")
+id = &"giant_spore"
+display_name = "巨化孢子"
+description = "弹体体积提高 28%，弹速降低 8%。"
+icon = ExtResource("3_icon")
+effects = Array[RelicEffect]([SubResource("GiantEffect")])

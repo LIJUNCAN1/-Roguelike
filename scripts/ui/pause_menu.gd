@@ -54,6 +54,15 @@ const RETURN_TRANSITION_OPTIONS := {
 @onready var control_hints_toggle: CheckButton = (
 	$Dimmer/SettingsPanel/Margin/Content/ControlHintsRow/Toggle
 )
+@onready var item_inventory_toggle: CheckButton = (
+	$Dimmer/SettingsPanel/Margin/Content/InventoryVisibleRow/Toggle
+)
+@onready var item_inventory_scale_slider: HSlider = (
+	$Dimmer/SettingsPanel/Margin/Content/InventorySizeRow/Slider
+)
+@onready var item_inventory_scale_value: Label = (
+	$Dimmer/SettingsPanel/Margin/Content/InventorySizeRow/Value
+)
 @onready var settings_status: Label = (
 	$Dimmer/SettingsPanel/Margin/Content/Status
 )
@@ -84,6 +93,9 @@ func _ready() -> void:
 	)
 	music_slider.value_changed.connect(on_audio_volume_changed)
 	sfx_slider.value_changed.connect(on_audio_volume_changed)
+	item_inventory_scale_slider.value_changed.connect(
+		_on_inventory_scale_changed
+	)
 	setup_settings()
 
 
@@ -180,9 +192,12 @@ func setup_settings() -> void:
 		display_mode_option,
 		music_slider,
 		sfx_slider,
-		control_hints_toggle
+		control_hints_toggle,
+		item_inventory_toggle,
+		item_inventory_scale_slider
 	)
 	update_audio_value_labels()
+	_on_inventory_scale_changed(item_inventory_scale_slider.value)
 
 
 func on_display_mode_selected(mode_index: int) -> void:
@@ -205,13 +220,19 @@ func update_audio_value_labels() -> void:
 	sfx_value_label.text = "%d%%" % roundi(sfx_slider.value)
 
 
+func _on_inventory_scale_changed(value: float) -> void:
+	item_inventory_scale_value.text = "%d%%" % roundi(value)
+
+
 func apply_settings() -> void:
 	DisplaySettingsStore.apply_and_save(
 		resolution_option,
 		display_mode_option,
 		music_slider,
 		sfx_slider,
-		control_hints_toggle
+		control_hints_toggle,
+		item_inventory_toggle,
+		item_inventory_scale_slider
 	)
 	settings_status.text = "设置已应用并保存"
 	close_settings()

@@ -10,6 +10,8 @@ enum CompletionMode {
 }
 
 @export var completion_mode: CompletionMode = CompletionMode.IMMEDIATE
+@export var room_bounds: Rect2 = Rect2(0.0, 0.0, 640.0, 360.0)
+@export var player_spawn_position: Vector2 = Vector2(320.0, 180.0)
 
 var is_completed: bool = false
 var current_region: RegionData
@@ -42,6 +44,14 @@ func configure_player(_player: Node2D) -> void:
 
 func configure_run(player: Node2D, _run_seed: int) -> void:
 	configure_player(player)
+
+
+func get_room_bounds() -> Rect2:
+	return room_bounds
+
+
+func get_player_spawn_position() -> Vector2:
+	return player_spawn_position
 
 
 func apply_region(region: RegionData) -> void:

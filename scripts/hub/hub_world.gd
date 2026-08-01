@@ -12,6 +12,7 @@ const REFERENCE_PATH := "res://reference/hub_map_reference.png"
 @export var camera_intro_start_zoom := Vector2(2.0, 2.0)
 @export var camera_gameplay_zoom := Vector2(1.45, 1.45)
 @export var camera_pixel_stabilization_enabled := true
+@export_range(1.0, 2.0, 0.05) var hub_player_visual_multiplier := 1.35
 @export_range(0.1, 3.0, 0.05)
 var camera_intro_duration := 1.15
 
@@ -52,8 +53,6 @@ var camera_intro_duration := 1.15
 
 var focused_interactable: Interactable
 var last_interaction_id: StringName
-var _core_tween: Tween
-var _fire_tween: Tween
 var _camera_intro_tween: Tween
 
 
@@ -61,6 +60,7 @@ func _ready() -> void:
 	_load_reference_if_available()
 	reference_layer.visible = false
 	player.global_position = player_spawn.global_position
+	_apply_hub_player_visual_scale()
 	_configure_camera_limits()
 	_start_camera_intro()
 	_connect_interactables()
@@ -69,6 +69,12 @@ func _ready() -> void:
 	meta_upgrade_dimmer.visible = false
 	codex_dimmer.visible = false
 	_start_ambient_animation()
+
+
+func _apply_hub_player_visual_scale() -> void:
+	var visual_root := player.get_node_or_null("Visuals") as Node2D
+	if visual_root != null:
+		visual_root.scale = Vector2.ONE * hub_player_visual_multiplier
 
 
 func _process(_delta: float) -> void:
@@ -209,30 +215,7 @@ func _close_facility_panels() -> void:
 
 
 func _start_ambient_animation() -> void:
-	_core_tween = create_tween().set_loops()
-	_core_tween.tween_property(
-		core_visual,
-		"scale",
-		Vector2(1.03, 1.03),
-		1.6
-	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	_core_tween.tween_property(
-		core_visual,
-		"scale",
-		Vector2(0.97, 0.97),
-		1.6
-	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-
-	_fire_tween = create_tween().set_loops()
-	_fire_tween.tween_property(
-		campfire_flame,
-		"modulate",
-		Color(1.15, 0.82, 0.48, 1),
-		0.32
-	).set_trans(Tween.TRANS_SINE)
-	_fire_tween.tween_property(
-		campfire_flame,
-		"modulate",
-		Color(0.88, 0.62, 0.34, 1),
-		0.46
-	).set_trans(Tween.TRANS_SINE)
+	# Facilities remain spatially stable. Ambient motion is provided by the
+	# existing lightweight particle emitters only.
+	core_visual.scale = Vector2.ONE
+	campfire_flame.modulate = Color.WHITE

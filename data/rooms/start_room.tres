@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_room_data")
 id = &"start"
-display_name = "开始房"
+display_name = "初始物品竞技场"
 room_type = 0
 room_scene = ExtResource("2_room_scene")
 region = ExtResource("3_region")

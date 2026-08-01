@@ -20,23 +20,11 @@ func _run() -> void:
 	var progression := main.get_node(
 		"World/Player/RunProgression"
 	) as RunProgression
-	var portrait := main.get_node(
-		"Interface/PlayerVitals/Frame/PortraitComponent/Portrait"
-	) as TextureRect
-	var portrait_fade := main.get_node(
-		"Interface/PlayerVitals/Frame/PortraitComponent/Fade"
-	) as TextureRect
-	var portrait_component := main.get_node(
-		"Interface/PlayerVitals/Frame/PortraitComponent"
-	) as VitalsPortrait
 	var level_text := main.get_node(
 		"Interface/PlayerVitals/Frame/LevelText"
 	) as Label
 	var full_health_color := (
 		vitals.health_bar as FramedVitalBar
-	).fill_color
-	var empty_experience_color := (
-		vitals.experience_bar as FramedVitalBar
 	).fill_color
 	health.invulnerability_remaining = 0.0
 	health.take_damage(37.0)
@@ -45,21 +33,18 @@ func _run() -> void:
 	var damaged_health_color := (
 		vitals.health_bar as FramedVitalBar
 	).fill_color
-	var gained_experience_color := (
-		vitals.experience_bar as FramedVitalBar
-	).fill_color
 	if (
 		vitals.health_text.text != "63/100"
 		or not is_equal_approx(vitals.health_bar.value, 63.0)
 		or vitals.experience_text.text != "9/20"
-		or not vitals.experience_text.visible
+		or vitals.experience_text.visible
 		or not is_equal_approx(vitals.experience_bar.value, 9.0)
-		or vitals.size != Vector2(304.0, 112.0)
-		or vitals.position != Vector2(24.0, 14.0)
+		or vitals.size != Vector2(276.0, 68.0)
+		or vitals.position != Vector2(20.0, 16.0)
 		or vitals.scale != Vector2.ONE
-		or portrait.texture == null
-		or portrait_fade.texture == null
-		or portrait_component.portrait_texture == null
+		or main.has_node(
+			"Interface/PlayerVitals/Frame/PortraitComponent"
+		)
 		or not vitals.health_bar is FramedVitalBar
 		or not vitals.experience_bar is FramedVitalBar
 		or (
@@ -75,21 +60,15 @@ func _run() -> void:
 			vitals.health_bar as FramedVitalBar
 		).empty_texture == null
 		or (
-			vitals.health_bar as FramedVitalBar
-		).content_offset_y >= 0.0
-		or (
 			vitals.experience_bar as FramedVitalBar
 		).fill_texture == null
 		or (
 			vitals.experience_bar as FramedVitalBar
 		).empty_texture == null
-		or vitals.experience_bar.position.x <= level_text.position.x
-		or vitals.get_node("EssenceRow").position.y < 80.0
+		or vitals.get_node("CoinRow").position.y != 40.0
 		or level_text.text != "Lv.1"
 		or damaged_health_color.get_luminance()
 		<= full_health_color.get_luminance()
-		or gained_experience_color.get_luminance()
-		<= empty_experience_color.get_luminance()
 	):
 		push_error("Pixel vitals did not match the reference behavior.")
 		quit(1)

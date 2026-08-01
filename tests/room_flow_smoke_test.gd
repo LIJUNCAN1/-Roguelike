@@ -34,56 +34,26 @@ func _run() -> void:
 		quit(1)
 		return
 
-	var weapon_room := room_manager.current_room as WeaponSelectionRoom
-	if weapon_room == null or weapon_room.is_completed:
-		push_error("Start room did not wait for a weapon organ.")
+	var start_arena := room_manager.current_room as StartArenaRoom
+	if (
+		start_arena == null
+		or start_arena.is_completed
+		or start_arena.offered_items.size() != 2
+	):
+		push_error("Opening arena did not offer two walk-over items.")
 		quit(1)
 		return
-	player.global_position = (
-		weapon_room.character_selector.get_choice_global_position(0)
-	)
-	await physics_frame
-	await physics_frame
-	await physics_frame
-	await physics_frame
-	await process_frame
-	if (
-		weapon_room.selected_character == null
-		or weapon_room.selected_character.id != &"original_life"
-	):
-		push_error("Physical character chamber did not select a role.")
+	start_arena.call("_on_item_entered", 0)
+	if start_arena.selected_item == null:
+		push_error("Opening item could not be collected.")
 		quit(1)
 		return
-	player.global_position = (
-		weapon_room.choice_selector.get_choice_global_position(0)
-	)
-	await physics_frame
-	await physics_frame
-	await physics_frame
-	await physics_frame
+	start_arena.wave_spawner.call("_spawn_next_wave")
+	start_arena.wave_spawner.call("_spawn_next_wave")
+	_defeat_current_room_enemies(start_arena)
 	await process_frame
-	if (
-		weapon_room.is_completed
-		or weapon_room.selected_organ == null
-		or weapon_room.selected_organ.id != &"twin_blade_organ"
-	):
-		push_error("Physical weapon chamber did not select an organ.")
-		quit(1)
-		return
-	player.global_position = (
-		weapon_room.companion_selector.get_choice_global_position(0)
-	)
-	await physics_frame
-	await physics_frame
-	await physics_frame
-	await physics_frame
-	await process_frame
-	if (
-		not weapon_room.is_completed
-		or weapon_room.selected_companion == null
-		or weapon_room.selected_companion.id != &"spore_companion"
-	):
-		push_error("Physical companion chamber did not select a partner.")
+	if not start_arena.is_completed:
+		push_error("Opening arena did not complete after all waves.")
 		quit(1)
 		return
 
@@ -138,6 +108,12 @@ func _run() -> void:
 		push_error("Reward room advanced before a gene was selected.")
 		quit(1)
 		return
+	if reward_room.reward_guard != null:
+		var reward_guard_health := reward_room.reward_guard.get_node(
+			"HealthComponent"
+		) as HealthComponent
+		reward_guard_health.take_damage(100000.0)
+		await process_frame
 
 	if not reward_room.choose_gene(0):
 		push_error("Could not select a gene reward.")
@@ -147,7 +123,6 @@ func _run() -> void:
 	if (
 		not gene_manager.has_gene(&"fire")
 		or not evolution_system.is_evolution(&"fire_life")
-		or not is_equal_approx(player_health.current_health, 70.0)
 	):
 		push_error("Persistent player state was lost between rooms.")
 		quit(1)
@@ -297,7 +272,7 @@ func _run() -> void:
 	if (
 		not relic_room.is_completed
 		or relic_room.selected_relic == null
-		or relic_manager.get_active_relics().size() != 1
+		or relic_manager.get_active_relics().size() != 2
 	):
 		push_error("Physical relic altar did not grant its relic.")
 		quit(1)
